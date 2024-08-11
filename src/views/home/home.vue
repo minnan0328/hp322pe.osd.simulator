@@ -1,7 +1,10 @@
 <template>
+    <input type="range" min="0" max="100" v-model="brightness" @input="setBrightness" />
+    {{ brightness }}
     <div class="container">
         <div class="curtain">
             <ribbon></ribbon>
+
 
             <div class="section">
                 <div class="inner">
@@ -41,10 +44,10 @@
                         </div>
 
                         <div class="controller">
-                            <button class="controller-btn more-btn"></button>
-                            <button class="controller-btn brightness-btn"></button>
-                            <button class="controller-btn color-btn"></button>
-                            <button class="controller-btn input-btn"></button>
+                            <button class="controller-btn more-btn" @click="handleMore"></button>
+                            <button class="controller-btn brightness-btn" @click="handleBrightness"></button>
+                            <button class="controller-btn color-btn" @click="handleColor"></button>
+                            <button class="controller-btn input-btn" @click="handleInput"></button>
                             <button class="controller-btn open-btn" @click="handleMonitor"></button>
                         </div>
                     </div>
@@ -59,15 +62,32 @@
     import ribbon from './_ribbon/ribbon.vue';
     import monitorStatus from './_monitor-status/monitor-status.vue';
 
+    import { useStore } from '@/stores/index';
+
+    const store = useStore();
+    console.log(store.$state.brightness);
+    
     const tabs = reactive(["HDMI", "VGA"]);
 
     const selectedTab = ref(tabs[0]);
+
+    const brightness = ref(50);
+
+    const setCSSBrightness = ref(`${brightness.value}%`);
+
+    function setBrightness(e) {
+        console.log(e);
+        setCSSBrightness.value = `${brightness.value}%`;
+        
+    }
 
 
     function selectTad(tab) {
         selectedTab.value = tab;
     };
 
+
+    /* 啟動螢幕 start  */
     const openMonitor = ref(false);
     const screenInitial = ref(false);
     const showMonitorStatus = ref(false);
@@ -110,9 +130,32 @@
     };
 
 
+    /* 啟動螢幕 end  */
+    
+    /* 選單控制 start  */
+
+    const openMore = ref(false);
+    const openBrightness = ref(false);
+    const openColor = ref(false);
+    const openInput = ref(false);
+
+    // 開啟選單
+    function handleMore() {};
+    
+    // 開啟亮度調整
+    function handleBrightness() {};
+    
+    // 開啟顏色調整
+    function handleColor() {};
+    
+    // 開啟輸入選單
+    function handleInput() {};
+    /* 選單控制 end  */
+
+
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
     .container {
         display: flex;
         justify-content: center;
@@ -204,7 +247,7 @@
 
                 img {
                     width: 100%;
-                    filter: brightness(86%);
+                    filter: brightness(v-bind(setCSSBrightness));
                 }
             }
 
