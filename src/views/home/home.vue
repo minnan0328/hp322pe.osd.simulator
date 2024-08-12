@@ -1,6 +1,6 @@
 <template>
-    <input type="range" min="0" max="100" v-model="brightness" @input="setBrightness" />
-    {{ brightness }}
+    <!-- <input type="range" min="0" max="100" v-model="brightness" @input="setBrightness" /> -->
+    <!-- {{ brightness }} -->
     <div class="container">
         <div class="curtain">
             <ribbon></ribbon>
@@ -27,17 +27,7 @@
 
                         <div class="power-light" v-if="openMonitor"></div>
 
-                        <Transition name="initial">
-                            <div class="screen-initial" v-show="screenInitial">
-                                <img src="@/assets/images/screen-initial.png" alt="">
-                            </div>
-                        </Transition>
-
-                        <monitorStatus v-model="showMonitorStatus"></monitorStatus>
-
-                        <div class="screen" v-show="showScreen">
-                            <img src="@/assets/images/screen.png" alt="">
-                        </div>
+                        <monitorScreen v-if="openMonitor" v-model="openMonitor"></monitorScreen>
 
                         <div class="menu-buttons">
                             <img src="@/assets/images/menu-buttons.png" alt="">
@@ -57,10 +47,10 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
     import { ref, reactive } from 'vue';
-    import ribbon from './_ribbon/ribbon.vue';
-    import monitorStatus from './_monitor-status/monitor-status.vue';
+    import ribbon from '@/views/home/_ribbon/ribbon.vue';
+    import monitorScreen from '@/views/home/_monitor-screen/monitor-screen.vue';
 
     import { useStore } from '@/stores/index';
 
@@ -75,61 +65,24 @@
 
     const setCSSBrightness = ref(`${brightness.value}%`);
 
-    function setBrightness(e) {
-        console.log(e);
-        setCSSBrightness.value = `${brightness.value}%`;
+    // function setBrightness(e) {
+    //     console.log(e);
+    //     setCSSBrightness.value = `${brightness.value}%`;
         
-    }
+    // }
 
 
-    function selectTad(tab) {
+    function selectTad(tab: string) {
         selectedTab.value = tab;
     };
 
 
     /* 啟動螢幕 start  */
     const openMonitor = ref(false);
-    const screenInitial = ref(false);
-    const showMonitorStatus = ref(false);
-    const showScreen = ref(false);
 
     function handleMonitor() {
         openMonitor.value = !openMonitor.value;
-
-        if(openMonitor.value && !screenInitial.value ) {
-            screenInitial.value = true;
-            setTimeout(() => {
-                screenInitial.value = false;
-                handleScreen();
-            }, 2000);
-        } 
-        
-        if(openMonitor.value == false) {
-            showScreen.value = false;
-            screenInitial.value = false;
-            showMonitorStatus.value = false;
-        }
     }
-
-    function handleScreen() {
-        if(openMonitor.value) {
-            setTimeout(() => {
-                showMonitorStatus.value = true;
-                showScreen.value = true;
-                handleMonitorStatus();
-            }, 2000);
-        }
-    };
-
-    function handleMonitorStatus() {
-        if(openMonitor.value) {
-            setTimeout(() => {
-                showMonitorStatus.value = false;
-            }, 5000);
-        }
-    };
-
-
     /* 啟動螢幕 end  */
     
     /* 選單控制 start  */
@@ -230,26 +183,26 @@
                 box-shadow: 0px 0px 10px 2px rgba(#0083ca, 0.9);
             }
 
-            .screen-initial {
-                position: absolute;
-                top: 8px;
-                left: 8px;
+            // .screen-initial {
+            //     position: absolute;
+            //     top: 8px;
+            //     left: 8px;
 
-                img {
-                    width: 100%;
-                }
-            }
+            //     img {
+            //         width: 100%;
+            //     }
+            // }
 
-            .screen {
-                position: absolute;
-                top: 9px;
-                left: 9px;
+            // .screen {
+            //     position: absolute;
+            //     top: 9px;
+            //     left: 9px;
 
-                img {
-                    width: 100%;
-                    filter: brightness(v-bind(setCSSBrightness));
-                }
-            }
+            //     img {
+            //         width: 100%;
+            //         filter: brightness(v-bind(setCSSBrightness));
+            //     }
+            // }
 
             .menu-buttons {
                 position: absolute;
