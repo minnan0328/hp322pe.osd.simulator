@@ -1,4 +1,6 @@
-const brightness = {
+import type { Nodes } from '@/interface';
+
+const brightness: Nodes = {
     key: "Brightness +",
     value: null,
     mode: "menu",

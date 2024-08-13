@@ -1,4 +1,7 @@
-const color = {
+import type { Nodes } from '@/interface';
+
+
+const color: Nodes = {
     key: "Color",
     value: "Neutral",
     mode: "radio",
