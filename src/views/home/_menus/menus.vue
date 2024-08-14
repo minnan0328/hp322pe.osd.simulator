@@ -10,27 +10,50 @@
                     <img src="@/assets/images/logo.png" alt="">
                 </div>
                 <div class="options">
-                    <div :class="['option', { selected: currentMenu == menu }]" v-for="menu in menus" v-text="menu.key"></div>
+                    <div :class="['option', { selected: currentMenu == menu, disabled: isDisabled(menu) }]" v-for="menu in menus" v-text="menu.key"></div>
                 </div>
             </div>
-            <div class="setting">
+            <div :class="['setting', { 'two-columns': currentFunction }]">
                 <div class="function">
-                    <div :class="['setting-item', { selected: currentFunction == funItem }]" v-for="funItem in currentMenu.nodes" v-text="funItem.key"></div>
-                </div>
-                <div :class="['set-value', { focus: !currentFunction }]">
-                    <template v-if="!currentFunction">
-                        <div class="setting-item" v-for="node in currentMenu.nodes" v-text="node.value"></div>
+                    <template v-for="funItem in currentMenu.nodes">
+                        <div :class="['setting-item', funItem.key, { 'unset-grid': currentFunction, disabled: isDisabled(funItem) }]">
+                            <div :class="['item', {
+                                selected: currentFunction == funItem,
+                                merge: funItem.mode == ModeType.button
+                            }]"
+                            v-if="funItem.mode != ModeType.radio" v-text="funItem.key"></div>
+    
+                            <div :class="['item customize-radio', {
+                                selected: currentFunction == funItem,
+                                merge: funItem.mode == ModeType.radio
+                            }]"
+                            v-else-if="funItem.mode == ModeType.radio" >
+                                <div :class="['round', { selected: funItem.value == currentMenu.value }]"></div>
+                                <div v-text="funItem.key"></div>
+                            </div>
+    
+                            <template v-if="!currentFunction">
+                                <div class="item item-value"
+                                    v-if="funItem.value && funItem.mode != ModeType.radio
+                                        || funItem.value && funItem.mode == ModeType.range" 
+                                    v-text="funItem.value">
+                                </div>
+                            </template>
+                        </div>
                     </template>
+                </div>
+                <div class="function-setting">
+
                 </div>
             </div>
         </div>
 
         <div class="footer">
             <div class="current-mode">
-                Current Mode:
+                Current Mode: 1920x1080 100Hz
             </div>
             <div class="current-input">
-                Input:
+                Input: {{ currentInput }}
             </div>
         </div>
     </div>
@@ -55,13 +78,16 @@
                 <img src="@/assets/icons/icon-next.svg" alt="">
             </div>
             <div class="menu-item">
-                <img src="@/assets/icons/icon-arrow-up.svg" alt="">
-            </div>
-            <div class="menu-item">
                 <img src="@/assets/icons/icon-arrow-bottom.svg" alt="">
             </div>
             <div class="menu-item">
+                <img src="@/assets/icons/icon-arrow-up.svg" alt="">
+            </div>
+            <div class="menu-item" v-if="!currentFunction">
                 <img src="@/assets/icons/icon-close.svg" alt="">
+            </div>
+            <div class="menu-item" v-else-if="currentFunction">
+                <img src="@/assets/icons/icon-previous.svg" alt="">
             </div>
         </template>
     </div>
@@ -76,10 +102,11 @@
         </template>
 
         <template v-else-if="isSelectedButton">
-            <button class="controller-btn next" @click="handleNext"></button>
-            <button class="controller-btn up" @click="handleBrightness"></button>
-            <button class="controller-btn bottom" @click="handleColor"></button>
-            <button class="controller-btn close" @click="handleInput"></button>
+            <button class="controller-btn next" @click="handleTarget"></button>
+            <button class="controller-btn bottom" @click="handleBottom()"></button>
+            <button class="controller-btn up" @click="handleUp()"></button>
+            <button class="controller-btn close" v-if="!currentFunction" @click="handleClose"></button>
+            <button class="controller-btn close" v-else-if="currentFunction" @click="handlePrevious"></button>
         </template>
         <slot name="openMonitor"></slot> 
     </div>
@@ -88,6 +115,7 @@
 import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/interface';
+import ModeType from '@/models/enum/modeType';
 
 const store = useStore();
 
@@ -95,75 +123,72 @@ const props = defineProps({
     openMonitor: {
         type: Boolean,
         default: false
+    },
+    currentInput: {
+        type: String,
+        default: "HDMI"
     }
 });
 
-
-/* 選單控制 start  */
-
 const openControllerMenus = ref(false);
+const openAllMenu = ref(false);
+const openBrightness= ref(false);
+const openColor= ref(false);
+const openInput= ref(false);
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
-    closeControllerMenus();
+    if(newVal == false) {
+        handleClose();
+    }
 });
 
+// 開啟選單
 function handleControllerMenus() {
     if(props.openMonitor) {
         openControllerMenus.value = true;
     }
 };
+// 關閉選單
 function closeControllerMenus() {
     openControllerMenus.value = false;
 };
 
+// 是否啟用選單控制按鈕
 const isControllerMenusButton = computed(() => {
     if(openControllerMenus.value) {
         return !openAllMenu.value && !openBrightness.value && !openColor.value && !openInput.value;
     }
 });
 
+// 是否啟用選單選擇按鈕
 const isSelectedButton = computed(() => {
     if(openControllerMenus.value) {
         return openAllMenu.value;
     }
 });
 
-
-/* 選單控制 end  */
-
-const menus = ref([
-    store.$state.brightness,
-    store.$state.color
-]);
-
-let currentMenu = ref(menus.value[0]);
-let currentFunction = ref<Nodes | null>(null);
-
-console.log(menus);
-
-const openAllMenu = ref(false);
-const openBrightness= ref(false);
-const openColor= ref(false);
-const openInput= ref(false);
-
+// 開啟全部選單
 function handleAllMenu() {
     openAllMenu.value = true;
     openBrightness.value = false;
     openColor.value = false;
     openInput.value = false;
 };
+// 開啟亮度
 function handleBrightness() {
     openAllMenu.value = false;
     openBrightness.value = true;
     openColor.value = false;
     openInput.value = false;
 };
+// 開啟 color
 function handleColor() {
     openAllMenu.value = false;
     openBrightness.value = false;
     openColor.value = true;
     openInput.value = false;
 };
+// 開啟 input
 function handleInput() {
     openAllMenu.value = false;
     openBrightness.value = false;
@@ -171,14 +196,96 @@ function handleInput() {
     openInput.value = true;
 };
 
-function handleNext() {
+const menus = ref([
+    store.$state.brightness,
+    store.$state.color,
+    store.$state.input
+]);
+
+let currentMenuIndex = ref(0);
+let currentMenu = ref(menus.value[currentMenuIndex.value]);
+let currentFunction = ref<Nodes | null>(null);
+let currentFunctionIndex = ref(0);
+
+console.log(menus);
+
+function isDisabled(item: Nodes) {
+    return !item.only?.includes(props.currentInput)
+};
+
+function handleTarget() {
     if(currentMenu.value.nodes) {
         currentFunction.value = currentMenu.value.nodes[0];
     }
 };
 
+function handleUp() {
+    if(currentMenu.value.nodes) {
+        if(!currentFunction.value) {
+            currentMenuIndex.value = currentMenuIndex.value == 0
+                ? menus.value.length - 1
+                : currentMenuIndex.value - 1
 
+                if(isDisabled(menus.value[currentMenuIndex.value])) {
+                    handleUp();
+                } else {
+                    currentMenu.value = menus.value[currentMenuIndex.value];
+                }
 
+        } else if (currentFunction.value) {
+            currentFunctionIndex.value = currentFunctionIndex.value == 0
+                ? currentMenu.value.nodes.length - 1
+                : currentFunctionIndex.value - 1
+
+            if(isDisabled(currentMenu.value.nodes[currentFunctionIndex.value])) {
+                handleUp();
+            } else {
+                currentFunction.value = currentMenu.value.nodes[currentFunctionIndex.value];
+            }
+        }
+    }
+};
+function handleBottom() {
+    if(currentMenu.value.nodes) {
+        if(!currentFunction.value) {
+            currentMenuIndex.value = currentMenuIndex.value == menus.value.length - 1
+                ? 0
+                : currentMenuIndex.value + 1
+
+                if(isDisabled(menus.value[currentMenuIndex.value])) {
+                    handleBottom();
+                } else {
+                    currentMenu.value = menus.value[currentMenuIndex.value];
+                }
+
+        } else if (currentFunction.value) {
+            currentFunctionIndex.value = currentFunctionIndex.value == currentMenu.value.nodes.length - 1
+                ? 0
+                : currentFunctionIndex.value + 1
+            
+                if(isDisabled(currentMenu.value.nodes[currentFunctionIndex.value])) {
+                    handleBottom();
+                } else {
+                    currentFunction.value = currentMenu.value.nodes[currentFunctionIndex.value];
+                }
+        }
+    }
+};
+
+// 關閉全部選單，包含
+function handleClose() {
+    closeControllerMenus();
+    openAllMenu.value = false;
+    openBrightness.value = false;
+    openColor.value = false;
+    openInput.value = false;
+};
+
+// 上一步
+function handlePrevious() {
+    currentFunction.value = null;
+    currentFunctionIndex.value = 0;
+};
 
 
 </script>
@@ -226,53 +333,124 @@ function handleNext() {
 
                 .options {
                     .option {
-                        padding: 4px 10px;
+                        height: 26px;
+                        display: flex;
+                        align-items: center;
+                        padding: 0 10px;
                         border: 1px solid transparent;
+                        &.disabled {
+                            color: #444444;
+                        }
 
-                        &.selected {
+                        &.selected:not(.disabled) {
                             background-color: #000000;
                             border: 1px solid #0083ca;
+                            color: #ffffff;
                         }
                     }
                 }
-
-
-
             }
 
             .setting {
-                width: 100%;
+                width: calc(100% - 120px);
                 background-color: #161616;
-                display: flex;
-                margin-top: 2px;
+                padding: 2px 0;
+                position: relative;
+
+                &.two-columns {
+                    display: flex;
+                    // grid-template-columns: 1fr 1fr;
+                }
 
                 .function,
-                .set-value {
+                .function-setting {
                     width: 50%;
                 }
 
-                .set-value {
-                    width: 50%;
-                    border-left: 1px solid transparent;
+                .function-setting {
+                    border-left: 1px solid #202020;
+                }
 
-                    &.focus {
-                        border-left: 1px solid #202020;
+                .setting-item {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+
+                    &.unset-grid {
+                        display: block;
                     }
-                }
 
-                .function,
-                .set-value {
-                    .setting-item {
-                        padding: 6px 10px;
+                    &.disabled {
+                        color: #444444;
+                    }
+
+                    &.Reset {
+                        position: absolute;
+                        bottom: 26px;
+                    }
+    
+                    &.Back {
+                        position: absolute;
+                        bottom: 0px;
+                    }
+
+                    .item {
+                        height: 26px;
                         border: 1px solid transparent;
+                        padding: 0 8px;
+                        display: flex;
+                        align-items: center;
 
-                        &.selected {
+                        &.merge,
+                        &.Back,
+                        &.Rese {
+                            grid-column: 1 / 3;
+                        }
+    
+                        &.customize-radio {
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: nowrap;
+    
+                            .round {
+                                position: relative;
+                                width: 10px;
+                                height: 10px;
+                                background-color: #000000;
+                                border: 1px solid #444444;
+                                border-radius: 50%;
+                                margin-right: 4px;
+    
+                                &.selected::before {
+                                    position: absolute;
+                                    content: '';
+                                    width: 6px;
+                                    height: 6px;
+                                    background-color: #aaaaaa;
+                                    border-radius: 50%;
+                                    left: 2px;
+                                    top: 2px;
+                                }
+                            }
+                        }
+    
+                        &.selected:not(.disabled) {
                             background-color: #000000;
                             border: 1px solid #0083ca;
+                            color: #ffffff;
+    
+    
+                            &.customize-radio {
+                                .round {
+                                    &.selected::before {
+                                        background-color: #ffffff;
+                                    }
+                                }
+                            }
                         }
                     }
+
                 }
-                
             }
         }
     }

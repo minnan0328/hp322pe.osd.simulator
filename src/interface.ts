@@ -7,11 +7,9 @@ export interface BrightnessInterface {
 }
 
 export interface Nodes {
-    key: string | null;
+    key: string;
     value: number | string | null;
-    mode: string;
+    mode: string | null;
     nodes: Nodes[] | null;
-    reset: boolean;
-    back: boolean;
     only: string[]| null;
 };
