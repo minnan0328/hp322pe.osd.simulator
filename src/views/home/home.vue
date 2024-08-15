@@ -30,7 +30,6 @@
                             <img src="@/assets/images/menu-buttons.png" alt="">
                         </div>
 
-
                         <menus v-model:openMonitor="openMonitor" v-model:currentInput="selectedTab">
                             <template v-slot:openMonitor>
                                 <button class="controller-btn open-btn" @click="handleMonitor"></button>
