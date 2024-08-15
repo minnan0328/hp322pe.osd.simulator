@@ -1,12 +1,11 @@
 import type { Nodes } from '@/types';
 
-
-const input: Nodes = {
-    key: "Input",
-    value: "HDMI",
-    mode: null,
-    only: [ "HDMI", "VGA" ],
-    nodes: [
+export default class Input implements Nodes {
+    key = "Input";
+    value = "HDMI";
+    mode = null;
+    only = [ "HDMI", "VGA" ];
+    nodes = [
         // HDMI
         { key: "HDMI", value: "HDMI", mode: "radio", nodes: null, only: [ "HDMI", "VGA" ] },
         // VGA
@@ -25,8 +24,5 @@ const input: Nodes = {
         { key: "Reset", value: null, mode: "button", nodes: null, only: [ "HDMI", "VGA" ] },
         // 返回
         { key: "Back", value: null, mode: "button", nodes: null, only: [ "HDMI", "VGA" ] }
-    ]
+    ];
 };
-
-
-export default input;

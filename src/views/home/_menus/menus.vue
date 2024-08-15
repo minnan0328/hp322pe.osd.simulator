@@ -114,8 +114,8 @@
 <script lang="ts" setup>
 import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
-import type { Nodes } from '@/interface';
-import ModeType from '@/models/enum/modeType';
+import type { Nodes } from '@/types';
+import { ModeType } from '@/types';
 
 const store = useStore();
 
@@ -199,7 +199,13 @@ function handleInput() {
 const menus = ref([
     store.$state.brightness,
     store.$state.color,
-    store.$state.input
+    store.$state.image,
+    store.$state.input,
+    store.$state.power,
+    store.$state.menu,
+    store.$state.management,
+    store.$state.information,
+    store.$state.exit,
 ]);
 
 let currentMenuIndex = ref(0);
@@ -358,13 +364,13 @@ function handlePrevious() {
                 position: relative;
 
                 &.two-columns {
-                    display: flex;
-                    // grid-template-columns: 1fr 1fr;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
                 }
 
                 .function,
                 .function-setting {
-                    width: 50%;
+                    // width: 50%;
                 }
 
                 .function-setting {

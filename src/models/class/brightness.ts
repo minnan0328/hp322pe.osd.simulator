@@ -1,11 +1,12 @@
+// 亮度基本值，依據 color 切換有不同亮度
 import type { Nodes } from '@/types';
 
-const brightness: Nodes = {
-    key: "Brightness +",
-    value: null,
-    mode: null,
-    only: [ "HDMI", "VGA" ],
-    nodes: [
+export default class Brightness implements Nodes {
+    key = "Brightness +";
+    value = null;
+    mode = null;
+    only = [ "HDMI", "VGA" ];
+    nodes = [
         // 亮度
         { key: "Brightness", value: 86, mode: "range", nodes: null, only: [ "HDMI", "VGA" ] },
         // 對比
@@ -39,7 +40,5 @@ const brightness: Nodes = {
         { key: "Reset", value: null, mode: "button", nodes: null, only: [ "HDMI", "VGA" ] },
         // 返回
         { key: "Back", value: null, mode: "button", nodes: null, only: [ "HDMI", "VGA" ] }
-    ]
+    ];
 };
-
-export default brightness;

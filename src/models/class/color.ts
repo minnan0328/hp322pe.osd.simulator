@@ -1,12 +1,11 @@
 import type { Nodes } from '@/types';
 
-
-const color: Nodes = {
-    key: "Color",
-    value: "Neutral",
-    mode: null,
-    only: [ "VGA" ],
-    nodes: [
+export default class Color implements Nodes {
+    key = "Color";
+    value = "Neutral";
+    mode = null;
+    only = [ "VGA" ];
+    nodes = [
         // ECO
         { key: "ECO", value: "ECO", mode: "radio", nodes: null, only: [ "HDMI", "VGA" ] },
         // 暖色
@@ -28,8 +27,5 @@ const color: Nodes = {
         { key: "Reset", value: null, mode: "button", nodes: null, only: [ "HDMI", "VGA" ] },
         // 返回
         { key: "Contrast", value: null, mode: "button", nodes: null, only: [ "HDMI", "VGA" ] }
-    ]
+    ];
 };
-
-
-export default color;
