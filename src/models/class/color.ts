@@ -1,15 +1,15 @@
-import type { Nodes } from '@/types';
-import { ModeType } from '@/types';
+import type { Nodes } from "@/types";
+import { ModeType } from "@/types";
 
 export default class Color implements Nodes {
     key = "Color";
     value = "Neutral";
     mode = ModeType.button;
-    only = ["VGA"];
-    merge = false;
+    only = ["HDMI", "VGA"];
+    mergeGrid = false;
     language = {
-        English: 'Color',
-        TraditionalChinese: '顏色'
+        English: "Color",
+        TraditionalChinese: "顏色"
     };
     nodes = [
         // ECO
@@ -18,10 +18,10 @@ export default class Color implements Nodes {
             value: "ECO",
             mode: ModeType.radio,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
-                English: 'ECO',
-                TraditionalChinese: 'ECO'
+                English: "ECO",
+                TraditionalChinese: "ECO"
             },
             nodes: null
         },
@@ -31,10 +31,10 @@ export default class Color implements Nodes {
             value: "Warm",
             mode: ModeType.range,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
-                English: 'Warm',
-                TraditionalChinese: '暖色'
+                English: "Warm",
+                TraditionalChinese: "暖色"
             },
             nodes: null
         },
@@ -44,10 +44,10 @@ export default class Color implements Nodes {
             value: "Neutral",
             mode: ModeType.radio,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
-                English: 'Neutral',
-                TraditionalChinese: '中性色'
+                English: "Neutral",
+                TraditionalChinese: "中性色"
             },
             nodes: null
         },
@@ -57,10 +57,10 @@ export default class Color implements Nodes {
             value: "Low Blue Light",
             mode: ModeType.radio,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
-                English: 'Low Blue Light',
-                TraditionalChinese: '冷色'
+                English: "Low Blue Light",
+                TraditionalChinese: "冷色"
             },
             nodes: null
         },
@@ -70,10 +70,10 @@ export default class Color implements Nodes {
             value: "Medium",
             mode: ModeType.radio,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
-                English: 'HP Enhance+',
-                TraditionalChinese: '原生'
+                English: "HP Enhance+",
+                TraditionalChinese: "原生"
             },
             nodes: [
                 {
@@ -81,10 +81,10 @@ export default class Color implements Nodes {
                     value: " Auto",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    merge: false,
+                    mergeGrid: true,
                     language: {
-                        English: 'Low',
-                        TraditionalChinese: '低'
+                        English: "Low",
+                        TraditionalChinese: "低"
                     },
                     nodes: null,
                 },
@@ -93,10 +93,10 @@ export default class Color implements Nodes {
                     value: "Medium",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    merge: false,
+                    mergeGrid: true,
                     language: {
-                        English: 'Medium',
-                        TraditionalChinese: '中'
+                        English: "Medium",
+                        TraditionalChinese: "中"
                     },
                     nodes: null,
                 },
@@ -105,10 +105,10 @@ export default class Color implements Nodes {
                     value: "High",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    merge: false,
+                    mergeGrid: true,
                     language: {
-                        English: 'High',
-                        TraditionalChinese: '高'
+                        English: "High",
+                        TraditionalChinese: "高"
                     },
                     nodes: null,
                 },
@@ -118,36 +118,38 @@ export default class Color implements Nodes {
                     value: null,
                     mode: ModeType.button,
                     only: ["HDMI", "VGA"],
-                    merge: false,
+                    mergeGrid: false,
                     language: {
-                        English: 'Back',
-                        TraditionalChinese: '返回'
+                        English: "Back",
+                        TraditionalChinese: "返回"
                     },
-                    nodes: null,
+                    nodes: null
                 }
             ]
         },
         // 重置
         {
-            key: "Reset", value: null,
+            key: "Reset",
+            value: null,
             mode: ModeType.button,
             only: ["HDMI", "VGA"],
-            merge: true,
+            mergeGrid: true,
             language: {
-                English: 'Reset',
-                TraditionalChinese: '重置'
+                English: "Reset",
+                TraditionalChinese: "重置"
             },
             nodes: null
         },
         // 返回
         {
-            key: "Back", value: null,
+            key: "Back",
+            value: null,
             mode: ModeType.button,
-            merge: true,
+            mergeGrid: true,
             only: ["HDMI", "VGA"],
             language: {
-                English: 'Back',
-                TraditionalChinese: '返回'
+                English: "Back",
+                TraditionalChinese: "返回"
             },
             nodes: null
         }

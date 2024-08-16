@@ -1,5 +1,5 @@
-import type { Nodes } from '@/types';
-import { ModeType } from '@/types';
+import type { Nodes } from "@/types";
+import { ModeType } from "@/types";
 
 
 export default class Exit implements Nodes {
@@ -7,10 +7,10 @@ export default class Exit implements Nodes {
     value = null;
     mode = ModeType.button;
     only = [ "HDMI", "VGA" ];
-    merge = false;
+    mergeGrid = false;
     language = {
-        English: 'Exit',
-        TraditionalChinese: '退出'
+        English: "Exit",
+        TraditionalChinese: "退出"
     };
     nodes = [];
 };

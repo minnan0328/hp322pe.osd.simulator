@@ -6,7 +6,7 @@ export default class Input implements Nodes {
     value = "HDMI";
     mode = ModeType.button;
     only = ["HDMI", "VGA"];
-    merge = false;
+    mergeGrid = false;
     language = {
         English: 'Input',
         TraditionalChinese: '輸入'
@@ -18,7 +18,7 @@ export default class Input implements Nodes {
             value: "HDMI",
             mode: ModeType.radio,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
                 English: 'HDMI',
                 TraditionalChinese: 'HDMI'
@@ -31,7 +31,7 @@ export default class Input implements Nodes {
             value: "VGA",
             mode: ModeType.radio,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
                 English: 'VGA',
                 TraditionalChinese: 'VGA'
@@ -44,7 +44,7 @@ export default class Input implements Nodes {
             value: "On",
             mode: null,
             only: ["HDMI", "VGA"],
-            merge: false,
+            mergeGrid: false,
             language: {
                 English: 'Auto-Switch Input',
                 TraditionalChinese: '自動切換輸入'
@@ -55,7 +55,7 @@ export default class Input implements Nodes {
                     value: "On",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    merge: true,
+                    mergeGrid: true,
                     language: {
                         English: 'On',
                         TraditionalChinese: '開'
@@ -66,12 +66,12 @@ export default class Input implements Nodes {
                     key: "Off", value: "Off",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    merge: true,
+                    mergeGrid: true,
                     language: {
                         English: 'Off',
                         TraditionalChinese: '關'
                     },
-                    nodes: null,
+                    nodes: null
                 },
                 // 返回
                 {
@@ -79,12 +79,12 @@ export default class Input implements Nodes {
                     value: null,
                     mode: ModeType.button,
                     only: ["HDMI", "VGA"],
-                    merge: false,
+                    mergeGrid: false,
                     language: {
-                        English: 'Back',
-                        TraditionalChinese: '返回'
+                        English: "Back",
+                        TraditionalChinese: "返回"
                     },
-                    nodes: null,
+                    nodes: null
                 }
             ],
 
@@ -94,7 +94,7 @@ export default class Input implements Nodes {
             key: "Reset", value: null,
             mode: ModeType.button,
             only: ["HDMI", "VGA"],
-            merge: true,
+            mergeGrid: true,
             language: {
                 English: 'Reset',
                 TraditionalChinese: '重置'
@@ -105,7 +105,7 @@ export default class Input implements Nodes {
         {
             key: "Back", value: null,
             mode: ModeType.button,
-            merge: true,
+            mergeGrid: true,
             only: ["HDMI", "VGA"],
             language: {
                 English: 'Back',

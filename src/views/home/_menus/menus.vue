@@ -20,7 +20,7 @@
                             <!-- button -->
                             <div :class="['item', {
                                     selected: currentFunction == funItem,
-                                    merge: funItem.merge
+                                    'merge-grid': funItem.mergeGrid
                                 }]"
                                 v-if="funItem.mode != ModeType.radio" v-text="getLanguageText(funItem)">
                             </div>
@@ -29,7 +29,7 @@
                             <!-- radio -->
                             <div :class="['item customize-radio', {
                                 selected: currentFunction == funItem,
-                                merge: funItem.mode == ModeType.radio
+                                'merge-grid': funItem.mode == ModeType.radio
                             }]" v-else-if="funItem.mode == ModeType.radio">
                                 <div :class="['round', { selected: funItem.value == currentMenu.value }]"></div>
                                 <div v-text="getLanguageText(funItem)"></div>
@@ -49,11 +49,11 @@
                 </div>
                 <div class="function-setting">
                     <template v-if="currentMenu && currentFunction && currentFunction.nodes" v-for="setItem in currentFunction.nodes">
-                        <div :class="['setting-item', setItem.key, { disabled: isDisabled(setItem) }]">
+                        <div :class="['setting-item unset-grid', setItem.key, { disabled: isDisabled(setItem) }]">
                             <!-- button -->
                             <div :class="['item', {
                                     selected: currentSettingValue == setItem,
-                                    merge: setItem.merge
+                                    'merge-grid': setItem.mergeGrid
                                 }]"
                                 v-if="setItem.mode != ModeType.radio" v-text="getLanguageText(setItem)">
                             </div>
@@ -62,7 +62,7 @@
                             <!-- radio -->
                             <div :class="['item customize-radio', {
                                 selected: currentSettingValue == setItem,
-                                merge: setItem.merge
+                                'merge-grid': setItem.mergeGrid
                             }]" v-else-if="setItem.mode == ModeType.radio">
                                 <div :class="['round', { selected: setItem.value == currentFunction.value }]"></div>
                                 <div v-text="getLanguageText(setItem)"></div>
@@ -437,11 +437,11 @@ function handlePrevious() {
 			}
 
 			.function-setting {
+                position: relative;
 				border-left: 1px solid #202020;
 			}
 
 			.setting-item {
-				width: 100%;
 				display: grid;
 				grid-template-columns: 1fr 1fr;
 
@@ -454,13 +454,17 @@ function handlePrevious() {
 				}
 
 				&.Reset {
+                    width: 100%;
 					position: absolute;
 					bottom: 26px;
+                    z-index: 1;
 				}
 
 				&.Back {
+                    width: 100%;
 					position: absolute;
 					bottom: 0px;
+                    z-index: 1;
 				}
 
 				.item {
@@ -470,7 +474,7 @@ function handlePrevious() {
 					display: flex;
 					align-items: center;
 
-					&.merge,
+					&.merge-grid,
 					&.Back,
 					&.Rese {
 						grid-column: 1 / 3;
