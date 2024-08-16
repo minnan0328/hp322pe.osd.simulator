@@ -55,7 +55,7 @@ export default class Input implements Nodes {
                     value: "On",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: 'On',
                         TraditionalChinese: '開'
@@ -66,7 +66,7 @@ export default class Input implements Nodes {
                     key: "Off", value: "Off",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: 'Off',
                         TraditionalChinese: '關'

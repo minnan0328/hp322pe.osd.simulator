@@ -1,0 +1,27 @@
+.customize-checkbox {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    .box {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        background-color: #000000;
+        border: 1px solid #444444;
+        margin-right: 4px;
+
+        &.selected::before {
+            position: absolute;
+            content: "";
+            background-image: url('@/assets/icons/icon-check.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            left: 0px;
+            top: 0px;
+            width: 10px;
+            height: 10px;
+        }
+    }
+}

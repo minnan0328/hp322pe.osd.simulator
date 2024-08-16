@@ -1,11 +1,9 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-
-
 export default class Exit implements Nodes {
     key = "Exit";
-    value = null;
-    mode = ModeType.button;
+    value = "logo.png";
+    mode = ModeType.image;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {

@@ -4,7 +4,9 @@ export enum ModeType {
     radio = "radio",
     button = "button",
     checkBox ="checkBox",
-    info = "info"
+    setting = "setting",
+    info = "info",
+    image = "image",
 };
 
 // interface

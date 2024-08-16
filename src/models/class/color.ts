@@ -29,7 +29,7 @@ export default class Color implements Nodes {
         {
             key: "Warm",
             value: "Warm",
-            mode: ModeType.range,
+            mode: ModeType.radio,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -53,6 +53,32 @@ export default class Color implements Nodes {
         },
         // 冷色
         {
+            key: "Cool",
+            value: "Cool",
+            mode: ModeType.radio,
+            only: ["HDMI", "VGA"],
+            mergeGrid: false,
+            language: {
+                English: "Cool",
+                TraditionalChinese: "冷色"
+            },
+            nodes: null
+        },
+        // 原生
+        {
+            key: "Native",
+            value: "Native",
+            mode: ModeType.radio,
+            only: ["HDMI", "VGA"],
+            mergeGrid: false,
+            language: {
+                English: "Native",
+                TraditionalChinese: "原生"
+            },
+            nodes: null
+        },
+        // 低藍光
+        {
             key: "LowBlueLight",
             value: "Low Blue Light",
             mode: ModeType.radio,
@@ -60,11 +86,11 @@ export default class Color implements Nodes {
             mergeGrid: false,
             language: {
                 English: "Low Blue Light",
-                TraditionalChinese: "冷色"
+                TraditionalChinese: "低藍光"
             },
             nodes: null
         },
-        // 原生
+        // HP Enhance+
         {
             key: "HPEnhance+",
             value: "Medium",
@@ -73,7 +99,7 @@ export default class Color implements Nodes {
             mergeGrid: false,
             language: {
                 English: "HP Enhance+",
-                TraditionalChinese: "原生"
+                TraditionalChinese: "HP Enhance+"
             },
             nodes: [
                 {
@@ -121,7 +147,61 @@ export default class Color implements Nodes {
                     mergeGrid: false,
                     language: {
                         English: "Back",
-                        TraditionalChinese: "返回"
+                        TraditionalChinese: "上一步"
+                    },
+                    nodes: null
+                }
+            ]
+        },
+        // 自訂 RBG
+        {
+            key: "CustomRGB",
+            value: null,
+            mode: ModeType.radio,
+            only: ["HDMI", "VGA"],
+            mergeGrid: false,
+            language: {
+                English: "Custom RGB",
+                TraditionalChinese: "自訂 RBG"
+            },
+            nodes: [
+                // RGB range (0~255)
+                // Red Color
+                {
+                    key: "RedColor",
+                    value: 255,
+                    mode: ModeType.range,
+                    only: ["HDMI", "VGA"],
+                    mergeGrid: false,
+                    language: {
+                        English: "R",
+                        TraditionalChinese: "R"
+                    },
+                    nodes: null
+                },
+                // Green Color
+                {
+                    key: "GreenColor",
+                    value: 255,
+                    mode: ModeType.range,
+                    only: ["HDMI", "VGA"],
+                    mergeGrid: false,
+                    language: {
+                        English: "G",
+                        TraditionalChinese: "G"
+                    },
+                    nodes: null
+                },
+                // Blue Color
+                {
+                    key: "BlueColor",
+                    value: 255,
+                    mode: ModeType.range,
+                    only: ["HDMI", "VGA"],
+                    mergeGrid: false,
+                    language: {
+                        English: "B",
+                        TraditionalChinese: "B"
                     },
                     nodes: null
                 }

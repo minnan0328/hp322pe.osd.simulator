@@ -10,67 +10,92 @@
                     <img src="@/assets/images/logo.png" alt="">
                 </div>
                 <div class="options">
-                    <div :class="['option', { selected: currentMenu == menu, disabled: isDisabled(menu) }]" v-for="menu in menus" v-text="getLanguageText(menu)"></div>
+                    <template  v-for="menu in menus" v-text="getLanguageText(menu)">
+                        <div :class="['option', { selected: state.currentMenu == menu }]"
+                            v-if="isEnable(menu)" v-text="getLanguageText(menu)">
+                        </div>
+                    </template>
                 </div>
             </div>
-            <div :class="['setting', { 'two-columns': currentFunction }]">
-                <div class="function">
-                    <template v-if="currentMenu" v-for="funItem in currentMenu.nodes">
-                        <div :class="['setting-item', funItem.key, { 'unset-grid': currentFunction, disabled: isDisabled(funItem) }]">
-                            <!-- button -->
-                            <div :class="['item', {
-                                    selected: currentFunction == funItem,
-                                    'merge-grid': funItem.mergeGrid
-                                }]"
-                                v-if="funItem.mode != ModeType.radio" v-text="getLanguageText(funItem)">
-                            </div>
-                            <!-- button -->
-
-                            <!-- radio -->
-                            <div :class="['item customize-radio', {
-                                selected: currentFunction == funItem,
-                                'merge-grid': funItem.mode == ModeType.radio
-                            }]" v-else-if="funItem.mode == ModeType.radio">
-                                <div :class="['round', { selected: funItem.value == currentMenu.value }]"></div>
-                                <div v-text="getLanguageText(funItem)"></div>
-                            </div>
-                            <!-- radio -->
-
-                            <!-- value -->
-                            <template v-if="!currentFunction">
-                                <div class="item item-value"
-                                    v-if="funItem.value && funItem.mode != ModeType.radio" 
-                                    v-text="funItem.value">
+            <div :class="['setting', { 'two-columns': state.currentFunction }]">
+                <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.image">
+                    <div class="function">
+                        <template v-if="state.currentMenu" v-for="funItem in state.currentMenu.nodes">
+                            <div :class="['setting-item', funItem.key, { 'unset-grid': state.currentFunction }]" v-if="isEnable(funItem)">
+                                <!-- button -->
+                                <div :class="['item', {
+                                        selected: state.currentFunction == funItem,
+                                        'merge-grid': funItem.mergeGrid
+                                    }]"
+                                    v-if="funItem.mode != ModeType.radio" v-text="getLanguageText(funItem)">
                                 </div>
-                            </template>
-                            <!-- value -->
-                        </div>
-                    </template>
-                </div>
-                <div class="function-setting">
-                    <template v-if="currentMenu && currentFunction && currentFunction.nodes" v-for="setItem in currentFunction.nodes">
-                        <div :class="['setting-item unset-grid', setItem.key, { disabled: isDisabled(setItem) }]">
-                            <!-- button -->
-                            <div :class="['item', {
-                                    selected: currentSettingValue == setItem,
+                                <!-- button -->
+    
+                                <!-- radio -->
+                                <div :class="['item customize-radio', {
+                                    selected: state.currentFunction == funItem,
+                                    'merge-grid': funItem.mode == ModeType.radio && !funItem.nodes
+                                }]" v-else-if="funItem.mode == ModeType.radio">
+                                    <div :class="['round', { selected: funItem.value == state.currentMenu?.value }]"></div>
+                                    <div v-text="getLanguageText(funItem)"></div>
+                                </div>
+                                <!-- radio -->
+    
+                                <!-- value -->
+                                <template v-if="!state.currentFunction">
+                                    <div class="item item-value"
+                                        v-if="funItem.value && funItem.mode == ModeType.button
+                                            || funItem.value && funItem.mode == ModeType.range
+                                            || funItem.value == 0 && funItem.mode == ModeType.range
+                                            || funItem.value && !funItem.nodes && funItem.mode == ModeType.info
+                                            || funItem.value && funItem.nodes && funItem.mode == ModeType.radio" 
+                                        v-text="funItem.value">
+                                    </div>
+                                </template>
+                                <!-- value -->
+                            </div>
+                        </template>
+                    </div>
+                    <div class="function-setting">
+                        <template v-if="state.currentMenu && state.currentFunction && state.currentFunction.nodes" v-for="setItem in state.currentFunction.nodes">
+                            <div :class="['setting-item unset-grid', setItem.key]" v-if="isEnable(setItem)">
+                                <!-- button -->
+                                <div :class="['item', {
+                                        selected: state.currentSettingValue == setItem,
+                                        'merge-grid': setItem.mergeGrid
+                                    }]"
+                                    v-if="setItem.mode != ModeType.radio && setItem.mode != ModeType.checkBox" v-text="getLanguageText(setItem)">
+                                </div>
+                                <!-- button -->
+                                
+                                <!-- radio -->
+                                <div :class="['item customize-radio', {
+                                    selected: state.currentSettingValue == setItem,
                                     'merge-grid': setItem.mergeGrid
-                                }]"
-                                v-if="setItem.mode != ModeType.radio" v-text="getLanguageText(setItem)">
+                                }]" v-else-if="setItem.mode == ModeType.radio">
+                                    <div :class="['round', { selected: setItem.value == state.currentFunction.value }]"></div>
+                                    <div v-text="getLanguageText(setItem)"></div>
+                                </div>
+                                <!-- radio -->
+
+                                <!-- checkbox -->
+                                 <div :class="['item customize-checkbox', {
+                                    selected: state.currentSettingValue == setItem,
+                                    'merge-grid': setItem.mergeGrid
+                                 }]" v-else-if="setItem.mode == ModeType.checkBox">
+                                    <div :class="['box', { selected: setItem.value == state.currentFunction.value }]"></div>
+                                    <div v-text="getLanguageText(setItem)"></div>
+                                 </div>
+                                <!-- checkbox -->
                             </div>
-                            <!-- button -->
-                            
-                            <!-- radio -->
-                            <div :class="['item customize-radio', {
-                                selected: currentSettingValue == setItem,
-                                'merge-grid': setItem.mergeGrid
-                            }]" v-else-if="setItem.mode == ModeType.radio">
-                                <div :class="['round', { selected: setItem.value == currentFunction.value }]"></div>
-                                <div v-text="getLanguageText(setItem)"></div>
-                            </div>
-                        </div>
-                        <!-- radio -->
-                    </template>
-                </div>
+                        </template>
+                    </div>
+                </template>
+                <template v-if="state.currentMenu && state.currentMenu.mode == ModeType.image">
+                    <div class="full-image">
+                        <img src="@/assets/icons/logo.svg" alt="">
+                    </div>
+                </template>
             </div>
         </div>
 
@@ -109,10 +134,10 @@
             <div class="menu-item">
                 <img src="@/assets/icons/icon-arrow-up.svg" alt="">
             </div>
-            <div class="menu-item" v-if="!currentFunction">
+            <div class="menu-item" v-if="!state.currentFunction">
                 <img src="@/assets/icons/icon-close.svg" alt="">
             </div>
-            <div class="menu-item" v-else-if="currentFunction">
+            <div class="menu-item" v-else-if="state.currentFunction">
                 <img src="@/assets/icons/icon-previous.svg" alt="">
             </div>
         </template>
@@ -131,8 +156,8 @@
             <button class="controller-btn next" @click="handleTarget"></button>
             <button class="controller-btn bottom" @click="handleBottom()"></button>
             <button class="controller-btn up" @click="handleUp()"></button>
-            <button class="controller-btn close" v-if="!currentFunction" @click="handleClose"></button>
-            <button class="controller-btn close" v-else-if="currentFunction" @click="handlePrevious"></button>
+            <button class="controller-btn close" v-if="!state.currentFunction" @click="handleClose"></button>
+            <button class="controller-btn close" v-else-if="state.currentFunction" @click="handlePrevious"></button>
         </template>
         <slot name="openMonitor"></slot> 
     </div>
@@ -172,21 +197,11 @@ function getLanguageText(funItem: Nodes) {
     return funItem.language[langKey];
 }
 
-watch(() => props.openMonitor, (newVal, oldVal) => {
-    if(newVal == false) {
-        handleClose();
-    }
-});
-
 // 開啟選單
 function handleControllerMenus() {
     if(props.openMonitor) {
         openControllerMenus.value = true;
     }
-};
-// 關閉選單
-function closeControllerMenus() {
-    openControllerMenus.value = false;
 };
 
 // 是否啟用選單控制按鈕
@@ -232,7 +247,7 @@ function handleInput() {
     openInput.value = true;
 };
 
-const menus = ref([
+const menus = reactive([
     store.$state.brightness,
     store.$state.color,
     store.$state.image,
@@ -244,104 +259,106 @@ const menus = ref([
     store.$state.exit,
 ]);
 
-let currentMenuIndex = ref(0);
-let currentMenu = ref<Nodes | null>(menus.value[0]);
-let currentFunction = ref<Nodes | null>(null);
-let currentFunctionIndex = ref(0);
-let currentSettingValueIndex = ref(0);
-let currentSettingValue = ref<Nodes | null>(null);
+const state = reactive({
+    currentMenuIndex: 0,
+    currentMenu: null as Nodes | null,
+    currentFunction: null as Nodes | null,
+    currentFunctionIndex: 0,
+    currentSettingValueIndex: 0,
+    currentSettingValue: null as Nodes | null
+});
 
+watch(() => props.openMonitor, (newVal, oldVal) => {
+    if(newVal) {
+        state.currentMenu = menus[0];
+    };
+
+    if(newVal == false) {
+        handleClose();
+    }
+});
 
 console.log(menus);
 
-function isDisabled(item: Nodes) {
-    return !item.only?.includes(props.currentInput)
+function isEnable(item: Nodes): boolean {
+    return item.only?.includes(props.currentInput) ?? false;
 };
 
 function handleTarget() {
-    if(currentMenu.value?.nodes && !currentFunction.value) {
-        currentFunction.value = currentMenu.value.nodes[0];
-    } else if(currentFunction.value?.nodes && !currentSettingValue.value) {
-        currentSettingValue.value = currentFunction.value.nodes[0];
+    if (state.currentMenu?.nodes && !state.currentFunction) {
+        selectEnabledItem(state.currentMenu.nodes, state.currentFunctionIndex, (item, index) => {
+            state.currentFunction = item;
+            state.currentFunctionIndex = index;
+        });
+    } else if (state.currentFunction?.nodes && !state.currentSettingValue) {
+        selectEnabledItem(state.currentFunction.nodes, state.currentSettingValueIndex, (item, index) => {
+            state.currentSettingValue = item;
+            state.currentSettingValueIndex = index;
+        });
+    }
+}
+
+function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (item: Nodes, index: number) => void) {
+    let index = startIndex;
+    const length = nodes.length;
+
+    do {
+        if (isEnable(nodes[index])) {
+            setValue(nodes[index], index);
+            return;
+        }
+        index = (index + 1) % length;
+    } while (index !== startIndex);
+}
+
+function handleNavigation(direction: 'up' | 'down') {
+    const step = direction === 'up' ? -1 : 1;
+
+    const updateIndex = (index: number, length: number) => {
+        return (index + step + length) % length;
+    };
+
+    if (state.currentMenu?.nodes) {
+        if (!state.currentFunction) {
+            state.currentMenuIndex = updateIndex(state.currentMenuIndex, menus.length);
+
+            if (!isEnable(menus[state.currentMenuIndex])) {
+                handleNavigation(direction);
+            } else {
+                state.currentMenu = menus[state.currentMenuIndex];
+            }
+        } else if (state.currentFunction && !state.currentSettingValue) {
+            state.currentFunctionIndex = updateIndex(state.currentFunctionIndex, state.currentMenu.nodes.length);
+
+            if (!isEnable(state.currentMenu.nodes[state.currentFunctionIndex])) {
+                handleNavigation(direction);
+            } else {
+                state.currentFunction = state.currentMenu.nodes[state.currentFunctionIndex];
+            }
+        } else if (state.currentFunction && state.currentFunction.nodes && state.currentSettingValue) {
+            state.currentSettingValueIndex = updateIndex(state.currentSettingValueIndex, state.currentFunction.nodes.length);
+
+            if (!isEnable(state.currentFunction.nodes[state.currentSettingValueIndex])) {
+                handleNavigation(direction);
+            } else {
+                state.currentSettingValue = state.currentFunction.nodes[state.currentSettingValueIndex];
+            }
+        }
     }
 };
 
 function handleUp() {
-    if(currentMenu.value?.nodes) {
-        if(!currentFunction.value) {
-            currentMenuIndex.value = currentMenuIndex.value == 0
-                ? menus.value.length - 1
-                : currentMenuIndex.value - 1
-
-                if(isDisabled(menus.value[currentMenuIndex.value])) {
-                    handleUp();
-                } else {
-                    currentMenu.value = menus.value[currentMenuIndex.value];
-                }
-
-        } else if (currentFunction.value && !currentSettingValue.value) {
-            currentFunctionIndex.value = currentFunctionIndex.value == 0
-                ? currentMenu.value.nodes.length - 1
-                : currentFunctionIndex.value - 1
-
-            if(isDisabled(currentMenu.value.nodes[currentFunctionIndex.value])) {
-                handleUp();
-            } else {
-                currentFunction.value = currentMenu.value.nodes[currentFunctionIndex.value];
-            }
-        } else if(currentFunction.value && currentFunction.value.nodes && currentSettingValue.value) {
-            currentSettingValueIndex.value = currentSettingValueIndex.value == 0
-                ? currentFunction.value.nodes.length - 1
-                : currentSettingValueIndex.value - 1
-
-            if(isDisabled(currentFunction.value.nodes[currentSettingValueIndex.value])) {
-                handleUp();
-            } else {
-                currentSettingValue.value = currentFunction.value.nodes[currentSettingValueIndex.value];
-            }
-        }
-    }
+    handleNavigation('up');
 };
+
 function handleBottom() {
-    if(currentMenu.value?.nodes) {
-        if(!currentFunction.value) {
-            currentMenuIndex.value = currentMenuIndex.value == menus.value.length - 1
-                ? 0
-                : currentMenuIndex.value + 1
-
-                if(isDisabled(menus.value[currentMenuIndex.value])) {
-                    handleBottom();
-                } else {
-                    currentMenu.value = menus.value[currentMenuIndex.value];
-                }
-
-        } else if (currentFunction.value && !currentSettingValue.value) {
-            currentFunctionIndex.value = currentFunctionIndex.value == currentMenu.value.nodes.length - 1
-                ? 0
-                : currentFunctionIndex.value + 1
-            
-                if(isDisabled(currentMenu.value.nodes[currentFunctionIndex.value])) {
-                    handleBottom();
-                } else {
-                    currentFunction.value = currentMenu.value.nodes[currentFunctionIndex.value];
-                }
-        } else if(currentFunction.value && currentFunction.value.nodes && currentSettingValue.value) {
-            currentSettingValueIndex.value = currentSettingValueIndex.value == currentFunction.value.nodes.length - 1
-                ? 0
-                : currentSettingValueIndex.value + 1
-
-            if(isDisabled(currentFunction.value.nodes[currentSettingValueIndex.value])) {
-                handleUp();
-            } else {
-                currentSettingValue.value = currentFunction.value.nodes[currentSettingValueIndex.value];
-            }
-        }
-    }
+    handleNavigation('down')
 };
 
 // 關閉全部選單，包含
 function handleClose() {
-    closeControllerMenus();
+    openControllerMenus.value = false;
+    state.currentMenu = null;
     openAllMenu.value = false;
     openBrightness.value = false;
     openColor.value = false;
@@ -350,14 +367,14 @@ function handleClose() {
 
 // 上一步
 function handlePrevious() {
-    if(currentFunction.value && !currentSettingValue.value) {
-        currentFunction.value = null;
-        currentFunctionIndex.value = 0;
+    if(state.currentFunction && !state.currentSettingValue) {
+        state.currentFunction = null;
+        state.currentFunctionIndex = 0;
     } 
 
-    if(currentSettingValue.value) {
-        currentSettingValue.value = null;
-        currentSettingValueIndex.value = 0;
+    if(state.currentSettingValue) {
+        state.currentSettingValue = null;
+        state.currentSettingValueIndex = 0;
     }
 };
 
@@ -370,7 +387,7 @@ function handlePrevious() {
 	right: 62px;
 	background-color: #090909;
 	width: 540px;
-	height: 328px;
+	height: 356px;
 
 	.header,
 	.footer {
@@ -391,7 +408,7 @@ function handlePrevious() {
 		height: calc(100% - 44px);
 		display: flex;
 		color: #aaaaaa;
-		font-size: 12px;
+		font-size: 10px;
 
 		.sidebar {
 			width: 120px;
@@ -399,7 +416,7 @@ function handlePrevious() {
 			background-color: #1c1c1c;
 
 			.hp-icon {
-				padding: 4px 0;
+				padding: 8px 0;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -407,11 +424,12 @@ function handlePrevious() {
 
 			.options {
 				.option {
-					height: 24px;
+					height: 26px;
 					display: flex;
 					align-items: center;
 					padding: 0 10px;
 					border: 1px solid transparent;
+
 					&.disabled {
 						color: #444444;
 					}
@@ -431,13 +449,25 @@ function handlePrevious() {
 			padding: 2px 0;
 			position: relative;
 
+            .full-image {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    min-width: 30%;
+                }
+            }
+
 			&.two-columns {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
 			}
 
 			.function-setting {
-                position: relative;
+				position: relative;
 				border-left: 1px solid #202020;
 			}
 
@@ -454,17 +484,17 @@ function handlePrevious() {
 				}
 
 				&.Reset {
-                    width: 100%;
+					width: 100%;
 					position: absolute;
 					bottom: 26px;
-                    z-index: 1;
+					z-index: 1;
 				}
 
 				&.Back {
-                    width: 100%;
+					width: 100%;
 					position: absolute;
 					bottom: 0px;
-                    z-index: 1;
+					z-index: 1;
 				}
 
 				.item {
@@ -478,33 +508,6 @@ function handlePrevious() {
 					&.Back,
 					&.Rese {
 						grid-column: 1 / 3;
-					}
-
-					&.customize-radio {
-						display: flex;
-						align-items: center;
-						flex-wrap: nowrap;
-
-						.round {
-							position: relative;
-							width: 10px;
-							height: 10px;
-							background-color: #000000;
-							border: 1px solid #444444;
-							border-radius: 50%;
-							margin-right: 4px;
-
-							&.selected::before {
-								position: absolute;
-								content: "";
-								width: 6px;
-								height: 6px;
-								background-color: #aaaaaa;
-								border-radius: 50%;
-								left: 2px;
-								top: 2px;
-							}
-						}
 					}
 
 					&.selected:not(.disabled) {

@@ -40,7 +40,7 @@ export default class Image implements Nodes {
                     value: 0,
                     mode: ModeType.range,
                     only: ["VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Clock (w/ ADJ SCALE)",
                         TraditionalChinese: "Clock (w/ ADJ SCALE)"
@@ -52,7 +52,7 @@ export default class Image implements Nodes {
                     value: 0,
                     mode: ModeType.range,
                     only: ["VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Phase (w/ ADJ SCALE)",
                         TraditionalChinese: "Phase (w/ ADJ SCALE)"
@@ -90,7 +90,7 @@ export default class Image implements Nodes {
                     value: 0,
                     mode: ModeType.range,
                     only: ["VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Horizontal (w/ADJ SCALE)",
                         TraditionalChinese: "Horizontal (w/ADJ SCALE)"
@@ -102,7 +102,7 @@ export default class Image implements Nodes {
                     value: 0,
                     mode: ModeType.range,
                     only: ["VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Vertical (w/ADJ SCALE)",
                         TraditionalChinese: "Vertical (w/ADJ SCALE)"
@@ -140,7 +140,7 @@ export default class Image implements Nodes {
                     value: "Level 1",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 1",
                         TraditionalChinese: "Level 1"
@@ -152,7 +152,7 @@ export default class Image implements Nodes {
                     value: "Level 2 (Fast)",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 2 (Fast)",
                         TraditionalChinese: "Level 2 (Fast)"
@@ -164,7 +164,7 @@ export default class Image implements Nodes {
                     value: "Level 3",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 3",
                         TraditionalChinese: "Level 3"
@@ -176,7 +176,7 @@ export default class Image implements Nodes {
                     value: "Level 4 (Fastest)",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 4 (Fastest)",
                         TraditionalChinese: "Level 4 (Fastest)"
@@ -214,7 +214,7 @@ export default class Image implements Nodes {
                     value: "Level 1",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 1",
                         TraditionalChinese: "Level 1"
@@ -226,7 +226,7 @@ export default class Image implements Nodes {
                     value: "Level 2",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 2",
                         TraditionalChinese: "Level 2"
@@ -250,7 +250,7 @@ export default class Image implements Nodes {
                     value: "Level 4",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 4",
                         TraditionalChinese: "Level 4"
@@ -262,7 +262,7 @@ export default class Image implements Nodes {
                     value: "Level 5",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Level 5",
                         TraditionalChinese: "Level 5"
@@ -286,7 +286,7 @@ export default class Image implements Nodes {
                     value: "Sharp",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Sharp",
                         TraditionalChinese: "Sharp"
@@ -324,7 +324,7 @@ export default class Image implements Nodes {
                     value: "Fill to Screen",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Fill to Screen",
                         TraditionalChinese: "Fill to Screen"
@@ -336,7 +336,7 @@ export default class Image implements Nodes {
                     value: "Fill to Aspect Ratio",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Fill to Aspect Ratio",
                         TraditionalChinese: "Fill to Aspect Ratio"
@@ -348,7 +348,7 @@ export default class Image implements Nodes {
                     value: "Sharp",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Sharp",
                         TraditionalChinese: "Sharp"

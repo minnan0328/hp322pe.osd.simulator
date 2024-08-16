@@ -31,7 +31,7 @@ export default class Brightness implements Nodes {
             key: "Contrast",
             value: 100,
             mode: ModeType.range,
-            only: ["VGA"],
+            only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
                 English: "Contrast",
@@ -55,7 +55,7 @@ export default class Brightness implements Nodes {
                     value: "On",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "On",
                         TraditionalChinese: "開"
@@ -67,7 +67,7 @@ export default class Brightness implements Nodes {
                     value: "Off",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Off",
                         TraditionalChinese: "關"
@@ -105,7 +105,7 @@ export default class Brightness implements Nodes {
                     value: "Off",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Off",
                         TraditionalChinese: "關"
@@ -117,7 +117,7 @@ export default class Brightness implements Nodes {
                     value: "Low",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Low",
                         TraditionalChinese: "低"
@@ -139,7 +139,7 @@ export default class Brightness implements Nodes {
                     key: "High", value: "High",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "High",
                         TraditionalChinese: "高"
@@ -177,7 +177,7 @@ export default class Brightness implements Nodes {
                     value: "Auto",
                     mode: ModeType.radio,
                     only: ["HDMI"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Auto",
                         TraditionalChinese: "自動"
@@ -189,7 +189,7 @@ export default class Brightness implements Nodes {
                     value: "Limited Range (16 - 235)",
                     mode: ModeType.radio,
                     only: ["HDMI"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Limited Range (16 - 235）",
                         TraditionalChinese: "限制範圍(16 - 235）"
@@ -201,7 +201,7 @@ export default class Brightness implements Nodes {
                     value: "Full Range (0 - 255)",
                     mode: ModeType.radio,
                     only: ["HDMI"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Full Range (0 - 255)",
                         TraditionalChinese: "完整範圍 (16 - 235）"

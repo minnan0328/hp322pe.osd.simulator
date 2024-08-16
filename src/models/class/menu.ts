@@ -29,7 +29,7 @@ export default class Menu implements Nodes {
                     value: "Deutsch",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Deutsch",
                         TraditionalChinese: "德文"
@@ -41,7 +41,7 @@ export default class Menu implements Nodes {
                     value: "SimplifiedChinese",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "简体中文",
                         TraditionalChinese: "简体中文"
@@ -53,7 +53,7 @@ export default class Menu implements Nodes {
                     value: "TraditionalChinese",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "繁體中文",
                         TraditionalChinese: "繁體中文"
@@ -65,7 +65,7 @@ export default class Menu implements Nodes {
                     value: "English",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "English",
                         TraditionalChinese: "英語"
@@ -77,7 +77,7 @@ export default class Menu implements Nodes {
                     value: "Español",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Español",
                         TraditionalChinese: "西班牙語"
@@ -89,7 +89,7 @@ export default class Menu implements Nodes {
                     value: "Français",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Français",
                         TraditionalChinese: "法語"
@@ -101,7 +101,7 @@ export default class Menu implements Nodes {
                     value: "Italiano",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Italiano",
                         TraditionalChinese: "義大利語"
@@ -113,7 +113,7 @@ export default class Menu implements Nodes {
                     value: "日本語",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "日本語",
                         TraditionalChinese: "日本語"
@@ -125,7 +125,7 @@ export default class Menu implements Nodes {
                     value: "Nederlands",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Nederlands",
                         TraditionalChinese: "荷蘭語"
@@ -137,7 +137,7 @@ export default class Menu implements Nodes {
                     value: "Português",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Português",
                         TraditionalChinese: "葡萄牙語"
@@ -149,7 +149,7 @@ export default class Menu implements Nodes {
                     value: "Pусский",
                     mode: ModeType.radio,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Pусский",
                         TraditionalChinese: "俄文"
@@ -189,7 +189,7 @@ export default class Menu implements Nodes {
                     value: 0,
                     mode: ModeType.range,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Horizontal (w/ADJ SCALE)",
                         TraditionalChinese: "Horizontal (w/ADJ SCALE)"
@@ -202,7 +202,7 @@ export default class Menu implements Nodes {
                     value: 0,
                     mode: ModeType.range,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Vertical (w/ADJ SCALE)",
                         TraditionalChinese: "Vertical (w/ADJ SCALE)"
@@ -247,15 +247,15 @@ export default class Menu implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Menu Transparency",
-                TraditionalChinese: "Menu Transparency"
+                English: "Menu Timeout",
+                TraditionalChinese: "Menu Timeout"
             },
             nodes: null
         },
         {
             key: "OSDMessages",
-            value: null,
-            mode: ModeType.button,
+            value: "Power-On Logo",
+            mode: ModeType.info,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -265,10 +265,10 @@ export default class Menu implements Nodes {
             nodes: [
                 {
                     key: "PowerOnLogo",
-                    value: true,
+                    value: "Power-On Logo",
                     mode: ModeType.checkBox,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Power-On Logo",
                         TraditionalChinese: "Power-On Logo"
@@ -277,10 +277,10 @@ export default class Menu implements Nodes {
                 },
                 {
                     key: "NoInputSignalWarning",
-                    value: true,
+                    value: "No Input Signal Warning",
                     mode: ModeType.checkBox,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "No Input Signal Warning",
                         TraditionalChinese: "No Input Signal Warning"
@@ -291,10 +291,10 @@ export default class Menu implements Nodes {
                     // Y (FD=On=>checked) EMEA
                     // Y (FD=Off=>unchecked) Non-EMEA
                     key: "ConfirmChangeMessage",
-                    value: true,
+                    value: "Confirm Change Message",
                     mode: ModeType.checkBox,
                     only: ["HDMI", "VGA"],
-                    mergeGrid: true,
+                    mergeGrid: false,
                     language: {
                         English: "Confirm Change Message",
                         TraditionalChinese: "Confirm Change Message"
@@ -317,7 +317,7 @@ export default class Menu implements Nodes {
                             value: "Off",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Off",
                                 TraditionalChinese: "關"
@@ -329,7 +329,7 @@ export default class Menu implements Nodes {
                             value: "Top",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Top",
                                 TraditionalChinese: "Top"
@@ -341,7 +341,7 @@ export default class Menu implements Nodes {
                             value: "Middle",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Middle",
                                 TraditionalChinese: "Middle"
@@ -407,7 +407,7 @@ export default class Menu implements Nodes {
                             value: "Auto-Adjustment",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Auto-Adjustment",
                                 TraditionalChinese: "Auto-Adjustment"
@@ -419,7 +419,7 @@ export default class Menu implements Nodes {
                             value: "Brightness",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Brightness",
                                 TraditionalChinese: "Brightness"
@@ -431,7 +431,7 @@ export default class Menu implements Nodes {
                             value: "Color",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Color",
                                 TraditionalChinese: "Color"
@@ -443,7 +443,7 @@ export default class Menu implements Nodes {
                             value: "Display Information",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Display Information",
                                 TraditionalChinese: "Display Information"
@@ -455,7 +455,7 @@ export default class Menu implements Nodes {
                             value: "Next Active Input",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Next Active Input",
                                 TraditionalChinese: "Next Active Input"
@@ -467,7 +467,7 @@ export default class Menu implements Nodes {
                             value: "Empty (No Function)",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Empty (No Function)",
                                 TraditionalChinese: "Empty (No Function)"
@@ -506,7 +506,7 @@ export default class Menu implements Nodes {
                             value: "Auto-Adjustment",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Auto-Adjustment",
                                 TraditionalChinese: "Auto-Adjustment"
@@ -518,7 +518,7 @@ export default class Menu implements Nodes {
                             value: "Brightness",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Brightness",
                                 TraditionalChinese: "Brightness"
@@ -530,7 +530,7 @@ export default class Menu implements Nodes {
                             value: "Color",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Color",
                                 TraditionalChinese: "Color"
@@ -542,7 +542,7 @@ export default class Menu implements Nodes {
                             value: "Display Information",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Display Information",
                                 TraditionalChinese: "Display Information"
@@ -554,7 +554,7 @@ export default class Menu implements Nodes {
                             value: "Next Active Input",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Next Active Input",
                                 TraditionalChinese: "Next Active Input"
@@ -566,7 +566,7 @@ export default class Menu implements Nodes {
                             value: "Empty (No Function)",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Empty (No Function)",
                                 TraditionalChinese: "Empty (No Function)"
@@ -605,7 +605,7 @@ export default class Menu implements Nodes {
                             value: "Auto-Adjustment",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Auto-Adjustment",
                                 TraditionalChinese: "Auto-Adjustment"
@@ -617,7 +617,7 @@ export default class Menu implements Nodes {
                             value: "Brightness",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Brightness",
                                 TraditionalChinese: "Brightness"
@@ -629,7 +629,7 @@ export default class Menu implements Nodes {
                             value: "Color",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Color",
                                 TraditionalChinese: "Color"
@@ -641,7 +641,7 @@ export default class Menu implements Nodes {
                             value: "Display Information",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Display Information",
                                 TraditionalChinese: "Display Information"
@@ -653,7 +653,7 @@ export default class Menu implements Nodes {
                             value: "Next Active Input",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Next Active Input",
                                 TraditionalChinese: "Next Active Input"
@@ -665,7 +665,7 @@ export default class Menu implements Nodes {
                             value: "Empty (No Function)",
                             mode: ModeType.radio,
                             only: ["HDMI", "VGA"],
-                            mergeGrid: true,
+                            mergeGrid: false,
                             language: {
                                 English: "Empty (No Function)",
                                 TraditionalChinese: "Empty (No Function)"
