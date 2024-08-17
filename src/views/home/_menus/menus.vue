@@ -85,13 +85,13 @@
                                 </div>
                                 <!-- checkbox -->
                             </div>
-                            <!-- 一般 range -->
+                            <!-- 一般縱向 range -->
                             <verticalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key != 'CustomRGB'"
                                 :setItem="setItem"
                                 :selected="state.currentSettingValue == setItem">
                             </verticalRange>
-                            <!-- 一般 range -->
-                            <!-- color range -->
+                            <!-- 一般縱向 range -->
+                            <!-- 縱向 color range -->
                             <template v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key == 'CustomRGB'">
                                 <verticalRange v-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange"
                                     :setItem="setItem"
@@ -99,7 +99,14 @@
                                     :isColor="true">
                                 </verticalRange>
                             </template>
-                            <!-- color range -->
+                            <!-- 縱向 color range -->
+                            <!-- 橫向 range -->
+                            <horizontalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.horizontalRange"
+                                :setItem="setItem"
+                                :selected="state.currentSettingValue == setItem">
+                            </horizontalRange>
+                            <!-- 橫向 range -->
+                            
                         </template>
                     </div>
                 </template>
@@ -180,6 +187,7 @@ import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
 import verticalRange from './_vertical-range.vue';
+import horizontalRange from './_horizontal-range.vue';
 
 const store = useStore();
 
