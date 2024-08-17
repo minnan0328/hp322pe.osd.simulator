@@ -32,13 +32,11 @@
                                 <!-- button -->
     
                                 <!-- radio -->
-                                <div :class="['item customize-radio', {
-                                    selected: state.currentFunction == funItem,
-                                    'merge-grid': funItem.mode == ModeType.radio && !funItem.nodes
-                                }]" v-else-if="funItem.mode == ModeType.radio">
-                                    <div :class="['round', { selected: funItem.value == state.currentMenu?.value }]"></div>
-                                    <div v-text="getLanguageText(funItem.language)"></div>
-                                </div>
+                                <customizeRadio v-else-if="funItem.mode == ModeType.radio"
+                                    :setItem="funItem"
+                                    :isChecked="state.currentMenu.value == funItem.value"
+                                    :selected="state.currentFunction == funItem">
+                                </customizeRadio>
                                 <!-- radio -->
     
                                 <!-- value -->
@@ -59,7 +57,6 @@
                     <div :class="['function-setting', { 'customRGB-range-section': state.currentFunction.key == 'CustomRGB' }]"
                             v-if="state.currentMenu && state.currentFunction && state.currentFunction.nodes">
                         <template v-for="setItem in state.currentFunction.nodes">
-
                             <div :class="['setting-item unset-grid', setItem.key]"
                                 v-if="isEnable(setItem) && setItem.mode != ModeType.verticalRange
                                     && isEnable(setItem) && setItem.mode != ModeType.horizontalRange">
@@ -70,20 +67,19 @@
                                 <!-- button -->
                                 
                                 <!-- radio -->
-                                <div :class="['item customize-radio', { selected: state.currentSettingValue == setItem,  'merge-grid': setItem.mergeGrid }]"
-                                    v-else-if="setItem.mode == ModeType.radio">
-                                    <div :class="['round', { selected: setItem.value == state.currentFunction.value }]"></div>
-                                    <div v-text="getLanguageText(setItem.language)"></div>
-                                </div>
+                                <customizeRadio v-else-if="setItem.mode == ModeType.radio"
+                                    :setItem="setItem"
+                                    :isChecked="state.currentFunction.value == setItem.value"
+                                    :selected="state.currentSettingValue == setItem">
+                                </customizeRadio>
                                 <!-- radio -->
 
                                 <!-- checkbox -->
-                                <div :class="['item customize-checkbox', { selected: state.currentSettingValue == setItem, 'merge-grid': setItem.mergeGrid }]"
-                                    v-else-if="setItem.mode == ModeType.checkBox">
-                                    <div :class="['box', { selected: isChecked(setItem) }]"></div>
-                                    <div v-text="getLanguageText(setItem.language)"></div>
-                                </div>
-                                <!-- checkbox -->
+                                <customizeCheckbox v-else-if="setItem.mode == ModeType.checkBox"
+                                    :setItem="setItem"
+                                    :selectedItem="state.currentFunction"
+                                    :selected="state.currentSettingValue == setItem">
+                                </customizeCheckbox>
                             </div>
                             <!-- 一般縱向 range -->
                             <verticalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key != 'CustomRGB'"
@@ -188,6 +184,8 @@ import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
 import verticalRange from './_vertical-range.vue';
 import horizontalRange from './_horizontal-range.vue';
+import customizeCheckbox from './_customize-checkbox.vue';
+import customizeRadio from './_customize-radio.vue';
 
 const store = useStore();
 
@@ -304,15 +302,6 @@ watch(() => openAllMenu.value, (newVal, oldVal) => {
 function isEnable(item: Nodes): boolean {
     return item.only?.includes(props.currentInput) ?? false;
 };
-
-function isChecked(item: Nodes): boolean {
-    const value = state.currentFunction?.value;
-
-    // 強制轉型，並根據類型使用 includes 方法
-    return Array.isArray(value)
-        ? (value as string[]).includes(item.value as string)
-        : false;
-}
 
 function handleTarget() {
     if (state.currentMenu?.nodes && !state.currentFunction) {
@@ -555,14 +544,6 @@ function handlePrevious() {
 						background-color: #000000;
 						border: 1px solid #0083ca;
 						color: #ffffff;
-
-						&.customize-radio {
-							.round {
-								&.selected::before {
-									background-color: #ffffff;
-								}
-							}
-						}
 					}
 				}
 			}
