@@ -13,6 +13,7 @@ export default class Color implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
@@ -28,6 +29,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -44,6 +46,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -60,6 +63,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -76,6 +80,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -92,6 +97,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -108,6 +114,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -124,6 +131,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -138,6 +146,7 @@ export default class Color implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: true,
                     language: {
@@ -153,6 +162,7 @@ export default class Color implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: true,
                     language: {
@@ -168,6 +178,7 @@ export default class Color implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: true,
                     language: {
@@ -188,6 +199,7 @@ export default class Color implements Nodes {
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -201,9 +213,10 @@ export default class Color implements Nodes {
                 {
                     key: "RedColor",
                     value: 255,
-                    mode: ModeType.range,
+                    mode: ModeType.verticalRange,
                     rangeMin: 0,
                     rangeMax: 255,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -217,9 +230,10 @@ export default class Color implements Nodes {
                 {
                     key: "GreenColor",
                     value: 255,
-                    mode: ModeType.range,
+                    mode: ModeType.verticalRange,
                     rangeMin: 0,
                     rangeMax: 255,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -233,9 +247,10 @@ export default class Color implements Nodes {
                 {
                     key: "BlueColor",
                     value: 255,
-                    mode: ModeType.range,
+                    mode: ModeType.verticalRange,
                     rangeMin: 0,
                     rangeMax: 255,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {

@@ -14,6 +14,7 @@ export default class Brightness implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
@@ -29,6 +30,7 @@ export default class Brightness implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -40,9 +42,10 @@ export default class Brightness implements Nodes {
                 {
                     key: "Brightness",
                     value: 86,
-                    mode: ModeType.range,
+                    mode: ModeType.verticalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: "icon-brightness.svg",
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -61,6 +64,7 @@ export default class Brightness implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -72,9 +76,10 @@ export default class Brightness implements Nodes {
                 {
                     key: "Contrast",
                     value: 100,
-                    mode: ModeType.range,
+                    mode: ModeType.verticalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: "icon-brightness.svg",
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -93,6 +98,7 @@ export default class Brightness implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -107,6 +113,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -122,6 +129,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -141,6 +149,7 @@ export default class Brightness implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -155,6 +164,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -170,6 +180,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -185,6 +196,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: true,
                     language: {
@@ -200,6 +212,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -219,6 +232,7 @@ export default class Brightness implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -233,6 +247,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI"],
                     mergeGrid: false,
                     language: {
@@ -248,6 +263,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI"],
                     mergeGrid: false,
                     language: {
@@ -263,6 +279,7 @@ export default class Brightness implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI"],
                     mergeGrid: false,
                     language: {

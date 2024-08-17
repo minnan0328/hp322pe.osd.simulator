@@ -13,6 +13,7 @@ export default class Menu implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
@@ -28,6 +29,7 @@ export default class Menu implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -42,6 +44,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -57,6 +60,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -72,6 +76,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -87,6 +92,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -102,6 +108,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -117,6 +124,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -132,6 +140,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -147,6 +156,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -162,6 +172,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -177,6 +188,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -192,6 +204,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -212,6 +225,7 @@ export default class Menu implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -225,14 +239,15 @@ export default class Menu implements Nodes {
                     // Range (0~100)
                     key: "Horizontal(w/ADJSCALE)",
                     value: 0,
-                    mode: ModeType.range,
+                    mode: ModeType.horizontalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
-                        English: "Horizontal (w/ADJ SCALE)",
-                        TraditionalChinese: "Horizontal (w/ADJ SCALE)"
+                        English: "Horizontal",
+                        TraditionalChinese: "Horizontal"
                     },
                     unit: null,
                     nodes: null
@@ -242,14 +257,15 @@ export default class Menu implements Nodes {
                     // Range (0~100)
                     key: "Vertical(w/ADJSCALE)",
                     value: 0,
-                    mode: ModeType.range,
+                    mode: ModeType.horizontalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
-                        English: "Vertical (w/ADJ SCALE)",
-                        TraditionalChinese: "Vertical (w/ADJ SCALE)"
+                        English: "Vertical",
+                        TraditionalChinese: "Vertical"
                     },
                     unit: null,
                     nodes: null
@@ -259,13 +275,12 @@ export default class Menu implements Nodes {
             ]
         },
         {
-            // Range (0 - 10) with 0 = Off, no transparency
-            //Y (FD=0=Off)
             key: "MenuTransparency",
             value: 0,
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -273,7 +288,26 @@ export default class Menu implements Nodes {
                 TraditionalChinese: "Menu Transparency"
             },
             unit: null,
-            nodes: null
+            nodes: [
+                {
+                    // Range (0 - 10) with 0 = Off, no transparency
+                    //Y (FD=0=Off)
+                    key: "MenuTransparency",
+                    value: 0,
+                    mode: ModeType.verticalRange,
+                    rangeMin: 0,
+                    rangeMax: 10,
+                    rangeIcon: null,
+                    only: ["HDMI", "VGA"],
+                    mergeGrid: false,
+                    language: {
+                        English: "Menu Transparency",
+                        TraditionalChinese: "Menu Transparency"
+                    },
+                    unit: null,
+                    nodes: null
+                }
+            ]
         },
         {
             // Range (5~60)
@@ -283,6 +317,7 @@ export default class Menu implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -293,7 +328,29 @@ export default class Menu implements Nodes {
                 English: "s",
                 TraditionalChinese: "秒"
             },
-            nodes: null
+            nodes: [
+                {
+                    // Range (5~60)
+                    // Y (FD=60) for Accessibility mode
+                    key: "MenuTimeout",
+                    value: 30,
+                    mode: ModeType.verticalRange,
+                    rangeMin: 5,
+                    rangeMax: 60,
+                    rangeIcon: null,
+                    only: ["HDMI", "VGA"],
+                    mergeGrid: false,
+                    language: {
+                        English: "Menu Timeout",
+                        TraditionalChinese: "Menu Timeout"
+                    },
+                    unit: {
+                        English: "s",
+                        TraditionalChinese: "秒"
+                    },
+                    nodes: null
+                }
+            ]
         },
         {
             key: "OSDMessages",
@@ -301,6 +358,7 @@ export default class Menu implements Nodes {
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -315,6 +373,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.checkBox,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -330,6 +389,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.checkBox,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -347,6 +407,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.checkBox,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -362,6 +423,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -376,6 +438,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -391,6 +454,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -406,6 +470,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -429,6 +494,7 @@ export default class Menu implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -445,6 +511,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -459,6 +526,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -474,6 +542,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -489,6 +558,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -504,6 +574,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -519,6 +590,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -534,6 +606,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -554,6 +627,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -568,6 +642,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -583,6 +658,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -598,6 +674,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -613,6 +690,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -628,6 +706,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -643,6 +722,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -663,6 +743,7 @@ export default class Menu implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -677,6 +758,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -692,6 +774,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -707,6 +790,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -722,6 +806,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -737,6 +822,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {
@@ -752,6 +838,7 @@ export default class Menu implements Nodes {
                             mode: ModeType.radio,
                             rangeMin: 0,
                             rangeMax: 0,
+                            rangeIcon: null,
                             only: ["HDMI", "VGA"],
                             mergeGrid: false,
                             language: {

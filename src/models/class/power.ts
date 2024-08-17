@@ -13,6 +13,7 @@ export default class Power implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
@@ -27,6 +28,7 @@ export default class Power implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -41,6 +43,7 @@ export default class Power implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -56,6 +59,7 @@ export default class Power implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -71,10 +75,12 @@ export default class Power implements Nodes {
         },
         {
             key: "PowerOnRecall",
+            parents: "AutoSleepMode",
             value: "On",
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -89,6 +95,7 @@ export default class Power implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -104,6 +111,7 @@ export default class Power implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -123,6 +131,7 @@ export default class Power implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -137,6 +146,7 @@ export default class Power implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -152,6 +162,7 @@ export default class Power implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {

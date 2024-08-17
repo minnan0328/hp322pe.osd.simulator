@@ -1,6 +1,8 @@
 // enum
 export enum ModeType {
     range = "range",
+    horizontalRange = "horizontalRange",
+    verticalRange = "verticalRange",
     radio = "radio",
     button = "button",
     checkBox ="checkBox",
@@ -16,6 +18,7 @@ export interface Nodes {
     mode: string | null;
     rangeMin: number;
     rangeMax: number;
+    rangeIcon: string | null;
     mergeGrid: boolean;
     only: string[];
     language: { [key: string]: string; };

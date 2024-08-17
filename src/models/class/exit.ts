@@ -6,6 +6,7 @@ export default class Exit implements Nodes {
     mode = ModeType.image;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {

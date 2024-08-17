@@ -13,6 +13,7 @@ export default class Management implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
@@ -27,6 +28,7 @@ export default class Management implements Nodes {
             mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -41,6 +43,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -56,6 +59,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -75,6 +79,7 @@ export default class Management implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -89,6 +94,7 @@ export default class Management implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -104,6 +110,7 @@ export default class Management implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -123,6 +130,7 @@ export default class Management implements Nodes {
             mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -137,6 +145,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -152,6 +161,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -167,6 +177,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -182,6 +193,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -197,6 +209,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -212,6 +225,7 @@ export default class Management implements Nodes {
                     mode: ModeType.button,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -231,6 +245,7 @@ export default class Management implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -245,6 +260,7 @@ export default class Management implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -260,6 +276,7 @@ export default class Management implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {

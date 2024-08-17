@@ -52,41 +52,54 @@
                                     </div>
                                 </template>
                                 <!-- value -->
+                                
                             </div>
                         </template>
                     </div>
-                    <div class="function-setting">
-                        <template v-if="state.currentMenu && state.currentFunction && state.currentFunction.nodes" v-for="setItem in state.currentFunction.nodes">
-                            <div :class="['setting-item unset-grid', setItem.key]" v-if="isEnable(setItem)">
+                    <div :class="['function-setting', { 'customRGB-range-section': state.currentFunction.key == 'CustomRGB' }]"
+                            v-if="state.currentMenu && state.currentFunction && state.currentFunction.nodes">
+                        <template v-for="setItem in state.currentFunction.nodes">
+
+                            <div :class="['setting-item unset-grid', setItem.key]"
+                                v-if="isEnable(setItem) && setItem.mode != ModeType.verticalRange
+                                    && isEnable(setItem) && setItem.mode != ModeType.horizontalRange">
                                 <!-- button -->
-                                <div :class="['item', {
-                                        selected: state.currentSettingValue == setItem,
-                                        'merge-grid': setItem.mergeGrid
-                                    }]"
+                                <div :class="['item', { selected: state.currentSettingValue == setItem, 'merge-grid': setItem.mergeGrid }]"
                                     v-if="setItem.mode == ModeType.button || setItem.mode == ModeType.info" v-text="getLanguageText(setItem.language)">
                                 </div>
                                 <!-- button -->
                                 
                                 <!-- radio -->
-                                <div :class="['item customize-radio', {
-                                    selected: state.currentSettingValue == setItem,
-                                    'merge-grid': setItem.mergeGrid
-                                }]" v-else-if="setItem.mode == ModeType.radio">
+                                <div :class="['item customize-radio', { selected: state.currentSettingValue == setItem,  'merge-grid': setItem.mergeGrid }]"
+                                    v-else-if="setItem.mode == ModeType.radio">
                                     <div :class="['round', { selected: setItem.value == state.currentFunction.value }]"></div>
                                     <div v-text="getLanguageText(setItem.language)"></div>
                                 </div>
                                 <!-- radio -->
 
                                 <!-- checkbox -->
-                                 <div :class="['item customize-checkbox', {
-                                    selected: state.currentSettingValue == setItem,
-                                    'merge-grid': setItem.mergeGrid
-                                 }]" v-else-if="setItem.mode == ModeType.checkBox">
+                                <div :class="['item customize-checkbox', { selected: state.currentSettingValue == setItem, 'merge-grid': setItem.mergeGrid }]"
+                                    v-else-if="setItem.mode == ModeType.checkBox">
                                     <div :class="['box', { selected: setItem.value == state.currentFunction.value }]"></div>
                                     <div v-text="getLanguageText(setItem.language)"></div>
-                                 </div>
+                                </div>
                                 <!-- checkbox -->
                             </div>
+                            <!-- 一般 range -->
+                            <verticalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key != 'CustomRGB'"
+                                :setItem="setItem"
+                                :selected="state.currentSettingValue == setItem">
+                            </verticalRange>
+                            <!-- 一般 range -->
+                            <!-- color range -->
+                            <template v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key == 'CustomRGB'">
+                                <verticalRange v-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange"
+                                    :setItem="setItem"
+                                    :selected="state.currentSettingValue == setItem"
+                                    :isColor="true">
+                                </verticalRange>
+                            </template>
+                            <!-- color range -->
                         </template>
                     </div>
                 </template>
@@ -166,6 +179,7 @@ import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
+import verticalRange from './_vertical-range.vue';
 
 const store = useStore();
 
@@ -246,17 +260,19 @@ function handleInput() {
     openInput.value = true;
 };
 
-const menus = reactive([
-    store.$state.brightness,
-    store.$state.color,
-    store.$state.image,
-    store.$state.input,
-    store.$state.power,
-    store.$state.menu,
-    store.$state.management,
-    store.$state.information,
-    store.$state.exit,
-]);
+const menus = computed(() => {
+    return [
+        store.$state.brightness,
+        store.$state.color,
+        store.$state.image,
+        store.$state.input,
+        store.$state.power,
+        store.$state.menu,
+        store.$state.management,
+        store.$state.information,
+        store.$state.exit,
+    ]
+});
 
 const state = reactive({
     currentMenuIndex: 0,
@@ -274,10 +290,8 @@ watch(() => props.openMonitor, (newVal, oldVal) => {
 });
 
 watch(() => openAllMenu.value, (newVal, oldVal) => {
-    state.currentMenu = menus[0];
+    state.currentMenu = menus.value[0];
 });
-
-console.log(menus);
 
 function isEnable(item: Nodes): boolean {
     return item.only?.includes(props.currentInput) ?? false;
@@ -319,12 +333,12 @@ function handleNavigation(direction: 'up' | 'down') {
 
     if (state.currentMenu?.nodes) {
         if (!state.currentFunction) {
-            state.currentMenuIndex = updateIndex(state.currentMenuIndex, menus.length);
+            state.currentMenuIndex = updateIndex(state.currentMenuIndex, menus.value.length);
 
-            if (!isEnable(menus[state.currentMenuIndex])) {
+            if (!isEnable(menus.value[state.currentMenuIndex])) {
                 handleNavigation(direction);
             } else {
-                state.currentMenu = menus[state.currentMenuIndex];
+                state.currentMenu = menus.value[state.currentMenuIndex];
             }
         } else if (state.currentFunction && !state.currentSettingValue) {
             state.currentFunctionIndex = updateIndex(state.currentFunctionIndex, state.currentMenu.nodes.length);
@@ -473,6 +487,12 @@ function handlePrevious() {
 			.function-setting {
 				position: relative;
 				border-left: 1px solid #202020;
+
+                &.customRGB-range-section {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                }
 			}
 
 			.setting-item {

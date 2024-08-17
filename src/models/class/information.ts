@@ -10,6 +10,7 @@ export default class Information implements Nodes {
     mode = ModeType.info;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
@@ -17,13 +18,14 @@ export default class Information implements Nodes {
         TraditionalChinese: "資訊"
     };
     unit = null;
-    nodes: Nodes[] = [
+    nodes = [
         {
             key: "CurrentMode:",
             value: "1920x1080 60Hz",
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -39,6 +41,7 @@ export default class Information implements Nodes {
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -54,6 +57,7 @@ export default class Information implements Nodes {
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -69,6 +73,7 @@ export default class Information implements Nodes {
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -84,6 +89,7 @@ export default class Information implements Nodes {
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -99,6 +105,7 @@ export default class Information implements Nodes {
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {

@@ -8,6 +8,7 @@ export class Reset implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = ["HDMI", "VGA"];
     mergeGrid = true;
     language = {
@@ -24,6 +25,7 @@ export class Back implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = ["HDMI", "VGA"];
     mergeGrid = true;
     language = {

@@ -13,6 +13,7 @@ export default class Image implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    rangeIcon = null;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
@@ -27,6 +28,7 @@ export default class Image implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["VGA"],
             mergeGrid: false,
             language: {
@@ -42,6 +44,7 @@ export default class Image implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["VGA"],
             mergeGrid: false,
             language: {
@@ -54,14 +57,15 @@ export default class Image implements Nodes {
                     // VGA only - Range (0~100)
                     key: "Clock(w/ADJSCALE)",
                     value: 0,
-                    mode: ModeType.range,
+                    mode: ModeType.horizontalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: null,
                     only: ["VGA"],
                     mergeGrid: false,
                     language: {
-                        English: "Clock (w/ ADJ SCALE)",
-                        TraditionalChinese: "Clock (w/ ADJ SCALE)"
+                        English: "Clock",
+                        TraditionalChinese: "Clock"
                     },
                     unit: null,
                     nodes: null
@@ -70,14 +74,15 @@ export default class Image implements Nodes {
                     // Range (0~100)
                     key: "Phase(w/ADJSCALE)",
                     value: 0,
-                    mode: ModeType.range,
+                    mode: ModeType.horizontalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: null,
                     only: ["VGA"],
                     mergeGrid: false,
                     language: {
-                        English: "Phase (w/ ADJ SCALE)",
-                        TraditionalChinese: "Phase (w/ ADJ SCALE)"
+                        English: "Phase",
+                        TraditionalChinese: "Phase"
                     },
                     unit: null,
                     nodes: null
@@ -92,6 +97,7 @@ export default class Image implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["VGA"],
             mergeGrid: false,
             language: {
@@ -104,14 +110,15 @@ export default class Image implements Nodes {
                     // VGA only - Range (0~100)
                     key: "Horizontal(w/ADJSCALE)",
                     value: 0,
-                    mode: ModeType.range,
+                    mode: ModeType.horizontalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: null,
                     only: ["VGA"],
                     mergeGrid: false,
                     language: {
-                        English: "Horizontal (w/ADJ SCALE)",
-                        TraditionalChinese: "Horizontal (w/ADJ SCALE)"
+                        English: "Horizontal",
+                        TraditionalChinese: "Horizontal"
                     },
                     unit: null,
                     nodes: null
@@ -120,14 +127,15 @@ export default class Image implements Nodes {
                     // Range (0~100)
                     key: "Vertical(w/ADJSCALE)",
                     value: 0,
-                    mode: ModeType.range,
+                    mode: ModeType.horizontalRange,
                     rangeMin: 0,
                     rangeMax: 100,
+                    rangeIcon: null,
                     only: ["VGA"],
                     mergeGrid: false,
                     language: {
-                        English: "Vertical (w/ADJ SCALE)",
-                        TraditionalChinese: "Vertical (w/ADJ SCALE)"
+                        English: "Vertical",
+                        TraditionalChinese: "Vertical"
                     },
                     unit: null,
                     nodes: null
@@ -142,6 +150,7 @@ export default class Image implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -156,6 +165,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -171,6 +181,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -186,6 +197,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -201,6 +213,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -220,6 +233,7 @@ export default class Image implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -234,6 +248,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -249,6 +264,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -264,6 +280,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: true,
                     language: {
@@ -279,6 +296,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -294,6 +312,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -309,6 +328,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: true,
                     language: {
@@ -324,6 +344,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -343,6 +364,7 @@ export default class Image implements Nodes {
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
+            rangeIcon: null,
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
@@ -357,6 +379,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -372,6 +395,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
@@ -387,6 +411,7 @@ export default class Image implements Nodes {
                     mode: ModeType.radio,
                     rangeMin: 0,
                     rangeMax: 0,
+                    rangeIcon: null,
                     only: ["HDMI", "VGA"],
                     mergeGrid: false,
                     language: {
