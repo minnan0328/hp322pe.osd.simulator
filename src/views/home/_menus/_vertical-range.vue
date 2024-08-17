@@ -1,10 +1,10 @@
 <template>
     <div class="range">
-        <div :class="[setItem.mode, { selected: selected, color: isColor }]">
+        <div :class="['vertical-range', { selected: selected, color: isColor }]">
             <div class="range-max-value">
                 <img v-if="setItem.rangeIcon" class="original" :src="getIconSrc(setItem)" alt="">
                 <span v-else-if="!isColor" v-text="setItem.rangeMax"></span>
-                <span v-if="!setItem.rangeIcon && isColor" v-text="getLanguageText(setItem.language)"></span>
+                <span v-if="!setItem.rangeIcon && isColor" :class="setItem.key" v-text="getLanguageText(setItem.language)"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">
@@ -20,7 +20,7 @@
                 <span v-text="setItem.value"></span>
             </div>
 
-            <div class="range-max-value" >
+            <div class="range-max-value">
                 <img v-if="setItem.rangeIcon" class="small" :src="getIconSrc(setItem)" alt="">
                 <span v-else-if="!isColor" v-text="setItem.rangeMin"></span>
                 <span v-if="!setItem.rangeIcon && isColor" v-text="setItem.rangeMax"></span>
@@ -88,11 +88,11 @@ function getIconSrc (setItem: Nodes) {
     align-items: center;
     justify-content: center;
 
-    .verticalRange {
+    .vertical-range {
         display: grid;
         grid-template-columns: max-content 16px;
         grid-template-rows: max-content 1fr max-content;
-        gap: 0px 8px;
+        gap: 8px 8px;
         height: 75%;
         justify-content: center;
         align-items: center;
@@ -107,6 +107,8 @@ function getIconSrc (setItem: Nodes) {
         }
 
         .range-max-value {
+            font-weight: bold;
+
             .original {
                 width: 100%;
             }
@@ -114,12 +116,28 @@ function getIconSrc (setItem: Nodes) {
             .small {
                 max-width: 70%;
             }
+
+
         }
 
 
         &.selected:not(.disabled) {
             .range-text {
                 color: #ffffff;
+            }
+
+            .range-max-value  {
+                .RedColor {
+                    color: #FF0000;
+                }
+
+                .GreenColor {
+                    color: #00FF00;
+                }
+                
+                .BlueColor {
+                    color: #0000FF;
+                }
             }
         }
 
