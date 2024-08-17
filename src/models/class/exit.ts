@@ -4,11 +4,14 @@ export default class Exit implements Nodes {
     key = "Exit";
     value = "logo.png";
     mode = ModeType.image;
+    rangeMin = 0;
+    rangeMax = 0;
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
         English: "Exit",
         TraditionalChinese: "退出"
     };
+    unit = null;
     nodes = [];
 };

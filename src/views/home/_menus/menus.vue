@@ -10,9 +10,9 @@
                     <img src="@/assets/images/logo.png" alt="">
                 </div>
                 <div class="options">
-                    <template  v-for="menu in menus" v-text="getLanguageText(menu)">
+                    <template  v-for="menu in menus" v-text="getLanguageText(menu.language)">
                         <div :class="['option', { selected: state.currentMenu == menu }]"
-                            v-if="isEnable(menu)" v-text="getLanguageText(menu)">
+                            v-if="isEnable(menu)" v-text="getLanguageText(menu.language)">
                         </div>
                     </template>
                 </div>
@@ -27,7 +27,7 @@
                                         selected: state.currentFunction == funItem,
                                         'merge-grid': funItem.mergeGrid
                                     }]"
-                                    v-if="funItem.mode != ModeType.radio" v-text="getLanguageText(funItem)">
+                                    v-if="funItem.mode != ModeType.radio" v-text="getLanguageText(funItem.language)">
                                 </div>
                                 <!-- button -->
     
@@ -37,7 +37,7 @@
                                     'merge-grid': funItem.mode == ModeType.radio && !funItem.nodes
                                 }]" v-else-if="funItem.mode == ModeType.radio">
                                     <div :class="['round', { selected: funItem.value == state.currentMenu?.value }]"></div>
-                                    <div v-text="getLanguageText(funItem)"></div>
+                                    <div v-text="getLanguageText(funItem.language)"></div>
                                 </div>
                                 <!-- radio -->
     
@@ -45,11 +45,10 @@
                                 <template v-if="!state.currentFunction">
                                     <div class="item item-value"
                                         v-if="funItem.value && funItem.mode == ModeType.button
-                                            || funItem.value && funItem.mode == ModeType.range
-                                            || funItem.value == 0 && funItem.mode == ModeType.range
                                             || funItem.value && !funItem.nodes && funItem.mode == ModeType.info
-                                            || funItem.value && funItem.nodes && funItem.mode == ModeType.radio" 
-                                        v-text="funItem.value">
+                                            || funItem.value && funItem.nodes && funItem.mode == ModeType.radio">
+                                        <span v-text="funItem.value"></span>
+                                        <span v-if="funItem.unit" v-text="getLanguageText(funItem.unit)"></span>
                                     </div>
                                 </template>
                                 <!-- value -->
@@ -64,7 +63,7 @@
                                         selected: state.currentSettingValue == setItem,
                                         'merge-grid': setItem.mergeGrid
                                     }]"
-                                    v-if="setItem.mode != ModeType.radio && setItem.mode != ModeType.checkBox" v-text="getLanguageText(setItem)">
+                                    v-if="setItem.mode == ModeType.button || setItem.mode == ModeType.info" v-text="getLanguageText(setItem.language)">
                                 </div>
                                 <!-- button -->
                                 
@@ -74,7 +73,7 @@
                                     'merge-grid': setItem.mergeGrid
                                 }]" v-else-if="setItem.mode == ModeType.radio">
                                     <div :class="['round', { selected: setItem.value == state.currentFunction.value }]"></div>
-                                    <div v-text="getLanguageText(setItem)"></div>
+                                    <div v-text="getLanguageText(setItem.language)"></div>
                                 </div>
                                 <!-- radio -->
 
@@ -84,7 +83,7 @@
                                     'merge-grid': setItem.mergeGrid
                                  }]" v-else-if="setItem.mode == ModeType.checkBox">
                                     <div :class="['box', { selected: setItem.value == state.currentFunction.value }]"></div>
-                                    <div v-text="getLanguageText(setItem)"></div>
+                                    <div v-text="getLanguageText(setItem.language)"></div>
                                  </div>
                                 <!-- checkbox -->
                             </div>
@@ -144,7 +143,7 @@
     </div>
 
     <div class="controller">
-        <button v-if="!openControllerMenus" class="controller-btn controller-menus" @click="handleControllerMenus"></button>
+        <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus" @click="handleControllerMenus"></button>
         <template v-else-if="isControllerMenusButton">
             <button class="controller-btn all" @click="handleAllMenu"></button>
             <button class="controller-btn brightness" @click="handleBrightness"></button>
@@ -192,10 +191,10 @@ const currentLanguage = computed(() => {
     return language?.value ?? "English";
 });
 
-function getLanguageText(funItem: Nodes) {
-    const langKey = currentLanguage.value as keyof typeof funItem.language;
-    return funItem.language[langKey];
-}
+function getLanguageText(langItem: { [key: string]: string; }) {
+    const langKey = currentLanguage.value as keyof typeof langItem;
+    return langItem[langKey];
+};
 
 // 開啟選單
 function handleControllerMenus() {
@@ -269,13 +268,13 @@ const state = reactive({
 });
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
-    if(newVal) {
-        state.currentMenu = menus[0];
-    };
-
     if(newVal == false) {
         handleClose();
     }
+});
+
+watch(() => openAllMenu.value, (newVal, oldVal) => {
+    state.currentMenu = menus[0];
 });
 
 console.log(menus);
@@ -363,6 +362,11 @@ function handleClose() {
     openBrightness.value = false;
     openColor.value = false;
     openInput.value = false;
+
+    state.currentMenuIndex = 0;
+    state.currentFunctionIndex = 0;
+    state.currentSettingValueIndex = 0;
+
 };
 
 // 上一步

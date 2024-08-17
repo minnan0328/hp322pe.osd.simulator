@@ -14,10 +14,11 @@ export interface Nodes {
     key: string;
     value: number | string | boolean | null;
     mode: string | null;
+    rangeMin: number;
+    rangeMax: number;
     mergeGrid: boolean;
-    only: string[] | null;
-    language: {
-        [key: string]: string; // 任意鍵，值為字符串
-    };
-    nodes: Nodes[] | null; // 可以是 Nodes 的數組或者 null
+    only: string[];
+    language: { [key: string]: string; };
+    unit: { [key: string]: string; } | null;
+    nodes: Nodes[] | null; 
 };
