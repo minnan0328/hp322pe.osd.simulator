@@ -14,7 +14,7 @@ export enum ModeType {
 // interface
 export interface Nodes {
     key: string;
-    value: number | string | boolean | null;
+    value: number | string | string[] | boolean | null;
     mode: string | null;
     rangeMin: number;
     rangeMax: number;

@@ -354,7 +354,7 @@ export default class Menu implements Nodes {
         },
         {
             key: "OSDMessages",
-            value: "Power-On Logo",
+            value: ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"],
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,

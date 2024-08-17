@@ -80,7 +80,7 @@
                                 <!-- checkbox -->
                                 <div :class="['item customize-checkbox', { selected: state.currentSettingValue == setItem, 'merge-grid': setItem.mergeGrid }]"
                                     v-else-if="setItem.mode == ModeType.checkBox">
-                                    <div :class="['box', { selected: setItem.value == state.currentFunction.value }]"></div>
+                                    <div :class="['box', { selected: isChecked(setItem) }]"></div>
                                     <div v-text="getLanguageText(setItem.language)"></div>
                                 </div>
                                 <!-- checkbox -->
@@ -304,6 +304,15 @@ watch(() => openAllMenu.value, (newVal, oldVal) => {
 function isEnable(item: Nodes): boolean {
     return item.only?.includes(props.currentInput) ?? false;
 };
+
+function isChecked(item: Nodes): boolean {
+    const value = state.currentFunction?.value;
+
+    // 強制轉型，並根據類型使用 includes 方法
+    return Array.isArray(value)
+        ? (value as string[]).includes(item.value as string)
+        : false;
+}
 
 function handleTarget() {
     if (state.currentMenu?.nodes && !state.currentFunction) {
