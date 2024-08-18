@@ -31,8 +31,13 @@ const props = defineProps({
 });
 
 const currentValue = computed(() => {
-    return `${props.setItem.value as number - 4}%`
+    let showValue = convertRange(props.setItem.value as number, props.setItem.rangeMin as number, props.setItem.rangeMax as number);
+    return `${showValue as number - 4}%`
 });
+
+function convertRange(value: number, rangeMin: number, rangeMax: number) {
+    return ((value - rangeMin) / (rangeMax - rangeMin)) * (100 - 0) + 0;
+};
 
 </script>
 <style lang="scss" scoped>

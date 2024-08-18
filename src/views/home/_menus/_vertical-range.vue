@@ -55,12 +55,12 @@ const props = defineProps({
 });
 
 const currentValue = computed(() => {
-    let showValue = props.isColor ? convertRange(props.setItem.value as number) : props.setItem.value;
+    let showValue = convertRange(props.setItem.value as number, props.setItem.rangeMin as number, props.setItem.rangeMax as number);
     return `${showValue as number - 4}%`
 });
 
-function convertRange(value: number) {
-    return ((value - 0) / (255 - 0)) * (100 - 0) + 0;
+function convertRange(value: number, rangeMin: number, rangeMax: number) {
+    return ((value - rangeMin) / (rangeMax - rangeMin)) * (100 - 0) + 0;
 };
 
 </script>
