@@ -4,7 +4,7 @@
             <div class="range-max-value">
                 <img v-if="setItem.rangeIcon" class="original" :src="getIconSrc(setItem)" alt="">
                 <span v-else-if="!isColor" v-text="setItem.rangeMax"></span>
-                <span v-if="!setItem.rangeIcon && isColor" :class="setItem.key" v-text="getLanguageText(setItem.language)"></span>
+                <span v-if="!setItem.rangeIcon && isColor" :class="setItem.key" v-text="toLanguageText(setItem.language)"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">
@@ -36,8 +36,7 @@
 import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { Nodes } from '@/types';
-import { useStore } from '@/stores/index';
-const store = useStore();
+import { toLanguageText, getIconSrc } from '@/service/service';
 
 const props = defineProps({
     setItem: {
@@ -62,21 +61,6 @@ const currentValue = computed(() => {
 
 function convertRange(value: number) {
     return ((value - 0) / (255 - 0)) * (100 - 0) + 0;
-};
-
-const currentLanguage = computed(() => {
-    let language = store.$state.menu.nodes.find(n => n.key == 'Language');
-    return language?.value ?? "English";
-});
-
-
-function getLanguageText(langItem: { [key: string]: string; }) {
-    const langKey = currentLanguage.value as keyof typeof langItem;
-    return langItem[langKey];
-};
-
-function getIconSrc (setItem: Nodes) {
-    return new URL(`/src/assets/icons/${setItem.rangeIcon}`, import.meta.url).href;
 };
 
 </script>

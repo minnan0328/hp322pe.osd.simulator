@@ -1,15 +1,13 @@
 <template>
     <div :class="['customize-checkbox', { selected: selected }]">
         <div :class="['box', { selected: isChecked(setItem) }]"></div>
-        <div v-text="getLanguageText(setItem.language)"></div>
+        <div v-text="toLanguageText(setItem.language)"></div>
     </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
 import type { PropType } from 'vue';
-import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
-import { ModeType } from '@/types';
+import { toLanguageText } from '@/service/service';
 
 const props = defineProps({
     setItem: {
@@ -27,17 +25,6 @@ const props = defineProps({
         default: false
     }
 });
-
-const store = useStore();
-const currentLanguage = computed(() => {
-    let language = store.$state.menu.nodes.find(n => n.key == 'Language');
-    return language?.value ?? "English";
-});
-
-function getLanguageText(langItem: { [key: string]: string; }) {
-    const langKey = currentLanguage.value as keyof typeof langItem;
-    return langItem[langKey];
-};
 
 function isChecked(item: Nodes): boolean {
     const value = props.selectedItem.value;

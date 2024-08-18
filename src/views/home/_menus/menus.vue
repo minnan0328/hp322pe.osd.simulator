@@ -10,9 +10,9 @@
                     <img src="@/assets/images/logo.png" alt="">
                 </div>
                 <div class="options">
-                    <template  v-for="menu in menus" v-text="getLanguageText(menu.language)">
+                    <template  v-for="menu in menus" v-text="toLanguageText(menu.language)">
                         <div :class="['option', { selected: state.currentMenu == menu }]"
-                            v-if="isEnable(menu)" v-text="getLanguageText(menu.language)">
+                            v-if="isEnable(menu)" v-text="toLanguageText(menu.language)">
                         </div>
                     </template>
                 </div>
@@ -27,7 +27,7 @@
                                         selected: state.currentFunction == funItem,
                                         'merge-grid': funItem.mergeGrid
                                     }]"
-                                    v-if="funItem.mode != ModeType.radio" v-text="getLanguageText(funItem.language)">
+                                    v-if="funItem.mode != ModeType.radio" v-text="toLanguageText(funItem.language)">
                                 </div>
                                 <!-- button -->
     
@@ -46,7 +46,7 @@
                                             || funItem.value && !funItem.nodes && funItem.mode == ModeType.info
                                             || funItem.value && funItem.nodes && funItem.mode == ModeType.radio">
                                         <span v-text="funItem.value"></span>
-                                        <span v-if="funItem.unit" v-text="getLanguageText(funItem.unit)"></span>
+                                        <span v-if="funItem.unit" v-text="toLanguageText(funItem.unit)"></span>
                                     </div>
                                 </template>
                                 <!-- value -->
@@ -62,7 +62,7 @@
                                     && isEnable(setItem) && setItem.mode != ModeType.horizontalRange">
                                 <!-- button -->
                                 <div :class="['item', { selected: state.currentSettingValue == setItem, 'merge-grid': setItem.mergeGrid }]"
-                                    v-if="setItem.mode == ModeType.button || setItem.mode == ModeType.info" v-text="getLanguageText(setItem.language)">
+                                    v-if="setItem.mode == ModeType.button || setItem.mode == ModeType.info" v-text="toLanguageText(setItem.language)">
                                 </div>
                                 <!-- button -->
                                 
@@ -182,6 +182,7 @@ import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
+import { toLanguageText } from '@/service/service';
 import verticalRange from './_vertical-range.vue';
 import horizontalRange from './_horizontal-range.vue';
 import customizeCheckbox from './_customize-checkbox.vue';
@@ -205,16 +206,6 @@ const openAllMenu = ref(false);
 const openBrightness= ref(false);
 const openColor= ref(false);
 const openInput= ref(false);
-
-const currentLanguage = computed(() => {
-    let language = store.$state.menu.nodes.find(n => n.key == 'Language');
-    return language?.value ?? "English";
-});
-
-function getLanguageText(langItem: { [key: string]: string; }) {
-    const langKey = currentLanguage.value as keyof typeof langItem;
-    return langItem[langKey];
-};
 
 // 開啟選單
 function handleControllerMenus() {

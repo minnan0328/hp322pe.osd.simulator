@@ -1,7 +1,7 @@
 <template>
     <div class="range">
         <div :class="['vertical-range', { selected: selected }]">
-            <div class="item range-text" v-text="getLanguageText(setItem.language)"></div>
+            <div class="item range-text" v-text="toLanguageText(setItem.language)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
                 <div :class="['graduate', setItem.key, { max: setItem.value == setItem.rangeMax }]">
@@ -16,8 +16,7 @@
 import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { Nodes } from '@/types';
-import { useStore } from '@/stores/index';
-const store = useStore();
+import { toLanguageText } from '@/service/service';
 
 const props = defineProps({
     setItem: {
@@ -34,17 +33,6 @@ const props = defineProps({
 const currentValue = computed(() => {
     return `${props.setItem.value as number - 4}%`
 });
-
-const currentLanguage = computed(() => {
-    let language = store.$state.menu.nodes.find(n => n.key == 'Language');
-    return language?.value ?? "English";
-});
-
-
-function getLanguageText(langItem: { [key: string]: string; }) {
-    const langKey = currentLanguage.value as keyof typeof langItem;
-    return langItem[langKey];
-};
 
 </script>
 <style lang="scss" scoped>
