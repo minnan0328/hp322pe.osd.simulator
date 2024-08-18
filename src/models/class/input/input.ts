@@ -1,15 +1,19 @@
+// 輸入
+
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { Reset, Back } from './_utilities';
+import { Reset, Back, OnNodes, OffNodes } from '../_utilities';
 
-let resetEnum = new Reset(); 
-let backEnum = new Back();
-let innerBackEnum = new Back();
-innerBackEnum.mergeGrid = false;
+let ResetEnum = new Reset(); 
+let BackEnum = new Back();
+let OnNodesEnum = new OnNodes();
+let OffNodesEnum = new OffNodes();
 
 export default class Input implements Nodes {
     key = "Input";
     value = "HDMI";
+    displayValue = false;
+    parents = null;
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
@@ -26,6 +30,8 @@ export default class Input implements Nodes {
         {
             key: "HDMI",
             value: "HDMI",
+            displayValue: false,
+            parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
@@ -43,6 +49,8 @@ export default class Input implements Nodes {
         {
             key: "VGA",
             value: "VGA",
+            displayValue: false,
+            parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
             rangeMax: 0,
@@ -58,8 +66,10 @@ export default class Input implements Nodes {
         },
         // 自動切換輸入
         {
-            key: "Auto-SwitchInput",
-            value: "On",
+            key: "AutoSwitchInput",
+            value: OnNodesEnum.value,
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
             rangeMax: 0,
@@ -73,44 +83,32 @@ export default class Input implements Nodes {
             unit: null,
             nodes: [
                 {
-                    key: "On",
-                    value: "On",
-                    mode: ModeType.radio,
-                    rangeMin: 0,
-                    rangeMax: 0,
-                    rangeIcon: null,
-                    only: ["HDMI", "VGA"],
-                    mergeGrid: false,
-                    language: {
-                        English: 'On',
-                        TraditionalChinese: '開'
-                    },
-                    unit: null,
-                    nodes: null
+                    ...OnNodesEnum,
+                    parents: "AutoSwitchInput"
                 },
                 {
-                    key: "Off",
-                    value: "Off",
-                    mode: ModeType.radio,
-                    rangeMin: 0,
-                    rangeMax: 0,
-                    rangeIcon: null,
-                    only: ["HDMI", "VGA"],
-                    mergeGrid: false,
-                    language: {
-                        English: 'Off',
-                        TraditionalChinese: '關'
-                    },
-                    unit: null,
-                    nodes: null
+                    ...OffNodesEnum,
+                    parents: "AutoSwitchInput"
                 },
                 // 上一步
-                innerBackEnum
+                {
+                    ...BackEnum,
+                    parents: "AutoSwitchInput"
+                }
             ]
         },
         // 重置
-        resetEnum,
+        {
+            ...ResetEnum,
+            parents: this.key,
+            mergeGrid: true
+
+        },
         // 返回
-        backEnum
+        {
+            ...BackEnum,
+            parents: this.key,
+            mergeGrid: true
+        }
     ];
 }

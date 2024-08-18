@@ -42,9 +42,8 @@
                                 <!-- value -->
                                 <template v-if="!state.secondPanel">
                                     <div class="item item-value"
-                                        v-if="funItem.value && funItem.mode == ModeType.button
-                                            || funItem.value && !funItem.nodes && funItem.mode == ModeType.info
-                                            || funItem.value && funItem.nodes && funItem.mode == ModeType.radio">
+                                        v-if="funItem.value && funItem.displayValue
+                                                || funItem.value == 0 && funItem.displayValue">
                                         <span v-text="funItem.value"></span>
                                         <span v-if="funItem.unit" v-text="toLanguageText(funItem.unit)"></span>
                                     </div>

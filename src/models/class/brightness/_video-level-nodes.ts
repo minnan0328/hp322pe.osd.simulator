@@ -1,0 +1,89 @@
+// 亮度 > 視訊等級
+
+import type { Nodes } from "@/types";
+import { ModeType } from "@/types";
+import { Back } from '../_utilities';
+
+const BackEnum = new Back();
+
+export default class BlackStretchNodes implements Nodes {
+    key = "VideoLevel";
+    value = "Auto";
+    displayValue = true;
+    parents = null;
+    mode = ModeType.button;
+    rangeMin = 0;
+    rangeMax = 0;
+    rangeIcon = null;
+    only = ["HDMI"];
+    mergeGrid = false
+    language = {
+        English: "Video Level",
+        TraditionalChinese: "視訊等級"
+    };
+    unit = null;
+    nodes = [
+        // 自動
+        {
+            key: "Auto",
+            value: "Auto",
+            displayValue: false,
+            parents: this.key,
+            mode: ModeType.radio,
+            rangeMin: 0,
+            rangeMax: 0,
+            rangeIcon: null,
+            only: ["HDMI"],
+            mergeGrid: false,
+            language: {
+                English: "Auto",
+                TraditionalChinese: "自動"
+            },
+            unit: null,
+            nodes: null
+        },
+        // 限制範圍
+        {
+            key: "LimitedRange(16 - 235)",
+            value: "Limited Range (16 - 235)",
+            displayValue: false,
+            parents: this.key,
+            mode: ModeType.radio,
+            rangeMin: 0,
+            rangeMax: 0,
+            rangeIcon: null,
+            only: ["HDMI"],
+            mergeGrid: false,
+            language: {
+                English: "Limited Range (16 - 235）",
+                TraditionalChinese: "限制範圍(16 - 235）"
+            },
+            unit: null,
+            nodes: null
+        },
+        // 完整範圍
+        {
+            key: "FullRange(0 - 255)",
+            value: "Full Range (0 - 255)",
+            displayValue: false,
+            parents: this.key,
+            mode: ModeType.radio,
+            rangeMin: 0,
+            rangeMax: 0,
+            rangeIcon: null,
+            only: ["HDMI"],
+            mergeGrid: false,
+            language: {
+                English: "Full Range (0 - 255)",
+                TraditionalChinese: "完整範圍 (16 - 235）"
+            },
+            unit: null,
+            nodes: null
+        },
+        // 上一步
+        {
+            ...BackEnum,
+            mergeGrid: false
+        }
+    ]
+};

@@ -1,12 +1,14 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import Color from './color';
+import Color from '../color/_cool-nodes';
 
 const currentColor = new Color();
 
 export default class Information implements Nodes {
     key = "Information";
     value = null;
+    displayValue = false;
+    parents = null;
     mode = ModeType.info;
     rangeMin = 0;
     rangeMax = 0;
@@ -22,6 +24,8 @@ export default class Information implements Nodes {
         {
             key: "CurrentMode:",
             value: "1920x1080 60Hz",
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
@@ -38,6 +42,8 @@ export default class Information implements Nodes {
         {
             key: "OptimalMode:",
             value: "1920x1080 100Hz",
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
@@ -54,6 +60,8 @@ export default class Information implements Nodes {
         {
             key: "ColorSetting:",
             value: currentColor.value,
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
@@ -70,6 +78,8 @@ export default class Information implements Nodes {
         {
             key: "FWPackageVersion:",
             value: "0.0.1.0",
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
@@ -86,6 +96,8 @@ export default class Information implements Nodes {
         {
             key: "HWRevision:",
             value: "B0IT0000",
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
@@ -102,6 +114,8 @@ export default class Information implements Nodes {
         {
             key: "SerialNumber:",
             value: "CNK0000001",
+            displayValue: true,
+            parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
             rangeMax: 0,
