@@ -1,6 +1,5 @@
 // enum
 export enum ModeType {
-    range = "range",
     horizontalRange = "horizontalRange",
     verticalRange = "verticalRange",
     radio = "radio",
@@ -8,7 +7,7 @@ export enum ModeType {
     checkBox ="checkBox",
     setting = "setting",
     info = "info",
-    image = "image",
+    exit = "exit",
 };
 
 // interface

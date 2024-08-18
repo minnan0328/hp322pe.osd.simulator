@@ -13,7 +13,7 @@ export default class DDCCISupportNodes implements Nodes {
     value = OnNodesEnum.value;
     displayValue = true;
     parents = null;
-    mode = ModeType.setting;
+    mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
     rangeIcon = null;

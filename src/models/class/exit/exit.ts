@@ -5,7 +5,7 @@ export default class Exit implements Nodes {
     value = "logo.png";
     displayValue = false;
     parents = null;
-    mode = ModeType.image;
+    mode = ModeType.exit;
     rangeMin = 0;
     rangeMax = 0;
     rangeIcon = null;

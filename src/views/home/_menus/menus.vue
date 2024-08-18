@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div :class="['setting', { 'two-columns': state.secondPanel }]">
-                <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.image">
+                <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.exit">
                     <div class="function">
                         <template v-if="state.currentMenu" v-for="funItem in state.currentMenu.nodes">
                             <div :class="['setting-item', funItem.key, { 'unset-grid': state.secondPanel }]" v-if="isEnable(funItem)">
@@ -103,7 +103,7 @@
                         </template>
                     </div>
                 </template>
-                <template v-if="state.currentMenu && state.currentMenu.mode == ModeType.image">
+                <template v-if="state.currentMenu && state.currentMenu.mode == ModeType.exit">
                     <div class="full-image">
                         <img src="@/assets/icons/logo.svg" alt="">
                     </div>
@@ -122,54 +122,20 @@
     </div>
 
     <div class="controller-menus" v-if="openControllerMenus">
-        <template v-if="isControllerMenusButton">
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-menu.svg" alt="">
-            </div>
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-brightness.svg" alt="">
-            </div>
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-color.svg" alt="">
-            </div>
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-input.svg" alt="">
-            </div>
-        </template>
-        <template v-else-if="isSelectedButton">
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-next.svg" alt="">
-            </div>
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-arrow-bottom.svg" alt="">
-            </div>
-            <div class="menu-item">
-                <img src="@/assets/icons/icon-arrow-up.svg" alt="">
-            </div>
-            <div class="menu-item" v-if="!state.secondPanel">
-                <img src="@/assets/icons/icon-close.svg" alt="">
-            </div>
-            <div class="menu-item" v-else-if="state.secondPanel">
-                <img src="@/assets/icons/icon-previous.svg" alt="">
+        <template v-for="currentButton in handleControllerButtonList">
+            <div class="menu-item" v-if="currentButton.image">
+                <img :src="currentButton?.image" alt="">
             </div>
         </template>
     </div>
 
     <div class="controller">
         <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus" @click="handleControllerMenus"></button>
-        <template v-else-if="isControllerMenusButton">
-            <button class="controller-btn all" @click="handleAllMenu"></button>
-            <button class="controller-btn brightness" @click="handleBrightness"></button>
-            <button class="controller-btn color" @click="handleColor"></button>
-            <button class="controller-btn input" @click="handleInput"></button>
-        </template>
-
-        <template v-else-if="isSelectedButton">
-            <button class="controller-btn next" @click="handleTarget"></button>
-            <button class="controller-btn bottom" @click="handleBottom()"></button>
-            <button class="controller-btn up" @click="handleUp()"></button>
-            <button class="controller-btn close" v-if="!state.secondPanel" @click="handleClose"></button>
-            <button class="controller-btn close" v-else-if="state.secondPanel" @click="handlePrevious"></button>
+        <template v-else v-for="currentButton in handleControllerButtonList">
+            <div  v-if="currentButton.event == null" class="controller-btn empty"></div>
+            <button v-else-if="currentButton.event" class="controller-btn"
+                @click="currentButton?.event">
+            </button>
         </template>
         <slot name="openMonitor"></slot> 
     </div>
@@ -184,6 +150,22 @@ import verticalRange from './_vertical-range.vue';
 import horizontalRange from './_horizontal-range.vue';
 import customizeCheckbox from './_customize-checkbox.vue';
 import customizeRadio from './_customize-radio.vue';
+
+
+
+import iconAllMenu from '@/assets/icons/icon-menu.svg';
+import iconBrightness from '@/assets/icons/icon-brightness.svg';
+import iconColor from '@/assets/icons/icon-color.svg';
+import iconInput from '@/assets/icons/icon-input.svg';
+import iconNext from '@/assets/icons/icon-next.svg';
+import iconNextRight from '@/assets/icons/icon-next-right.svg';
+import iconArrowButton from '@/assets/icons/icon-arrow-bottom.svg';
+import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
+import iconClose from '@/assets/icons/icon-close.svg';
+import iconCheck from '@/assets/icons/icon-check.svg';
+import iconSubtract from '@/assets/icons/icon-subtract.svg';
+import iconAdd from '@/assets/icons/icon-add.svg';
+import iconPrevious from '@/assets/icons/icon-previous.svg';
 
 const store = useStore();
 
@@ -200,9 +182,11 @@ const props = defineProps({
 
 const openControllerMenus = ref(false);
 const openAllMenu = ref(false);
-const openBrightness= ref(false);
-const openColor= ref(false);
-const openInput= ref(false);
+const openSecondAssignButton = ref(false);
+const openThirdAssignButton= ref(false);
+const openFourthAssignButton= ref(false);
+
+
 
 // 開啟選單
 function handleControllerMenus() {
@@ -214,7 +198,7 @@ function handleControllerMenus() {
 // 是否啟用選單控制按鈕
 const isControllerMenusButton = computed(() => {
     if(openControllerMenus.value) {
-        return !openAllMenu.value && !openBrightness.value && !openColor.value && !openInput.value;
+        return !openAllMenu.value && !openSecondAssignButton.value && !openThirdAssignButton.value && !openFourthAssignButton.value;
     }
 });
 
@@ -228,30 +212,30 @@ const isSelectedButton = computed(() => {
 // 開啟全部選單
 function handleAllMenu() {
     openAllMenu.value = true;
-    openBrightness.value = false;
-    openColor.value = false;
-    openInput.value = false;
+    openSecondAssignButton.value = false;
+    openThirdAssignButton.value = false;
+    openFourthAssignButton.value = false;
 };
-// 開啟亮度
-function handleBrightness() {
+// 開啟第二個選單按鈕
+function handleSecondAssignButton() {
     openAllMenu.value = false;
-    openBrightness.value = true;
-    openColor.value = false;
-    openInput.value = false;
+    openSecondAssignButton.value = true;
+    openThirdAssignButton.value = false;
+    openFourthAssignButton.value = false;
 };
-// 開啟 color
-function handleColor() {
+// 開啟第三個選單按鈕
+function handleThirdAssignButton() {
     openAllMenu.value = false;
-    openBrightness.value = false;
-    openColor.value = true;
-    openInput.value = false;
+    openSecondAssignButton.value = false;
+    openThirdAssignButton.value = true;
+    openFourthAssignButton.value = false;
 };
-// 開啟 input
-function handleInput() {
+// 開啟第四個選單按鈕
+function handleFourthAssignButton() {
     openAllMenu.value = false;
-    openBrightness.value = false;
-    openColor.value = false;
-    openInput.value = true;
+    openSecondAssignButton.value = false;
+    openThirdAssignButton.value = false;
+    openFourthAssignButton.value = true;
 };
 
 const menus = computed(() => {
@@ -279,6 +263,7 @@ const state = reactive({
     fourthPanelIndex: 0
 });
 
+
 watch(() => props.openMonitor, (newVal, oldVal) => {
     if(newVal == false) {
         handleClose();
@@ -288,6 +273,114 @@ watch(() => props.openMonitor, (newVal, oldVal) => {
 watch(() => openAllMenu.value, (newVal, oldVal) => {
     state.currentMenu = menus.value[0];
 });
+
+interface ControllerButtonList {
+    image: string | null,
+    event: (() => void) | null
+};
+
+const handleControllerButtonList = computed<ControllerButtonList[] | null>(() => {
+    if(props.openMonitor) {
+        if(isControllerMenusButton.value) {
+            return [
+                { image: iconAllMenu, event: handleAllMenu },
+                { image: iconBrightness, event: handleSecondAssignButton },
+                { image: iconColor, event: handleThirdAssignButton },
+                { image: iconInput, event: handleFourthAssignButton }
+            ]
+        } else if(openAllMenu.value && !state.secondPanel) {
+            let buttonList: ControllerButtonList[] = [];
+
+            if(state.currentMenu?.mode == ModeType.info) {
+                buttonList = [
+                    { image: null, event: null },
+                    { image: iconArrowButton, event: handleBottom },
+                    { image: iconArrowUp, event: handleUp },
+                    { image: iconClose, event: handleClose }
+                ];
+            } else if(state.currentMenu?.mode == ModeType.exit) {
+                buttonList = [
+                    { image: iconCheck, event: handleClose },
+                    { image: iconArrowButton, event: handleBottom },
+                    { image: iconArrowUp, event: handleUp },
+                    { image: iconClose, event: handleClose }
+                ];
+            } else {
+                buttonList = [
+                    { image: iconNext, event: handleTarget },
+                    { image: iconArrowButton, event: handleBottom },
+                    { image: iconArrowUp, event: handleUp },
+                    { image: iconClose, event: handleClose }
+                ];
+            }
+            return buttonList;
+        } else if(openAllMenu.value && state.currentMenu) {
+            if(state.secondPanel && !state.thirdPanel) {
+                return handleModeControllerButtonList(state.secondPanel, state.currentMenu);
+            } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
+                return handleModeControllerButtonList(state.thirdPanel, state.secondPanel);
+            } else if(state.secondPanel && state.thirdPanel && state.fourthPanel) {
+                return handleModeControllerButtonList(state.fourthPanel, state.thirdPanel);
+            } else {
+                return [];
+            }
+        } else {
+            return [];
+        }
+    } else {
+        return [];
+    }
+});
+
+function handleModeControllerButtonList(item: Nodes, previousItem: Nodes) {
+    const nextButtonList: ControllerButtonList[] = [
+        { image: iconNext, event: handleTarget },
+        { image: iconArrowButton, event: handleBottom },
+        { image: iconArrowUp, event: handleUp },
+        { image: iconPrevious, event: handlePrevious }
+    ];
+
+    const checkedButtonList: ControllerButtonList[] = [
+        { image: iconCheck, event: handleCheck },
+        { image: iconArrowButton, event: handleBottom },
+        { image: iconArrowUp, event: handleUp },
+        { image: iconPrevious, event: handlePrevious }
+    ];
+
+    const rangeButtonList: ControllerButtonList[] = [
+        { image: iconCheck, event: handleCheck },
+        { image: iconSubtract, event: handleRangeSubtract },
+        { image: iconAdd, event: handleRangeAdd },
+        { image: iconPrevious, event: handlePrevious }
+    ];
+
+    const rangeNextButtonList: ControllerButtonList[] = [
+        { image: iconNextRight, event: handleBottom },
+        { image: iconSubtract, event: handleRangeSubtract },
+        { image: iconAdd, event: handleRangeAdd },
+        { image: iconPrevious, event: handlePrevious }
+    ];
+    
+    if(
+        item.key == "Reset" || item.key == "Back"
+        || item.mode == ModeType.radio && !item.nodes
+        || item.mode == ModeType.button && !item.nodes
+    ) {
+        return checkedButtonList;
+    } else if(
+        item.mode == ModeType.verticalRange && previousItem.nodes?.length == 1
+        || item.mode == ModeType.horizontalRange  && previousItem.nodes?.length == 1
+    ) {
+        return rangeButtonList;
+    } else if(
+        item.mode == ModeType.verticalRange && previousItem.nodes && previousItem.nodes?.length > 1
+        || item.mode == ModeType.horizontalRange && previousItem.nodes && previousItem.nodes?.length >  1
+    ) {
+        return rangeNextButtonList;
+    } else {
+        return nextButtonList;
+    }
+}
 
 function isEnable(item: Nodes): boolean {
     return item.only?.includes(props.currentInput) ?? false;
@@ -364,14 +457,26 @@ function handleBottom() {
     handleNavigation('down');
 };
 
+function handleRangeSubtract() {
+    console.log("handleRangeSubtract");
+    
+};
+function handleRangeAdd() {
+    console.log("handleRangeAdd");
+};
+function handleCheck() {
+    console.log("handleCheck");
+
+};
+
 // 關閉全部選單，包含
 function handleClose() {
     openControllerMenus.value = false;
     state.currentMenu = null;
     openAllMenu.value = false;
-    openBrightness.value = false;
-    openColor.value = false;
-    openInput.value = false;
+    openSecondAssignButton.value = false;
+    openThirdAssignButton.value = false;
+    openFourthAssignButton.value = false;
 
     state.currentMenuIndex = 0;
     state.secondPanelIndex = 0;
@@ -564,6 +669,7 @@ function handlePrevious() {
 }
 
 .controller {
+    display: flex;
 	position: absolute;
 	bottom: 135px;
 	right: 18px;

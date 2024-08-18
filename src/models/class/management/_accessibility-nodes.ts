@@ -16,7 +16,7 @@ export default class AccessibilityNodes implements Nodes {
     value = OffNodesEnum.value;
     displayValue = true;
     parents = null;
-    mode = ModeType.setting;
+    mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
     rangeIcon = null;

@@ -12,7 +12,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
     value = "Cycle Patterns";
     displayValue = false;
     parents = null;
-    mode = ModeType.setting;
+    mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
     rangeIcon = null;
@@ -29,7 +29,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             value: "Cycle Patterns",
             displayValue: false,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
             rangeIcon: null,
@@ -47,7 +47,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             value: "Full Screen Black",
             displayValue: false,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
             rangeIcon: null,
@@ -65,7 +65,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             value: "Full Screen White",
             displayValue: false,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
             rangeIcon: null,
@@ -83,7 +83,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             value: "Full Screen Red",
             displayValue: false,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
             rangeIcon: null,
@@ -101,7 +101,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             value: "Full Screen Green",
             displayValue: false,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
             rangeIcon: null,
@@ -119,7 +119,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             value: "Full Screen Blue",
             displayValue: false,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             rangeMin: 0,
             rangeMax: 0,
             rangeIcon: null,
