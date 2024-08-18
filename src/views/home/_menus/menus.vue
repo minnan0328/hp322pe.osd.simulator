@@ -17,14 +17,14 @@
                     </template>
                 </div>
             </div>
-            <div :class="['setting', { 'two-columns': state.currentFunction }]">
+            <div :class="['setting', { 'two-columns': state.secondPanel }]">
                 <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.image">
                     <div class="function">
                         <template v-if="state.currentMenu" v-for="funItem in state.currentMenu.nodes">
-                            <div :class="['setting-item', funItem.key, { 'unset-grid': state.currentFunction }]" v-if="isEnable(funItem)">
+                            <div :class="['setting-item', funItem.key, { 'unset-grid': state.secondPanel }]" v-if="isEnable(funItem)">
                                 <!-- button -->
                                 <div :class="['item', {
-                                        selected: state.currentFunction == funItem,
+                                        selected: state.secondPanel == funItem,
                                         'merge-grid': funItem.mergeGrid
                                     }]"
                                     v-if="funItem.mode != ModeType.radio" v-text="toLanguageText(funItem.language)">
@@ -35,12 +35,12 @@
                                 <customizeRadio v-else-if="funItem.mode == ModeType.radio"
                                     :setItem="funItem"
                                     :isChecked="state.currentMenu.value == funItem.value"
-                                    :selected="state.currentFunction == funItem">
+                                    :selected="state.secondPanel == funItem">
                                 </customizeRadio>
                                 <!-- radio -->
     
                                 <!-- value -->
-                                <template v-if="!state.currentFunction">
+                                <template v-if="!state.secondPanel">
                                     <div class="item item-value"
                                         v-if="funItem.value && funItem.mode == ModeType.button
                                             || funItem.value && !funItem.nodes && funItem.mode == ModeType.info
@@ -50,18 +50,17 @@
                                     </div>
                                 </template>
                                 <!-- value -->
-                                
                             </div>
                         </template>
                     </div>
-                    <div :class="['function-setting', { 'customRGB-range-section': state.currentFunction.key == 'CustomRGB' }]"
-                            v-if="state.currentMenu && state.currentFunction && state.currentFunction.nodes">
-                        <template v-for="setItem in state.currentFunction.nodes">
+                    <div :class="['function-setting', { 'customRGB-range-section': state.secondPanel.key == 'CustomRGB' }]"
+                            v-if="state.currentMenu && state.secondPanel && state.secondPanel.nodes">
+                        <template v-for="setItem in state.secondPanel.nodes">
                             <div :class="['setting-item unset-grid', setItem.key]"
                                 v-if="isEnable(setItem) && setItem.mode != ModeType.verticalRange
                                     && isEnable(setItem) && setItem.mode != ModeType.horizontalRange">
                                 <!-- button -->
-                                <div :class="['item', { selected: state.currentSettingValue == setItem, 'merge-grid': setItem.mergeGrid }]"
+                                <div :class="['item', { selected: state.thirdPanel == setItem, 'merge-grid': setItem.mergeGrid }]"
                                     v-if="setItem.mode == ModeType.button || setItem.mode == ModeType.info" v-text="toLanguageText(setItem.language)">
                                 </div>
                                 <!-- button -->
@@ -69,29 +68,29 @@
                                 <!-- radio -->
                                 <customizeRadio v-else-if="setItem.mode == ModeType.radio"
                                     :setItem="setItem"
-                                    :isChecked="state.currentFunction.value == setItem.value"
-                                    :selected="state.currentSettingValue == setItem">
+                                    :isChecked="state.secondPanel.value == setItem.value"
+                                    :selected="state.thirdPanel == setItem">
                                 </customizeRadio>
                                 <!-- radio -->
 
                                 <!-- checkbox -->
                                 <customizeCheckbox v-else-if="setItem.mode == ModeType.checkBox"
                                     :setItem="setItem"
-                                    :selectedItem="state.currentFunction"
-                                    :selected="state.currentSettingValue == setItem">
+                                    :selectedItem="state.secondPanel"
+                                    :selected="state.thirdPanel == setItem">
                                 </customizeCheckbox>
                             </div>
                             <!-- 一般縱向 range -->
-                            <verticalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key != 'CustomRGB'"
+                            <verticalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.secondPanel.key != 'CustomRGB'"
                                 :setItem="setItem"
-                                :selected="state.currentSettingValue == setItem">
+                                :selected="state.thirdPanel == setItem">
                             </verticalRange>
                             <!-- 一般縱向 range -->
                             <!-- 縱向 color range -->
-                            <template v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.currentFunction.key == 'CustomRGB'">
+                            <template v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.secondPanel.key == 'CustomRGB'">
                                 <verticalRange v-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange"
                                     :setItem="setItem"
-                                    :selected="state.currentSettingValue == setItem"
+                                    :selected="state.thirdPanel == setItem"
                                     :isColor="true">
                                 </verticalRange>
                             </template>
@@ -99,10 +98,9 @@
                             <!-- 橫向 range -->
                             <horizontalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.horizontalRange"
                                 :setItem="setItem"
-                                :selected="state.currentSettingValue == setItem">
+                                :selected="state.thirdPanel == setItem">
                             </horizontalRange>
                             <!-- 橫向 range -->
-                            
                         </template>
                     </div>
                 </template>
@@ -149,10 +147,10 @@
             <div class="menu-item">
                 <img src="@/assets/icons/icon-arrow-up.svg" alt="">
             </div>
-            <div class="menu-item" v-if="!state.currentFunction">
+            <div class="menu-item" v-if="!state.secondPanel">
                 <img src="@/assets/icons/icon-close.svg" alt="">
             </div>
-            <div class="menu-item" v-else-if="state.currentFunction">
+            <div class="menu-item" v-else-if="state.secondPanel">
                 <img src="@/assets/icons/icon-previous.svg" alt="">
             </div>
         </template>
@@ -171,8 +169,8 @@
             <button class="controller-btn next" @click="handleTarget"></button>
             <button class="controller-btn bottom" @click="handleBottom()"></button>
             <button class="controller-btn up" @click="handleUp()"></button>
-            <button class="controller-btn close" v-if="!state.currentFunction" @click="handleClose"></button>
-            <button class="controller-btn close" v-else-if="state.currentFunction" @click="handlePrevious"></button>
+            <button class="controller-btn close" v-if="!state.secondPanel" @click="handleClose"></button>
+            <button class="controller-btn close" v-else-if="state.secondPanel" @click="handlePrevious"></button>
         </template>
         <slot name="openMonitor"></slot> 
     </div>
@@ -272,12 +270,14 @@ const menus = computed(() => {
 });
 
 const state = reactive({
-    currentMenuIndex: 0,
     currentMenu: null as Nodes | null,
-    currentFunction: null as Nodes | null,
-    currentFunctionIndex: 0,
-    currentSettingValueIndex: 0,
-    currentSettingValue: null as Nodes | null
+    secondPanel: null as Nodes | null,
+    thirdPanel: null as Nodes | null,
+    fourthPanel: null as Nodes | null,
+    currentMenuIndex: 0,
+    secondPanelIndex: 0,
+    thirdPanelIndex: 0,
+    fourthPanelIndex: 0
 });
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
@@ -295,15 +295,15 @@ function isEnable(item: Nodes): boolean {
 };
 
 function handleTarget() {
-    if (state.currentMenu?.nodes && !state.currentFunction) {
-        selectEnabledItem(state.currentMenu.nodes, state.currentFunctionIndex, (item, index) => {
-            state.currentFunction = item;
-            state.currentFunctionIndex = index;
+    if (state.currentMenu?.nodes && !state.secondPanel) {
+        selectEnabledItem(state.currentMenu.nodes, state.secondPanelIndex, (item, index) => {
+            state.secondPanel = item;
+            state.secondPanelIndex = index;
         });
-    } else if (state.currentFunction?.nodes && !state.currentSettingValue) {
-        selectEnabledItem(state.currentFunction.nodes, state.currentSettingValueIndex, (item, index) => {
-            state.currentSettingValue = item;
-            state.currentSettingValueIndex = index;
+    } else if (state.secondPanel?.nodes && !state.thirdPanel) {
+        selectEnabledItem(state.secondPanel.nodes, state.thirdPanelIndex, (item, index) => {
+            state.thirdPanel = item;
+            state.thirdPanelIndex = index;
         });
     }
 }
@@ -329,7 +329,7 @@ function handleNavigation(direction: 'up' | 'down') {
     };
 
     if (state.currentMenu?.nodes) {
-        if (!state.currentFunction) {
+        if (!state.secondPanel) {
             state.currentMenuIndex = updateIndex(state.currentMenuIndex, menus.value.length);
 
             if (!isEnable(menus.value[state.currentMenuIndex])) {
@@ -337,21 +337,21 @@ function handleNavigation(direction: 'up' | 'down') {
             } else {
                 state.currentMenu = menus.value[state.currentMenuIndex];
             }
-        } else if (state.currentFunction && !state.currentSettingValue) {
-            state.currentFunctionIndex = updateIndex(state.currentFunctionIndex, state.currentMenu.nodes.length);
+        } else if (state.secondPanel && !state.thirdPanel) {
+            state.secondPanelIndex = updateIndex(state.secondPanelIndex, state.currentMenu.nodes.length);
 
-            if (!isEnable(state.currentMenu.nodes[state.currentFunctionIndex])) {
+            if (!isEnable(state.currentMenu.nodes[state.secondPanelIndex])) {
                 handleNavigation(direction);
             } else {
-                state.currentFunction = state.currentMenu.nodes[state.currentFunctionIndex];
+                state.secondPanel = state.currentMenu.nodes[state.secondPanelIndex];
             }
-        } else if (state.currentFunction && state.currentFunction.nodes && state.currentSettingValue) {
-            state.currentSettingValueIndex = updateIndex(state.currentSettingValueIndex, state.currentFunction.nodes.length);
+        } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel) {
+            state.thirdPanelIndex = updateIndex(state.thirdPanelIndex, state.secondPanel.nodes.length);
 
-            if (!isEnable(state.currentFunction.nodes[state.currentSettingValueIndex])) {
+            if (!isEnable(state.secondPanel.nodes[state.thirdPanelIndex])) {
                 handleNavigation(direction);
             } else {
-                state.currentSettingValue = state.currentFunction.nodes[state.currentSettingValueIndex];
+                state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
             }
         }
     }
@@ -362,7 +362,7 @@ function handleUp() {
 };
 
 function handleBottom() {
-    handleNavigation('down')
+    handleNavigation('down');
 };
 
 // 關閉全部選單，包含
@@ -375,21 +375,21 @@ function handleClose() {
     openInput.value = false;
 
     state.currentMenuIndex = 0;
-    state.currentFunctionIndex = 0;
-    state.currentSettingValueIndex = 0;
+    state.secondPanelIndex = 0;
+    state.thirdPanelIndex = 0;
 
 };
 
 // 上一步
 function handlePrevious() {
-    if(state.currentFunction && !state.currentSettingValue) {
-        state.currentFunction = null;
-        state.currentFunctionIndex = 0;
+    if(state.secondPanel && !state.thirdPanel) {
+        state.secondPanel = null;
+        state.secondPanelIndex = 0;
     } 
 
-    if(state.currentSettingValue) {
-        state.currentSettingValue = null;
-        state.currentSettingValueIndex = 0;
+    if(state.thirdPanel) {
+        state.thirdPanel = null;
+        state.thirdPanelIndex = 0;
     }
 };
 
