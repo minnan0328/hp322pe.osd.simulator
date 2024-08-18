@@ -132,9 +132,11 @@
     <div class="controller">
         <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus" @click="handleControllerMenus"></button>
         <template v-else v-for="currentButton in handleControllerButtonList">
-            <div  v-if="currentButton.event == null" class="controller-btn empty"></div>
-            <button v-else-if="currentButton.event" class="controller-btn"
-                @click="currentButton?.event">
+            <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton?.event"></button>
+            <button v-if="currentButton.type == 'RangeButton'" class="controller-btn"
+                @mousedown="currentButton?.event"
+                @mouseup="currentButton.stopEvent"
+                @mouseleave="currentButton.stopEvent">
             </button>
         </template>
         <slot name="openMonitor"></slot> 
@@ -253,6 +255,7 @@ const menus = computed(() => {
 });
 
 const state = reactive({
+    currentPanelNumber: 0,
     currentMenu: null as Nodes | null,
     secondPanel: null as Nodes | null,
     thirdPanel: null as Nodes | null,
@@ -272,45 +275,48 @@ watch(() => props.openMonitor, (newVal, oldVal) => {
 
 watch(() => openAllMenu.value, (newVal, oldVal) => {
     state.currentMenu = menus.value[0];
+    state.currentPanelNumber = 1;
 });
 
 interface ControllerButtonList {
     image: string | null,
-    event: (() => void) | null
+    event: (() => void) | null,
+    stopEvent: (() => void) | null,
+    type: string
 };
 
 const handleControllerButtonList = computed<ControllerButtonList[] | null>(() => {
     if(props.openMonitor) {
         if(isControllerMenusButton.value) {
             return [
-                { image: iconAllMenu, event: handleAllMenu },
-                { image: iconBrightness, event: handleSecondAssignButton },
-                { image: iconColor, event: handleThirdAssignButton },
-                { image: iconInput, event: handleFourthAssignButton }
+                { image: iconAllMenu, event: handleAllMenu, stopEvent: null, type: "Button" },
+                { image: iconBrightness, event: handleSecondAssignButton , stopEvent: null, type: "Button"},
+                { image: iconColor, event: handleThirdAssignButton, stopEvent: null, type: "Button" },
+                { image: iconInput, event: handleFourthAssignButton, stopEvent: null, type: "Button" }
             ]
         } else if(openAllMenu.value && !state.secondPanel) {
             let buttonList: ControllerButtonList[] = [];
 
             if(state.currentMenu?.mode == ModeType.info) {
                 buttonList = [
-                    { image: null, event: null },
-                    { image: iconArrowButton, event: handleBottom },
-                    { image: iconArrowUp, event: handleUp },
-                    { image: iconClose, event: handleClose }
+                    { image: null, event: null, stopEvent: null, type: "Button" },
+                    { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
+                    { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
+                    { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
                 ];
             } else if(state.currentMenu?.mode == ModeType.exit) {
                 buttonList = [
-                    { image: iconCheck, event: handleClose },
-                    { image: iconArrowButton, event: handleBottom },
-                    { image: iconArrowUp, event: handleUp },
-                    { image: iconClose, event: handleClose }
+                    { image: iconCheck, event: handleClose, stopEvent: null, type: "Button" },
+                    { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
+                    { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
+                    { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
                 ];
             } else {
                 buttonList = [
-                    { image: iconNext, event: handleTarget },
-                    { image: iconArrowButton, event: handleBottom },
-                    { image: iconArrowUp, event: handleUp },
-                    { image: iconClose, event: handleClose }
+                    { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
+                    { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
+                    { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
+                    { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
                 ];
             }
             return buttonList;
@@ -334,31 +340,31 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
 
 function handleModeControllerButtonList(item: Nodes, previousItem: Nodes) {
     const nextButtonList: ControllerButtonList[] = [
-        { image: iconNext, event: handleTarget },
-        { image: iconArrowButton, event: handleBottom },
-        { image: iconArrowUp, event: handleUp },
-        { image: iconPrevious, event: handlePrevious }
+        { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
+        { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
+        { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
 
     const checkedButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleCheck },
-        { image: iconArrowButton, event: handleBottom },
-        { image: iconArrowUp, event: handleUp },
-        { image: iconPrevious, event: handlePrevious }
+        { image: iconCheck, event: handleCheck , stopEvent: null, type: "Button"},
+        { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
+        { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
 
     const rangeButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleCheck },
-        { image: iconSubtract, event: handleRangeSubtract },
-        { image: iconAdd, event: handleRangeAdd },
-        { image: iconPrevious, event: handlePrevious }
+        { image: iconCheck, event: handleCheck , stopEvent: null, type: "Button"},
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconPrevious, event: handlePrevious , stopEvent: null, type: "Button"}
     ];
 
     const rangeNextButtonList: ControllerButtonList[] = [
-        { image: iconNextRight, event: handleBottom },
-        { image: iconSubtract, event: handleRangeSubtract },
-        { image: iconAdd, event: handleRangeAdd },
-        { image: iconPrevious, event: handlePrevious }
+        { image: iconNextRight, event: handleBottom, stopEvent: null, type: "Button" },
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
     
     if(
@@ -391,11 +397,13 @@ function handleTarget() {
         selectEnabledItem(state.currentMenu.nodes, state.secondPanelIndex, (item, index) => {
             state.secondPanel = item;
             state.secondPanelIndex = index;
+            state.currentPanelNumber = 2;
         });
     } else if (state.secondPanel?.nodes && !state.thirdPanel) {
         selectEnabledItem(state.secondPanel.nodes, state.thirdPanelIndex, (item, index) => {
             state.thirdPanel = item;
             state.thirdPanelIndex = index;
+            state.currentPanelNumber = 3;
         });
     }
 }
@@ -411,7 +419,7 @@ function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (item: 
         }
         index = (index + 1) % length;
     } while (index !== startIndex);
-}
+};
 
 function handleNavigation(direction: 'up' | 'down') {
     const step = direction === 'up' ? -1 : 1;
@@ -457,13 +465,65 @@ function handleBottom() {
     handleNavigation('down');
 };
 
+function handleRangeValue(step: string) {
+    switch(state.currentPanelNumber) {
+        case 2:
+            if(state.currentMenu && state.secondPanel) {  calculateValue(state.secondPanel, state.currentMenu); }
+            break;
+        case 3:
+            if(state.secondPanel && state.thirdPanel) {  calculateValue(state.thirdPanel, state.secondPanel); }
+            break;
+        case 4:
+            if(state.thirdPanel && state.fourthPanel) {  calculateValue(state.fourthPanel, state.thirdPanel); }
+            break;
+    };
+
+    function calculateValue(item: Nodes, previousItem: Nodes){
+        if(item.mode == ModeType.verticalRange || item.mode == ModeType.horizontalRange) {
+            if(step == "subtract" && (item.value as number) > item.rangeMin && (item.value as number) <= item.rangeMax) {
+                (item.value as number) -= 1;
+            } else if(step == "add" && (item.value as number) >= item.rangeMin && (item.value as number) < item.rangeMax) {
+                (item.value as number) += 1;
+            }
+
+            previousItem.value = item.value;
+        };
+    }
+};
+
+// 用於存儲計時器的引用
+const intervalId = ref<number | null>(null);
+const currentStep = ref<string | null>(null);
+
+// 開始觸發
+function startTrigger(step: string) {
+    currentStep.value = step;
+    // 清除現有的計時器
+    if (intervalId.value !== null) {
+        clearInterval(intervalId.value);
+    }
+      // 設置新的計時器，每隔 100 毫秒觸發一次函式
+    intervalId.value = window.setInterval(() => handleRangeValue(currentStep.value!), 100);
+};
+
+// 停止觸發
+function stopTrigger() {
+    if (intervalId.value !== null) {
+        clearInterval(intervalId.value);
+        intervalId.value = null;
+    }
+};
+
+
 function handleRangeSubtract() {
-    console.log("handleRangeSubtract");
-    
+    startTrigger("subtract");
+
 };
 function handleRangeAdd() {
-    console.log("handleRangeAdd");
+    startTrigger("add");
 };
+
+
 function handleCheck() {
     console.log("handleCheck");
 
@@ -477,7 +537,8 @@ function handleClose() {
     openSecondAssignButton.value = false;
     openThirdAssignButton.value = false;
     openFourthAssignButton.value = false;
-
+    
+    state.currentPanelNumber = 0;
     state.currentMenuIndex = 0;
     state.secondPanelIndex = 0;
     state.thirdPanelIndex = 0;
@@ -489,11 +550,11 @@ function handlePrevious() {
     if(state.secondPanel && !state.thirdPanel) {
         state.secondPanel = null;
         state.secondPanelIndex = 0;
-    } 
-
-    if(state.thirdPanel) {
+        state.currentPanelNumber = 1;
+    }  else if(state.secondPanel && state.thirdPanel) {
         state.thirdPanel = null;
         state.thirdPanelIndex = 0;
+        state.currentPanelNumber = 2;
     }
 };
 
