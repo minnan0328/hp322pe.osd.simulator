@@ -122,8 +122,8 @@ export class MediumNodes implements Nodes {
 
 // High enum
 export class HighNodes implements Nodes {
-    key = "Medium";
-    value = "Medium";
+    key = "High";
+    value = "High";
     displayValue = false;
     parents = null;
     mode = ModeType.radio;

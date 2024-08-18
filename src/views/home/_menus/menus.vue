@@ -523,10 +523,22 @@ function handleRangeAdd() {
     startTrigger("add");
 };
 
-
 function handleCheck() {
-    console.log("handleCheck");
+    switch(state.currentPanelNumber) {
+        case 2:
+            if(state.currentMenu && state.secondPanel) {  setValue(state.secondPanel, state.currentMenu); }
+            break;
+        case 3:
+            if(state.secondPanel && state.thirdPanel) {  setValue(state.thirdPanel, state.secondPanel); }
+            break;
+        case 4:
+            if(state.thirdPanel && state.fourthPanel) {  setValue(state.fourthPanel, state.thirdPanel); }
+            break;
+    };
 
+    function setValue(item: Nodes, previousItem: Nodes) {
+        previousItem.value = item.value;
+    };
 };
 
 // 關閉全部選單，包含
