@@ -1,7 +1,7 @@
 <template>
     <div :class="['customize-radio', { selected: selected }]">
         <div :class="['round', { selected: isChecked }]"></div>
-        <div v-text="toLanguageText(setItem.language)"></div>
+        <div v-text="toLanguageText(nodes.language)"></div>
     </div>
 </template>
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { Nodes } from '@/types';
 import { toLanguageText } from '@/service/service';
 
 const props = defineProps({
-    setItem: {
+    nodes: {
         type: Object as PropType<Nodes>,
         required: true
     },

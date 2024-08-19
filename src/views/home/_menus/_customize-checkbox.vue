@@ -1,7 +1,7 @@
 <template>
     <div :class="['customize-checkbox', { selected: selected }]">
-        <div :class="['box', { selected: isChecked(setItem) }]"></div>
-        <div v-text="toLanguageText(setItem.language)"></div>
+        <div :class="['box', { selected: isChecked(nodes) }]"></div>
+        <div v-text="toLanguageText(nodes.language)"></div>
     </div>
 </template>
 <script setup lang="ts">
@@ -10,12 +10,12 @@ import type { Nodes } from '@/types';
 import { toLanguageText } from '@/service/service';
 
 const props = defineProps({
-    setItem: {
+    nodes: {
         type: Object as PropType<Nodes>,
         required: true
     },
-    // type string[]
-    selectedItem: {
+    // type Nodes[]
+    previousNodes: {
         type: Object as PropType<Nodes>,
         required: true
     },
@@ -27,7 +27,7 @@ const props = defineProps({
 });
 
 function isChecked(item: Nodes): boolean {
-    const value = props.selectedItem.value;
+    const value = props.previousNodes.value;
 
     // 強制轉型，並根據類型使用 includes 方法
     return Array.isArray(value)

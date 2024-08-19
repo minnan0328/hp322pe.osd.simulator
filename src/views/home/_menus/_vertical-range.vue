@@ -2,32 +2,32 @@
     <div class="range">
         <div :class="['vertical-range', { selected: selected, color: isColor }]">
             <div class="range-max-value">
-                <img v-if="setItem.rangeIcon" class="original" :src="getIconSrc(setItem)" alt="">
-                <span v-else-if="!isColor" v-text="setItem.rangeMax"></span>
-                <span v-if="!setItem.rangeIcon && isColor" :class="setItem.key" v-text="toLanguageText(setItem.language)"></span>
+                <img v-if="nodes.rangeIcon" class="original" :src="getIconSrc(nodes)" alt="">
+                <span v-else-if="!isColor" v-text="nodes.rangeMax"></span>
+                <span v-if="!nodes.rangeIcon && isColor" :class="nodes.key" v-text="toLanguageText(nodes.language)"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">
-                <span v-if="setItem.rangeIcon" v-text="setItem.rangeMax"></span>
+                <span v-if="nodes.rangeIcon" v-text="nodes.rangeMax"></span>
             </div>
 
             <div :class="['range-graduate', { selected: selected, 'merge-grid': isColor }]">
-                <div :class="['graduate', setItem.key, { max: setItem.value == setItem.rangeMax }]">
+                <div :class="['graduate', nodes.key, { max: nodes.value == nodes.rangeMax }]">
                 </div>
             </div>
 
             <div class="range-text" v-if="!isColor" >
-                <span v-text="setItem.value"></span>
+                <span v-text="nodes.value"></span>
             </div>
 
             <div class="range-max-value">
-                <img v-if="setItem.rangeIcon" class="small" :src="getIconSrc(setItem)" alt="">
-                <span v-else-if="!isColor" v-text="setItem.rangeMin"></span>
-                <span v-if="!setItem.rangeIcon && isColor" v-text="setItem.rangeMax"></span>
+                <img v-if="nodes.rangeIcon" class="small" :src="getIconSrc(nodes)" alt="">
+                <span v-else-if="!isColor" v-text="nodes.rangeMin"></span>
+                <span v-if="!nodes.rangeIcon && isColor" v-text="nodes.rangeMax"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">
-                <span v-if="setItem.rangeIcon" v-text="setItem.rangeMin"></span>
+                <span v-if="nodes.rangeIcon" v-text="nodes.rangeMin"></span>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@ import type { Nodes } from '@/types';
 import { toLanguageText, getIconSrc } from '@/service/service';
 
 const props = defineProps({
-    setItem: {
+    nodes: {
         type: Object as PropType<Nodes>,
         required: true
     },
@@ -55,7 +55,7 @@ const props = defineProps({
 });
 
 const currentValue = computed(() => {
-    let showValue = convertRange(props.setItem.value as number, props.setItem.rangeMin as number, props.setItem.rangeMax as number);
+    let showValue = convertRange(props.nodes.value as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
     return `${showValue as number - 4}%`
 });
 

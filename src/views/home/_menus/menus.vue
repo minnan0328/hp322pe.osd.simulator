@@ -20,32 +20,32 @@
             <div :class="['setting', { 'two-columns': state.secondPanel }]">
                 <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.exit">
                     <div class="function">
-                        <template v-if="state.currentMenu" v-for="funItem in state.currentMenu.nodes">
-                            <div :class="['setting-item', funItem.key, { 'unset-grid': state.secondPanel }]" v-if="isEnable(funItem)">
+                        <template v-if="state.currentMenu" v-for="secondNodes in state.currentMenu.nodes">
+                            <div :class="['setting-item', secondNodes.key, { 'unset-grid': state.secondPanel }]" v-if="isEnable(secondNodes)">
                                 <!-- button -->
                                 <div :class="['item', {
-                                        selected: state.secondPanel == funItem,
-                                        'merge-grid': funItem.mergeGrid
+                                        selected: state.secondPanel == secondNodes,
+                                        'merge-grid': secondNodes.mergeGrid
                                     }]"
-                                    v-if="funItem.mode != ModeType.radio" v-text="toLanguageText(funItem.language)">
+                                    v-if="secondNodes.mode != ModeType.radio" v-text="toLanguageText(secondNodes.language)">
                                 </div>
                                 <!-- button -->
     
                                 <!-- radio -->
-                                <customizeRadio v-else-if="funItem.mode == ModeType.radio"
-                                    :setItem="funItem"
-                                    :isChecked="state.currentMenu.value == funItem.value"
-                                    :selected="state.secondPanel == funItem">
+                                <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
+                                    :nodes="secondNodes"
+                                    :isChecked="state.currentMenu.value == secondNodes.value"
+                                    :selected="state.secondPanel == secondNodes">
                                 </customizeRadio>
                                 <!-- radio -->
     
                                 <!-- value -->
                                 <template v-if="!state.secondPanel">
                                     <div class="item item-value"
-                                        v-if="funItem.value && funItem.displayValue
-                                                || funItem.value == 0 && funItem.displayValue">
-                                        <span v-text="funItem.value"></span>
-                                        <span v-if="funItem.unit" v-text="toLanguageText(funItem.unit)"></span>
+                                        v-if="secondNodes.value && secondNodes.displayValue
+                                                || secondNodes.value == 0 && secondNodes.displayValue">
+                                        <span v-text="secondNodes.value"></span>
+                                        <span v-if="secondNodes.unit" v-text="toLanguageText(secondNodes.unit)"></span>
                                     </div>
                                 </template>
                                 <!-- value -->
@@ -54,50 +54,50 @@
                     </div>
                     <div :class="['function-setting', { 'customRGB-range-section': state.secondPanel.key == 'CustomRGB' }]"
                             v-if="state.currentMenu && state.secondPanel && state.secondPanel.nodes">
-                        <template v-for="setItem in state.secondPanel.nodes">
-                            <div :class="['setting-item unset-grid', setItem.key]"
-                                v-if="isEnable(setItem) && setItem.mode != ModeType.verticalRange
-                                    && isEnable(setItem) && setItem.mode != ModeType.horizontalRange">
+                        <template v-for="thirdNodes in state.secondPanel.nodes">
+                            <div :class="['setting-item unset-grid', thirdNodes.key]"
+                                v-if="isEnable(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
+                                    && isEnable(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange">
                                 <!-- button -->
-                                <div :class="['item', { selected: state.thirdPanel == setItem, 'merge-grid': setItem.mergeGrid }]"
-                                    v-if="setItem.mode == ModeType.button || setItem.mode == ModeType.info" v-text="toLanguageText(setItem.language)">
+                                <div :class="['item', { selected: state.thirdPanel == thirdNodes, 'merge-grid': thirdNodes.mergeGrid }]"
+                                    v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info" v-text="toLanguageText(thirdNodes.language)">
                                 </div>
                                 <!-- button -->
                                 
                                 <!-- radio -->
-                                <customizeRadio v-else-if="setItem.mode == ModeType.radio"
-                                    :setItem="setItem"
-                                    :isChecked="state.secondPanel.value == setItem.value"
-                                    :selected="state.thirdPanel == setItem">
+                                <customizeRadio v-else-if="thirdNodes.mode == ModeType.radio"
+                                    :nodes="thirdNodes"
+                                    :isChecked="state.secondPanel.value == thirdNodes.value"
+                                    :selected="state.thirdPanel == thirdNodes">
                                 </customizeRadio>
                                 <!-- radio -->
 
                                 <!-- checkbox -->
-                                <customizeCheckbox v-else-if="setItem.mode == ModeType.checkBox"
-                                    :setItem="setItem"
-                                    :selectedItem="state.secondPanel"
-                                    :selected="state.thirdPanel == setItem">
+                                <customizeCheckbox v-else-if="thirdNodes.mode == ModeType.checkBox"
+                                    :nodes="thirdNodes"
+                                    :previousNodes="state.secondPanel"
+                                    :selected="state.thirdPanel == thirdNodes">
                                 </customizeCheckbox>
                             </div>
                             <!-- 一般縱向 range -->
-                            <verticalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.secondPanel.key != 'CustomRGB'"
-                                :setItem="setItem"
-                                :selected="state.thirdPanel == setItem">
+                            <verticalRange v-else-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key != 'CustomRGB'"
+                                :nodes="thirdNodes"
+                                :selected="state.thirdPanel == thirdNodes">
                             </verticalRange>
                             <!-- 一般縱向 range -->
                             <!-- 縱向 color range -->
-                            <template v-else-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange && state.secondPanel.key == 'CustomRGB'">
-                                <verticalRange v-if="isEnable(setItem) && setItem.mode == ModeType.verticalRange"
-                                    :setItem="setItem"
-                                    :selected="state.thirdPanel == setItem"
+                            <template v-else-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key == 'CustomRGB'">
+                                <verticalRange v-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.verticalRange"
+                                    :nodes="thirdNodes"
+                                    :selected="state.thirdPanel == thirdNodes"
                                     :isColor="true">
                                 </verticalRange>
                             </template>
                             <!-- 縱向 color range -->
                             <!-- 橫向 range -->
-                            <horizontalRange v-else-if="isEnable(setItem) && setItem.mode == ModeType.horizontalRange"
-                                :setItem="setItem"
-                                :selected="state.thirdPanel == setItem">
+                            <horizontalRange v-else-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.horizontalRange"
+                                :nodes="thirdNodes"
+                                :selected="state.thirdPanel == thirdNodes">
                             </horizontalRange>
                             <!-- 橫向 range -->
                         </template>
@@ -338,7 +338,7 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
     }
 });
 
-function handleModeControllerButtonList(item: Nodes, previousItem: Nodes) {
+function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     const nextButtonList: ControllerButtonList[] = [
         { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
         { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
@@ -347,14 +347,14 @@ function handleModeControllerButtonList(item: Nodes, previousItem: Nodes) {
     ];
 
     const checkedButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleCheck , stopEvent: null, type: "Button"},
+        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
         { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
         { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
         { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
 
     const rangeButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleCheck , stopEvent: null, type: "Button"},
+        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconPrevious, event: handlePrevious , stopEvent: null, type: "Button"}
@@ -368,19 +368,19 @@ function handleModeControllerButtonList(item: Nodes, previousItem: Nodes) {
     ];
     
     if(
-        item.key == "Reset" || item.key == "Back"
-        || item.mode == ModeType.radio && !item.nodes
-        || item.mode == ModeType.button && !item.nodes
+        nodes.key == "Reset" || nodes.key == "Back"
+        || nodes.mode == ModeType.radio && !nodes.nodes
+        || nodes.mode == ModeType.button && !nodes.nodes
     ) {
         return checkedButtonList;
     } else if(
-        item.mode == ModeType.verticalRange && previousItem.nodes?.length == 1
-        || item.mode == ModeType.horizontalRange  && previousItem.nodes?.length == 1
+        nodes.mode == ModeType.verticalRange && previousNodes.nodes?.length == 1
+        || nodes.mode == ModeType.horizontalRange  && previousNodes.nodes?.length == 1
     ) {
         return rangeButtonList;
     } else if(
-        item.mode == ModeType.verticalRange && previousItem.nodes && previousItem.nodes?.length > 1
-        || item.mode == ModeType.horizontalRange && previousItem.nodes && previousItem.nodes?.length >  1
+        nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1
+        || nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
     ) {
         return rangeNextButtonList;
     } else {
@@ -388,20 +388,20 @@ function handleModeControllerButtonList(item: Nodes, previousItem: Nodes) {
     }
 }
 
-function isEnable(item: Nodes): boolean {
-    return item.only?.includes(props.currentInput) ?? false;
+function isEnable(nodes: Nodes): boolean {
+    return nodes.only?.includes(props.currentInput) ?? false;
 };
 
 function handleTarget() {
     if (state.currentMenu?.nodes && !state.secondPanel) {
-        selectEnabledItem(state.currentMenu.nodes, state.secondPanelIndex, (item, index) => {
-            state.secondPanel = item;
+        selectEnabledItem(state.currentMenu.nodes, state.secondPanelIndex, (nodes, index) => {
+            state.secondPanel = nodes;
             state.secondPanelIndex = index;
             state.currentPanelNumber = 2;
         });
     } else if (state.secondPanel?.nodes && !state.thirdPanel) {
-        selectEnabledItem(state.secondPanel.nodes, state.thirdPanelIndex, (item, index) => {
-            state.thirdPanel = item;
+        selectEnabledItem(state.secondPanel.nodes, state.thirdPanelIndex, (nodes, index) => {
+            state.thirdPanel = nodes;
             state.thirdPanelIndex = index;
             state.currentPanelNumber = 3;
         });
@@ -478,15 +478,15 @@ function handleRangeValue(step: string) {
             break;
     };
 
-    function calculateValue(item: Nodes, previousItem: Nodes){
-        if(item.mode == ModeType.verticalRange || item.mode == ModeType.horizontalRange) {
-            if(step == "subtract" && (item.value as number) > item.rangeMin && (item.value as number) <= item.rangeMax) {
-                (item.value as number) -= 1;
-            } else if(step == "add" && (item.value as number) >= item.rangeMin && (item.value as number) < item.rangeMax) {
-                (item.value as number) += 1;
+    function calculateValue(nodes: Nodes, previousNodes: Nodes){
+        if(nodes.mode == ModeType.verticalRange || nodes.mode == ModeType.horizontalRange) {
+            if(step == "subtract" && (nodes.value as number) > nodes.rangeMin && (nodes.value as number) <= nodes.rangeMax) {
+                (nodes.value as number) -= 1;
+            } else if(step == "add" && (nodes.value as number) >= nodes.rangeMin && (nodes.value as number) < nodes.rangeMax) {
+                (nodes.value as number) += 1;
             }
 
-            previousItem.value = item.value;
+            previousNodes.value = nodes.value;
         };
     }
 };
@@ -523,21 +523,21 @@ function handleRangeAdd() {
     startTrigger("add");
 };
 
-function handleCheck() {
+function handleConfirmed() {
     switch(state.currentPanelNumber) {
         case 2:
-            if(state.currentMenu && state.secondPanel) {  setValue(state.secondPanel, state.currentMenu); }
+            if(state.currentMenu && state.secondPanel) {  setNodesValue(state.secondPanel, state.currentMenu); }
             break;
         case 3:
-            if(state.secondPanel && state.thirdPanel) {  setValue(state.thirdPanel, state.secondPanel); }
+            if(state.secondPanel && state.thirdPanel) {  setNodesValue(state.thirdPanel, state.secondPanel); }
             break;
         case 4:
-            if(state.thirdPanel && state.fourthPanel) {  setValue(state.fourthPanel, state.thirdPanel); }
+            if(state.thirdPanel && state.fourthPanel) {  setNodesValue(state.fourthPanel, state.thirdPanel); }
             break;
     };
 
-    function setValue(item: Nodes, previousItem: Nodes) {
-        previousItem.value = item.value;
+    function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
+        previousNodes.value = nodes.value;
     };
 };
 

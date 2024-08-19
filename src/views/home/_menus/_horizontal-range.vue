@@ -1,14 +1,14 @@
 <template>
     <div class="range">
         <div :class="['vertical-range', { selected: selected }]">
-            <div class="item range-text" v-text="toLanguageText(setItem.language)"></div>
+            <div class="item range-text" v-text="toLanguageText(nodes.language)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
-                <div :class="['graduate', setItem.key, { max: setItem.value == setItem.rangeMax }]">
+                <div :class="['graduate', nodes.key, { max: nodes.value == nodes.rangeMax }]">
                 </div>
             </div>
 
-            <div class="item range-max-value" v-text="setItem.value"></div>
+            <div class="item range-max-value" v-text="nodes.value"></div>
         </div>
     </div>
 </template>
@@ -19,7 +19,7 @@ import type { Nodes } from '@/types';
 import { toLanguageText } from '@/service/service';
 
 const props = defineProps({
-    setItem: {
+    nodes: {
         type: Object as PropType<Nodes>,
         required: true
     },
@@ -31,7 +31,7 @@ const props = defineProps({
 });
 
 const currentValue = computed(() => {
-    let showValue = convertRange(props.setItem.value as number, props.setItem.rangeMin as number, props.setItem.rangeMax as number);
+    let showValue = convertRange(props.nodes.value as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
     return `${showValue as number - 4}%`
 });
 
