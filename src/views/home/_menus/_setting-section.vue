@@ -36,7 +36,8 @@
                             <div class="item item-value"
                                 v-if="secondNodes.value && secondNodes.displayValue
                                         || secondNodes.value == 0 && secondNodes.displayValue">
-                                <span v-text="toDisplayValueLanguageText(secondNodes)"></span>
+                                <span v-if="secondNodes.mode != ModeType.info" v-text="toDisplayValueLanguageText(secondNodes)"></span>
+                                <span v-else-if="secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)"></span>
                                 <span v-if="secondNodes.unit" v-text="toLanguageText(secondNodes.unit)"></span>
                             </div>
                         </template>
