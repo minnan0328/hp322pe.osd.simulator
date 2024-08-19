@@ -11,104 +11,17 @@
                 </div>
                 <div class="options">
                     <template  v-for="menu in menus" v-text="toLanguageText(menu.language)">
-                        <div :class="['option', { selected: state.currentMenu == menu }]"
+                        <div :class="['option', { selected: state.currentMenu == menu, focus: state.currentMenu == menu && state.secondPanel }]"
                             v-if="isEnableInput(menu)" v-text="toLanguageText(menu.language)">
                         </div>
                     </template>
                 </div>
             </div>
-            <div :class="['setting', { 'two-columns': state.secondPanel }]">
-                <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.exit">
-                    <div class="function">
-                        <template v-if="state.currentMenu" v-for="secondNodes in state.currentMenu.nodes">
-                            <div :class="['setting-item', secondNodes.key, { 'unset-grid': state.secondPanel }]" v-if="isEnableInput(secondNodes)">
-                                <!-- button -->
-                                <div :class="['item', {
-                                        selected: state.secondPanel == secondNodes,
-                                        'merge-grid': secondNodes.mergeGrid
-                                    }]"
-                                    v-if="secondNodes.mode != ModeType.radio" v-text="toLanguageText(secondNodes.language)">
-                                </div>
-                                <!-- button -->
-    
-                                <!-- radio -->
-                                <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
-                                    :nodes="secondNodes"
-                                    :isChecked="state.currentMenu.value == secondNodes.value"
-                                    :selected="state.secondPanel == secondNodes">
-                                </customizeRadio>
-                                <!-- radio -->
-    
-                                <!-- value -->
-                                <template v-if="!state.secondPanel">
-                                    <div class="item item-value"
-                                        v-if="secondNodes.value && secondNodes.displayValue
-                                                || secondNodes.value == 0 && secondNodes.displayValue">
-                                        <span v-text="toDisplayValueLanguageText(secondNodes)"></span>
-                                        <span v-if="secondNodes.unit" v-text="toLanguageText(secondNodes.unit)"></span>
-                                    </div>
-                                </template>
-                                <!-- value -->
-                            </div>
-                        </template>
-                    </div>
-                    <div :class="['function-setting', { 'customRGB-range-section': state.secondPanel.key == 'CustomRGB' }]"
-                            v-if="state.currentMenu && state.secondPanel && state.secondPanel.nodes">
-                        <template v-for="thirdNodes in state.secondPanel.nodes">
-                            <div :class="['setting-item unset-grid', thirdNodes.key]"
-                                v-if="isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
-                                    && isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange">
-                                <!-- button -->
-                                <div :class="['item', { selected: state.thirdPanel == thirdNodes, 'merge-grid': thirdNodes.mergeGrid }]"
-                                    v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info" v-text="toLanguageText(thirdNodes.language)">
-                                </div>
-                                <!-- button -->
-                                
-                                <!-- radio -->
-                                <customizeRadio v-else-if="thirdNodes.mode == ModeType.radio"
-                                    :nodes="thirdNodes"
-                                    :isChecked="state.secondPanel.value == thirdNodes.value"
-                                    :selected="state.thirdPanel == thirdNodes">
-                                </customizeRadio>
-                                <!-- radio -->
 
-                                <!-- checkbox -->
-                                <customizeCheckbox v-else-if="thirdNodes.mode == ModeType.checkBox"
-                                    :nodes="thirdNodes"
-                                    :previousNodes="state.secondPanel"
-                                    :selected="state.thirdPanel == thirdNodes">
-                                </customizeCheckbox>
-                            </div>
-                            <!-- 一般縱向 range -->
-                            <verticalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key != 'CustomRGB'"
-                                :nodes="thirdNodes"
-                                :selected="state.thirdPanel == thirdNodes">
-                            </verticalRange>
-                            <!-- 一般縱向 range -->
-                            <!-- 縱向 color range -->
-                            <template v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key == 'CustomRGB'">
-                                <verticalRange v-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange"
-                                    :nodes="thirdNodes"
-                                    :selected="state.thirdPanel == thirdNodes"
-                                    :isColor="true">
-                                </verticalRange>
-                            </template>
-                            <!-- 縱向 color range -->
-                            <!-- 橫向 range -->
-                            <horizontalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.horizontalRange"
-                                :nodes="thirdNodes"
-                                :selected="state.thirdPanel == thirdNodes">
-                            </horizontalRange>
-                            <!-- 橫向 range -->
-                        </template>
-                    </div>
-                </template>
-                <template v-if="state.currentMenu && state.currentMenu.mode == ModeType.exit">
-                    <div class="full-image">
-                        <img src="@/assets/icons/logo.svg" alt="">
-                    </div>
-                </template>
-            </div>
+            <settingSection v-model:mainSectionNodes="displayCurrentNodes.mainSectionNodes"
+                            v-model:secondarySectionNodes="displayCurrentNodes.secondarySectionNodes"
+                            v-model:thirdSectionNodes="displayCurrentNodes.thirdSectionNodes">
+            </settingSection>
         </div>
 
         <div class="footer">
@@ -147,12 +60,9 @@ import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { isEnableInput, toLanguageText, toDisplayValueLanguageText } from '@/service/service';
+import { isEnableInput, toLanguageText } from '@/service/service';
 // components
-import verticalRange from './_vertical-range.vue';
-import horizontalRange from './_horizontal-range.vue';
-import customizeCheckbox from './_customize-checkbox.vue';
-import customizeRadio from './_customize-radio.vue';
+import settingSection from './_setting-section.vue';
 // svg
 import iconAllMenu from '@/assets/icons/icon-menu.svg';
 import iconBrightness from '@/assets/icons/icon-brightness.svg';
@@ -262,6 +172,22 @@ const state = reactive({
     secondPanelIndex: 0,
     thirdPanelIndex: 0,
     fourthPanelIndex: 0
+});
+
+const displayCurrentNodes = computed(() => {
+    if(state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
+        return {
+            mainSectionNodes: state.secondPanel,
+            secondarySectionNodes: state.thirdPanel,
+            thirdSectionNodes: state.fourthPanel
+        }
+    } else {
+        return {
+            mainSectionNodes: state.currentMenu,
+            secondarySectionNodes: state.secondPanel,
+            thirdSectionNodes: state.thirdPanel
+        }
+    }
 });
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
@@ -394,23 +320,48 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
 // 選擇下一層目標
 function handleTarget() {
     if(state.currentMenu?.nodes) {
-        if (!state.secondPanel) {
+        if(!state.secondPanel) {
             // 第二層
             selectEnabledNode(state.currentMenu.nodes, state.secondPanelIndex, (nodes, index) => {
                 state.secondPanel = nodes;
                 state.secondPanelIndex = index;
                 state.currentPanelNumber = 2;
             });
-        } else if (state.secondPanel?.nodes && !state.thirdPanel) {
+        } else if(state.secondPanel?.nodes && !state.thirdPanel) {
             // 第三層
             selectEnabledNode(state.secondPanel.nodes, state.thirdPanelIndex, (nodes, index) => {
                 state.thirdPanel = nodes;
                 state.thirdPanelIndex = index;
                 state.currentPanelNumber = 3;
             });
+        } else if(state.secondPanel?.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
+            // 第四層
+            selectEnabledNode(state.thirdPanel.nodes, state.fourthPanelIndex, (nodes, index) => {
+                state.fourthPanel = nodes;
+                state.fourthPanelIndex = index;
+                state.currentPanelNumber = 4;
+            });
         }
     }
 };
+
+// 上一步
+function handlePrevious() {
+    if(state.secondPanel && !state.thirdPanel) {
+        state.secondPanel = null;
+        state.secondPanelIndex = 0;
+        state.currentPanelNumber = 1;
+    } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
+        state.thirdPanel = null;
+        state.thirdPanelIndex = 0;
+        state.currentPanelNumber = 2;
+    } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
+        state.fourthPanel = null;
+        state.fourthPanelIndex = 0;
+        state.currentPanelNumber = 3;
+    }
+};
+
 
 // 選擇啟用的節點
 function selectEnabledNode(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
@@ -451,13 +402,21 @@ function handleNavigation(direction: 'up' | 'down') {
             } else {
                 state.secondPanel = state.currentMenu.nodes[state.secondPanelIndex];
             }
-        } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel) {
+        } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
             state.thirdPanelIndex = updateIndex(state.thirdPanelIndex, state.secondPanel.nodes.length);
 
             if (!isEnableInput(state.secondPanel.nodes[state.thirdPanelIndex])) {
                 handleNavigation(direction);
             } else {
                 state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
+            }
+        } else if(state.secondPanel && state.secondPanel.nodes && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
+            state.fourthPanelIndex = updateIndex(state.fourthPanelIndex, state.thirdPanel.nodes.length);
+
+            if (!isEnableInput(state.thirdPanel.nodes[state.fourthPanelIndex])) {
+                handleNavigation(direction);
+            } else {
+                state.fourthPanel = state.thirdPanel.nodes[state.fourthPanelIndex];
             }
         }
     }
@@ -564,19 +523,6 @@ function handleConfirmed() {
     };
 };
 
-// 上一步
-function handlePrevious() {
-    if(state.secondPanel && !state.thirdPanel) {
-        state.secondPanel = null;
-        state.secondPanelIndex = 0;
-        state.currentPanelNumber = 1;
-    }  else if(state.secondPanel && state.thirdPanel) {
-        state.thirdPanel = null;
-        state.thirdPanelIndex = 0;
-        state.currentPanelNumber = 2;
-    }
-};
-
 // 關閉全部選單，包含
 function handleClose() {
     openControllerMenus.value = false;
@@ -651,6 +597,22 @@ function handleClose() {
 						background-color: #000000;
 						border: 1px solid #0083ca;
 						color: #ffffff;
+
+                        &.focus {
+                            border: 1px solid transparent;
+                            position: relative;
+
+                            &::before {
+                                position: absolute;
+                                content: "";
+                                right: 4px;
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 5px 0 5px 10px;
+                                border-color: transparent transparent transparent #FFFFFF;
+                            }
+                        }
 					}
 				}
 			}

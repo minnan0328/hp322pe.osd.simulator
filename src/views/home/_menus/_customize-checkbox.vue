@@ -1,5 +1,5 @@
 <template>
-    <div :class="['customize-checkbox', { selected: selected }]">
+    <div :class="['customize-checkbox', { selected: selected, 'last-nodes': lastNodes }]">
         <div :class="['box', { selected: isChecked(nodes) }]"></div>
         <div v-text="toLanguageText(nodes.language)"></div>
     </div>
@@ -22,6 +22,10 @@ const props = defineProps({
     selected: {
         type: Boolean,
         required: true,
+        default: false
+    },
+    lastNodes: {
+        type: Boolean,
         default: false
     }
 });
@@ -65,6 +69,10 @@ function isChecked(item: Nodes): boolean {
             width: 10px;
             height: 10px;
         }
+    }
+
+    &.last-nodes {
+        border-bottom: 1px solid #202020;
     }
 
     &.selected:not(.disabled) {
