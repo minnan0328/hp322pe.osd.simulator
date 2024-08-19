@@ -188,7 +188,6 @@ const inputEnum = computed(() => {
     return store.$state.input;
 });
 
-
 const openControllerMenus = ref(false);
 const openAllMenu = ref(false);
 const openSecondAssignButton = ref(false);
@@ -206,13 +205,6 @@ function handleControllerMenus() {
 const isControllerMenusButton = computed(() => {
     if(openControllerMenus.value) {
         return !openAllMenu.value && !openSecondAssignButton.value && !openThirdAssignButton.value && !openFourthAssignButton.value;
-    }
-});
-
-// 是否啟用選單選擇按鈕
-const isSelectedButton = computed(() => {
-    if(openControllerMenus.value) {
-        return openAllMenu.value;
     }
 });
 
@@ -256,9 +248,10 @@ const menus = computed(() => {
         store.$state.management,
         store.$state.information,
         store.$state.exit,
-    ]
+    ];
 });
 
+// selected state and node
 const state = reactive({
     currentPanelNumber: 0,
     currentMenu: null as Nodes | null,
@@ -271,11 +264,10 @@ const state = reactive({
     fourthPanelIndex: 0
 });
 
-
 watch(() => props.openMonitor, (newVal, oldVal) => {
     if(newVal == false) {
         handleClose();
-    }
+    };
 });
 
 watch(() => openAllMenu.value, (newVal, oldVal) => {
@@ -283,9 +275,11 @@ watch(() => openAllMenu.value, (newVal, oldVal) => {
     state.currentPanelNumber = 1;
 });
 
+// 控制選單按鈕組合列表
 const handleControllerButtonList = computed<ControllerButtonList[] | null>(() => {
     if(props.openMonitor) {
         if(isControllerMenusButton.value) {
+            // 開啟螢幕及開啟全部選單列表時候的組合
             return [
                 { image: iconAllMenu, event: handleAllMenu, stopEvent: null, type: "Button" },
                 { image: iconBrightness, event: handleSecondAssignButton , stopEvent: null, type: "Button"},
@@ -293,9 +287,11 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
                 { image: iconInput, event: handleFourthAssignButton, stopEvent: null, type: "Button" }
             ]
         } else if(openAllMenu.value && !state.secondPanel) {
+            // 第一層控制選單組合判斷
             let buttonList: ControllerButtonList[] = [];
 
             if(state.currentMenu?.mode == ModeType.info) {
+                // 當選擇的節點為 info 時候的組合
                 buttonList = [
                     { image: null, event: null, stopEvent: null, type: "Button" },
                     { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
@@ -303,6 +299,7 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
                     { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
                 ];
             } else if(state.currentMenu?.mode == ModeType.exit) {
+                // 當選擇的節點為 exit 時候的組合
                 buttonList = [
                     { image: iconCheck, event: handleClose, stopEvent: null, type: "Button" },
                     { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
@@ -310,6 +307,7 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
                     { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
                 ];
             } else {
+                // 當選擇的節點為 exit 時候的組合
                 buttonList = [
                     { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
                     { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
@@ -320,10 +318,13 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
             return buttonList;
         } else if(openAllMenu.value && state.currentMenu) {
             if(state.secondPanel && !state.thirdPanel) {
+                // 第二層控制選單組合判斷
                 return handleModeControllerButtonList(state.secondPanel, state.currentMenu);
             } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
+                // 第三層控制選單組合判斷
                 return handleModeControllerButtonList(state.thirdPanel, state.secondPanel);
             } else if(state.secondPanel && state.thirdPanel && state.fourthPanel) {
+                // 第四層控制選單組合判斷
                 return handleModeControllerButtonList(state.fourthPanel, state.thirdPanel);
             } else {
                 return [];
@@ -337,27 +338,28 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
 });
 
 function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
+    // 當下一層有節點時候的組合
     const nextButtonList: ControllerButtonList[] = [
         { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
         { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
         { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
         { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
-
-    const checkedButtonList: ControllerButtonList[] = [
+    // 確認選擇的按鈕組合
+    const confirmedButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
         { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
         { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
         { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
-
+    // range value 組合
     const rangeButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconPrevious, event: handlePrevious , stopEvent: null, type: "Button"}
     ];
-
+    // 多個 range value 組合
     const rangeNextButtonList: ControllerButtonList[] = [
         { image: iconNextRight, event: handleBottom, stopEvent: null, type: "Button" },
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
@@ -370,13 +372,16 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         || nodes.mode == ModeType.radio && !nodes.nodes
         || nodes.mode == ModeType.button && !nodes.nodes
     ) {
-        return checkedButtonList;
+        // 當為 reset and back, button 下一層沒有節點的時候
+        return confirmedButtonList;
     } else if(
+        // 多個 range value
         nodes.mode == ModeType.verticalRange && previousNodes.nodes?.length == 1
         || nodes.mode == ModeType.horizontalRange  && previousNodes.nodes?.length == 1
     ) {
         return rangeButtonList;
     } else if(
+        // 多個 range value
         nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1
         || nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
     ) {
@@ -386,23 +391,29 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     }
 }
 
+// 選擇下一層目標
 function handleTarget() {
-    if (state.currentMenu?.nodes && !state.secondPanel) {
-        selectEnabledItem(state.currentMenu.nodes, state.secondPanelIndex, (nodes, index) => {
-            state.secondPanel = nodes;
-            state.secondPanelIndex = index;
-            state.currentPanelNumber = 2;
-        });
-    } else if (state.secondPanel?.nodes && !state.thirdPanel) {
-        selectEnabledItem(state.secondPanel.nodes, state.thirdPanelIndex, (nodes, index) => {
-            state.thirdPanel = nodes;
-            state.thirdPanelIndex = index;
-            state.currentPanelNumber = 3;
-        });
+    if(state.currentMenu?.nodes) {
+        if (!state.secondPanel) {
+            // 第二層
+            selectEnabledNode(state.currentMenu.nodes, state.secondPanelIndex, (nodes, index) => {
+                state.secondPanel = nodes;
+                state.secondPanelIndex = index;
+                state.currentPanelNumber = 2;
+            });
+        } else if (state.secondPanel?.nodes && !state.thirdPanel) {
+            // 第三層
+            selectEnabledNode(state.secondPanel.nodes, state.thirdPanelIndex, (nodes, index) => {
+                state.thirdPanel = nodes;
+                state.thirdPanelIndex = index;
+                state.currentPanelNumber = 3;
+            });
+        }
     }
-}
+};
 
-function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
+// 選擇啟用的節點
+function selectEnabledNode(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
     let index = startIndex;
     const length = nodes.length;
 
@@ -415,6 +426,7 @@ function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (node: 
     } while (index !== startIndex);
 };
 
+// 選擇下一個或上一個的節點
 function handleNavigation(direction: 'up' | 'down') {
     const step = direction === 'up' ? -1 : 1;
 
@@ -451,14 +463,17 @@ function handleNavigation(direction: 'up' | 'down') {
     }
 };
 
+// 控制上一個
 function handleUp() {
     handleNavigation('up');
 };
 
+// 控制下一個
 function handleBottom() {
     handleNavigation('down');
 };
 
+// 控制 range value
 function handleRangeValue(step: string) {
     switch(state.currentPanelNumber) {
         case 2:
@@ -472,6 +487,7 @@ function handleRangeValue(step: string) {
             break;
     };
 
+    // 增減 range value
     function calculateValue(nodes: Nodes, previousNodes: Nodes){
         if(nodes.mode == ModeType.verticalRange || nodes.mode == ModeType.horizontalRange) {
             if(step == "subtract" && (nodes.value as number) > nodes.rangeMin && (nodes.value as number) <= nodes.rangeMax) {
@@ -508,14 +524,17 @@ function stopTrigger() {
     }
 };
 
+// 控制 range value 遞減
 function handleRangeSubtract() {
     startTrigger("subtract");
 
 };
+// 控制 range value 遞增
 function handleRangeAdd() {
     startTrigger("add");
 };
 
+// 儲存選擇節點的 value
 function handleConfirmed() {
     switch(state.currentPanelNumber) {
         case 2:
@@ -531,11 +550,13 @@ function handleConfirmed() {
 
     function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         if(nodes.key == "Back") {
+            // 回到上一步
             handlePrevious();
             return;
         } 
         
         if(nodes.key == "Reset") {
+            // 恢復預設值
             return
         }
 
