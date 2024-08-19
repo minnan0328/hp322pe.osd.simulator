@@ -43,10 +43,7 @@ export default class MenuTimeoutNodes implements Nodes {
                 English: "Menu Timeout",
                 TraditionalChinese: "功能表延遲"
             },
-            unit: {
-                English: "s",
-                TraditionalChinese: "秒"
-            },
+            unit: this.unit,
             nodes: null
         }
     ]

@@ -18,6 +18,7 @@
 
             <div class="range-text" v-if="!isColor" >
                 <span v-text="nodes.value"></span>
+                <span v-if="nodes.unit" v-text="toLanguageText(nodes.unit)"></span>
             </div>
 
             <div class="range-max-value">

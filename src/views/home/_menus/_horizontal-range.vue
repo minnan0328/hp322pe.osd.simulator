@@ -4,11 +4,13 @@
             <div class="item range-text" v-text="toLanguageText(nodes.language)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
-                <div :class="['graduate', nodes.key, { max: nodes.value == nodes.rangeMax }]">
-                </div>
+                <div :class="['graduate', nodes.key, { max: nodes.value == nodes.rangeMax }]"></div>
             </div>
 
-            <div class="item range-max-value" v-text="nodes.value"></div>
+            <div class="item range-max-value">
+                <span v-text="nodes.value"></span>
+                <span v-if="nodes.unit" v-text="toLanguageText(nodes.unit)"></span>
+            </div>
         </div>
     </div>
 </template>

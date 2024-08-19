@@ -34,8 +34,7 @@
                         <!-- value -->
                         <template v-if="!secondarySectionNodes">
                             <div class="item item-value"
-                                v-if="secondNodes.value && secondNodes.displayValue
-                                        || secondNodes.value == 0 && secondNodes.displayValue">
+                                v-if="secondNodes.value && secondNodes.displayValue || secondNodes.value == 0 && secondNodes.displayValue">
                                 <span v-if="secondNodes.mode != ModeType.info" v-text="toDisplayValueLanguageText(secondNodes)"></span>
                                 <span v-else-if="secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)"></span>
                                 <span v-if="secondNodes.unit" v-text="toLanguageText(secondNodes.unit)"></span>
