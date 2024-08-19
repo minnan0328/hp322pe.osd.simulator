@@ -9,7 +9,7 @@ const BackEnum = new Back();
 export default class MenuPositionNodes implements Nodes {
     key = "MenuPosition";
     value = null;
-    displayValue = true;
+    displayValue = false;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

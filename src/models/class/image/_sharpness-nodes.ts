@@ -7,7 +7,7 @@ const BackEnum = new Back();
 
 export default class SharpnessNodes implements Nodes {
     key = "Sharpness";
-    value = "Level 1";
+    value = "Level 4";
     displayValue = true;
     parents = null;
     mode = ModeType.button;

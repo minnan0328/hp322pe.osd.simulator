@@ -44,7 +44,7 @@
                                     <div class="item item-value"
                                         v-if="secondNodes.value && secondNodes.displayValue
                                                 || secondNodes.value == 0 && secondNodes.displayValue">
-                                        <span v-text="secondNodes.value"></span>
+                                        <span v-text="toDisplayValueLanguageText(secondNodes)"></span>
                                         <span v-if="secondNodes.unit" v-text="toLanguageText(secondNodes.unit)"></span>
                                     </div>
                                 </template>
@@ -148,13 +148,12 @@ import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
 import { toLanguageText } from '@/service/service';
+// components
 import verticalRange from './_vertical-range.vue';
 import horizontalRange from './_horizontal-range.vue';
 import customizeCheckbox from './_customize-checkbox.vue';
 import customizeRadio from './_customize-radio.vue';
-
-
-
+// svg
 import iconAllMenu from '@/assets/icons/icon-menu.svg';
 import iconBrightness from '@/assets/icons/icon-brightness.svg';
 import iconColor from '@/assets/icons/icon-color.svg';
@@ -187,8 +186,6 @@ const openAllMenu = ref(false);
 const openSecondAssignButton = ref(false);
 const openThirdAssignButton= ref(false);
 const openFourthAssignButton= ref(false);
-
-
 
 // 開啟選單
 function handleControllerMenus() {
@@ -277,6 +274,18 @@ watch(() => openAllMenu.value, (newVal, oldVal) => {
     state.currentMenu = menus.value[0];
     state.currentPanelNumber = 1;
 });
+
+function toDisplayValueLanguageText(nodes: Nodes) {
+    // 取得第一層需要顯示值得語言 
+    if(nodes.displayValue && nodes.nodes) {
+        let node = nodes.nodes.find(n => {
+            if(n.mode == ModeType.radio) {
+                return nodes.value == n.value;
+            }
+        });
+        return node ?  toLanguageText(node?.language) : nodes.value;
+    }
+};
 
 interface ControllerButtonList {
     image: string | null,
@@ -408,7 +417,7 @@ function handleTarget() {
     }
 }
 
-function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (item: Nodes, index: number) => void) {
+function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
     let index = startIndex;
     const length = nodes.length;
 
