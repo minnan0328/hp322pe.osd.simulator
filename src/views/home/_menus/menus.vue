@@ -147,7 +147,7 @@ import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { toLanguageText } from '@/service/service';
+import { toLanguageText, toDisplayValueLanguageText } from '@/service/service';
 // components
 import verticalRange from './_vertical-range.vue';
 import horizontalRange from './_horizontal-range.vue';
@@ -274,18 +274,6 @@ watch(() => openAllMenu.value, (newVal, oldVal) => {
     state.currentMenu = menus.value[0];
     state.currentPanelNumber = 1;
 });
-
-function toDisplayValueLanguageText(nodes: Nodes) {
-    // 取得第一層需要顯示值得語言 
-    if(nodes.displayValue && nodes.nodes) {
-        let node = nodes.nodes.find(n => {
-            if(n.mode == ModeType.radio) {
-                return nodes.value == n.value;
-            }
-        });
-        return node ?  toLanguageText(node?.language) : nodes.value;
-    }
-};
 
 interface ControllerButtonList {
     image: string | null,
