@@ -7,7 +7,7 @@
                 <div class="inner">
                     <div class="left">
                         <div class="input">
-                            <div :class="['tab', { 'selected-tab': selectedTab ==  tab}]" v-for="tab in tabs" v-text="tab" @click="selectTad(tab)"></div>
+                            <div :class="['tab', { 'selected-tab': selectedTab == tab}]" v-for="tab in tabs" v-text="tab.value" @click="selectTad(tab)"></div>
                         </div>
                         <div class="card">
                             <div class="top"></div>
@@ -30,7 +30,7 @@
                             <img src="@/assets/images/menu-buttons.png" alt="">
                         </div>
 
-                        <menus v-model:openMonitor="openMonitor" v-model:currentInput="selectedTab">
+                        <menus v-model:openMonitor="openMonitor">
                             <template v-slot:openMonitor>
                                 <button class="controller-btn open-btn" @click="handleMonitor"></button>
                             </template>
@@ -43,17 +43,29 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
+import { useStore } from '@/stores/index';
+import type { Nodes } from '@/types';
 import ribbon from '@/views/home/_ribbon/ribbon.vue';
 import monitorScreen from '@/views/home/_monitor-screen/monitor-screen.vue';
 import menus from '@/views/home/_menus/menus.vue';
 
-const tabs = reactive(["HDMI", "VGA"]);
+const store = useStore();
 
-const selectedTab = ref(tabs[0]);
+const inputEnum = computed(() => {
+    return store.$state.input;
+});
 
-function selectTad(tab: string) {
+const tabs = reactive([
+    inputEnum.value.nodes[0],
+    inputEnum.value.nodes[1]
+])
+
+const selectedTab = ref<Nodes | null>(tabs[0] as Nodes | null);
+
+function selectTad(tab: Nodes) {
     selectedTab.value = tab;
+    inputEnum.value.value = selectedTab.value.value as string;
 };
 
 /* 啟動螢幕 start  */

@@ -12,7 +12,7 @@
                 <div class="options">
                     <template  v-for="menu in menus" v-text="toLanguageText(menu.language)">
                         <div :class="['option', { selected: state.currentMenu == menu }]"
-                            v-if="isEnable(menu)" v-text="toLanguageText(menu.language)">
+                            v-if="isEnableInput(menu)" v-text="toLanguageText(menu.language)">
                         </div>
                     </template>
                 </div>
@@ -21,7 +21,7 @@
                 <template v-if="state.currentMenu && state.currentMenu.mode != ModeType.exit">
                     <div class="function">
                         <template v-if="state.currentMenu" v-for="secondNodes in state.currentMenu.nodes">
-                            <div :class="['setting-item', secondNodes.key, { 'unset-grid': state.secondPanel }]" v-if="isEnable(secondNodes)">
+                            <div :class="['setting-item', secondNodes.key, { 'unset-grid': state.secondPanel }]" v-if="isEnableInput(secondNodes)">
                                 <!-- button -->
                                 <div :class="['item', {
                                         selected: state.secondPanel == secondNodes,
@@ -56,8 +56,8 @@
                             v-if="state.currentMenu && state.secondPanel && state.secondPanel.nodes">
                         <template v-for="thirdNodes in state.secondPanel.nodes">
                             <div :class="['setting-item unset-grid', thirdNodes.key]"
-                                v-if="isEnable(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
-                                    && isEnable(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange">
+                                v-if="isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
+                                    && isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange">
                                 <!-- button -->
                                 <div :class="['item', { selected: state.thirdPanel == thirdNodes, 'merge-grid': thirdNodes.mergeGrid }]"
                                     v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info" v-text="toLanguageText(thirdNodes.language)">
@@ -80,14 +80,14 @@
                                 </customizeCheckbox>
                             </div>
                             <!-- 一般縱向 range -->
-                            <verticalRange v-else-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key != 'CustomRGB'"
+                            <verticalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key != 'CustomRGB'"
                                 :nodes="thirdNodes"
                                 :selected="state.thirdPanel == thirdNodes">
                             </verticalRange>
                             <!-- 一般縱向 range -->
                             <!-- 縱向 color range -->
-                            <template v-else-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key == 'CustomRGB'">
-                                <verticalRange v-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.verticalRange"
+                            <template v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && state.secondPanel.key == 'CustomRGB'">
+                                <verticalRange v-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange"
                                     :nodes="thirdNodes"
                                     :selected="state.thirdPanel == thirdNodes"
                                     :isColor="true">
@@ -95,7 +95,7 @@
                             </template>
                             <!-- 縱向 color range -->
                             <!-- 橫向 range -->
-                            <horizontalRange v-else-if="isEnable(thirdNodes) && thirdNodes.mode == ModeType.horizontalRange"
+                            <horizontalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.horizontalRange"
                                 :nodes="thirdNodes"
                                 :selected="state.thirdPanel == thirdNodes">
                             </horizontalRange>
@@ -147,7 +147,7 @@ import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { toLanguageText, toDisplayValueLanguageText } from '@/service/service';
+import { isEnableInput, toLanguageText, toDisplayValueLanguageText } from '@/service/service';
 // components
 import verticalRange from './_vertical-range.vue';
 import horizontalRange from './_horizontal-range.vue';
@@ -167,6 +167,13 @@ import iconCheck from '@/assets/icons/icon-check.svg';
 import iconSubtract from '@/assets/icons/icon-subtract.svg';
 import iconAdd from '@/assets/icons/icon-add.svg';
 import iconPrevious from '@/assets/icons/icon-previous.svg';
+
+interface ControllerButtonList {
+    image: string | null,
+    event: (() => void) | null,
+    stopEvent: (() => void) | null,
+    type: string
+};
 
 const store = useStore();
 
@@ -275,13 +282,6 @@ watch(() => openAllMenu.value, (newVal, oldVal) => {
     state.currentPanelNumber = 1;
 });
 
-interface ControllerButtonList {
-    image: string | null,
-    event: (() => void) | null,
-    stopEvent: (() => void) | null,
-    type: string
-};
-
 const handleControllerButtonList = computed<ControllerButtonList[] | null>(() => {
     if(props.openMonitor) {
         if(isControllerMenusButton.value) {
@@ -385,10 +385,6 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     }
 }
 
-function isEnable(nodes: Nodes): boolean {
-    return nodes.only?.includes(props.currentInput) ?? false;
-};
-
 function handleTarget() {
     if (state.currentMenu?.nodes && !state.secondPanel) {
         selectEnabledItem(state.currentMenu.nodes, state.secondPanelIndex, (nodes, index) => {
@@ -410,7 +406,7 @@ function selectEnabledItem(nodes: Nodes[], startIndex: number, setValue: (node: 
     const length = nodes.length;
 
     do {
-        if (isEnable(nodes[index])) {
+        if (isEnableInput(nodes[index])) {
             setValue(nodes[index], index);
             return;
         }
@@ -429,7 +425,7 @@ function handleNavigation(direction: 'up' | 'down') {
         if (!state.secondPanel) {
             state.currentMenuIndex = updateIndex(state.currentMenuIndex, menus.value.length);
 
-            if (!isEnable(menus.value[state.currentMenuIndex])) {
+            if (!isEnableInput(menus.value[state.currentMenuIndex])) {
                 handleNavigation(direction);
             } else {
                 state.currentMenu = menus.value[state.currentMenuIndex];
@@ -437,7 +433,7 @@ function handleNavigation(direction: 'up' | 'down') {
         } else if (state.secondPanel && !state.thirdPanel) {
             state.secondPanelIndex = updateIndex(state.secondPanelIndex, state.currentMenu.nodes.length);
 
-            if (!isEnable(state.currentMenu.nodes[state.secondPanelIndex])) {
+            if (!isEnableInput(state.currentMenu.nodes[state.secondPanelIndex])) {
                 handleNavigation(direction);
             } else {
                 state.secondPanel = state.currentMenu.nodes[state.secondPanelIndex];
@@ -445,7 +441,7 @@ function handleNavigation(direction: 'up' | 'down') {
         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel) {
             state.thirdPanelIndex = updateIndex(state.thirdPanelIndex, state.secondPanel.nodes.length);
 
-            if (!isEnable(state.secondPanel.nodes[state.thirdPanelIndex])) {
+            if (!isEnableInput(state.secondPanel.nodes[state.thirdPanelIndex])) {
                 handleNavigation(direction);
             } else {
                 state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
@@ -465,13 +461,13 @@ function handleBottom() {
 function handleRangeValue(step: string) {
     switch(state.currentPanelNumber) {
         case 2:
-            if(state.currentMenu && state.secondPanel) {  calculateValue(state.secondPanel, state.currentMenu); }
+            if(state.currentMenu && state.secondPanel) { calculateValue(state.secondPanel, state.currentMenu); }
             break;
         case 3:
-            if(state.secondPanel && state.thirdPanel) {  calculateValue(state.thirdPanel, state.secondPanel); }
+            if(state.secondPanel && state.thirdPanel) { calculateValue(state.thirdPanel, state.secondPanel); }
             break;
         case 4:
-            if(state.thirdPanel && state.fourthPanel) {  calculateValue(state.fourthPanel, state.thirdPanel); }
+            if(state.thirdPanel && state.fourthPanel) { calculateValue(state.fourthPanel, state.thirdPanel); }
             break;
     };
 
@@ -511,7 +507,6 @@ function stopTrigger() {
     }
 };
 
-
 function handleRangeSubtract() {
     startTrigger("subtract");
 
@@ -523,35 +518,28 @@ function handleRangeAdd() {
 function handleConfirmed() {
     switch(state.currentPanelNumber) {
         case 2:
-            if(state.currentMenu && state.secondPanel) {  setNodesValue(state.secondPanel, state.currentMenu); }
+            if(state.currentMenu && state.secondPanel) { setNodesValue(state.secondPanel, state.currentMenu); }
             break;
         case 3:
-            if(state.secondPanel && state.thirdPanel) {  setNodesValue(state.thirdPanel, state.secondPanel); }
+            if(state.secondPanel && state.thirdPanel) { setNodesValue(state.thirdPanel, state.secondPanel); }
             break;
         case 4:
-            if(state.thirdPanel && state.fourthPanel) {  setNodesValue(state.fourthPanel, state.thirdPanel); }
+            if(state.thirdPanel && state.fourthPanel) { setNodesValue(state.fourthPanel, state.thirdPanel); }
             break;
     };
 
     function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
+        if(nodes.key == "Back") {
+            handlePrevious();
+            return;
+        } 
+        
+        if(nodes.key == "Reset") {
+            return
+        }
+
         previousNodes.value = nodes.value;
     };
-};
-
-// 關閉全部選單，包含
-function handleClose() {
-    openControllerMenus.value = false;
-    state.currentMenu = null;
-    openAllMenu.value = false;
-    openSecondAssignButton.value = false;
-    openThirdAssignButton.value = false;
-    openFourthAssignButton.value = false;
-    
-    state.currentPanelNumber = 0;
-    state.currentMenuIndex = 0;
-    state.secondPanelIndex = 0;
-    state.thirdPanelIndex = 0;
-
 };
 
 // 上一步
@@ -567,6 +555,20 @@ function handlePrevious() {
     }
 };
 
+// 關閉全部選單，包含
+function handleClose() {
+    openControllerMenus.value = false;
+    state.currentMenu = null;
+    openAllMenu.value = false;
+    openSecondAssignButton.value = false;
+    openThirdAssignButton.value = false;
+    openFourthAssignButton.value = false;
+    
+    state.currentPanelNumber = 0;
+    state.currentMenuIndex = 0;
+    state.secondPanelIndex = 0;
+    state.thirdPanelIndex = 0;
+};
 
 </script>
 <style lang="scss" scoped>

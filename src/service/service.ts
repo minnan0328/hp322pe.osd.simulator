@@ -4,6 +4,11 @@ import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
 const store = useStore();
 
+export function isEnableInput(nodes: Nodes): boolean {
+    return nodes.only?.includes(store.$state.input.value) ?? false;
+};
+
+
 const currentLanguage = computed(() => {
     let language = store.$state.menu.nodes.find(n => n.key == 'Language');
     return language?.value ?? "English";

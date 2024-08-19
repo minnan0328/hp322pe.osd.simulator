@@ -17,7 +17,7 @@ const BlackStretchNodesEnum = new BlackStretchNodes();
 const VideoLevelNodesEnum = new VideoLevelNodes();
 
 export default class Brightness implements Nodes {
-    key = "Brightness+";
+    key = "BrightnessPlus";
     value = null;
     displayValue = false;
     parents = null;
