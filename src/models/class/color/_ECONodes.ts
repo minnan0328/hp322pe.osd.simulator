@@ -7,6 +7,10 @@ export default class ECONodes implements Nodes {
     key = "ECO";
     value = "ECO";
     displayValue = false;
+    displayState = false;
+    livePreview = true;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;

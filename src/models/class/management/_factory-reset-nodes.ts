@@ -10,6 +10,10 @@ export default class FactoryResetNodes implements Nodes {
     key = "FactoryReset";
     value = "Yes";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -27,6 +31,10 @@ export default class FactoryResetNodes implements Nodes {
             key: "Yes",
             value: "Yes",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -45,6 +53,10 @@ export default class FactoryResetNodes implements Nodes {
             key: "No",
             value: "No",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,

@@ -14,6 +14,10 @@ export default class MonitorStatusNodes implements Nodes {
     key = "MonitorStatus";
     value = TopNodesEnum.value;
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

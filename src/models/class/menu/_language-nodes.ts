@@ -2,14 +2,20 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back } from '../_utilities';
+import { Back, NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
 
 const BackEnum = new Back();
+const PreviousPageButtonsNodesEnum = new PreviousPageButtonsNodes();
+const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
 
 export default class LanguageNodes implements Nodes {
     key = "Language";
     value = "English";
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 11;
+    page = 1;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -27,6 +33,10 @@ export default class LanguageNodes implements Nodes {
             key: "Deutsch",
             value: "Deutsch",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -45,6 +55,10 @@ export default class LanguageNodes implements Nodes {
             key: "简体中文",
             value: "SimplifiedChinese",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -63,6 +77,10 @@ export default class LanguageNodes implements Nodes {
             key: "繁體中文",
             value: "TraditionalChinese",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -81,6 +99,10 @@ export default class LanguageNodes implements Nodes {
             key: "English",
             value: "English",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -99,6 +121,10 @@ export default class LanguageNodes implements Nodes {
             key: "Español",
             value: "Español",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -117,6 +143,10 @@ export default class LanguageNodes implements Nodes {
             key: "Français",
             value: "Français",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -135,6 +165,10 @@ export default class LanguageNodes implements Nodes {
             key: "Italiano",
             value: "Italiano",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -153,6 +187,10 @@ export default class LanguageNodes implements Nodes {
             key: "日本語",
             value: "日本語",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -171,6 +209,10 @@ export default class LanguageNodes implements Nodes {
             key: "Nederlands",
             value: "Nederlands",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -189,6 +231,10 @@ export default class LanguageNodes implements Nodes {
             key: "Português",
             value: "Português",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -204,9 +250,23 @@ export default class LanguageNodes implements Nodes {
             nodes: null
         },
         {
+            // 下一頁
+            ...NextPageButtonsNodesEnum,
+            parents: this.key,
+        },
+        {
+            // 上一頁
+            ...PreviousPageButtonsNodesEnum,
+            parents: this.key,
+        },
+        {
             key: "Pусский",
             value: "Pусский",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,

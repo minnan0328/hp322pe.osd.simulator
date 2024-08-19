@@ -12,6 +12,10 @@ export default class AutoSleepModeNodes implements Nodes {
     key = "AutoSleepMode";
     value = OnNodesEnum.value;
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

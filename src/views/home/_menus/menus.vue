@@ -190,6 +190,9 @@ const displayCurrentNodes = computed(() => {
     }
 });
 
+// 處理分頁
+
+
 watch(() => props.openMonitor, (newVal, oldVal) => {
     if(newVal == false) {
         handleClose();
@@ -298,6 +301,7 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         || nodes.mode == ModeType.radio && !nodes.nodes
         || nodes.mode == ModeType.button && !nodes.nodes
         || nodes.mode == ModeType.checkBox && !nodes.nodes
+        || nodes.mode == ModeType.paginationButton && !nodes.nodes
     ) {
         // 當為 reset and back, button 下一層沒有節點的時候
         return confirmedButtonList;
@@ -405,16 +409,32 @@ function handleNavigation(direction: 'up' | 'down') {
             }
         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
             state.thirdPanelIndex = updateIndex(state.thirdPanelIndex, state.secondPanel.nodes.length);
-
+            
             if (!isEnableInput(state.secondPanel.nodes[state.thirdPanelIndex])) {
                 handleNavigation(direction);
             } else {
+                console.log(state.thirdPanelIndex);
+                
+                // state.secondPanel.page = state.thirdPanelIndex == state.secondPanel.nodes.length - 1
+                //     ? Math.ceil(state.secondPanel.nodes?.length / state.secondPanel.total)
+                //     : state.secondPanel.page == Math.ceil(state.secondPanel.nodes?.length / state.secondPanel.total)
+                //     ? state.secondPanel.page
+                //     : state.thirdPanelIndex == 0
+                //     ? 1
+                //     : state.secondPanel.page; 
+
+                state.secondPanel.page = state.thirdPanelIndex == 0
+                    ? 1
+                    : state.thirdPanelIndex == state.secondPanel.nodes.length - 1
+                    ? Math.ceil(state.secondPanel.nodes?.length / state.secondPanel.total)
+                    : state.secondPanel.page
+
                 state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
             }
         } else if(state.secondPanel && state.secondPanel.nodes && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
             state.fourthPanelIndex = updateIndex(state.fourthPanelIndex, state.thirdPanel.nodes.length);
 
-            if (!isEnableInput(state.thirdPanel.nodes[state.fourthPanelIndex])) {
+            if (!isEnableInput(state.thirdPanel.nodes[state.fourthPanelIndex]) && state.fourthPanel.mode == ModeType.paginationButton) {
                 handleNavigation(direction);
             } else {
                 state.fourthPanel = state.thirdPanel.nodes[state.fourthPanelIndex];
@@ -507,28 +527,50 @@ function handleConfirmed() {
             if(state.thirdPanel && state.fourthPanel) { setNodesValue(state.fourthPanel, state.thirdPanel); }
             break;
     };
+};
 
-    function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
-        // 回到上一步
-        if(nodes.key == "Back") {
-            handlePrevious();
-            return;
-        } 
-        
-        // 恢復預設值
-        if(nodes.key == "Reset") {
+function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
+    // 回到上一步
+    if(nodes.key == "Back") {
+        handlePrevious();
+        return;
+    };
+    
+    // 恢復預設值
+    if(nodes.key == "Reset") {
+        return
+    };
+
+    // 下一頁 目前只處理 secondaryNodesPagination(右邊畫面)
+    if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'NextPageButtons') {
+        if(nodes.page > Math.ceil(previousNodes.nodes?.length / nodes.total)) {
             return
         }
-
-        // checkbox 處理只處理 string[]
-        if(nodes.mode == ModeType.checkBox && typeof nodes.value == "string" && Array.isArray(previousNodes.value)) {
-            let checked: boolean = (previousNodes.value as string[]).includes(nodes.value as string);
-            checked ? previousNodes.value.splice(previousNodes.value.indexOf(nodes.value), 1) : previousNodes.value.push(nodes.value);
-        } else {
-            previousNodes.value = nodes.value;
-        }
-
+        handleBottom();
+        handleBottom();
+        previousNodes.page += 1;
+        return
     };
+    // 上一頁 目前只處理 secondaryNodesPagination(右邊畫面)
+    if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'PreviousPageButtons') {
+        if(nodes.page == 1) {
+            return
+        }
+        //
+        handleUp();
+        handleUp();
+        previousNodes.page -= 1;
+
+        return
+    };
+
+    // checkbox 處理只處理 string[]
+    if(nodes.mode == ModeType.checkBox && typeof nodes.value == "string" && Array.isArray(previousNodes.value)) {
+        let checked: boolean = (previousNodes.value as string[]).includes(nodes.value as string);
+        checked ? previousNodes.value.splice(previousNodes.value.indexOf(nodes.value), 1) : previousNodes.value.push(nodes.value);
+    } else {
+        previousNodes.value = nodes.value;
+    }
 };
 
 // 關閉全部選單，包含

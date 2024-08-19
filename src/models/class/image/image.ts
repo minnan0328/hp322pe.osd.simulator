@@ -21,6 +21,10 @@ export default class Image implements Nodes {
     key = "Image";
     value = null;
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

@@ -25,6 +25,10 @@ export default class Color implements Nodes {
     key = "Color";
     value = NeutralNodesEnum.value;
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

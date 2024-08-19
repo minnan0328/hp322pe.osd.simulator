@@ -12,6 +12,10 @@ export default class OSDMessagesNodes implements Nodes {
     key = "OSDMessages";
     value = ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"];
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -32,6 +36,10 @@ export default class OSDMessagesNodes implements Nodes {
             key: "PowerOnLogo",
             value: "Power-On Logo",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.checkBox,
             rangeMin: 0,
@@ -50,6 +58,10 @@ export default class OSDMessagesNodes implements Nodes {
             key: "NoInputSignalWarning",
             value: "No Input Signal Warning",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.checkBox,
             rangeMin: 0,
@@ -70,6 +82,10 @@ export default class OSDMessagesNodes implements Nodes {
             key: "ConfirmChangeMessage",
             value: "Confirm Change Message",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.checkBox,
             rangeMin: 0,

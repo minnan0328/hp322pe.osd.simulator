@@ -13,6 +13,10 @@ export default class Input implements Nodes {
     key = "Input";
     value = "HDMI";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -31,6 +35,10 @@ export default class Input implements Nodes {
             key: "HDMI",
             value: "HDMI",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -50,6 +58,10 @@ export default class Input implements Nodes {
             key: "VGA",
             value: "VGA",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -68,6 +80,10 @@ export default class Input implements Nodes {
         {
             key: "AutoSwitchInput",
             value: OnNodesEnum.value,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             displayValue: true,
             parents: this.key,
             mode: ModeType.button,

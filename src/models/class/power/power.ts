@@ -15,6 +15,10 @@ export default class Power implements Nodes {
     key = "Power";
     value = null;
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

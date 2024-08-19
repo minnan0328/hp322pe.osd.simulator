@@ -8,6 +8,10 @@ export default class Information implements Nodes {
     key = "Information";
     value = null;
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.info;
     rangeMin = 0;
@@ -25,6 +29,10 @@ export default class Information implements Nodes {
             key: "CurrentMode:",
             value: "1920x1080 60Hz",
             displayValue: true,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
@@ -42,6 +50,10 @@ export default class Information implements Nodes {
         {
             key: "OptimalMode:",
             value: "1920x1080 100Hz",
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             displayValue: true,
             parents: this.key,
             mode: ModeType.info,
@@ -60,6 +72,10 @@ export default class Information implements Nodes {
         {
             key: "ColorSetting:",
             value: currentColor.value,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             displayValue: true,
             parents: this.key,
             mode: ModeType.info,
@@ -79,6 +95,10 @@ export default class Information implements Nodes {
             key: "FWPackageVersion:",
             value: "0.0.1.0",
             displayValue: true,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
@@ -97,6 +117,10 @@ export default class Information implements Nodes {
             key: "HWRevision:",
             value: "B0IT0000",
             displayValue: true,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,
@@ -115,6 +139,10 @@ export default class Information implements Nodes {
             key: "SerialNumber:",
             value: "CNK0000001",
             displayValue: true,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.info,
             rangeMin: 0,

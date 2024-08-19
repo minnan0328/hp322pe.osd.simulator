@@ -11,6 +11,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
     key = "DiagnosticPatterns";
     value = "Cycle Patterns";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -28,6 +32,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
             key: "CyclePatterns",
             value: "Cycle Patterns",
             displayValue: false,
+            displayState: false,
+            livePreview: true,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -46,6 +54,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
             key: "FullScreenBlack",
             value: "Full Screen Black",
             displayValue: false,
+            displayState: false,
+            livePreview: true,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -64,6 +76,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
             key: "FullScreenWhite",
             value: "Full Screen White",
             displayValue: false,
+            displayState: false,
+            livePreview: true,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -82,6 +98,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
             key: "FullScreenRed",
             value: "Full Screen Red",
             displayValue: false,
+            displayState: false,
+            livePreview: true,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -100,6 +120,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
             key: "FullScreenGreen",
             value: "Full Screen Green",
             displayValue: false,
+            displayState: false,
+            livePreview: true,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -118,6 +142,10 @@ export default class DiagnosticPatternsNodes implements Nodes {
             key: "FullScreenBlue",
             value: "Full Screen Blue",
             displayValue: false,
+            displayState: false,
+            livePreview: true,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,

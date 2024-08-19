@@ -10,6 +10,10 @@ export default class MenuPositionNodes implements Nodes {
     key = "MenuPosition";
     value = null;
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -28,6 +32,10 @@ export default class MenuPositionNodes implements Nodes {
             key: "Horizontal",
             value: 0,
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,
@@ -47,6 +55,10 @@ export default class MenuPositionNodes implements Nodes {
             key: "Vertical",
             value: 0,
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,

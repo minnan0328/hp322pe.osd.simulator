@@ -12,6 +12,10 @@ export default class DynamicContrastNodes implements Nodes {
     key = "DynamicContrast";
     value = OffNodesEnum.value;
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

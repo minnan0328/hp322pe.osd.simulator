@@ -2,7 +2,7 @@
     <div :class="['setting', { 'two-columns': secondarySectionNodes }]" v-if="mainSectionNodes || secondarySectionNodes">
         <template v-if="mainSectionNodes && mainSectionNodes.mode != ModeType.exit">
             <div class="function">
-                <template v-for="secondNodes in mainSectionNodes.nodes">
+                <template v-for="(secondNodes, secondNodesIdx) in mainSectionNodes.nodes">
                     <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondarySectionNodes }]" v-if="isEnableInput(secondNodes)">
                         <!-- button -->
                         <div :class="['item', {
@@ -46,10 +46,20 @@
             </div>
             <div :class="['function-setting', { 'customRGB-range-section': secondarySectionNodes.key == 'CustomRGB' }]"
                     v-if="mainSectionNodes && secondarySectionNodes && secondarySectionNodes.nodes">
-                <template v-for="thirdNodes in secondarySectionNodes.nodes">
+                <template v-for="(thirdNodes, thirdNodesIdx) in secondarySectionNodes.nodes">
                     <div :class="['setting-item unset-grid', thirdNodes.key]"
                         v-if="isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
-                            && isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange">
+                            && isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange
+                            && thirdNodesIdx > ((secondarySectionNodes.total * (secondarySectionNodes.page - 1)) - 1) 
+                            && thirdNodesIdx <= (secondarySectionNodes.total * (secondarySectionNodes.page))">
+                        <!-- 上一頁 -->
+                        <div :class="['item previous-page-btn', {
+                                selected: thirdSectionNodes == thirdNodes,
+                                'merge-grid': thirdNodes.mergeGrid
+                            }]" v-if="thirdNodes.mode == ModeType.paginationButton && thirdNodes.key == 'PreviousPageButtons'
+                                && secondarySectionNodes.page > 1">
+                        </div>
+                        <!-- 上一頁 -->
                         <!-- button -->
                         <div :class="['item', { selected: thirdSectionNodes == thirdNodes, 'merge-grid': thirdNodes.mergeGrid }]"
                             v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info" v-text="toLanguageText(thirdNodes.language)">
@@ -72,6 +82,14 @@
                             :lastNodes="isCheckboxLast(thirdNodes, secondarySectionNodes)">
                         </customizeCheckbox>
                         <!-- checkbox -->
+                        <!-- 下一頁 -->
+                        <div :class="['item next-page-btn', {
+                                selected: thirdSectionNodes == thirdNodes,
+                                'merge-grid': thirdNodes.mergeGrid
+                            }]" v-else-if="thirdNodes.mode == ModeType.paginationButton && thirdNodes.key == 'NextPageButtons'
+                                && (secondarySectionNodes.nodes.length + 1) > secondarySectionNodes.total">
+                        </div>
+                        <!-- 下一頁 -->
                     </div>
                     <!-- 一般縱向 range -->
                     <verticalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && secondarySectionNodes.key != 'CustomRGB'"
@@ -131,6 +149,8 @@ const props = defineProps({
         default: null
     }
 });
+
+
 
 function isCheckboxLast(item: Nodes, node: Nodes) {
     if(node.nodes) {
@@ -210,11 +230,36 @@ function isCheckboxLast(item: Nodes, node: Nodes) {
             padding: 0 8px;
             display: flex;
             align-items: center;
+            position: relative;
 
             &.merge-grid,
             &.Back,
             &.Rese {
                 grid-column: 1 / 3;
+            }
+
+            &.next-page-btn::before {
+                position: absolute;
+                content: "";
+                width: 0;
+                height: 0;
+                left: calc((100% - 10px) / 2);
+                border-style: solid;
+                border-width: 10px 5px 0 5px;
+                border-color: #ffffff transparent transparent transparent;
+            };
+
+            &.previous-page-btn::before {
+                position: absolute;
+                content: "";
+                width: 0;
+                height: 0;
+                left: calc((100% - 10px) / 2);
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 5px 10px 5px;
+                border-color: transparent transparent #ffffff transparent;
             }
 
             &.selected:not(.disabled) {

@@ -4,6 +4,10 @@ export default class Exit implements Nodes {
     key = "Exit";
     value = "logo.png";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.exit;
     rangeMin = 0;

@@ -14,6 +14,10 @@ export default class BlackStretchNodes implements Nodes {
     key = "BlackStretch";
     value = offNodesEnum.value;
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -30,21 +34,25 @@ export default class BlackStretchNodes implements Nodes {
         // 關
         {
             ...offNodesEnum,
+            livePreview: true,
             parents: this.key
         },
         // 低
         {
             ...LowNodesEnum,
+            livePreview: true,
             parents: this.key
         },
         // 中
         {
             ...MediumNodesEnum,
+            livePreview: true,
             parents: this.key
         },
         // 高
         {
             ...HighNodesEnum,
+            livePreview: true,
             parents: this.key
         },
         // 上一步

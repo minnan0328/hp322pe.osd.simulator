@@ -10,6 +10,10 @@ export default class BlackStretchNodes implements Nodes {
     key = "VideoLevel";
     value = "Auto";
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -28,6 +32,10 @@ export default class BlackStretchNodes implements Nodes {
             key: "Auto",
             value: "Auto",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -47,6 +55,10 @@ export default class BlackStretchNodes implements Nodes {
             key: "LimitedRange(16 - 235)",
             value: "Limited Range (16 - 235)",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -66,6 +78,10 @@ export default class BlackStretchNodes implements Nodes {
             key: "FullRange(0 - 255)",
             value: "Full Range (0 - 255)",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,

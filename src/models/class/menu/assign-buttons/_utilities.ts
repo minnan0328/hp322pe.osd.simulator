@@ -7,6 +7,10 @@ export class AssignAutoAdjustmentNodes implements Nodes {
     key = "AssignAutoAdjustment";
     value = "Auto-Adjustment";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -26,6 +30,10 @@ export class AssignBrightnessNodes implements Nodes {
     key = "AssignBrightness";
     value = "Brightness";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -45,6 +53,10 @@ export class AssignColorNodes implements Nodes {
     key = "AssignColor";
     value = "Color";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -64,6 +76,10 @@ export class AssignDisplayInformationNodes implements Nodes {
     key = "AssignDisplayInformation";
     value = "Display Information";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -83,6 +99,10 @@ export class AssignNextActiveInputNodes implements Nodes {
     key = "AssignNextActiveInput";
     value = "Next Active Input";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -102,6 +122,10 @@ export class AssignEmptyNodes implements Nodes {
     key = "Empty (No Function)";
     value = "Empty (No Function)";
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;

@@ -9,6 +9,10 @@ export default class ImageScalingNodes implements Nodes {
     key = "ImageScaling";
     value = "Fill to Screen";
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -26,6 +30,10 @@ export default class ImageScalingNodes implements Nodes {
             key: "FilltoScreen",
             value: "Fill to Screen",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -44,6 +52,10 @@ export default class ImageScalingNodes implements Nodes {
             key: "FilltoAspectRatio",
             value: "Fill to Aspect Ratio",
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,

@@ -12,6 +12,10 @@ export default class PowerLEDNodes implements Nodes {
     key = "PowerLED";
     value = OnNodesEnum.value;
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

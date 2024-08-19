@@ -24,6 +24,10 @@ export default class AssignButtonsNodes implements Nodes {
     key = "AssignButtons";
     value = null;
     displayValue = false;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -42,6 +46,10 @@ export default class AssignButtonsNodes implements Nodes {
             key: "AssignButton1",
             value: "Next Active Input",
             displayValue: true,
+            displayState: true,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -92,6 +100,10 @@ export default class AssignButtonsNodes implements Nodes {
             key: "AssignButton2",
             value: "Color",
             displayValue: true,
+            displayState: true,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,
@@ -142,6 +154,10 @@ export default class AssignButtonsNodes implements Nodes {
             key: "AssignButton3",
             value: "Brightness",
             displayValue: true,
+            displayState: true,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.button,
             rangeMin: 0,

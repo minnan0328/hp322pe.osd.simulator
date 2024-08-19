@@ -7,6 +7,10 @@ export default class BrightnessNodes implements Nodes {
     key = "Brightness";
     value = 86;
     displayValue = true;
+    displayState = false;
+    livePreview = false;
+    total = 0;
+    page = 0;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -24,6 +28,10 @@ export default class BrightnessNodes implements Nodes {
             key: "BrightnessNodes",
             value: this.value,
             displayValue: false,
+            displayState: false,
+            livePreview: false,
+            total: 0,
+            page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 0,
