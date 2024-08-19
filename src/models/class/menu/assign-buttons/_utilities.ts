@@ -31,7 +31,7 @@ export class AssignBrightnessNodes implements Nodes {
     rangeMin = 0;
     rangeMax = 0;
     rangeIcon = null;
-    only = ["VGA"];
+    only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
         English: "Brightness",
@@ -99,8 +99,8 @@ export class AssignNextActiveInputNodes implements Nodes {
 };
 
 export class AssignEmptyNodes implements Nodes {
-    key = "AssignEmpty(NoFunction)";
-    value = "Next Active Input";
+    key = "Empty (No Function)";
+    value = "Empty (No Function)";
     displayValue = false;
     parents = null;
     mode = ModeType.radio;

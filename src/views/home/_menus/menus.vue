@@ -43,7 +43,7 @@
     </div>
 
     <div class="controller">
-        <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus" @click="handleControllerMenus"></button>
+        <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handleControllerMenus"></button>
         <template v-else v-for="currentButton in handleControllerButtonList">
             <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton?.event"></button>
             <button v-if="currentButton.type == 'RangeButton'" class="controller-btn"
@@ -297,6 +297,7 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         nodes.key == "Reset" || nodes.key == "Back"
         || nodes.mode == ModeType.radio && !nodes.nodes
         || nodes.mode == ModeType.button && !nodes.nodes
+        || nodes.mode == ModeType.checkBox && !nodes.nodes
     ) {
         // 當為 reset and back, button 下一層沒有節點的時候
         return confirmedButtonList;
@@ -508,18 +509,25 @@ function handleConfirmed() {
     };
 
     function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
+        // 回到上一步
         if(nodes.key == "Back") {
-            // 回到上一步
             handlePrevious();
             return;
         } 
         
+        // 恢復預設值
         if(nodes.key == "Reset") {
-            // 恢復預設值
             return
         }
 
-        previousNodes.value = nodes.value;
+        // checkbox 處理只處理 string[]
+        if(nodes.mode == ModeType.checkBox && typeof nodes.value == "string" && Array.isArray(previousNodes.value)) {
+            let checked: boolean = (previousNodes.value as string[]).includes(nodes.value as string);
+            checked ? previousNodes.value.splice(previousNodes.value.indexOf(nodes.value), 1) : previousNodes.value.push(nodes.value);
+        } else {
+            previousNodes.value = nodes.value;
+        }
+
     };
 };
 
@@ -707,7 +715,6 @@ function handleClose() {
 	display: flex;
 	bottom: 218px;
 	right: 62px;
-	background-color: #090909;
 
 	.menu-item {
 		display: flex;
@@ -725,7 +732,7 @@ function handleClose() {
 }
 
 .controller {
-    display: flex;
+    // display: flex;
 	position: absolute;
 	bottom: 135px;
 	right: 18px;
@@ -734,11 +741,11 @@ function handleClose() {
 	:deep(.controller-btn) {
 		width: 40px;
 		height: 40px;
-		background-color: azure;
-		border: 1px solid #0083ca;
-		opacity: 0.5;
+		// background-color: azure;
+		// border: 1px solid #0083ca;
+		// opacity: 0.5;
 
-		&.controller-menus {
+		&.controller-menus-btn {
 			position: absolute;
 			width: 160px;
 			bottom: 1px;
