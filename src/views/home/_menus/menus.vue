@@ -116,7 +116,7 @@
                 Current Mode: 1920x1080 100Hz
             </div>
             <div class="current-input">
-                Input: {{ currentInput }}
+                {{ toLanguageText(inputEnum.language) }}: {{ inputEnum.value }}
             </div>
         </div>
     </div>
@@ -181,12 +181,13 @@ const props = defineProps({
     openMonitor: {
         type: Boolean,
         default: false
-    },
-    currentInput: {
-        type: String,
-        default: "HDMI"
     }
 });
+
+const inputEnum = computed(() => {
+    return store.$state.input;
+});
+
 
 const openControllerMenus = ref(false);
 const openAllMenu = ref(false);
