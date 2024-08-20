@@ -365,6 +365,20 @@ function handleTarget() {
     }
 };
 
+// 選擇啟用的節點
+function selectEnabledNode(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
+    let index = startIndex;
+    const length = nodes.length;
+
+    do {
+        if (isEnableInput(nodes[index])) {
+            setValue(nodes[index], index);
+            return;
+        }
+        index = (index + 1) % length;
+    } while (index !== startIndex);
+};
+
 // 上一步
 function handlePrevious() {
     if(state.secondPanel && !state.thirdPanel) {
@@ -382,157 +396,6 @@ function handlePrevious() {
     }
 };
 
-
-// 選擇啟用的節點
-function selectEnabledNode(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
-    let index = startIndex;
-    const length = nodes.length;
-
-    do {
-        if (isEnableInput(nodes[index])) {
-            setValue(nodes[index], index);
-            return;
-        }
-        index = (index + 1) % length;
-    } while (index !== startIndex);
-};
-
-// 選擇下一個或上一個的節點
-function handleNavigation(direction: 'up' | 'down') {
-    const step = direction === 'up' ? -1 : 1;
-
-    const updateIndex = (index: number, length: number) => {
-        return (index + step + length) % length;
-    };
-
-    if (menus.value && state.menuPanel?.nodes) {
-        if (!state.secondPanel) {
-            state.menuPanelIndex = updateIndex(state.menuPanelIndex, menus.value.nodes.length);
-
-            if (!isEnableInput(menus.value.nodes[state.menuPanelIndex])) {
-                handleNavigation(direction);
-            } else {
-                state.menuPanel = menus.value.nodes[state.menuPanelIndex];
-            }
-
-        } else if(state.secondPanel && !state.thirdPanel) {
-            state.secondPanelIndex = updateIndex(state.secondPanelIndex, state.menuPanel.nodes.length);
-            const oldNodes = JSON.parse(JSON.stringify(state.menuPanel));
-
-            if (!isEnableInput(state.menuPanel.nodes[state.secondPanelIndex])) {
-                handleNavigation(direction);
-            } else {
-                state.menuPanel.page = Math.floor(state.secondPanelIndex / state.menuPanel.size) + 1;
-
-                if(state.menuPanel.nodes && state.menuPanel.page != oldNodes.page) {
-                    state.secondPanelIndex += state.secondPanelIndex == 0 || state.secondPanelIndex == (state.menuPanel.nodes.length - 1)
-                        ? 0 : state.menuPanel.page > oldNodes.page
-                        ? 1 : -1;
-                }
-
-                state.secondPanel = state.menuPanel.nodes[state.secondPanelIndex];
-            }
-        } else if(state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
-            state.thirdPanelIndex = updateIndex(state.thirdPanelIndex, state.secondPanel.nodes.length);
-            const oldNodes = JSON.parse(JSON.stringify(state.secondPanel));
-            
-            if (!isEnableInput(state.secondPanel.nodes[state.thirdPanelIndex])) {
-                handleNavigation(direction);
-            } else {
-                state.secondPanel.page = Math.floor(state.thirdPanelIndex / state.secondPanel.size) + 1;
-                
-                if(state.secondPanel.nodes && state.secondPanel.page != oldNodes.page) {
-                    state.thirdPanelIndex += state.thirdPanelIndex == 0 || state.thirdPanelIndex == (state.secondPanel.nodes.length - 1)
-                        ? 0 : state.secondPanel.page > oldNodes.page
-                        ? 1 : -1;
-                }
-
-                state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
-            }
-        } else if(state.secondPanel && state.secondPanel.nodes && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
-            state.fourthPanelIndex = updateIndex(state.fourthPanelIndex, state.thirdPanel.nodes.length);
-            const oldNodes = JSON.parse(JSON.stringify(state.thirdPanel));
-
-            if (!isEnableInput(state.thirdPanel.nodes[state.fourthPanelIndex]) && state.fourthPanel.mode == ModeType.paginationButton) {
-                handleNavigation(direction);
-            } else {
-                state.thirdPanel.page = Math.floor(state.fourthPanelIndex / state.thirdPanel.size) + 1;
-                
-                if(state.thirdPanel.nodes && state.thirdPanel.page != oldNodes.page) {
-                    state.fourthPanelIndex += state.fourthPanelIndex == 0 || state.fourthPanelIndex == (state.thirdPanel.nodes.length - 1)
-                        ? 0 : state.thirdPanel.page > oldNodes.page
-                        ? 1 : -1;
-                }
-
-                state.fourthPanel = state.thirdPanel.nodes[state.fourthPanelIndex];
-            }
-        }
-    }
-};
-
-// function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
-//     let index = nodeIndex;
-//     let page = node.page;
-
-//     const updateIndex = (index: number, length: number) => {
-//         return (index + step + length) % length;
-//     };
-
-//     if(node.nodes) {
-//         state.thirdPanelIndex = updateIndex(index, node.nodes.length);
-//         const oldNodes = JSON.parse(JSON.stringify(node));
-    
-//         if (!isEnableInput(node.nodes[index])) {
-//             handleNavigation(step > 0 ? 'down' : 'up');
-//         } else {
-//             page = Math.floor(index / node.size) + 1;
-        
-//             if(page != oldNodes.page) {
-//                 index += index == 0 || index == (node.nodes.length - 1)
-//                     ? 0 : page > oldNodes.page
-//                     ? 1 : -1;
-//             }
-//             send(page, index);
-//         }
-//     }
-// };
-
-// function handleNavigation(direction: 'up' | 'down') {
-//     const step = direction === 'up' ? -1 : 1;
-
-//     if (menus.value && state.menuPanel?.nodes) {
-//         if (!state.secondPanel) {
-//             updatePanelIndexText(menus.value, state.menuPanelIndex, step, (page, index) => {
-//                 if(state.menuPanel) {
-//                     menus.value.page = page;
-//                     state.menuPanel = menus.value.nodes[index];
-//                 }
-//             });
-//         } else if (state.secondPanel && !state.thirdPanel) {
-//             updatePanelIndexText(state.menuPanel, state.secondPanelIndex, step, (page, index) => {
-//                 if(state.menuPanel && state.menuPanel.nodes) {
-//                     state.menuPanel.page = page;
-//                     state.thirdPanel = state.menuPanel.nodes[index];
-//                 }
-//             });
-//         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
-//             updatePanelIndexText(state.secondPanel, state.thirdPanelIndex, step, (page, index) => {
-//                 if(state.secondPanel && state.secondPanel.nodes) {
-//                     state.secondPanel.page = page;
-//                     state.thirdPanel = state.secondPanel.nodes[index];
-//                 }
-//             });
-//         } else if (state.secondPanel?.nodes && state.thirdPanel?.nodes && state.fourthPanel) {
-//             updatePanelIndexText(state.thirdPanel, state.fourthPanelIndex, step, (page, index) => {
-//                 if(state.thirdPanel && state.thirdPanel.nodes) {
-//                     state.thirdPanel.page = page;
-//                     state.fourthPanel = state.thirdPanel.nodes[index];
-//                 }
-//             });
-//         }
-//     }
-// }
-
 // 控制上一個
 function handleUp() {
     handleNavigation('up');
@@ -541,6 +404,74 @@ function handleUp() {
 // 控制下一個
 function handleBottom() {
     handleNavigation('down');
+};
+
+function handleNavigation(direction: 'up' | 'down') {
+    const step = direction === 'up' ? -1 : 1;
+
+    if (menus.value && state.menuPanel?.nodes) {
+        if (!state.secondPanel) {
+            updatePanelIndexText(menus.value, state.menuPanelIndex, step, (page, index) => {
+                if(state.menuPanel) {
+                    menus.value.page = page;
+                    state.menuPanelIndex = index;
+                    state.menuPanel = menus.value.nodes[state.menuPanelIndex];
+                }
+            });
+        } else if (state.secondPanel && !state.thirdPanel) {
+            updatePanelIndexText(state.menuPanel, state.secondPanelIndex, step, (page, index) => {
+                if(state.menuPanel && state.menuPanel.nodes) {
+                    state.menuPanel.page = page;
+                    state.secondPanelIndex = index;
+                    state.secondPanel = state.menuPanel.nodes[state.secondPanelIndex];
+                }
+            });
+        } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
+            updatePanelIndexText(state.secondPanel, state.thirdPanelIndex, step, (page, index) => {
+                if(state.secondPanel && state.secondPanel.nodes) {
+                    state.secondPanel.page = page;
+                    state.thirdPanelIndex = index;
+                    state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
+                }
+            });
+        } else if (state.secondPanel?.nodes && state.thirdPanel?.nodes && state.fourthPanel) {
+            updatePanelIndexText(state.thirdPanel, state.fourthPanelIndex, step, (page, index) => {
+                if(state.thirdPanel && state.thirdPanel.nodes) {
+                    state.thirdPanel.page = page;
+                    state.fourthPanelIndex = index;
+                    state.fourthPanel = state.thirdPanel.nodes[state.fourthPanelIndex];
+                }
+            });
+        }
+    }
+};
+
+function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
+    let index = nodeIndex;
+    let page = node.page;
+
+    const updateIndex = (idx: number, length: number) => {
+        return (idx + step + length) % length;
+    };
+
+    if(node.nodes) {
+        index = updateIndex(index, node.nodes.length);
+        
+        const oldNodes = JSON.parse(JSON.stringify(node));
+    
+        if (!isEnableInput(node.nodes[index])) {
+            handleNavigation(step > 0 ? 'down' : 'up');
+        } else {
+            page = Math.floor(index / node.size) + 1;
+        
+            if(page != oldNodes.page) {
+                index += index == 0 || index == (node.nodes.length - 1)
+                    ? 0 : page > oldNodes.page
+                    ? 1 : -1;
+            }
+            send(page, index);
+        }
+    }
 };
 
 // 控制 range value

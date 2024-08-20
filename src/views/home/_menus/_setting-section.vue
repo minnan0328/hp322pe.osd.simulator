@@ -3,7 +3,16 @@
         <template v-if="mainSectionNodes && mainSectionNodes.mode != ModeType.exit">
             <div class="function">
                 <template v-for="(secondNodes, secondNodesIdx) in mainSectionNodes.nodes">
-                    <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondarySectionNodes }]" v-if="isEnableInput(secondNodes)">
+                    <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondarySectionNodes }]"
+                        v-if="isEnableInput(secondNodes) && mainSectionNodes.mode && handlePagination(mainSectionNodes, secondNodesIdx)">
+                        <!-- 上一頁 -->
+                        <div :class="['item previous-page-btn', {
+                                selected: secondarySectionNodes == secondNodes,
+                                'merge-grid': secondNodes.mergeGrid
+                            }]" v-if="secondNodes.mode == ModeType.paginationButton && secondNodes.key == 'PreviousPageButtons'
+                                && mainSectionNodes.page > 1">
+                        </div>
+                        <!-- 上一頁 -->
                         <!-- button -->
                         <div :class="['item', {
                                 selected: secondarySectionNodes == secondNodes,
@@ -31,6 +40,15 @@
                         </customizeCheckbox>
                         <!-- checkbox -->
 
+                        <!-- 下一頁 -->
+                        <div :class="['item next-page-btn', {
+                                selected: secondarySectionNodes == secondNodes,
+                                'merge-grid': secondNodes.mergeGrid
+                            }]" v-else-if="secondNodes.mode == ModeType.paginationButton && secondNodes.key == 'NextPageButtons'
+                                && mainSectionNodes.nodes && (mainSectionNodes.nodes.length + 1) > mainSectionNodes.size">
+                        </div>
+                        <!-- 下一頁 -->
+
                         <!-- value -->
                         <template v-if="!secondarySectionNodes">
                             <div class="item item-value"
@@ -50,8 +68,7 @@
                     <div :class="['setting-item unset-grid', thirdNodes.key]"
                         v-if="isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
                             && isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange
-                            && thirdNodesIdx > ((secondarySectionNodes.size * (secondarySectionNodes.page - 1)) - 1) 
-                            && thirdNodesIdx <= (secondarySectionNodes.size * (secondarySectionNodes.page))">
+                            && handlePagination(secondarySectionNodes, thirdNodesIdx)">
                         <!-- 上一頁 -->
                         <div :class="['item previous-page-btn', {
                                 selected: thirdSectionNodes == thirdNodes,
@@ -150,16 +167,18 @@ const props = defineProps({
     }
 });
 
+function isCheckboxLast(node: Nodes, previousNodes: Nodes) {
+    if(previousNodes.nodes) {
+        let checkboxList = previousNodes.nodes.filter(n => n.mode == ModeType.checkBox);
 
-
-function isCheckboxLast(item: Nodes, node: Nodes) {
-    if(node.nodes) {
-        let checkboxList = node.nodes.filter(n => n.mode == ModeType.checkBox);
-
-        return checkboxList[checkboxList.length - 1].key == item.key;
+        return checkboxList[checkboxList.length - 1].key == node.key;
     } else {
         return false
     }
+};
+
+function handlePagination(node: Nodes, index: number) {
+    return index > ((node.size * (node.page - 1)) - 1)&& index <= (node.size * (node.page));
 };
 
 </script>

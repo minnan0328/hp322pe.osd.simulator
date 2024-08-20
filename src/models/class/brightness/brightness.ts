@@ -1,7 +1,7 @@
 // 亮度基本值，依據 color 切換有不同亮度
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back } from '../_utilities';
+import { Reset, Back,  NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
 import BrightnessNodes from './_brightness-nodes';
 import ContrastNodes from './_contrast-nodes';
 import DynamicContrastNodes from './_dynamic-contrast-nodes';
@@ -16,13 +16,16 @@ const DynamicContrastNodesEnum = new DynamicContrastNodes();
 const BlackStretchNodesEnum = new BlackStretchNodes();
 const VideoLevelNodesEnum = new VideoLevelNodes();
 
+const PreviousPageButtonsNodesEnum = new PreviousPageButtonsNodes();
+const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
+
 export default class Brightness implements Nodes {
     key = "BrightnessPlus";
     value = "BrightnessPlus";
     displayValue = false;
     displayState = false;
     livePreview = false;
-    size = 7;
+    size = 5;
     page = 1;
     parents = null;
     mode = ModeType.button;
