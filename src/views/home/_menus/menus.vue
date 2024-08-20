@@ -180,6 +180,17 @@ const menus = computed(() => {
     }
 });
 
+const brightnessDefaultValue = {
+    [store.$state.color.nodes[0].key]: 76,
+    [store.$state.color.nodes[1].key]: 26,
+    [store.$state.color.nodes[2].key]: 86,
+    [store.$state.color.nodes[3].key]: 86,
+    [store.$state.color.nodes[4].key]: 100,
+    [store.$state.color.nodes[5].key]: 90,
+    [store.$state.color.nodes[6].key]: 86,
+    [store.$state.color.nodes[7].key]: 100,
+};
+
 // selected state and node
 const state = reactive({
     currentPanelNumber: 0,
@@ -357,6 +368,27 @@ function handleTarget() {
                 state.thirdPanel = nodes;
                 state.thirdPanelIndex = index;
                 state.currentPanelNumber = 3;
+
+                if(state.menuPanel && state.thirdPanel.parents == "CustomRGB") {
+                    state.menuPanel.value = state.secondPanel?.value as string;
+                    state.menuPanel.result = state.secondPanel?.result as string;
+
+                    if(state.thirdPanel.livePreview) {
+                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                        temporaryStorage.value = null;
+                    }
+                }
+
+                if(state.menuPanel && state.thirdPanel.parents == "HPEnhancePlus") {
+                    state.menuPanel.value = state.secondPanel?.value as string;
+                    state.menuPanel.result = state.secondPanel?.result as string;
+
+                    if(state.thirdPanel.livePreview) {
+                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                        temporaryStorage.value = null;
+                    }
+                }
+                
             });
         } else if(state.secondPanel?.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
             // 第四層
@@ -447,6 +479,11 @@ function handleNavigation(direction: 'up' | 'down') {
                         temporaryStorage.value = JSON.parse(JSON.stringify(state.menuPanel));
                         if(state.secondPanel.mode == ModeType.button || state.secondPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
+
+                            if(state.secondPanel.parents == "Color") {
+                                menus.value.nodes[0].nodes[0].result = brightnessDefaultValue[state.secondPanel.key];
+                            }
+                            
                             state.menuPanel.result = state.secondPanel.result;
                         }
                     }
@@ -537,12 +574,17 @@ function handleRangeValue(step: string) {
         if(nodes.mode == ModeType.verticalRange || nodes.mode == ModeType.horizontalRange) {
             if(step == "subtract" && (nodes.value as number) > nodes.rangeMin && (nodes.value as number) <= nodes.rangeMax) {
                 (nodes.value as number) -= 1;
+                (nodes.result as number) -= 1;
             } else if(step == "add" && (nodes.value as number) >= nodes.rangeMin && (nodes.value as number) < nodes.rangeMax) {
                 (nodes.value as number) += 1;
+                (nodes.result as number) += 1;
             }
 
-            previousNodes.value = nodes.value;
-            previousNodes.result = nodes.result;
+            if(previousNodes.key != "CustomRGB") {
+                previousNodes.value = nodes.value;
+                previousNodes.result = nodes.result;
+            }
+
         };
     }
 };
@@ -625,6 +667,11 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     } else {
         previousNodes.value = nodes.value;
         previousNodes.result = nodes.result;
+
+        if(nodes.livePreview) {
+            // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+            temporaryStorage.value = null;
+        }
     }
 };
 
@@ -823,7 +870,8 @@ function handleClose() {
 		border: 0.8px solid #000000;
 
 		img {
-			height: 10px;
+            width: 10px;
+			// height: 10px;
 		}
 	}
 }

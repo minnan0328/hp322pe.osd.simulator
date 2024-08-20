@@ -5,8 +5,8 @@ import { ModeType } from "@/types";
 
 export default class CustomRGBNodes implements Nodes {
     key = "CustomRGB";
-    value = null;
-    result = null;
+    value = "CustomRGB";
+    result = "CustomRGB";
     displayValue = false;
     displayState = false;
     livePreview = true;

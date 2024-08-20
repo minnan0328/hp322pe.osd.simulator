@@ -24,7 +24,7 @@
             <div class="range-max-value">
                 <img v-if="nodes.rangeIcon" class="small" :src="getIconSrc(nodes)" alt="">
                 <span v-else-if="!isColor" v-text="nodes.rangeMin"></span>
-                <span v-if="!nodes.rangeIcon && isColor" v-text="nodes.rangeMax"></span>
+                <span v-if="!nodes.rangeIcon && isColor" v-text="nodes.value"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">

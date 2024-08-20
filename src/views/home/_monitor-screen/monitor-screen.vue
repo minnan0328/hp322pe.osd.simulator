@@ -8,12 +8,17 @@
     <monitorStatus v-model="showMonitorStatus"></monitorStatus>
 
     <div class="screen" v-show="showScreen">
+        <!-- <div class="image">
+        </div> -->
         <img src="@/assets/images/screen.png" alt="">
     </div>
 </template>
 <script lang="ts" setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, computed, reactive, onMounted } from 'vue';
+    import { useStore } from '@/stores/index';
     import monitorStatus from '@/views/home/_monitor-status/monitor-status.vue';
+
+    const store = useStore();
 
     const props = defineProps({
         modelValue: {
@@ -25,6 +30,25 @@
     const screenInitial = ref(false);
     const showMonitorStatus = ref(false);
     const showScreen = ref(false);
+
+    const monitorResult = computed(() => {
+        return {
+            brightness: `${store.$state.brightness.nodes[0].result}%`,
+            contrast: `${store.$state.brightness.nodes[1].result}%`,
+        }
+    });
+
+    const toImageColor = computed(() => {
+        const RGB = {
+            r: (store.$state.color.result == "CustomRGB" && store.$state.color.nodes[7].nodes) ? store.$state.color.nodes[7].nodes[0].result as number : 255,
+            g:(store.$state.color.result == "CustomRGB" && store.$state.color.nodes[7].nodes) ? store.$state.color.nodes[7].nodes[1].result as number : 255,
+            b: (store.$state.color.result == "CustomRGB" && store.$state.color.nodes[7].nodes) ? store.$state.color.nodes[7].nodes[2].result as number : 255
+        }
+
+        const combinedHue = (RGB.r + RGB.g + RGB.b) / -2.125;
+
+        return `${combinedHue}deg`;
+    });
 
     function handleScreen() {
         if(props.modelValue) {
@@ -71,12 +95,18 @@
 
     .screen {
         position: absolute;
+        width: 782px;
+        height: 428px;
         top: 9px;
         left: 9px;
 
         img {
             width: 100%;
-            // filter: brightness(v-bind(setCSSBrightness));
+
+            filter: 
+                hue-rotate(v-bind("toImageColor"))
+                brightness(v-bind("monitorResult.brightness"))
+                contrast(v-bind("monitorResult.contrast"));
         }
     }
     

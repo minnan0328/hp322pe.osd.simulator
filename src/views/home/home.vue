@@ -28,6 +28,7 @@
 
                         <div class="menu-buttons">
                             <img src="@/assets/images/menu-buttons.png" alt="">
+                            <div class="power-light menu-btn" v-if="openMonitor"></div>
                         </div>
 
                         <menus v-model:openMonitor="openMonitor">
@@ -160,6 +161,13 @@ function handleMonitor() {
 
                 img {
                     width: 100%;
+                }
+
+                > .power-light.menu-btn {
+                    position: absolute;
+                    bottom: 15px;
+                    right: 56px;
+
                 }
             }
         }

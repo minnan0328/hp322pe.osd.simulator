@@ -15,7 +15,7 @@ export default class HPEnhancePlusNodes implements Nodes {
     result = MediumNodesEnum.result;
     displayValue = true;
     displayState = false;
-    livePreview = false;
+    livePreview = true;
     size = 4;
     page = 1;
     parents = null;
