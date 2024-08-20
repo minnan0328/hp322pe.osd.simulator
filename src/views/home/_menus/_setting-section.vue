@@ -40,6 +40,12 @@
                         </customizeCheckbox>
                         <!-- checkbox -->
 
+                        <!-- 設定狀態 -->
+                        <div class="item state-item" v-if="secondNodes.displayState">
+                            <span class="state" >state：{{toDisplayValueLanguageText(secondNodes)}}</span>
+                        </div>
+                        <!-- 設定狀態 -->
+
                         <!-- 下一頁 -->
                         <div :class="['item next-page-btn', {
                                 selected: secondarySectionNodes == secondNodes,
@@ -99,6 +105,13 @@
                             :lastNodes="isCheckboxLast(thirdNodes, secondarySectionNodes)">
                         </customizeCheckbox>
                         <!-- checkbox -->
+
+                        <!-- 設定狀態 -->
+                        <div class="item state-item" v-if="thirdNodes.displayState">
+                            <span class="state" >state：{{toDisplayValueLanguageText(thirdNodes)}}</span>
+                        </div>
+                        <!-- 設定狀態 -->
+
                         <!-- 下一頁 -->
                         <div :class="['item next-page-btn', {
                                 selected: thirdSectionNodes == thirdNodes,
@@ -251,11 +264,17 @@ function handlePagination(node: Nodes, index: number) {
             align-items: center;
             position: relative;
 
+            &.state-item {
+                height: 20px;
+                padding: 0 16px;
+                color: #8C8C8C;
+            };
+
             &.merge-grid,
             &.Back,
             &.Rese {
                 grid-column: 1 / 3;
-            }
+            };
 
             &.next-page-btn::before {
                 position: absolute;

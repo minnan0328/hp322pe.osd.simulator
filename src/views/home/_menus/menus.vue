@@ -1,7 +1,7 @@
 <template>
     <div class="menus" v-if="openAllMenu">
         <div class="header">
-            <p>HP 322pe OSD simulator</p>
+            <p>HP 322pe</p>
         </div>
 
         <div class="body">
