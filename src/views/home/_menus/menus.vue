@@ -342,21 +342,21 @@ function handleTarget() {
     if(state.menuPanel?.nodes) {
         if(!state.secondPanel) {
             // 第二層
-            selectEnabledNode(state.menuPanel.nodes, state.secondPanelIndex, (nodes, index) => {
+            selectEnabledNode(state.menuPanel, state.secondPanelIndex, (nodes, index) => {
                 state.secondPanel = nodes;
                 state.secondPanelIndex = index;
                 state.currentPanelNumber = 2;
             });
         } else if(state.secondPanel?.nodes && !state.thirdPanel) {
             // 第三層
-            selectEnabledNode(state.secondPanel.nodes, state.thirdPanelIndex, (nodes, index) => {
+            selectEnabledNode(state.secondPanel, state.thirdPanelIndex, (nodes, index) => {
                 state.thirdPanel = nodes;
                 state.thirdPanelIndex = index;
                 state.currentPanelNumber = 3;
             });
         } else if(state.secondPanel?.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
             // 第四層
-            selectEnabledNode(state.thirdPanel.nodes, state.fourthPanelIndex, (nodes, index) => {
+            selectEnabledNode(state.thirdPanel, state.fourthPanelIndex, (nodes, index) => {
                 state.fourthPanel = nodes;
                 state.fourthPanelIndex = index;
                 state.currentPanelNumber = 4;
@@ -366,17 +366,21 @@ function handleTarget() {
 };
 
 // 選擇啟用的節點
-function selectEnabledNode(nodes: Nodes[], startIndex: number, setValue: (node: Nodes, index: number) => void) {
-    let index = startIndex;
-    const length = nodes.length;
-
-    do {
-        if (isEnableInput(nodes[index])) {
-            setValue(nodes[index], index);
-            return;
-        }
-        index = (index + 1) % length;
-    } while (index !== startIndex);
+function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nodes, index: number) => void) {
+    if(node.nodes) {
+        let index = startIndex;
+        const length = node.nodes.length;
+    
+        do {
+            if (isEnableInput(node.nodes[index])) {
+                let selectedIndex = (node.value || node.value == 0) ? node.nodes.findIndex(n => n.value == node.value) : index;
+                index = selectedIndex > 0 ? selectedIndex : index;
+                setValue(node.nodes[index], index);
+                return;
+            }
+            index = (index + 1) % length;
+        } while (index !== startIndex);
+    }
 };
 
 // 上一步
