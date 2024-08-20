@@ -18,7 +18,7 @@ export interface Nodes {
     displayValue: boolean;
     displayState: boolean;
     livePreview: Boolean;
-    total: number;
+    size: number;
     page: number; // 當有啟用分頁需加入 NextPageButtonsNodes 及 PreviousPageButtonsNodes
     parents: string | null;
     mode: string | null;

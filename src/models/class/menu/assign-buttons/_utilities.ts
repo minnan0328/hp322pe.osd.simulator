@@ -9,8 +9,8 @@ export class AssignAutoAdjustmentNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -32,8 +32,8 @@ export class AssignBrightnessNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -55,8 +55,8 @@ export class AssignColorNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -78,8 +78,8 @@ export class AssignDisplayInformationNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -101,8 +101,8 @@ export class AssignNextActiveInputNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -124,8 +124,8 @@ export class AssignEmptyNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;

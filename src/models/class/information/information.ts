@@ -10,8 +10,8 @@ export default class Information implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 6;
+    page = 1;
     parents = null;
     mode = ModeType.info;
     rangeMin = 0;
@@ -31,7 +31,7 @@ export default class Information implements Nodes {
             displayValue: true,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.info,
@@ -52,7 +52,7 @@ export default class Information implements Nodes {
             value: "1920x1080 100Hz",
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             displayValue: true,
             parents: this.key,
@@ -74,7 +74,7 @@ export default class Information implements Nodes {
             value: currentColor.value,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             displayValue: true,
             parents: this.key,
@@ -97,7 +97,7 @@ export default class Information implements Nodes {
             displayValue: true,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.info,
@@ -119,7 +119,7 @@ export default class Information implements Nodes {
             displayValue: true,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.info,
@@ -141,7 +141,7 @@ export default class Information implements Nodes {
             displayValue: true,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.info,

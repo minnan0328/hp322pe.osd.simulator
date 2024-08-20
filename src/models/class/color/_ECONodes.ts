@@ -9,8 +9,8 @@ export default class ECONodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = true;
-    total = 0;
-    page = 0;
+    size = 0;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;

@@ -13,8 +13,8 @@ export default class DiagnosticPatternsNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 7;
+    page = 1;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -34,7 +34,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: true,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.button,
@@ -56,7 +56,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: true,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.button,
@@ -78,7 +78,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: true,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.button,
@@ -100,7 +100,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: true,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.button,
@@ -122,7 +122,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: true,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.button,
@@ -144,7 +144,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: true,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.button,

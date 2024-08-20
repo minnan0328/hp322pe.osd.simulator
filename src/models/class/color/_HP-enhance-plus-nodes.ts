@@ -15,8 +15,8 @@ export default class HPEnhancePlusNodes implements Nodes {
     displayValue = true;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 4;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;

@@ -12,8 +12,8 @@ export default class BlackStretchNodes implements Nodes {
     displayValue = true;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 4;
+    page = 1;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -34,7 +34,7 @@ export default class BlackStretchNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.radio,
@@ -57,7 +57,7 @@ export default class BlackStretchNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.radio,
@@ -80,7 +80,7 @@ export default class BlackStretchNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.radio,

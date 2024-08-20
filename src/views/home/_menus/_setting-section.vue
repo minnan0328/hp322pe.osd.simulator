@@ -50,8 +50,8 @@
                     <div :class="['setting-item unset-grid', thirdNodes.key]"
                         v-if="isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.verticalRange
                             && isEnableInput(thirdNodes) && thirdNodes.mode != ModeType.horizontalRange
-                            && thirdNodesIdx > ((secondarySectionNodes.total * (secondarySectionNodes.page - 1)) - 1) 
-                            && thirdNodesIdx <= (secondarySectionNodes.total * (secondarySectionNodes.page))">
+                            && thirdNodesIdx > ((secondarySectionNodes.size * (secondarySectionNodes.page - 1)) - 1) 
+                            && thirdNodesIdx <= (secondarySectionNodes.size * (secondarySectionNodes.page))">
                         <!-- 上一頁 -->
                         <div :class="['item previous-page-btn', {
                                 selected: thirdSectionNodes == thirdNodes,
@@ -87,7 +87,7 @@
                                 selected: thirdSectionNodes == thirdNodes,
                                 'merge-grid': thirdNodes.mergeGrid
                             }]" v-else-if="thirdNodes.mode == ModeType.paginationButton && thirdNodes.key == 'NextPageButtons'
-                                && (secondarySectionNodes.nodes.length + 1) > secondarySectionNodes.total">
+                                && (secondarySectionNodes.nodes.length + 1) > secondarySectionNodes.size">
                         </div>
                         <!-- 下一頁 -->
                     </div>

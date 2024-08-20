@@ -23,8 +23,8 @@ export default class Menu implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 8;
+    page = 1;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;

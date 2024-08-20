@@ -15,8 +15,8 @@ export default class Input implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    total = 0;
-    page = 0;
+    size = 5;
+    page = 1;
     parents = null;
     mode = ModeType.button;
     rangeMin = 0;
@@ -37,8 +37,8 @@ export default class Input implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
-            page: 0,
+            size: 0,
+            page: 1,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -60,8 +60,8 @@ export default class Input implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
-            page: 0,
+            size: 0,
+            page: 1,
             parents: this.key,
             mode: ModeType.radio,
             rangeMin: 0,
@@ -82,8 +82,8 @@ export default class Input implements Nodes {
             value: OnNodesEnum.value,
             displayState: false,
             livePreview: false,
-            total: 0,
-            page: 0,
+            size: 3,
+            page: 1,
             displayValue: true,
             parents: this.key,
             mode: ModeType.button,

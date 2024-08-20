@@ -9,8 +9,8 @@ export default class CustomRGBNodes implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = true;
-    total = 0;
-    page = 0;
+    size = 3;
+    page = 1;
     parents = null;
     mode = ModeType.radio;
     rangeMin = 0;
@@ -32,7 +32,7 @@ export default class CustomRGBNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
@@ -55,7 +55,7 @@ export default class CustomRGBNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
@@ -78,7 +78,7 @@ export default class CustomRGBNodes implements Nodes {
             displayValue: false,
             displayState: false,
             livePreview: false,
-            total: 0,
+            size: 0,
             page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
