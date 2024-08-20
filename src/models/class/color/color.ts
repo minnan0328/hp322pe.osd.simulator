@@ -24,6 +24,7 @@ const CustomRGBNodesEnum = new CustomRGBNodes();
 export default class Color implements Nodes {
     key = "Color";
     value = NeutralNodesEnum.value;
+    result = NeutralNodesEnum.result;
     displayValue = false;
     displayState = false;
     livePreview = false;

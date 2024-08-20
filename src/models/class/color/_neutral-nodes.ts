@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class NeutralNodes implements Nodes {
     key = "Neutral";
     value = "Neutral";
+    result = "Neutral";
     displayValue = false;
     displayState = false;
     livePreview = true;

@@ -16,6 +16,7 @@ const AccessibilityNodesEnum = new AccessibilityNodes();
 export default class Management implements Nodes {
     key = "Management";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;

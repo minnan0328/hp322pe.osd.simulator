@@ -8,6 +8,7 @@ const BackEnum = new Back();
 export default class SharpnessNodes implements Nodes {
     key = "Sharpness";
     value = "Level 4";
+    result = "Level 4";
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -29,6 +30,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Soft",
             value: "Soft",
+            result: "Soft",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -51,6 +53,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Level2",
             value: "Level 2",
+            result: "Level 2",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -73,6 +76,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Level3",
             value: "Level 3",
+            result: "Level 3",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -95,6 +99,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Level4",
             value: "Level 4",
+            result: "Level 4",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -117,6 +122,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Level5",
             value: "Level 5",
+            result: "Level 5",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -139,6 +145,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Level6",
             value: "Level 6",
+            result: "Level 6",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -161,6 +168,7 @@ export default class SharpnessNodes implements Nodes {
         {
             key: "Sharp",
             value: "Sharp",
+            result: "Sharp",
             displayValue: false,
             displayState: false,
             livePreview: false,

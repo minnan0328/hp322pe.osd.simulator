@@ -11,6 +11,7 @@ const OffNodesEnum = new OffNodes();
 export default class PowerLEDNodes implements Nodes {
     key = "PowerLED";
     value = OnNodesEnum.value;
+    result = OnNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

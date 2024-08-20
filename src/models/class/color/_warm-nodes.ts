@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class WarmNodes implements Nodes {
     key = "Warm";
     value = "Warm";
+    result = "Warm";
     displayValue = false;
     displayState = false;
     livePreview = true;

@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class CoolNodes implements Nodes {
     key = "Cool";
     value = "Cool";
+    result = "Cool";
     displayValue = false;
     displayState = false;
     livePreview = true;

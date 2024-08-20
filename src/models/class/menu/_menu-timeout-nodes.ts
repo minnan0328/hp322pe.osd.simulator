@@ -9,6 +9,7 @@ const BackEnum = new Back();
 export default class MenuTimeoutNodes implements Nodes {
     key = "MenuTimeout";
     value = 30;
+    result = 30;
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -35,6 +36,7 @@ export default class MenuTimeoutNodes implements Nodes {
             // Y (FD=60) for Accessibility mode
             key: "MenuTimeoutNodes",
             value: this.value,
+            result: this.result,
             displayValue: false,
             displayState: false,
             livePreview: false,

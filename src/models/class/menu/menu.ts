@@ -20,6 +20,7 @@ let AssignButtonsNodesEnum = new AssignButtonsNodes();
 export default class Menu implements Nodes {
     key = "Menu";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;

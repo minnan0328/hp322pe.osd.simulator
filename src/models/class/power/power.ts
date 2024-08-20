@@ -14,6 +14,7 @@ let PowerLEDNodesEnum = new PowerLEDNodes();
 export default class Power implements Nodes {
     key = "Power";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;

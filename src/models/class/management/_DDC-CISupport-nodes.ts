@@ -11,6 +11,7 @@ const OffNodesEnum = new OffNodes();
 export default class DDCCISupportNodes implements Nodes {
     key = "DDC/CISupport";
     value = OnNodesEnum.value;
+    result = OnNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

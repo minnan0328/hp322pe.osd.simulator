@@ -151,6 +151,7 @@ const menus = computed(() => {
     return {
         key: "menu",
         value: null,
+        result: null,
         displayValue: false,
         displayState: false,
         livePreview: false,
@@ -191,6 +192,9 @@ const state = reactive({
     thirdPanelIndex: 0,
     fourthPanelIndex: 0
 });
+
+// node 的 livePreview 為 true 時才使用
+const temporaryStorage = ref<Nodes | null>(null);
 
 const displayCurrentNodes = computed(() => {
     if(state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
@@ -420,6 +424,15 @@ function handleNavigation(direction: 'up' | 'down') {
                     menus.value.page = page;
                     state.menuPanelIndex = index;
                     state.menuPanel = menus.value.nodes[state.menuPanelIndex];
+
+                    // if(state.menuPanel.livePreview) {
+                    //     // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                    //     temporaryStorage.value = JSON.parse(JSON.stringify(menus.value));
+                    //     if(state.menuPanel.mode == ModeType.button || state.menuPanel.mode == ModeType.radio) {
+                    //         // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
+                    //         menus.value.result = state.menuPanel.result ;
+                    //     }
+                    // }
                 }
             });
         } else if (state.secondPanel && !state.thirdPanel) {
@@ -428,6 +441,15 @@ function handleNavigation(direction: 'up' | 'down') {
                     state.menuPanel.page = page;
                     state.secondPanelIndex = index;
                     state.secondPanel = state.menuPanel.nodes[state.secondPanelIndex];
+
+                    if(state.secondPanel.livePreview) {
+                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                        temporaryStorage.value = JSON.parse(JSON.stringify(state.menuPanel));
+                        if(state.secondPanel.mode == ModeType.button || state.secondPanel.mode == ModeType.radio) {
+                            // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
+                            state.menuPanel.result = state.secondPanel.result;
+                        }
+                    }
                 }
             });
         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
@@ -436,6 +458,15 @@ function handleNavigation(direction: 'up' | 'down') {
                     state.secondPanel.page = page;
                     state.thirdPanelIndex = index;
                     state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
+
+                    if(state.thirdPanel.livePreview) {
+                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                        temporaryStorage.value = JSON.parse(JSON.stringify(state.secondPanel));
+                        if(state.thirdPanel.mode == ModeType.button || state.thirdPanel.mode == ModeType.radio) {
+                            // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
+                            state.secondPanel.result = state.thirdPanel.result;
+                        }
+                    }
                 }
             });
         } else if (state.secondPanel?.nodes && state.thirdPanel?.nodes && state.fourthPanel) {
@@ -444,6 +475,15 @@ function handleNavigation(direction: 'up' | 'down') {
                     state.thirdPanel.page = page;
                     state.fourthPanelIndex = index;
                     state.fourthPanel = state.thirdPanel.nodes[state.fourthPanelIndex];
+
+                    if(state.fourthPanel.livePreview) {
+                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                        temporaryStorage.value = JSON.parse(JSON.stringify(state.thirdPanel));
+                        if(state.fourthPanel.mode == ModeType.button || state.fourthPanel.mode == ModeType.radio) {
+                            // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
+                            state.thirdPanel.result = state.fourthPanel.result;
+                        }
+                    }
                 }
             });
         }
@@ -502,6 +542,7 @@ function handleRangeValue(step: string) {
             }
 
             previousNodes.value = nodes.value;
+            previousNodes.result = nodes.result;
         };
     }
 };
@@ -583,6 +624,7 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         checked ? previousNodes.value.splice(previousNodes.value.indexOf(nodes.value), 1) : previousNodes.value.push(nodes.value);
     } else {
         previousNodes.value = nodes.value;
+        previousNodes.result = nodes.result;
     }
 };
 

@@ -11,6 +11,7 @@ const OffNodesEnum = new OffNodes();
 export default class DynamicContrastNodes implements Nodes {
     key = "DynamicContrast";
     value = OffNodesEnum.value;
+    result = OffNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

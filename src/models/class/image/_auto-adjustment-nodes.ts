@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class AutoAdjustmentNodes implements Nodes {
     key = "AutoAdjustment";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;

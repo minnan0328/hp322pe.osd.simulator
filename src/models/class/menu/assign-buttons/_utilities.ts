@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export class AssignAutoAdjustmentNodes implements Nodes {
     key = "AssignAutoAdjustment";
     value = "Auto-Adjustment";
+    result = "Auto-Adjustment";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -29,6 +30,7 @@ export class AssignAutoAdjustmentNodes implements Nodes {
 export class AssignBrightnessNodes implements Nodes {
     key = "AssignBrightness";
     value = "Brightness";
+    result = "Brightness";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -52,6 +54,7 @@ export class AssignBrightnessNodes implements Nodes {
 export class AssignColorNodes implements Nodes {
     key = "AssignColor";
     value = "Color";
+    result = "Color";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -75,6 +78,7 @@ export class AssignColorNodes implements Nodes {
 export class AssignDisplayInformationNodes implements Nodes {
     key = "AssignDisplayInformation";
     value = "Display Information";
+    result = "Display Information";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -98,6 +102,7 @@ export class AssignDisplayInformationNodes implements Nodes {
 export class AssignNextActiveInputNodes implements Nodes {
     key = "AssignNextActiveInput";
     value = "Next Active Input";
+    result = "Next Active Input";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -121,6 +126,7 @@ export class AssignNextActiveInputNodes implements Nodes {
 export class AssignEmptyNodes implements Nodes {
     key = "Empty (No Function)";
     value = "Empty (No Function)";
+    result = "Empty (No Function)";
     displayValue = false;
     displayState = false;
     livePreview = false;

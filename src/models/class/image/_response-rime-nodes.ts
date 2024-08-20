@@ -8,6 +8,7 @@ const BackEnum = new Back();
 export default class ResponseTimeNodes implements Nodes {
     key = "ResponseTime";
     value = "Level 1";
+    result = "Level 1";
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -29,6 +30,7 @@ export default class ResponseTimeNodes implements Nodes {
         {
             key: "Level1",
             value: "Level 1",
+            result: "Level 1",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -51,6 +53,7 @@ export default class ResponseTimeNodes implements Nodes {
         {
             key: "Level2(Fast)",
             value: "Level 2 (Fast)",
+            result: "Level 2 (Fast)",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -73,6 +76,7 @@ export default class ResponseTimeNodes implements Nodes {
         {
             key: "Level3",
             value: "Level 3",
+            result: "Level 3",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -95,6 +99,7 @@ export default class ResponseTimeNodes implements Nodes {
         {
             key: "Level4(Fastest)",
             value: "Level 4 (Fastest)",
+            result: "Level 4 (Fastest)",
             displayValue: false,
             displayState: false,
             livePreview: false,

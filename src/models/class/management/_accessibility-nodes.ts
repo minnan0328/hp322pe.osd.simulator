@@ -14,6 +14,7 @@ export default class AccessibilityNodes implements Nodes {
     // Press/hold button 1 (or joystick 5 - CENTER) 4s to toggle
     key = "Accessibility";
     value = OffNodesEnum.value;
+    result = OffNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

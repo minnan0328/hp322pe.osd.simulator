@@ -23,6 +23,7 @@ const AssignEmptyNodesEnum = new AssignEmptyNodes();
 export default class AssignButtonsNodes implements Nodes {
     key = "AssignButtons";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -44,7 +45,8 @@ export default class AssignButtonsNodes implements Nodes {
         {
             // Y  (FD=Next Active Input)
             key: "AssignButton1",
-            value: "Next Active Input",
+            value: AssignNextActiveInputNodesEnum.value,
+            result: AssignNextActiveInputNodesEnum.result,
             displayValue: true,
             displayState: true,
             livePreview: false,
@@ -98,7 +100,8 @@ export default class AssignButtonsNodes implements Nodes {
             // Y  (FD=Auto-Adjustment) VGA input
             // Y (FD=Color)
             key: "AssignButton2",
-            value: "Color",
+            value: AssignColorNodesEnum.value,
+            result: AssignColorNodesEnum.result,
             displayValue: true,
             displayState: true,
             livePreview: false,
@@ -152,7 +155,8 @@ export default class AssignButtonsNodes implements Nodes {
             // Auto-Adjustment only appears in menu for VGA
             // Y  (FD=Brightness)
             key: "AssignButton3",
-            value: "Brightness",
+            value: AssignBrightnessNodesEnum.value,
+            result: AssignBrightnessNodesEnum.rangeIcon,
             displayValue: true,
             displayState: true,
             livePreview: false,

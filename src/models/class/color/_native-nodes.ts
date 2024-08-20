@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class NativeNodes implements Nodes {
     key = "Native";
     value = "Native";
+    result = "Native";
     displayValue = false;
     displayState = false;
     livePreview = true;

@@ -3,6 +3,7 @@ import { ModeType } from "@/types";
 export default class Exit implements Nodes {
     key = "Exit";
     value = "logo.png";
+    result = "logo.png";
     displayValue = false;
     displayState = false;
     livePreview = false;

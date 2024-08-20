@@ -9,6 +9,7 @@ const BackEnum = new Back();
 export default class FactoryResetNodes implements Nodes {
     key = "FactoryReset";
     value = "Yes";
+    result = "Yes";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -30,6 +31,7 @@ export default class FactoryResetNodes implements Nodes {
         {
             key: "Yes",
             value: "Yes",
+            result: "Yes",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -52,6 +54,7 @@ export default class FactoryResetNodes implements Nodes {
         {
             key: "No",
             value: "No",
+            result: "No",
             displayValue: false,
             displayState: false,
             livePreview: false,

@@ -9,6 +9,7 @@ const BackEnum = new Back();
 export default class BlackStretchNodes implements Nodes {
     key = "VideoLevel";
     value = "Auto";
+    result = "Auto";
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -31,6 +32,7 @@ export default class BlackStretchNodes implements Nodes {
         {
             key: "Auto",
             value: "Auto",
+            result: "Auto",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -54,6 +56,7 @@ export default class BlackStretchNodes implements Nodes {
         {
             key: "LimitedRange(16 - 235)",
             value: "Limited Range (16 - 235)",
+            result: "Limited Range (16 - 235)",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -77,6 +80,7 @@ export default class BlackStretchNodes implements Nodes {
         {
             key: "FullRange(0 - 255)",
             value: "Full Range (0 - 255)",
+            result: "Full Range (0 - 255)",
             displayValue: false,
             displayState: false,
             livePreview: false,

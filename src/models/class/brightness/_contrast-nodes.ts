@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class contrastNodes implements Nodes {
     key = "Contrast";
     value = 100;
+    result = 100;
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -27,6 +28,7 @@ export default class contrastNodes implements Nodes {
         {
             key: "ContrastNodes",
             value: this.value,
+            result: this.result,
             displayValue: false,
             displayState: false,
             livePreview: false,

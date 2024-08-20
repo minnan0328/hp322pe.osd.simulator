@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class BrightnessNodes implements Nodes {
     key = "Brightness";
     value = 86;
+    result = 86;
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -27,6 +28,7 @@ export default class BrightnessNodes implements Nodes {
         {
             key: "BrightnessNodes",
             value: this.value,
+            result: this.result,
             displayValue: false,
             displayState: false,
             livePreview: false,

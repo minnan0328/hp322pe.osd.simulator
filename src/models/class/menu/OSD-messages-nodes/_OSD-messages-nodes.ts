@@ -11,6 +11,7 @@ const MonitorStatusNodesEnum = new MonitorStatusNodes();
 export default class OSDMessagesNodes implements Nodes {
     key = "OSDMessages";
     value = ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"];
+    result = ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"];
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -35,6 +36,7 @@ export default class OSDMessagesNodes implements Nodes {
         {
             key: "PowerOnLogo",
             value: "Power-On Logo",
+            result: "Power-On Logo",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -57,6 +59,7 @@ export default class OSDMessagesNodes implements Nodes {
         {
             key: "NoInputSignalWarning",
             value: "No Input Signal Warning",
+            result: "No Input Signal Warning",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -81,6 +84,7 @@ export default class OSDMessagesNodes implements Nodes {
             // Y (FD=Off=>unchecked) Non-EMEA
             key: "ConfirmChangeMessage",
             value: "Confirm Change Message",
+            result: "Confirm Change Message",
             displayValue: false,
             displayState: false,
             livePreview: false,

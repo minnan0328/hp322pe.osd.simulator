@@ -9,6 +9,7 @@ const BackEnum = new Back();
 export default class MenuPositionNodes implements Nodes {
     key = "MenuPosition";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -31,6 +32,7 @@ export default class MenuPositionNodes implements Nodes {
             // Range (0~100)
             key: "Horizontal",
             value: 0,
+            result: 0,
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -54,6 +56,7 @@ export default class MenuPositionNodes implements Nodes {
             // Range (0~100)
             key: "Vertical",
             value: 0,
+            result: 0,
             displayValue: false,
             displayState: false,
             livePreview: false,

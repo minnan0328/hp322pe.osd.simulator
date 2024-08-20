@@ -20,6 +20,7 @@ const ImageScalingNodesEnum = new ImageScalingNodes();
 export default class Image implements Nodes {
     key = "Image";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;

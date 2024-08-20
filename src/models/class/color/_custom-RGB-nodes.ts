@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class CustomRGBNodes implements Nodes {
     key = "CustomRGB";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = true;
@@ -29,6 +30,7 @@ export default class CustomRGBNodes implements Nodes {
         {
             key: "RedColor",
             value: 255,
+            result: 255,
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -52,6 +54,7 @@ export default class CustomRGBNodes implements Nodes {
         {
             key: "GreenColor",
             value: 255,
+            result: 255,
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -75,6 +78,7 @@ export default class CustomRGBNodes implements Nodes {
         {
             key: "BlueColor",
             value: 255,
+            result: 255,
             displayValue: false,
             displayState: false,
             livePreview: false,

@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class ECONodes implements Nodes {
     key = "ECO";
     value = "ECO";
+    result = "ECO";
     displayValue = false;
     displayState = false;
     livePreview = true;

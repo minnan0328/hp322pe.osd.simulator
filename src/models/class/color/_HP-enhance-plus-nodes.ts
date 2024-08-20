@@ -12,6 +12,7 @@ const HighNodesEnum = new HighNodes();
 export default class HPEnhancePlusNodes implements Nodes {
     key = "HPEnhancePlus";
     value = MediumNodesEnum.value;
+    result = MediumNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

@@ -11,6 +11,7 @@ const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
 export default class LanguageNodes implements Nodes {
     key = "Language";
     value = "English";
+    result = "English";
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -32,6 +33,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Deutsch",
             value: "Deutsch",
+            result: "Deutsch",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -54,6 +56,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "简体中文",
             value: "SimplifiedChinese",
+            result: "SimplifiedChinese",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -76,6 +79,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "繁體中文",
             value: "TraditionalChinese",
+            result: "TraditionalChinese",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -98,6 +102,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "English",
             value: "English",
+            result: "English",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -120,6 +125,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Español",
             value: "Español",
+            result: "Español",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -142,6 +148,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Français",
             value: "Français",
+            result: "Français",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -164,6 +171,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Italiano",
             value: "Italiano",
+            result: "Italiano",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -186,6 +194,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "日本語",
             value: "日本語",
+            result: "日本語",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -208,6 +217,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Nederlands",
             value: "Nederlands",
+            result: "Nederlands",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -230,6 +240,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Português",
             value: "Português",
+            result: "Português",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -262,6 +273,7 @@ export default class LanguageNodes implements Nodes {
         {
             key: "Pусский",
             value: "Pусский",
+            result: "Pусский",
             displayValue: false,
             displayState: false,
             livePreview: false,

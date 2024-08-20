@@ -22,6 +22,7 @@ const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
 export default class Brightness implements Nodes {
     key = "BrightnessPlus";
     value = "BrightnessPlus";
+    result = "BrightnessPlus";
     displayValue = false;
     displayState = false;
     livePreview = false;

@@ -11,6 +11,7 @@ const OffNodesEnum = new OffNodes();
 export default class AutoSleepModeNodes implements Nodes {
     key = "AutoSleepMode";
     value = OnNodesEnum.value;
+    result = OnNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

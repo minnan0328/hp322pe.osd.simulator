@@ -10,6 +10,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
     // Y (Cycle Patterns highlighted)
     key = "DiagnosticPatterns";
     value = "Cycle Patterns";
+    result = "Cycle Patterns";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -31,6 +32,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
         {
             key: "CyclePatterns",
             value: "Cycle Patterns",
+            result: "Cycle Patterns",
             displayValue: false,
             displayState: false,
             livePreview: true,
@@ -53,6 +55,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
         {
             key: "FullScreenBlack",
             value: "Full Screen Black",
+            result: "Full Screen Black",
             displayValue: false,
             displayState: false,
             livePreview: true,
@@ -75,6 +78,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
         {
             key: "FullScreenWhite",
             value: "Full Screen White",
+            result: "Full Screen White",
             displayValue: false,
             displayState: false,
             livePreview: true,
@@ -97,6 +101,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
         {
             key: "FullScreenRed",
             value: "Full Screen Red",
+            result: "Full Screen Red",
             displayValue: false,
             displayState: false,
             livePreview: true,
@@ -119,6 +124,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
         {
             key: "FullScreenGreen",
             value: "Full Screen Green",
+            result: "Full Screen Green",
             displayValue: false,
             displayState: false,
             livePreview: true,
@@ -141,6 +147,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
         {
             key: "FullScreenBlue",
             value: "Full Screen Blue",
+            result: "Full Screen Blue",
             displayValue: false,
             displayState: false,
             livePreview: true,

@@ -13,6 +13,7 @@ const BottomNodesEnum = new BottomNodes();
 export default class MonitorStatusNodes implements Nodes {
     key = "MonitorStatus";
     value = TopNodesEnum.value;
+    result = TopNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;

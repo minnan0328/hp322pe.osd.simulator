@@ -9,6 +9,7 @@ const BackEnum = new Back();
 export default class MenuTransparencyNodes implements Nodes {
     key = "MenuTransparency";
     value = 0;
+    result = 0;
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -32,6 +33,7 @@ export default class MenuTransparencyNodes implements Nodes {
             // Y (FD=0=Off)
             key: "MenuTransparencyNodes",
             value: this.value,
+            result: this.result,
             displayValue: false,
             displayState: false,
             livePreview: false,

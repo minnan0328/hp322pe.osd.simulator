@@ -5,6 +5,7 @@ import { ModeType } from "@/types";
 export class Reset implements Nodes {
     key = "Reset";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -28,6 +29,7 @@ export class Reset implements Nodes {
 export class Back implements Nodes {
     key = "Back";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -52,6 +54,7 @@ export class Back implements Nodes {
 export class OnNodes implements Nodes {
     key = "On";
     value = "On";
+    result = "On";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -76,6 +79,7 @@ export class OnNodes implements Nodes {
 export class OffNodes implements Nodes {
     key = "Off";
     value = "Off";
+    result = "Off";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -100,6 +104,7 @@ export class OffNodes implements Nodes {
 export class LowNodes implements Nodes {
     key = "Low";
     value = "Low";
+    result = "Low";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -124,6 +129,7 @@ export class LowNodes implements Nodes {
 export class MediumNodes implements Nodes {
     key = "Medium";
     value = "Medium";
+    result = "Medium";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -148,6 +154,7 @@ export class MediumNodes implements Nodes {
 export class HighNodes implements Nodes {
     key = "High";
     value = "High";
+    result = "High";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -171,6 +178,7 @@ export class HighNodes implements Nodes {
 export class TopNodes implements Nodes {
     key = "Top";
     value = "Top";
+    result = "Top";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -194,6 +202,7 @@ export class TopNodes implements Nodes {
 export class BottomNodes implements Nodes {
     key = "Bottom";
     value = "Bottom";
+    result = "Bottom";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -217,6 +226,7 @@ export class BottomNodes implements Nodes {
 export class PreviousPageButtonsNodes implements Nodes {
     key = "PreviousPageButtons";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -240,6 +250,7 @@ export class PreviousPageButtonsNodes implements Nodes {
 export class NextPageButtonsNodes implements Nodes {
     key = "NextPageButtons";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;

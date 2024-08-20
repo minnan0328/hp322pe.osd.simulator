@@ -12,6 +12,7 @@ let OffNodesEnum = new OffNodes();
 export default class Input implements Nodes {
     key = "Input";
     value = "HDMI";
+    result = "HDMI";
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -34,6 +35,7 @@ export default class Input implements Nodes {
         {
             key: "HDMI",
             value: "HDMI",
+            result: "HDMI",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -57,6 +59,7 @@ export default class Input implements Nodes {
         {
             key: "VGA",
             value: "VGA",
+            result: "VGA",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -80,6 +83,7 @@ export default class Input implements Nodes {
         {
             key: "AutoSwitchInput",
             value: OnNodesEnum.value,
+            result: OnNodesEnum.result,
             displayState: false,
             livePreview: false,
             size: 3,

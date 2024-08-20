@@ -8,6 +8,7 @@ const BackEnum = new Back();
 export default class ImageScalingNodes implements Nodes {
     key = "ImageScaling";
     value = "Fill to Screen";
+    result = "Fill to Screen";
     displayValue = true;
     displayState = false;
     livePreview = false;
@@ -29,6 +30,7 @@ export default class ImageScalingNodes implements Nodes {
         {
             key: "FilltoScreen",
             value: "Fill to Screen",
+            result: "Fill to Screen",
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -51,6 +53,7 @@ export default class ImageScalingNodes implements Nodes {
         {
             key: "FilltoAspectRatio",
             value: "Fill to Aspect Ratio",
+            result: "Fill to Aspect Ratio",
             displayValue: false,
             displayState: false,
             livePreview: false,

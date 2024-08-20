@@ -15,6 +15,7 @@ export enum ModeType {
 export interface Nodes {
     key: string;
     value: number | string | string[] | boolean | null;
+    result: number | string | string[] | boolean | null;
     displayValue: boolean;
     displayState: boolean;
     livePreview: Boolean;

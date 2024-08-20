@@ -6,6 +6,7 @@ import { ModeType } from "@/types";
 export default class LowBlueLightNodes implements Nodes {
     key = "LowBlueLight";
     value = "Low Blue Light";
+    result = "Low Blue Light";
     displayValue = false;
     displayState = false;
     livePreview = true;

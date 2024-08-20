@@ -8,6 +8,7 @@ const BackEnum = new Back();
 export default class HPEnhancePlusNodes implements Nodes {
     key = "ClockandPhase";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -31,6 +32,7 @@ export default class HPEnhancePlusNodes implements Nodes {
             // VGA only - Range (0~100)
             key: "Clock",
             value: 0,
+            result: 0,
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -55,6 +57,7 @@ export default class HPEnhancePlusNodes implements Nodes {
             // Range (0~100)
             key: "Phase",
             value: 0,
+            result: 0,
             displayValue: false,
             displayState: false,
             livePreview: false,

@@ -7,6 +7,7 @@ const currentColor = new Color();
 export default class Information implements Nodes {
     key = "Information";
     value = null;
+    result = null;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -28,6 +29,7 @@ export default class Information implements Nodes {
         {
             key: "CurrentMode:",
             value: "1920x1080 60Hz",
+            result: "1920x1080 60Hz",
             displayValue: true,
             displayState: false,
             livePreview: false,
@@ -50,6 +52,7 @@ export default class Information implements Nodes {
         {
             key: "OptimalMode:",
             value: "1920x1080 100Hz",
+            result: "1920x1080 100Hz",
             displayState: false,
             livePreview: false,
             size: 0,
@@ -72,6 +75,7 @@ export default class Information implements Nodes {
         {
             key: "ColorSetting:",
             value: currentColor.value,
+            result: currentColor.result,
             displayState: false,
             livePreview: false,
             size: 0,
@@ -94,6 +98,7 @@ export default class Information implements Nodes {
         {
             key: "FWPackageVersion:",
             value: "0.0.1.0",
+            result: "0.0.1.0",
             displayValue: true,
             displayState: false,
             livePreview: false,
@@ -116,6 +121,7 @@ export default class Information implements Nodes {
         {
             key: "HWRevision:",
             value: "B0IT0000",
+            result: "B0IT0000",
             displayValue: true,
             displayState: false,
             livePreview: false,
@@ -138,6 +144,7 @@ export default class Information implements Nodes {
         {
             key: "SerialNumber:",
             value: "CNK0000001",
+            result: "CNK0000001",
             displayValue: true,
             displayState: false,
             livePreview: false,

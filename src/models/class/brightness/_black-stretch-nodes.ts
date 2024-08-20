@@ -13,6 +13,7 @@ const HighNodesEnum = new HighNodes();
 export default class BlackStretchNodes implements Nodes {
     key = "BlackStretch";
     value = offNodesEnum.value;
+    result = offNodesEnum.result;
     displayValue = true;
     displayState = false;
     livePreview = false;
