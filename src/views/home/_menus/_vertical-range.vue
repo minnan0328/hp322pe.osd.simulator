@@ -46,7 +46,6 @@ const props = defineProps({
     },
     selected: {
         type: Boolean,
-        required: true,
         default: false
     },
     isColor: {

@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back } from '../_utilities';
+import { Reset, Back, Exit } from '../_utilities';
 import ECONodes from './_ECONodes';
 import WarmNodes from './_warm-nodes';
 import NeutralNodes from './_neutral-nodes';
@@ -12,6 +12,7 @@ import CustomRGBNodes from './_custom-RGB-nodes';
 
 const ResetEnum = new Reset(); 
 const BackEnum = new Back();
+const ExitEnum = new Exit();
 const ECONodesEnum = new ECONodes();
 const WarmNodesEnum = new WarmNodes();
 const NeutralNodesEnum = new NeutralNodes();
@@ -28,7 +29,7 @@ export default class Color implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    size = 10;
+    size = 11;
     page = 1;
     parents = null;
     mode = ModeType.button;
@@ -94,6 +95,10 @@ export default class Color implements Nodes {
             ...BackEnum,
             parents: this.key,
             mergeGrid: true 
+        },
+        {
+            ...ExitEnum,
+            parents: this.key,
         }
     ];
 };

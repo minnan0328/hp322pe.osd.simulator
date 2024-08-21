@@ -156,7 +156,7 @@ export default class AssignButtonsNodes implements Nodes {
             // Y  (FD=Brightness)
             key: "AssignButton3",
             value: AssignBrightnessNodesEnum.value,
-            result: AssignBrightnessNodesEnum.rangeIcon,
+            result: AssignBrightnessNodesEnum.result,
             displayValue: true,
             displayState: true,
             livePreview: false,

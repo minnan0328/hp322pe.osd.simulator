@@ -49,6 +49,29 @@ export class Back implements Nodes {
     unit = null;
     nodes = null;
 };
+export class Exit implements Nodes {
+    key = "Exit";
+    value = null;
+    result = null;
+    displayValue = false;
+    displayState = false;
+    livePreview = false;
+    size = 0;
+    page = 1;
+    parents = null;
+    mode = ModeType.button;
+    rangeMin = 0;
+    rangeMax = 0;
+    rangeIcon = null;
+    only = ["HDMI", "VGA"];
+    mergeGrid = false;
+    language = {
+        English: "Exit",
+        TraditionalChinese: "退出"
+    };
+    unit = null;
+    nodes = null;
+};
 
 // On enum
 export class OnNodes implements Nodes {

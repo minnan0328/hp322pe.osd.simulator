@@ -4,7 +4,7 @@ import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
 
 export class AssignAutoAdjustmentNodes implements Nodes {
-    key = "AssignAutoAdjustment";
+    key = "AssignAuto-Adjustment";
     value = "Auto-Adjustment";
     result = "Auto-Adjustment";
     displayValue = false;
@@ -124,7 +124,7 @@ export class AssignNextActiveInputNodes implements Nodes {
 };
 
 export class AssignEmptyNodes implements Nodes {
-    key = "AssignEmpty";
+    key = "AssignEmpty(NoFunction)";
     value = "Empty (No Function)";
     result = "Empty (No Function)";
     displayValue = false;

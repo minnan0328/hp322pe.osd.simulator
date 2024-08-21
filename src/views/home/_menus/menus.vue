@@ -1,5 +1,5 @@
 <template>
-    <div class="menus" v-if="openAllMenu">
+    <div class="menus" v-if="openAllMenu && state.menuPanel">
         <div class="header">
             <p>HP 322pe</p>
         </div>
@@ -34,12 +34,56 @@
             </div>
         </div>
     </div>
+    <div :class="['menu assign-menu', state.menuPanel.key]" v-if="openAssignButton && state.menuPanel">
+        <div class="header">
+            <p>{{ toLanguageText(state.menuPanel.language) }}</p>
+        </div>
+        <div class="body">
+            <div :class="['assign-setting', state.menuPanel.key]">
+                <template v-for="secondNodes in state.menuPanel.nodes">
+                    <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondNodes.mode != ModeType.info }]"
+                        v-if="isEnableInput(secondNodes) && secondNodes.key != 'Reset' && isEnableInput(secondNodes) && secondNodes.key != 'Back' && isEnableInput(secondNodes) && secondNodes.mode != ModeType.verticalRange">
+                        <!-- button -->
+                        <div :class="['item', {
+                                selected: state.secondPanel?.key == secondNodes.key,
+                                'merge-grid': secondNodes.mergeGrid
+                            }]"
+                            v-if="(secondNodes.mode == ModeType.button) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
+                        </div>
+                        <!-- button -->
+
+                        <!-- radio -->
+                        <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
+                            :nodes="secondNodes"
+                            :isChecked="state.menuPanel.value == secondNodes.value"
+                            :selected="state.secondPanel?.key == secondNodes.key">
+                        </customizeRadio>
+                        <!-- radio -->
+
+                        <!-- value -->
+                        <template v-if="secondNodes.mode == ModeType.info">
+                            <div class="item item-value">
+                                <span v-text="secondNodes.result"></span>
+                            </div>
+                        </template>
+                        <!-- value -->
+                    </div>
+                    <!-- 一般縱向 range -->
+                    <verticalRange v-else-if="secondNodes.mode == ModeType.verticalRange"
+                        :nodes="secondNodes">
+                    </verticalRange>
+                    <!-- 一般縱向 range -->
+                </template>
+            </div>
+        </div>
+    </div>
 
     <div class="controller-menus" v-if="openControllerMenus">
         <template v-for="currentButton in handleControllerButtonList">
             <div class="menu-item" v-if="currentButton.image">
                 <img :src="currentButton?.image" alt="">
             </div>
+            <div class="menu-item" v-else></div>
         </template>
     </div>
 
@@ -64,6 +108,9 @@ import { ModeType } from '@/types';
 import { isEnableInput, toLanguageText } from '@/service/service';
 // components
 import settingSection from './_setting-section.vue';
+import verticalRange from './_vertical-range.vue';
+import customizeRadio from './_customize-radio.vue';
+
 // svg
 import iconAllMenu from '@/assets/icons/icon-menu.svg';
 import iconBrightness from '@/assets/icons/icon-brightness.svg';
@@ -78,6 +125,7 @@ import iconCheck from '@/assets/icons/icon-check.svg';
 import iconSubtract from '@/assets/icons/icon-subtract.svg';
 import iconAdd from '@/assets/icons/icon-add.svg';
 import iconPrevious from '@/assets/icons/icon-previous.svg';
+import iconInformation from '@/assets/icons/icon-information.svg';
 
 import {
     Brightness, Color, Image, Input, Power,
@@ -164,15 +212,48 @@ const menus = computed(() => {
 
 const assignMenus = computed(() => {
     return {
-        [AssignAutoAdjustmentNodesEnum.key]: null,
-        [AssignBrightnessNodesEnum.key]: store.$state.brightness, 
-        [AssignColorNodesEnum.key]: store.$state.color,
-        [AssignDisplayInformationNodesEnum.key]: store.$state.information,
-        [AssignNextActiveInputNodesEnum.key]: store.$state.input,
-        [AssignEmptyNodesEnum.key]: null
+        [AssignAutoAdjustmentNodesEnum.key]: {
+            key: AssignAutoAdjustmentNodesEnum.key,
+            icon: iconAllMenu,
+            node: null
+        },
+        [AssignBrightnessNodesEnum.key]: {
+            key: AssignBrightnessNodesEnum.key,
+            icon: iconBrightness,
+            node: store.$state.brightness.nodes[0]
+        }, 
+        [AssignColorNodesEnum.key]: {
+            key: AssignColorNodesEnum.key,
+            icon: iconColor,
+            node: store.$state.color
+        },
+        [AssignDisplayInformationNodesEnum.key]: {
+            key: AssignDisplayInformationNodesEnum.key,
+            icon: iconInformation,
+            node: store.$state.information
+        },
+        [AssignNextActiveInputNodesEnum.key]: {
+            key: AssignNextActiveInputNodesEnum.key,
+            icon: iconInput,
+            node: store.$state.input
+        },
+        [AssignEmptyNodesEnum.key]: {
+            key: AssignEmptyNodesEnum.key,
+            icon: null,
+            node: null
+        }
     }
 });
 
+const getAssignButton = computed(() => {
+    return [
+        assignMenus.value[`Assign${(store.$state.menu.nodes[5].nodes![0].result as string).replace(/\s/g, '')}`],
+        assignMenus.value[`Assign${(store.$state.menu.nodes[5].nodes![1].result as string).replace(/\s/g, '')}`],
+        assignMenus.value[`Assign${(store.$state.menu.nodes[5].nodes![2].result as string).replace(/\s/g, '')}`]
+    ]
+});
+
+const assignPanelOrder = reactive([AssignBrightnessNodesEnum.key, AssignColorNodesEnum.key, AssignDisplayInformationNodesEnum.key, AssignNextActiveInputNodesEnum.key]);
 // selected state and node
 const state = reactive({
     currentPanelNumber: 0,
@@ -183,8 +264,10 @@ const state = reactive({
     menuPanelIndex: 0,
     secondPanelIndex: 0,
     thirdPanelIndex: 0,
-    fourthPanelIndex: 0
+    fourthPanelIndex: 0,
+    assignPanelOrderIndex: 0
 });
+
 
 // node 的 livePreview 為 true 時才使用
 const temporaryStorage = ref<Nodes | null>(null);
@@ -233,13 +316,22 @@ function handleAllMenu() {
 };
 // 開啟自訂選單按鈕
 function handleAssignButton(key: string) {
-    console.log(assignMenus.value[key]);
     if(key == "AssignNextActiveInput") {
         openAllMenu.value = true;
-        selectedMenuPanel(assignMenus.value[key] as Nodes)
+        selectedMenuPanel(assignMenus.value[key].node as Nodes);
+        handleTarget();
+    } else {
+        state.menuPanel = null;
+        state.secondPanel = null;
+        state.menuPanelIndex = 0;
+        state.secondPanelIndex = 0;
+        state.assignPanelOrderIndex = assignPanelOrder.findIndex(a => a == key);
+        openAssignButton.value = true;
+        selectedMenuPanel(assignMenus.value[key].node as Nodes);
         handleTarget();
     }
 };
+
 
 const brightnessDefaultValue = {
     [store.$state.color.nodes[0].key]: 76,
@@ -281,9 +373,9 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
             // 開啟螢幕及開啟全部選單列表時候的組合
             return [
                 { image: iconAllMenu, event: handleAllMenu, stopEvent: null, type: "Button" },
-                { image: iconBrightness, event: () => handleAssignButton(AssignBrightnessNodesEnum.key) , stopEvent: null, type: "Button"},
-                { image: iconColor, event: () => handleAssignButton(AssignColorNodesEnum.key), stopEvent: null, type: "Button" },
-                { image: iconInput, event:() => handleAssignButton(AssignNextActiveInputNodesEnum.key), stopEvent: null, type: "Button" }
+                { image: getAssignButton.value[2].icon, event: () => handleAssignButton(getAssignButton.value[2].key), stopEvent: null, type: "Button"},
+                { image: getAssignButton.value[1].icon, event: () => handleAssignButton(getAssignButton.value[1].key), stopEvent: null, type: "Button" },
+                { image: getAssignButton.value[0].icon, event:() => handleAssignButton(getAssignButton.value[0].key), stopEvent: null, type: "Button" }
             ]
         } else if(openAllMenu.value && !state.secondPanel) {
             // 第一層控制選單組合判斷
@@ -329,10 +421,14 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
                 return [];
             }
         } else {
-            return [];
+            if(openAssignButton.value) {
+                return handleModeControllerButtonList(state.secondPanel!, state.menuPanel!);
+            } else {
+                return [];
+            }
         }
     } else {
-        return [];
+        return []
     }
 });
 
@@ -365,30 +461,67 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
     ];
-    
-    if(
-        nodes.key == "Reset" || nodes.key == "Back"
-        || nodes.mode == ModeType.radio && !nodes.nodes
-        || nodes.mode == ModeType.button && !nodes.nodes
-        || nodes.mode == ModeType.checkBox && !nodes.nodes
-        || nodes.mode == ModeType.paginationButton && !nodes.nodes
-    ) {
-        // 當為 reset and back, button 下一層沒有節點的時候
-        return confirmedButtonList;
-    } else if(
-        // 多個 range value
-        nodes.mode == ModeType.verticalRange && previousNodes.nodes?.length == 1
-        || nodes.mode == ModeType.horizontalRange  && previousNodes.nodes?.length == 1
-    ) {
-        return rangeButtonList;
-    } else if(
-        // 多個 range value
-        nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1
-        || nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
-    ) {
-        return rangeNextButtonList;
+
+        // assign button 確認選擇的按鈕組合
+    const confirmedAssignButtonList: ControllerButtonList[] = [
+        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
+        { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
+        { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
+        { image: iconNextRight, event: handleNext, stopEvent: null, type: "Button" }
+    ];
+
+    // assign button range value 組合
+    const rangeAssignButtonList: ControllerButtonList[] = [
+        { image: iconClose, event: handleClose , stopEvent: null, type: "Button"},
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconNextRight, event: handleNext , stopEvent: null, type: "Button"}
+    ];
+
+    // assign button info 組合
+    const infoAssignButtonList: ControllerButtonList[] = [
+        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
+        { image: null, event: null, stopEvent: null, type: "Button" },
+        { image: null, event: null, stopEvent: null, type: "Button" },
+        { image: iconNextRight, event: handleNext , stopEvent: null, type: "Button"}
+    ];
+    if(openAllMenu.value) {
+        if(
+            nodes.key == "Reset" || nodes.key == "Back"
+            || nodes.mode == ModeType.radio && !nodes.nodes
+            || nodes.mode == ModeType.button && !nodes.nodes
+            || nodes.mode == ModeType.checkBox && !nodes.nodes
+            || nodes.mode == ModeType.paginationButton && !nodes.nodes
+        ) {
+            // 當為 reset and back, button 下一層沒有節點的時候
+            return confirmedButtonList;
+        } else if(
+            // 多個 range value
+            nodes.mode == ModeType.verticalRange && previousNodes.nodes?.length == 1
+            || nodes.mode == ModeType.horizontalRange  && previousNodes.nodes?.length == 1
+        ) {
+            return rangeButtonList;
+        } else if(
+            // 多個 range value
+            nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1
+            || nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
+        ) {
+            return rangeNextButtonList;
+        } else {
+            return nextButtonList;
+        }
+    } else if(openAssignButton.value) {
+        if(previousNodes.mode == ModeType.info) {
+            return infoAssignButtonList;
+        } else if(nodes.mode == ModeType.verticalRange ) {
+            return rangeAssignButtonList;
+        } else if(nodes.mode == ModeType.radio || nodes.mode == ModeType.button && nodes.key == "Exit") {
+            return confirmedAssignButtonList;
+        } else {
+            return confirmedAssignButtonList;
+        }
     } else {
-        return nextButtonList;
+        return [];
     }
 }
 
@@ -439,7 +572,7 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
         const length = node.nodes.length;
     
         do {
-            if (isEnableInput(node.nodes[index])) {
+            if (openAllMenu.value && isEnableInput(node.nodes[index]) || isEnableInput(node.nodes[index]) && openAssignButton.value && node.nodes[index].mode != ModeType.info) {
                 let selectedIndex = (node.value || node.value == 0) ? node.nodes.findIndex(n => n.value == node.value) : index;
                 index = selectedIndex > 0 ? selectedIndex : index;
                 setValue(node.nodes[index], index);
@@ -525,10 +658,14 @@ function handleNavigation(direction: 'up' | 'down') {
                     state.menuPanel.page = page;
                     state.secondPanelIndex = index;
                     state.secondPanel = state.menuPanel.nodes[state.secondPanelIndex];
+                    
 
                     if(state.secondPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        temporaryStorage.value = JSON.parse(JSON.stringify(state.menuPanel));
+                        if(temporaryStorage.value == null) {
+                            temporaryStorage.value = JSON.parse(JSON.stringify(state.menuPanel));
+                        }
+
                         if(state.secondPanel.mode == ModeType.button || state.secondPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
 
@@ -537,7 +674,14 @@ function handleNavigation(direction: 'up' | 'down') {
                             }
                             
                             state.menuPanel.result = state.secondPanel.result;
-                        }
+                        } 
+                    } else if(
+                        temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == 'Exit'
+                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == 'Reset'
+                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == 'Back'
+                    ) {
+                        state.menuPanel = temporaryStorage.value;
+                        temporaryStorage.value = null;
                     }
                 }
             });
@@ -583,6 +727,7 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
     let index = nodeIndex;
     let page = node.page;
 
+    
     const updateIndex = (idx: number, length: number) => {
         return (idx + step + length) % length;
     };
@@ -591,9 +736,14 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
         index = updateIndex(index, node.nodes.length);
         
         const oldNodes = JSON.parse(JSON.stringify(node));
-    
-        if (!isEnableInput(node.nodes[index])) {
-            handleNavigation(step > 0 ? 'down' : 'up');
+
+        if (
+            !isEnableInput(node.nodes[index])
+            || openAllMenu.value && node.nodes[index].key == 'Exit'
+            || openAssignButton.value && node.nodes[index].key == 'Reset'
+            || openAssignButton.value && node.nodes[index].key == 'Back'
+        ) {
+            updatePanelIndexText(node, index ,step, send);
         } else {
             page = Math.floor(index / node.size) + 1;
         
@@ -606,6 +756,20 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
         }
     }
 };
+
+// assign button next panel
+function handleNext() {
+    state.menuPanel = null;
+    state.secondPanel = null;
+    state.menuPanelIndex = 0;
+    state.secondPanelIndex = 0;
+    state.assignPanelOrderIndex += 1;
+    state.assignPanelOrderIndex = state.assignPanelOrderIndex == 4 ? 0 : state.assignPanelOrderIndex;
+    let key = assignPanelOrder[state.assignPanelOrderIndex];
+
+    selectedMenuPanel(assignMenus.value[key].node as Nodes);
+    handleTarget();
+}
 
 // 控制 range value
 function handleRangeValue(step: string) {
@@ -757,7 +921,8 @@ function handleClose() {
 
 </script>
 <style lang="scss" scoped>
-.menus {
+.menus,
+.assign-menu {
 	position: absolute;
 	bottom: 252px;
 	right: 62px;
@@ -797,126 +962,67 @@ function handleClose() {
 				justify-content: center;
 				align-items: center;
 			}
-
-			.options {
-				.option {
-					height: 26px;
-					display: flex;
-					align-items: center;
-					padding: 0 10px;
-					border: 1px solid transparent;
-
-					&.disabled {
-						color: #444444;
-					}
-
-					&.selected:not(.disabled) {
-						background-color: #000000;
-						border: 1px solid #0083ca;
-						color: #ffffff;
-
-                        &.focus {
-                            border: 1px solid transparent;
-                            position: relative;
-
-                            &::before {
-                                position: absolute;
-                                content: "";
-                                right: 4px;
-                                width: 0;
-                                height: 0;
-                                border-style: solid;
-                                border-width: 5px 0 5px 10px;
-                                border-color: transparent transparent transparent #FFFFFF;
-                            }
-                        }
-					}
-				}
-			}
 		}
 
-		.setting {
-			width: calc(100% - 120px);
-			background-color: #161616;
-			padding: 2px 0;
-			position: relative;
-
-            .full-image {
-                width: 100%;
-                height: 100%;
+        .options {
+            .option {
+                height: 26px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                padding: 0 10px;
+                border: 1px solid transparent;
 
-                img {
-                    min-width: 30%;
+                &.disabled {
+                    color: #444444;
+                }
+
+                &.selected:not(.disabled) {
+                    background-color: #000000;
+                    border: 1px solid #0083ca;
+                    color: #ffffff;
+
+                    &.focus {
+                        border: 1px solid transparent;
+                        position: relative;
+
+                        &::before {
+                            position: absolute;
+                            content: "";
+                            right: 4px;
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 5px 0 5px 10px;
+                            border-color: transparent transparent transparent #FFFFFF;
+                        }
+                    }
                 }
             }
-
-			&.two-columns {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-			}
-
-			.function-setting {
-				position: relative;
-				border-left: 1px solid #202020;
-
-                &.customRGB-range-section {
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
-                }
-			}
-
-			.setting-item {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-
-				&.unset-grid {
-					display: block;
-				}
-
-				&.disabled {
-					color: #444444;
-				}
-
-				&.Reset {
-					width: 100%;
-					position: absolute;
-					bottom: 26px;
-					z-index: 1;
-				}
-
-				&.Back {
-					width: 100%;
-					position: absolute;
-					bottom: 0px;
-					z-index: 1;
-				}
-
-				.item {
-					height: 26px;
-					border: 1px solid transparent;
-					padding: 0 8px;
-					display: flex;
-					align-items: center;
-
-					&.merge-grid,
-					&.Back,
-					&.Rese {
-						grid-column: 1 / 3;
-					}
-
-					&.selected:not(.disabled) {
-						background-color: #000000;
-						border: 1px solid #0083ca;
-						color: #ffffff;
-					}
-				}
-			}
-		}
+        }
 	}
+}
+
+.assign-menu {
+    position: absolute;
+	bottom: 278px;
+	right: 120px;
+    background-color: #161616;
+    width: 200px;
+	height: 282px;
+
+    &.Information {
+        width: 300px;
+    }
+
+    .header {
+        padding: 6px 12px;
+		color: #ffffff;
+		font-size: 10px;
+        background-color: #090909;
+    }
+    .body {
+        height: 100%;
+    }
 }
 
 .controller-menus {
@@ -936,13 +1042,11 @@ function handleClose() {
 
 		img {
             width: 10px;
-			// height: 10px;
 		}
 	}
 }
 
 .controller {
-    // display: flex;
 	position: absolute;
 	bottom: 135px;
 	right: 18px;
@@ -951,9 +1055,6 @@ function handleClose() {
 	:deep(.controller-btn) {
 		width: 40px;
 		height: 40px;
-		// background-color: azure;
-		// border: 1px solid #0083ca;
-		// opacity: 0.5;
 
 		&.controller-menus-btn {
 			position: absolute;

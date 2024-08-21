@@ -1,8 +1,10 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
 import Color from '../color/_cool-nodes';
+import { Exit } from '../_utilities';
 
-const currentColor = new Color();
+const ColorEnum = new Color();
+const ExitEnum = new Exit();
 
 export default class Information implements Nodes {
     key = "Information";
@@ -11,7 +13,7 @@ export default class Information implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    size = 6;
+    size = 7;
     page = 1;
     parents = null;
     mode = ModeType.info;
@@ -74,8 +76,8 @@ export default class Information implements Nodes {
         },
         {
             key: "ColorSetting:",
-            value: currentColor.value,
-            result: currentColor.result,
+            value: ColorEnum.value,
+            result: ColorEnum.result,
             displayState: false,
             livePreview: false,
             size: 0,
@@ -163,6 +165,10 @@ export default class Information implements Nodes {
             },
             unit: null,
             nodes: null
+        },
+        {
+            ...ExitEnum,
+            parents: this.key,
         }
     ];
 }

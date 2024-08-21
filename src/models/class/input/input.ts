@@ -2,10 +2,11 @@
 
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { Reset, Back, OnNodes, OffNodes } from '../_utilities';
+import { Reset, Back, Exit, OnNodes, OffNodes } from '../_utilities';
 
 let ResetEnum = new Reset(); 
 let BackEnum = new Back();
+let ExitEnum = new Exit();
 let OnNodesEnum = new OnNodes();
 let OffNodesEnum = new OffNodes();
 
@@ -16,7 +17,7 @@ export default class Input implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    size = 5;
+    size = 6;
     page = 1;
     parents = null;
     mode = ModeType.button;
@@ -129,6 +130,10 @@ export default class Input implements Nodes {
             ...BackEnum,
             parents: this.key,
             mergeGrid: true
+        },
+        {
+            ...ExitEnum,
+            parents: this.key,
         }
     ];
 }
