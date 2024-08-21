@@ -918,6 +918,7 @@ function handleClose() {
     state.secondPanelIndex = 0;
     state.thirdPanelIndex = 0;
     state.fourthPanelIndex = 0;
+    state.assignPanelOrderIndex = 0;
 };
 
 </script>
