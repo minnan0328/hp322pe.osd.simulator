@@ -48,7 +48,7 @@
                                 selected: state.secondPanel?.key == secondNodes.key,
                                 'merge-grid': secondNodes.mergeGrid
                             }]"
-                            v-if="(secondNodes.mode == ModeType.button) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
+                            v-if="(secondNodes.mode == ModeType.button && secondNodes.key == 'Exit') || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
                         </div>
                         <!-- button -->
 
@@ -742,6 +742,7 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
             || openAllMenu.value && node.nodes[index].key == 'Exit'
             || openAssignButton.value && node.nodes[index].key == 'Reset'
             || openAssignButton.value && node.nodes[index].key == 'Back'
+            || openAssignButton.value && node.nodes[index].mode == ModeType.button && node.nodes[index].key != 'Exit'
         ) {
             updatePanelIndexText(node, index ,step, send);
         } else {
