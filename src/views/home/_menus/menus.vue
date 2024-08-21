@@ -27,7 +27,7 @@
 
         <div class="footer">
             <div class="current-mode">
-                Current Mode: 1920x1080 100Hz
+                {{ toLanguageText(informationEnum.nodes[0].language) }}: {{ informationEnum.nodes[0].value }}
             </div>
             <div class="current-input">
                 {{ toLanguageText(inputEnum.language) }}: {{ inputEnum.value }}
@@ -79,14 +79,26 @@ import iconSubtract from '@/assets/icons/icon-subtract.svg';
 import iconAdd from '@/assets/icons/icon-add.svg';
 import iconPrevious from '@/assets/icons/icon-previous.svg';
 
-import { Brightness, Color, Image, Input, Power, Menu, Management, Information, Exit } from '@/models/index';
+import {
+    Brightness, Color, Image, Input, Power,
+    Menu, Management, Information, Exit
+} from '@/models/index';
 
-interface ControllerButtonList {
-    image: string | null,
-    event: (() => void) | null,
-    stopEvent: (() => void) | null,
-    type: string
-};
+import { 
+    AssignAutoAdjustmentNodes,
+    AssignBrightnessNodes,
+    AssignColorNodes,
+    AssignDisplayInformationNodes,
+    AssignNextActiveInputNodes,
+    AssignEmptyNodes
+} from '@/models/class/menu/assign-buttons/_utilities';
+
+const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
+const AssignBrightnessNodesEnum = new AssignBrightnessNodes();
+const AssignColorNodesEnum = new AssignColorNodes();
+const AssignDisplayInformationNodesEnum = new AssignDisplayInformationNodes();
+const AssignNextActiveInputNodesEnum = new AssignNextActiveInputNodes();
+const AssignEmptyNodesEnum = new AssignEmptyNodes();
 
 const store = useStore();
 
@@ -101,54 +113,9 @@ const inputEnum = computed(() => {
     return store.$state.input;
 });
 
-const openControllerMenus = ref(false);
-const openAllMenu = ref(false);
-const openSecondAssignButton = ref(false);
-const openThirdAssignButton= ref(false);
-const openFourthAssignButton= ref(false);
-
-// 開啟選單
-function handleControllerMenus() {
-    if(props.openMonitor) {
-        openControllerMenus.value = true;
-    }
-};
-
-// 是否啟用選單控制按鈕
-const isControllerMenusButton = computed(() => {
-    if(openControllerMenus.value) {
-        return !openAllMenu.value && !openSecondAssignButton.value && !openThirdAssignButton.value && !openFourthAssignButton.value;
-    }
+const informationEnum = computed(() => {
+    return store.$state.information;
 });
-
-// 開啟全部選單
-function handleAllMenu() {
-    openAllMenu.value = true;
-    openSecondAssignButton.value = false;
-    openThirdAssignButton.value = false;
-    openFourthAssignButton.value = false;
-};
-// 開啟第二個選單按鈕
-function handleSecondAssignButton() {
-    // openAllMenu.value = false;
-    // openSecondAssignButton.value = true;
-    // openThirdAssignButton.value = false;
-    // openFourthAssignButton.value = false;
-};
-// 開啟第三個選單按鈕
-function handleThirdAssignButton() {
-    // openAllMenu.value = false;
-    // openSecondAssignButton.value = false;
-    // openThirdAssignButton.value = true;
-    // openFourthAssignButton.value = false;
-};
-// 開啟第四個選單按鈕
-function handleFourthAssignButton() {
-    // openAllMenu.value = false;
-    // openSecondAssignButton.value = false;
-    // openThirdAssignButton.value = false;
-    // openFourthAssignButton.value = true;
-};
 
 const resetMenus = {
     brightness: new Brightness(),
@@ -195,16 +162,16 @@ const menus = computed(() => {
     }
 });
 
-const brightnessDefaultValue = {
-    [store.$state.color.nodes[0].key]: 76,
-    [store.$state.color.nodes[1].key]: 26,
-    [store.$state.color.nodes[2].key]: 86,
-    [store.$state.color.nodes[3].key]: 86,
-    [store.$state.color.nodes[4].key]: 100,
-    [store.$state.color.nodes[5].key]: 90,
-    [store.$state.color.nodes[6].key]: 86,
-    [store.$state.color.nodes[7].key]: 100,
-};
+const assignMenus = computed(() => {
+    return {
+        [AssignAutoAdjustmentNodesEnum.key]: null,
+        [AssignBrightnessNodesEnum.key]: store.$state.brightness, 
+        [AssignColorNodesEnum.key]: store.$state.color,
+        [AssignDisplayInformationNodesEnum.key]: store.$state.information,
+        [AssignNextActiveInputNodesEnum.key]: store.$state.input,
+        [AssignEmptyNodesEnum.key]: null
+    }
+});
 
 // selected state and node
 const state = reactive({
@@ -240,16 +207,72 @@ const displayCurrentNodes = computed(() => {
     }
 });
 
+const openControllerMenus = ref(false);
+const openAllMenu = ref(false);
+const openAssignButton = ref(false);
+
+// 開啟選單
+function handleControllerMenus() {
+    if(props.openMonitor) {
+        openControllerMenus.value = true;
+    };
+};
+
+// 是否啟用選單控制按鈕
+const isControllerMenusButton = computed(() => {
+    if(openControllerMenus.value) {
+        return !openAllMenu.value && !openAssignButton.value;
+    }
+});
+
+// 開啟全部選單
+function handleAllMenu() {
+    openAllMenu.value = true;
+    openAssignButton.value = false;
+    selectedMenuPanel(menus.value.nodes[0]);
+};
+// 開啟自訂選單按鈕
+function handleAssignButton(key: string) {
+    console.log(assignMenus.value[key]);
+    if(key == "AssignNextActiveInput") {
+        openAllMenu.value = true;
+        selectedMenuPanel(assignMenus.value[key] as Nodes)
+        handleTarget();
+    }
+};
+
+const brightnessDefaultValue = {
+    [store.$state.color.nodes[0].key]: 76,
+    [store.$state.color.nodes[1].key]: 26,
+    [store.$state.color.nodes[2].key]: 86,
+    [store.$state.color.nodes[3].key]: 86,
+    [store.$state.color.nodes[4].key]: 100,
+    [store.$state.color.nodes[5].key]: 90,
+    [store.$state.color.nodes[6].key]: 86,
+    [store.$state.color.nodes[7].key]: 100,
+};
+
+function handleBrightness(key: string) {
+    menus.value.nodes[0].nodes[0].result = brightnessDefaultValue[key];
+}
+
 watch(() => props.openMonitor, (newVal, oldVal) => {
     if(newVal == false) {
         handleClose();
     };
 });
 
-watch(() => openAllMenu.value, (newVal, oldVal) => {
-    state.menuPanel = menus.value.nodes[0];
+function selectedMenuPanel(nodes: Nodes) {
+    state.menuPanel = nodes;
     state.currentPanelNumber = 1;
-});
+};
+
+interface ControllerButtonList {
+    image: string | null,
+    event: (() => void) | null,
+    stopEvent: (() => void) | null,
+    type: string
+};
 
 // 控制選單按鈕組合列表
 const handleControllerButtonList = computed<ControllerButtonList[] | null>(() => {
@@ -258,9 +281,9 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
             // 開啟螢幕及開啟全部選單列表時候的組合
             return [
                 { image: iconAllMenu, event: handleAllMenu, stopEvent: null, type: "Button" },
-                { image: iconBrightness, event: handleSecondAssignButton , stopEvent: null, type: "Button"},
-                { image: iconColor, event: handleThirdAssignButton, stopEvent: null, type: "Button" },
-                { image: iconInput, event: handleFourthAssignButton, stopEvent: null, type: "Button" }
+                { image: iconBrightness, event: () => handleAssignButton(AssignBrightnessNodesEnum.key) , stopEvent: null, type: "Button"},
+                { image: iconColor, event: () => handleAssignButton(AssignColorNodesEnum.key), stopEvent: null, type: "Button" },
+                { image: iconInput, event:() => handleAssignButton(AssignNextActiveInputNodesEnum.key), stopEvent: null, type: "Button" }
             ]
         } else if(openAllMenu.value && !state.secondPanel) {
             // 第一層控制選單組合判斷
@@ -556,10 +579,6 @@ function handleNavigation(direction: 'up' | 'down') {
     }
 };
 
-function handleBrightness(key: string) {
-    menus.value.nodes[0].nodes[0].result = brightnessDefaultValue[key];
-}
-
 function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
     let index = nodeIndex;
     let page = node.page;
@@ -722,9 +741,7 @@ function handleClose() {
     openControllerMenus.value = false;
 
     openAllMenu.value = false;
-    openSecondAssignButton.value = false;
-    openThirdAssignButton.value = false;
-    openFourthAssignButton.value = false;
+    openAssignButton.value = false;
 
     state.menuPanel = null;
     state.secondPanel = null;

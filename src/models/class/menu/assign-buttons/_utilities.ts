@@ -124,7 +124,7 @@ export class AssignNextActiveInputNodes implements Nodes {
 };
 
 export class AssignEmptyNodes implements Nodes {
-    key = "Empty (No Function)";
+    key = "AssignEmpty";
     value = "Empty (No Function)";
     result = "Empty (No Function)";
     displayValue = false;
