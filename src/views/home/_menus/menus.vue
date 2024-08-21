@@ -483,14 +483,14 @@ function handleNavigation(direction: 'up' | 'down') {
                     state.menuPanelIndex = index;
                     state.menuPanel = menus.value.nodes[state.menuPanelIndex];
 
-                    // if(state.menuPanel.livePreview) {
-                    //     // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                    //     temporaryStorage.value = JSON.parse(JSON.stringify(menus.value));
-                    //     if(state.menuPanel.mode == ModeType.button || state.menuPanel.mode == ModeType.radio) {
-                    //         // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
-                    //         menus.value.result = state.menuPanel.result ;
-                    //     }
-                    // }
+                    if(state.menuPanel.livePreview) {
+                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                        temporaryStorage.value = JSON.parse(JSON.stringify(menus.value));
+                        if(state.menuPanel.mode == ModeType.button || state.menuPanel.mode == ModeType.radio) {
+                            // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
+                            menus.value.result = state.menuPanel.result as null;
+                        }
+                    }
                 }
             });
         } else if (state.secondPanel && !state.thirdPanel) {
