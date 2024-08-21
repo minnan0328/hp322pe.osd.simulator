@@ -921,13 +921,24 @@ function handleClose() {
     state.assignPanelOrderIndex = 0;
 };
 
+const menuStateResult = computed(() => {
+    return {
+        menuPosition: {
+            x: store.$state.menu.nodes[1].nodes![0].result,
+            y: store.$state.menu.nodes[1].nodes![1].result
+        },
+        menuTransparency: store.$state.menu.nodes[2].result,
+        menuTimeout: store.$state.menu.nodes[3].result,
+    }
+});
+
 </script>
 <style lang="scss" scoped>
 .menus,
 .assign-menu {
 	position: absolute;
-	bottom: 252px;
-	right: 62px;
+	top: 50px;
+	left: 200px;
 	background-color: #090909;
 	width: 540px;
 	height: 356px;
@@ -1006,6 +1017,8 @@ function handleClose() {
 
 .assign-menu {
     position: absolute;
+    top: unset;
+    left: unset;
 	bottom: 278px;
 	right: 120px;
     background-color: #161616;
