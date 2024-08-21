@@ -26,7 +26,7 @@ export default class Brightness implements Nodes {
     displayValue = false;
     displayState = false;
     livePreview = false;
-    size = 5;
+    size = 7;
     page = 1;
     parents = null;
     mode = ModeType.button;

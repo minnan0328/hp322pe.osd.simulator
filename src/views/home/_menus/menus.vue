@@ -11,7 +11,7 @@
                 </div>
                 <div class="options">
                     <template  v-for="menu in menus.nodes" v-text="toLanguageText(menu.language)">
-                        <div :class="['option', { selected: state.menuPanel == menu, focus: state.menuPanel == menu && state.secondPanel }]"
+                        <div :class="['option', { selected: state.menuPanel?.key == menu.key, focus: state.menuPanel?.key == menu.key && state.secondPanel }]"
                             v-if="isEnableInput(menu)" v-text="toLanguageText(menu.language)">
                         </div>
                     </template>
@@ -77,6 +77,8 @@ import iconCheck from '@/assets/icons/icon-check.svg';
 import iconSubtract from '@/assets/icons/icon-subtract.svg';
 import iconAdd from '@/assets/icons/icon-add.svg';
 import iconPrevious from '@/assets/icons/icon-previous.svg';
+
+import { Brightness, Color, Image, Input, Power, Menu, Management, Information, Exit } from '@/models/index';
 
 interface ControllerButtonList {
     image: string | null,
@@ -145,6 +147,18 @@ function handleFourthAssignButton() {
     // openSecondAssignButton.value = false;
     // openThirdAssignButton.value = false;
     // openFourthAssignButton.value = true;
+};
+
+const resetMenus = {
+    brightness: new Brightness(),
+    color: new Color(),
+    image: new Image(),
+    input: new Input(),
+    power: new Power(),
+    menu: new Menu(),
+    management: new Management(),
+    information: new Information(),
+    exit: new Exit(),
 };
 
 const menus = computed(() => {
@@ -664,6 +678,13 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     
     // 恢復預設值
     if(nodes.key == "Reset") {
+        (Object.keys(resetMenus) as Array<keyof typeof resetMenus>).forEach(k => {
+            if(resetMenus[k].key == state.menuPanel?.key) {
+                state.menuPanel = resetMenus[k];
+            }
+        });
+
+        handlePrevious();
         return
     };
 
