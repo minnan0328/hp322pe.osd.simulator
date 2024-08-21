@@ -127,24 +127,24 @@ function handleAllMenu() {
 };
 // 開啟第二個選單按鈕
 function handleSecondAssignButton() {
-    openAllMenu.value = false;
-    openSecondAssignButton.value = true;
-    openThirdAssignButton.value = false;
-    openFourthAssignButton.value = false;
+    // openAllMenu.value = false;
+    // openSecondAssignButton.value = true;
+    // openThirdAssignButton.value = false;
+    // openFourthAssignButton.value = false;
 };
 // 開啟第三個選單按鈕
 function handleThirdAssignButton() {
-    openAllMenu.value = false;
-    openSecondAssignButton.value = false;
-    openThirdAssignButton.value = true;
-    openFourthAssignButton.value = false;
+    // openAllMenu.value = false;
+    // openSecondAssignButton.value = false;
+    // openThirdAssignButton.value = true;
+    // openFourthAssignButton.value = false;
 };
 // 開啟第四個選單按鈕
 function handleFourthAssignButton() {
-    openAllMenu.value = false;
-    openSecondAssignButton.value = false;
-    openThirdAssignButton.value = false;
-    openFourthAssignButton.value = true;
+    // openAllMenu.value = false;
+    // openSecondAssignButton.value = false;
+    // openThirdAssignButton.value = false;
+    // openFourthAssignButton.value = true;
 };
 
 const menus = computed(() => {
@@ -361,6 +361,10 @@ function handleTarget() {
                 state.secondPanel = nodes;
                 state.secondPanelIndex = index;
                 state.currentPanelNumber = 2;
+
+                if(state.menuPanel?.mode == ModeType.radio && state.menuPanel.nodes) {
+                    handleConfirmed(1);
+                }
             });
         } else if(state.secondPanel?.nodes && !state.thirdPanel) {
             // 第三層
@@ -369,26 +373,9 @@ function handleTarget() {
                 state.thirdPanelIndex = index;
                 state.currentPanelNumber = 3;
 
-                if(state.menuPanel && state.thirdPanel.parents == "CustomRGB") {
-                    state.menuPanel.value = state.secondPanel?.value as string;
-                    state.menuPanel.result = state.secondPanel?.result as string;
-
-                    if(state.thirdPanel.livePreview) {
-                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        temporaryStorage.value = null;
-                    }
+                if(state.secondPanel?.mode == ModeType.radio && state.secondPanel.nodes) {
+                    handleConfirmed(2);
                 }
-
-                if(state.menuPanel && state.thirdPanel.parents == "HPEnhancePlus") {
-                    state.menuPanel.value = state.secondPanel?.value as string;
-                    state.menuPanel.result = state.secondPanel?.result as string;
-
-                    if(state.thirdPanel.livePreview) {
-                        // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        temporaryStorage.value = null;
-                    }
-                }
-                
             });
         } else if(state.secondPanel?.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
             // 第四層
@@ -396,6 +383,10 @@ function handleTarget() {
                 state.fourthPanel = nodes;
                 state.fourthPanelIndex = index;
                 state.currentPanelNumber = 4;
+
+                if(state.thirdPanel?.mode == ModeType.radio && state.thirdPanel.nodes) {
+                    handleConfirmed(3);
+                }
             });
         }
     }
@@ -425,14 +416,35 @@ function handlePrevious() {
         state.secondPanel = null;
         state.secondPanelIndex = 0;
         state.currentPanelNumber = 1;
+
+        if(temporaryStorage.value) {
+            state.menuPanel = temporaryStorage.value;
+            temporaryStorage.value = null;
+
+            if(state.menuPanel.key == "Color") {
+                handleBrightness(state.menuPanel.result as string);
+            };
+        };
+
     } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
         state.thirdPanel = null;
         state.thirdPanelIndex = 0;
         state.currentPanelNumber = 2;
+
+        if(temporaryStorage.value) {
+            state.secondPanel = temporaryStorage.value;
+            temporaryStorage.value = null;
+        }
+
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
         state.fourthPanel = null;
         state.fourthPanelIndex = 0;
         state.currentPanelNumber = 3;
+
+        if(temporaryStorage.value) {
+            state.thirdPanel = temporaryStorage.value;
+            temporaryStorage.value = null;
+        }
     }
 };
 
@@ -481,7 +493,7 @@ function handleNavigation(direction: 'up' | 'down') {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
 
                             if(state.secondPanel.parents == "Color") {
-                                menus.value.nodes[0].nodes[0].result = brightnessDefaultValue[state.secondPanel.key];
+                                handleBrightness(state.secondPanel.result as string);
                             }
                             
                             state.menuPanel.result = state.secondPanel.result;
@@ -526,6 +538,10 @@ function handleNavigation(direction: 'up' | 'down') {
         }
     }
 };
+
+function handleBrightness(key: string) {
+    menus.value.nodes[0].nodes[0].result = brightnessDefaultValue[key];
+}
 
 function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
     let index = nodeIndex;
@@ -623,8 +639,10 @@ function handleRangeAdd() {
 };
 
 // 儲存選擇節點的 value
-function handleConfirmed() {
-    switch(state.currentPanelNumber) {
+function handleConfirmed(currentPanelNumber: number = 0) {
+    currentPanelNumber = currentPanelNumber > 0 ? currentPanelNumber : state.currentPanelNumber;
+
+    switch(currentPanelNumber) {
         case 2:
             if(state.menuPanel && state.secondPanel) { setNodesValue(state.secondPanel, state.menuPanel); }
             break;
@@ -678,16 +696,22 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
 // 關閉全部選單，包含
 function handleClose() {
     openControllerMenus.value = false;
-    state.menuPanel = null;
+
     openAllMenu.value = false;
     openSecondAssignButton.value = false;
     openThirdAssignButton.value = false;
     openFourthAssignButton.value = false;
-    
+
+    state.menuPanel = null;
+    state.secondPanel = null;
+    state.thirdPanel = null;
+    state.fourthPanel = null;
+
     state.currentPanelNumber = 0;
     state.menuPanelIndex = 0;
     state.secondPanelIndex = 0;
     state.thirdPanelIndex = 0;
+    state.fourthPanelIndex = 0;
 };
 
 </script>
