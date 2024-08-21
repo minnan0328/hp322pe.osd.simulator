@@ -313,6 +313,7 @@ function handleAllMenu() {
     openAllMenu.value = true;
     openAssignButton.value = false;
     selectedMenuPanel(menus.value.nodes[0]);
+    // menuTimeout();
 };
 // 開啟自訂選單按鈕
 function handleAssignButton(key: string) {
@@ -330,6 +331,8 @@ function handleAssignButton(key: string) {
         selectedMenuPanel(assignMenus.value[key].node as Nodes);
         handleTarget();
     }
+
+    // menuTimeout();
 };
 
 
@@ -927,10 +930,18 @@ const menuStateResult = computed(() => {
             x: store.$state.menu.nodes[1].nodes![0].result,
             y: store.$state.menu.nodes[1].nodes![1].result
         },
-        menuTransparency: store.$state.menu.nodes[2].result,
+        menuTransparency: ((10 - (store.$state.menu.nodes[2].result as number)) / 10) + 0.2,
         menuTimeout: store.$state.menu.nodes[3].result,
     }
 });
+
+function menuTimeout() {
+    setTimeout(() => {
+        openAllMenu.value = false;
+        openAssignButton.value = false;
+    }, (menuStateResult.value.menuTimeout as number) * 1000);
+}
+
 
 </script>
 <style lang="scss" scoped>
@@ -1013,6 +1024,10 @@ const menuStateResult = computed(() => {
             }
         }
 	}
+}
+
+.menus {
+    opacity: v-bind("menuStateResult.menuTransparency");
 }
 
 .assign-menu {
