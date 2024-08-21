@@ -2,6 +2,11 @@
     <div :class="['setting', { 'two-columns': secondarySectionNodes }]" v-if="mainSectionNodes || secondarySectionNodes">
         <template v-if="mainSectionNodes && mainSectionNodes.mode != ModeType.exit">
             <div class="function">
+
+                <div class="setting-item unset-grid" v-if="currentPanelNumber == 4">
+                    <div class="item border-bottom-line" v-text="toLanguageText(mainSectionNodes.language)"></div>
+                </div>
+
                 <template v-for="(secondNodes, secondNodesIdx) in mainSectionNodes.nodes">
                     <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondarySectionNodes }]"
                         v-if="isEnableInput(secondNodes) && mainSectionNodes.mode && handlePagination(mainSectionNodes, secondNodesIdx)">
@@ -13,6 +18,8 @@
                                 && mainSectionNodes.page > 1">
                         </div>
                         <!-- 上一頁 -->
+
+
                         <!-- button -->
                         <div :class="['item', {
                                 selected: secondarySectionNodes == secondNodes,
@@ -177,6 +184,10 @@ const props = defineProps({
     thirdSectionNodes: {
         type: Object as PropType<Nodes | null>,
         default: null
+    },
+    currentPanelNumber: {
+        type: Number,
+        default: 0
     }
 });
 
@@ -234,6 +245,8 @@ function handlePagination(node: Nodes, index: number) {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
+    
+
         &.unset-grid {
             display: block;
         }
@@ -263,6 +276,10 @@ function handlePagination(node: Nodes, index: number) {
             display: flex;
             align-items: center;
             position: relative;
+
+            &.border-bottom-line {
+                border-bottom: 1px solid #202020;
+            }
 
             &.state-item {
                 height: 20px;

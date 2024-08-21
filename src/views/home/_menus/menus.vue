@@ -20,7 +20,8 @@
 
             <settingSection v-model:mainSectionNodes="displayCurrentNodes.mainSectionNodes"
                             v-model:secondarySectionNodes="displayCurrentNodes.secondarySectionNodes"
-                            v-model:thirdSectionNodes="displayCurrentNodes.thirdSectionNodes">
+                            v-model:thirdSectionNodes="displayCurrentNodes.thirdSectionNodes"
+                            v-model:currentPanelNumber="state.currentPanelNumber">
             </settingSection>
         </div>
 
@@ -226,13 +227,15 @@ const displayCurrentNodes = computed(() => {
         return {
             mainSectionNodes: state.secondPanel,
             secondarySectionNodes: state.thirdPanel,
-            thirdSectionNodes: state.fourthPanel
+            thirdSectionNodes: state.fourthPanel,
+            currentPanelNumber: state.currentPanelNumber
         }
     } else {
         return {
             mainSectionNodes: state.menuPanel,
             secondarySectionNodes: state.secondPanel,
-            thirdSectionNodes: state.thirdPanel
+            thirdSectionNodes: state.thirdPanel,
+            currentPanelNumber: state.currentPanelNumber
         }
     }
 });
