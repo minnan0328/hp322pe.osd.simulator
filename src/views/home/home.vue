@@ -84,9 +84,9 @@ function handleMonitor() {
 
 const monitorResult = computed(() => {
     return {
-        autoSleepMode: store.$state.power.nodes[0].result == OnNodesEnum.result ?? false,
-        powerOnRecall: store.$state.power.nodes[1].result == OnNodesEnum.result ?? false,
-        powerLED: store.$state.power.nodes[2].result == OnNodesEnum.result ?? false,
+        autoSleepMode: store.$state.power.nodes[0].result == OnNodesEnum.result ? true : false,
+        powerOnRecall: store.$state.power.nodes[1].result == OnNodesEnum.result ? true : false,
+        powerLED: store.$state.power.nodes[2].result == OnNodesEnum.result ? true : false,
     }
 });
 

@@ -91,9 +91,9 @@
         <div class="controller">
             <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handleControllerMenus"></button>
             <template v-else v-for="currentButton in handleControllerButtonList">
-                <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton?.event"></button>
+                <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton.event"></button>
                 <button v-if="currentButton.type == 'RangeButton'" class="controller-btn"
-                    @mousedown="currentButton?.event"
+                    @mousedown="currentButton.event"
                     @mouseup="currentButton.stopEvent"
                     @mouseleave="currentButton.stopEvent">
                 </button>
@@ -375,8 +375,8 @@ function selectedMenuPanel(nodes: Nodes) {
 
 interface ControllerButtonList {
     image: string | null,
-    event: (() => void) | null,
-    stopEvent: (() => void) | null,
+    event: (() => void),
+    stopEvent: (() => void),
     type: string
 };
 
@@ -386,10 +386,10 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
         if(isControllerMenusButton.value) {
             // 開啟螢幕及開啟全部選單列表時候的組合
             return [
-                { image: iconAllMenu, event: handleAllMenu, stopEvent: null, type: "Button" },
-                { image: getAssignButton.value[2].icon, event: () => handleAssignButton(getAssignButton.value[2].key), stopEvent: null, type: "Button"},
-                { image: getAssignButton.value[1].icon, event: () => handleAssignButton(getAssignButton.value[1].key), stopEvent: null, type: "Button" },
-                { image: getAssignButton.value[0].icon, event:() => handleAssignButton(getAssignButton.value[0].key), stopEvent: null, type: "Button" }
+                { image: iconAllMenu, event: handleAllMenu, stopEvent: () => {}, type: "Button" },
+                { image: getAssignButton.value[2].icon, event: () => handleAssignButton(getAssignButton.value[2].key), stopEvent: () => {}, type: "Button"},
+                { image: getAssignButton.value[1].icon, event: () => handleAssignButton(getAssignButton.value[1].key), stopEvent: () => {}, type: "Button" },
+                { image: getAssignButton.value[0].icon, event:() => handleAssignButton(getAssignButton.value[0].key), stopEvent: () => {}, type: "Button" }
             ]
         } else if(openAllMenu.value && !state.secondPanel) {
             // 第一層控制選單組合判斷
@@ -398,26 +398,26 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
             if(state.menuPanel?.mode == ModeType.info) {
                 // 當選擇的節點為 info 時候的組合
                 buttonList = [
-                    { image: null, event: null, stopEvent: null, type: "Button" },
-                    { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
-                    { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
-                    { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
+                    { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+                    { image: iconClose, event: handleClose, stopEvent: () => {}, type: "Button" }
                 ];
             } else if(state.menuPanel?.mode == ModeType.exit) {
                 // 當選擇的節點為 exit 時候的組合
                 buttonList = [
-                    { image: iconCheck, event: handleClose, stopEvent: null, type: "Button" },
-                    { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
-                    { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
-                    { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
+                    { image: iconCheck, event: handleClose, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+                    { image: iconClose, event: handleClose, stopEvent: () => {}, type: "Button" }
                 ];
             } else {
                 // 當選擇的節點為 exit 時候的組合
                 buttonList = [
-                    { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
-                    { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
-                    { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
-                    { image: iconClose, event: handleClose, stopEvent: null, type: "Button" }
+                    { image: iconNext, event: handleTarget, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+                    { image: iconClose, event: handleClose, stopEvent: () => {}, type: "Button" }
                 ];
             }
             return buttonList;
@@ -449,55 +449,55 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
 function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     // 當下一層有節點時候的組合
     const nextButtonList: ControllerButtonList[] = [
-        { image: iconNext, event: handleTarget, stopEvent: null, type: "Button" },
-        { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
-        { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
-        { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
+        { image: iconNext, event: handleTarget, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     // 確認選擇的按鈕組合
     const confirmedButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
-        { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
-        { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
-        { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
+        { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
+        { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     // range value 組合
     const rangeButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
+        { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
-        { image: iconPrevious, event: handlePrevious , stopEvent: null, type: "Button"}
+        { image: iconPrevious, event: handlePrevious , stopEvent: () => {}, type: "Button"}
     ];
     // 多個 range value 組合
     const rangeNextButtonList: ControllerButtonList[] = [
-        { image: iconNextRight, event: handleBottom, stopEvent: null, type: "Button" },
+        { image: iconNextRight, event: handleBottom, stopEvent: () => {}, type: "Button" },
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
-        { image: iconPrevious, event: handlePrevious, stopEvent: null, type: "Button" }
+        { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
 
         // assign button 確認選擇的按鈕組合
     const confirmedAssignButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
-        { image: iconArrowButton, event: handleBottom, stopEvent: null, type: "Button" },
-        { image: iconArrowUp, event: handleUp, stopEvent: null, type: "Button" },
-        { image: iconNextRight, event: handleNext, stopEvent: null, type: "Button" }
+        { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
+        { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+        { image: iconNextRight, event: handleNext, stopEvent: () => {}, type: "Button" }
     ];
 
     // assign button range value 組合
     const rangeAssignButtonList: ControllerButtonList[] = [
-        { image: iconClose, event: handleClose , stopEvent: null, type: "Button"},
+        { image: iconClose, event: handleClose , stopEvent: () => {}, type: "Button"},
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
-        { image: iconNextRight, event: handleNext , stopEvent: null, type: "Button"}
+        { image: iconNextRight, event: handleNext , stopEvent: () => {}, type: "Button"}
     ];
 
     // assign button info 組合
     const infoAssignButtonList: ControllerButtonList[] = [
-        { image: iconCheck, event: handleConfirmed , stopEvent: null, type: "Button"},
-        { image: null, event: null, stopEvent: null, type: "Button" },
-        { image: null, event: null, stopEvent: null, type: "Button" },
-        { image: iconNextRight, event: handleNext , stopEvent: null, type: "Button"}
+        { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
+        { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
+        { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
+        { image: iconNextRight, event: handleNext , stopEvent: () => {}, type: "Button"}
     ];
     if(openAllMenu.value) {
         if(

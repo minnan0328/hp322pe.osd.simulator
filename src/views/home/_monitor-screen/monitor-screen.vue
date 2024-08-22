@@ -49,7 +49,7 @@ const menuStateResult = computed(() => {
             confirmMessage: (store.$state.menu.nodes[4].result as string).includes(store.$state.menu.nodes[4].nodes![2].result as string),
         },
         monitorStatus: {
-            show: store.$state.menu.nodes[4].nodes![3].result != OffNodesEnum.result ?? false,
+            show: store.$state.menu.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
             position: store.$state.menu.nodes[4].nodes![3].result
         },
     }

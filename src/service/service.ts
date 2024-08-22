@@ -5,13 +5,13 @@ import { ModeType } from '@/types';
 const store = useStore();
 
 export function isEnableInput(nodes: Nodes): boolean {
-    return nodes.only?.includes(store.$state.input.value) ?? false;
+    return nodes.only?.includes(store.$state.input.value) ? true : false;
 };
 
 
 const currentLanguage = computed(() => {
     let language = store.$state.menu.nodes.find(n => n.key == 'Language');
-    return language?.value ?? "English";
+    return language?.value ? language?.value : "English";
 });
 
 export function toLanguageText(langItem: { [key: string]: string; }) {
