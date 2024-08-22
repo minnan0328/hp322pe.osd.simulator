@@ -879,6 +879,13 @@ function handleConfirmed(currentPanelNumber: number = 0) {
 };
 
 function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
+
+    // Exit
+    if(nodes.key == ExitNodesEnum.key) {
+        handleClose();
+        return
+    }
+
     // 回到上一步
     if(nodes.key == BackNodesEnum.key) {
         handlePrevious();
@@ -1122,7 +1129,6 @@ function menuTimeout() {
 	:deep(.controller-btn) {
 		width: 40px;
 		height: 40px;
-        border: 1px solid blue;
 
 		&.controller-menus-btn {
 			position: absolute;
