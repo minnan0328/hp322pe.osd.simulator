@@ -143,7 +143,6 @@ import {
     AssignEmptyNodes
 } from '@/models/class/menu/assign-buttons/_utilities';
 
-
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignBrightnessNodesEnum = new AssignBrightnessNodes();
 const AssignColorNodesEnum = new AssignColorNodes();
@@ -614,6 +613,14 @@ function handlePrevious() {
             state.secondPanel = temporaryStorage.value;
             temporaryStorage.value = null;
         }
+
+
+        // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
+        if(state.secondPanel.key == "Language") {
+            state.secondPanel.value = state.secondPanel.nodes![3].value;
+            state.secondPanel.result = state.secondPanel.nodes![3].result;
+        }
+
 
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
         state.fourthPanel = null;
