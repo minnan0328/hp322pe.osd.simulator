@@ -1,14 +1,11 @@
 import { fileURLToPath, URL } from 'node:url';
-
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
-console.log(process.env.NODE_ENV)
 
 import path from 'path';
 export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
 	const isDev = mode == 'development';
-	console.log(command, mode);
 	
 	return {
 		plugins: [
