@@ -1108,7 +1108,7 @@ function menuTimeout() {
 		border: 0.8px solid #000000;
 
 		img {
-            width: 10px;
+            width: 16px;
 		}
 	}
 }
