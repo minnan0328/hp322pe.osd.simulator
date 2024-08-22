@@ -340,7 +340,7 @@ function handleAllMenu() {
     openAssignButton.value = false;
     selectedMenuPanel(menus.value.nodes[0]);
 
-    // menuTimeout();
+    menuTimeout();
 };
 // 開啟自訂選單按鈕
 function handleAssignButton(key: string) {
@@ -359,7 +359,7 @@ function handleAssignButton(key: string) {
         handleTarget();
     }
 
-    // menuTimeout();
+    menuTimeout();
 };
 
 
@@ -385,8 +385,13 @@ watch(() => props.openMonitor, (newVal, oldVal) => {
 });
 
 function selectedMenuPanel(nodes: Nodes) {
-    state.menuPanel = nodes;
-    state.currentPanelNumber = 1;
+    
+    state.menuPanel = state.menuPanel ? state.menuPanel : nodes;
+    state.currentPanelNumber = state.currentPanelNumber > 0 ? state.currentPanelNumber : 1;
+
+    if(state.currentPanelNumber > 1) {
+        handleTarget();
+    }
 };
 
 interface ControllerButtonList {
@@ -557,6 +562,7 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
 
 // 選擇下一層目標
 function handleTarget() {
+    menuTimeout();
     if(state.menuPanel?.nodes) {
         if(!state.secondPanel) {
             // 第二層
@@ -615,6 +621,8 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
 
 // 上一步
 function handlePrevious() {
+    menuTimeout();
+
     if(state.secondPanel && !state.thirdPanel) {
         state.secondPanel = null;
         state.secondPanelIndex = 0;
@@ -670,6 +678,7 @@ function handleBottom() {
 };
 
 function handleNavigation(direction: 'up' | 'down') {
+    menuTimeout();
     const step = direction === 'up' ? -1 : 1;
 
     if (menus.value && state.menuPanel?.nodes) {
@@ -798,6 +807,7 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
 
 // assign button next panel
 function handleNext() {
+    menuTimeout();
     state.menuPanel = null;
     state.secondPanel = null;
     state.menuPanelIndex = 0;
@@ -879,6 +889,7 @@ function handleRangeAdd() {
 
 // 儲存選擇節點的 value
 function handleConfirmed(currentPanelNumber: number = 0) {
+    menuTimeout();
     currentPanelNumber = currentPanelNumber > 0 ? currentPanelNumber : state.currentPanelNumber;
 
     switch(currentPanelNumber) {
@@ -975,8 +986,6 @@ function handleClose() {
     state.assignPanelOrderIndex = 0;
 
     emit("update:showMonitorStatus", false);
-    emit("update:isFinish", false);
-
 };
 
 const menuStateResult = computed(() => {
@@ -990,8 +999,17 @@ const menuStateResult = computed(() => {
     }
 });
 
+const menuTimeOutIntervalId = ref<number | null>(null);
+
 function menuTimeout() {
-    setTimeout(() => {
+    console.log("sss");
+    
+    if (menuTimeOutIntervalId.value !== null) {
+        clearInterval(menuTimeOutIntervalId.value);
+        menuTimeOutIntervalId.value = null;
+    }
+
+    menuTimeOutIntervalId.value = setTimeout(() => {
         openAllMenu.value = false;
         openAssignButton.value = false;
     }, (menuStateResult.value.menuTimeout as number) * 1000);
