@@ -1,5 +1,8 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { ExitNodes } from '../_utilities';
+const ExitNodesEnum = new ExitNodes();
+
 export default class Exit implements Nodes {
     key = "Exit";
     value = "logo.png";

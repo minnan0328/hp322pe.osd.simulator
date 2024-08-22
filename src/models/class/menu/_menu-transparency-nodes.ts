@@ -2,10 +2,6 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back } from '../_utilities';
-
-const BackEnum = new Back();
-
 export default class MenuTransparencyNodes implements Nodes {
     key = "MenuTransparency";
     value = 0;

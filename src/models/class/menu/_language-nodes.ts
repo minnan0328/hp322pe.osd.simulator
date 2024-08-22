@@ -2,9 +2,9 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back, NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
+import { BackNodes, NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
 
-const BackEnum = new Back();
+const BackNodesEnum = new BackNodes();
 const PreviousPageButtonsNodesEnum = new PreviousPageButtonsNodes();
 const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
 
@@ -295,7 +295,7 @@ export default class LanguageNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key
         }
     ]

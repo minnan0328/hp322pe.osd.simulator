@@ -1,13 +1,13 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back } from '../_utilities';
+import { ResetNodes, BackNodes } from '../_utilities';
 import FactoryResetNodes from './_factory-reset-nodes';
 import DDCCISupportNodes from './_DDC-CISupport-nodes';
 import DiagnosticPatternsNodes from './_diagnostic-patterns-nodes';
 import AccessibilityNodes from './_accessibility-nodes';
 
-const ResetEnum = new Reset(); 
-const BackEnum = new Back();
+const ResetNodesEnum = new ResetNodes(); 
+const BackNodesEnum = new BackNodes();
 const FactoryResetNodesEnum = new FactoryResetNodes();
 const DDCCISupportNodesEnum = new DDCCISupportNodes();
 const DiagnosticPatternsNodesEnum = new DiagnosticPatternsNodes();
@@ -54,13 +54,13 @@ export default class Management implements Nodes {
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
             mergeGrid: true 
         }

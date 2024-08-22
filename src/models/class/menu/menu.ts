@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back } from '../_utilities';
+import { ResetNodes, BackNodes } from '../_utilities';
 import LanguageNodes from './_language-nodes';
 import MenuPositionNodes from './_menu-position-nodes';
 import MenuTransparencyNodes from './_menu-transparency-nodes';
@@ -8,8 +8,8 @@ import MenuTimeoutNodes from './_menu-timeout-nodes';
 import OSDMessagesNodes from './OSD-messages-nodes/_OSD-messages-nodes';
 import AssignButtonsNodes from './assign-buttons/_assign-buttons-nodes';
 
-let ResetEnum = new Reset(); 
-let BackEnum = new Back();
+let ResetNodesEnum = new ResetNodes(); 
+let BackNodesEnum = new BackNodes();
 let LanguageNodesEnum = new LanguageNodes();
 let MenuPositionNodesEnum = new MenuPositionNodes();
 let MenuTransparencyNodesEnum = new MenuTransparencyNodes();
@@ -71,12 +71,12 @@ export default class Menu implements Nodes {
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key
         }
     ];

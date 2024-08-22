@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back, Exit } from '../_utilities';
+import { ResetNodes, BackNodes, ExitNodes } from '../_utilities';
 import ECONodes from './_ECONodes';
 import WarmNodes from './_warm-nodes';
 import NeutralNodes from './_neutral-nodes';
@@ -10,9 +10,9 @@ import LowBlueLightNodes from './_low-blue-light';
 import HPEnhancePlusNodes from './_HP-enhance-plus-nodes';
 import CustomRGBNodes from './_custom-RGB-nodes';
 
-const ResetEnum = new Reset(); 
-const BackEnum = new Back();
-const ExitEnum = new Exit();
+const ResetNodesEnum = new ResetNodes(); 
+const BackNodesEnum = new BackNodes();
+const ExitNodesEnum = new ExitNodes();
 const ECONodesEnum = new ECONodes();
 const WarmNodesEnum = new WarmNodes();
 const NeutralNodesEnum = new NeutralNodes();
@@ -86,18 +86,18 @@ export default class Color implements Nodes {
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
             mergeGrid: true 
         },
         {
-            ...ExitEnum,
+            ...ExitNodesEnum,
             parents: this.key,
         }
     ];

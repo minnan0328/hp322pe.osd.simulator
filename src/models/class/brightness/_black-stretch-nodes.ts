@@ -2,9 +2,9 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back, OffNodes, LowNodes, MediumNodes, HighNodes } from '../_utilities';
+import { BackNodes, OffNodes, LowNodes, MediumNodes, HighNodes } from '../_utilities';
 
-const BackEnum = new Back();
+const BackNodesEnum = new BackNodes();
 const offNodesEnum = new OffNodes();
 const LowNodesEnum = new LowNodes();
 const MediumNodesEnum = new MediumNodes();
@@ -58,7 +58,7 @@ export default class BlackStretchNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key
         }
     ]

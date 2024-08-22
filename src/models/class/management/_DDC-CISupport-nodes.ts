@@ -2,9 +2,9 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back, OnNodes, OffNodes } from '../_utilities';
+import { BackNodes, OnNodes, OffNodes } from '../_utilities';
 
-const BackEnum = new Back();
+const BackNodesEnum = new BackNodes();
 const OnNodesEnum = new OnNodes();
 const OffNodesEnum = new OffNodes();
 
@@ -40,7 +40,7 @@ export default class DDCCISupportNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key
         }
     ]

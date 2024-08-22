@@ -2,7 +2,7 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
 
-export class Reset implements Nodes {
+export class ResetNodes implements Nodes {
     key = "Reset";
     value = null;
     result = null;
@@ -26,7 +26,7 @@ export class Reset implements Nodes {
     nodes = null;
 };
 
-export class Back implements Nodes {
+export class BackNodes implements Nodes {
     key = "Back";
     value = null;
     result = null;
@@ -49,7 +49,7 @@ export class Back implements Nodes {
     unit = null;
     nodes = null;
 };
-export class Exit implements Nodes {
+export class ExitNodes implements Nodes {
     key = "Exit";
     value = null;
     result = null;

@@ -43,13 +43,13 @@
                 <div :class="['assign-setting', state.menuPanel.key]">
                     <template v-for="secondNodes in state.menuPanel.nodes">
                         <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondNodes.mode != ModeType.info }]"
-                            v-if="isEnableInput(secondNodes) && secondNodes.key != 'Reset' && isEnableInput(secondNodes) && secondNodes.key != 'Back' && isEnableInput(secondNodes) && secondNodes.mode != ModeType.verticalRange">
+                            v-if="isEnableInput(secondNodes) && secondNodes.key != ResetNodesEnum.key && isEnableInput(secondNodes) && secondNodes.key != BackNodesEnum.key && isEnableInput(secondNodes) && secondNodes.mode != ModeType.verticalRange">
                             <!-- button -->
                             <div :class="['item', {
                                     selected: state.secondPanel?.key == secondNodes.key,
                                     'merge-grid': secondNodes.mergeGrid
                                 }]"
-                                v-if="(secondNodes.mode == ModeType.button && secondNodes.key == 'Exit') || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
+                                v-if="(secondNodes.mode == ModeType.button && secondNodes.key == ExitNodesEnum.key) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
                             </div>
                             <!-- button -->
     
@@ -143,6 +143,15 @@ import {
     AssignEmptyNodes
 } from '@/models/class/menu/assign-buttons/_utilities';
 
+import { BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
+
+const BackNodesEnum = new BackNodes();
+const ResetNodesEnum = new ResetNodes();
+const ExitNodesEnum = new ExitNodes();
+const OnNodesEnum = new OnNodes();
+const OffNodesEnum = new OffNodes();
+
+
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignBrightnessNodesEnum = new AssignBrightnessNodes();
 const AssignColorNodesEnum = new AssignColorNodes();
@@ -176,7 +185,7 @@ const resetMenus = {
     menu: new Menu(),
     management: new Management(),
     information: new Information(),
-    exit: new Exit(),
+    Exit: new Exit()
 };
 
 const menus = computed(() => {
@@ -689,9 +698,9 @@ function handleNavigation(direction: 'up' | 'down') {
                             state.menuPanel.result = state.secondPanel.result;
                         } 
                     } else if(
-                        temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == 'Exit'
-                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == 'Reset'
-                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == 'Back'
+                        temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ExitNodesEnum.key
+                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ResetNodesEnum.key
+                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == BackNodesEnum.key
                     ) {
                         state.menuPanel = temporaryStorage.value;
                         temporaryStorage.value = null;
@@ -752,10 +761,10 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
 
         if (
             !isEnableInput(node.nodes[index])
-            || openAllMenu.value && node.nodes[index].key == 'Exit'
-            || openAssignButton.value && node.nodes[index].key == 'Reset'
-            || openAssignButton.value && node.nodes[index].key == 'Back'
-            || openAssignButton.value && node.nodes[index].mode == ModeType.button && node.nodes[index].key != 'Exit'
+            || openAllMenu.value && node.nodes[index].key == ExitNodesEnum.key
+            || openAssignButton.value && node.nodes[index].key == ResetNodesEnum.key
+            || openAssignButton.value && node.nodes[index].key == BackNodesEnum.key
+            || openAssignButton.value && node.nodes[index].mode == ModeType.button && node.nodes[index].key != ExitNodesEnum.key
         ) {
             updatePanelIndexText(node, index ,step, send);
         } else {
@@ -871,13 +880,13 @@ function handleConfirmed(currentPanelNumber: number = 0) {
 
 function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     // 回到上一步
-    if(nodes.key == "Back") {
+    if(nodes.key == BackNodesEnum.key) {
         handlePrevious();
         return;
     };
     
-    // 恢復預設值
-    if(nodes.key == "Reset") {
+    // 恢復當前 menu 預設值
+    if(nodes.key == ResetNodesEnum.key) {
         (Object.keys(resetMenus) as Array<keyof typeof resetMenus>).forEach(k => {
             if(resetMenus[k].key == state.menuPanel?.key) {
                 state.menuPanel = resetMenus[k];
@@ -887,6 +896,14 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         handlePrevious();
         return
     };
+
+    // 恢復原廠設定
+    if(previousNodes.key == "FactoryReset") {
+        if(nodes.key == "Yes") {
+            store.$reset();
+        }
+        return
+    }
 
     // 下一頁 目前只處理 secondaryNodesPagination(右邊畫面)
     if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'NextPageButtons') {

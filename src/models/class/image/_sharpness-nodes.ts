@@ -2,8 +2,8 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back } from '../_utilities';
-const BackEnum = new Back();
+import { BackNodes } from '../_utilities';
+const BackNodesEnum = new BackNodes();
 
 export default class SharpnessNodes implements Nodes {
     key = "Sharpness";
@@ -190,7 +190,7 @@ export default class SharpnessNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
         }
     ];

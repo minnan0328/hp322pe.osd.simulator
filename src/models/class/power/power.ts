@@ -1,12 +1,12 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back } from '../_utilities';
+import { ResetNodes, BackNodes } from '../_utilities';
 import AutoSleepModeNodes from './_auto-sleep-mode-nodes';
 import PowerOnRecallNodes from './_power-on-recall';
 import PowerLEDNodes from './_power-LED-nodes';
 
-let ResetEnum = new Reset(); 
-let BackEnum = new Back();
+let ResetNodesEnum = new ResetNodes(); 
+let BackNodesEnum = new BackNodes();
 let AutoSleepModeNodesEnum = new AutoSleepModeNodes();
 let PowerOnRecallNodesEnum = new PowerOnRecallNodes();
 let PowerLEDNodesEnum = new PowerLEDNodes();
@@ -51,13 +51,13 @@ export default class Power implements Nodes {
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
             mergeGrid: true 
         }

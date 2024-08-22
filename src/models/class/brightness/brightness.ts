@@ -1,23 +1,20 @@
 // 亮度基本值，依據 color 切換有不同亮度
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back,  NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
+import { ResetNodes, BackNodes } from '../_utilities';
 import BrightnessNodes from './_brightness-nodes';
 import ContrastNodes from './_contrast-nodes';
 import DynamicContrastNodes from './_dynamic-contrast-nodes';
 import BlackStretchNodes from './_black-stretch-nodes';
 import VideoLevelNodes from './_video-level-nodes';
 
-const ResetEnum = new Reset(); 
-const BackEnum = new Back();
+const ResetNodesEnum = new ResetNodes(); 
+const BackNodesEnum = new BackNodes();
 const BrightnessNodesEnum = new BrightnessNodes();
 const ContrastNodesEnum = new ContrastNodes();
 const DynamicContrastNodesEnum = new DynamicContrastNodes();
 const BlackStretchNodesEnum = new BlackStretchNodes();
 const VideoLevelNodesEnum = new VideoLevelNodes();
-
-const PreviousPageButtonsNodesEnum = new PreviousPageButtonsNodes();
-const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
 
 export default class Brightness implements Nodes {
     key = "BrightnessPlus";
@@ -68,13 +65,13 @@ export default class Brightness implements Nodes {
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
             mergeGrid: true 
         }

@@ -2,10 +2,10 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back } from '../../_utilities';
+import { BackNodes } from '../../_utilities';
 import MonitorStatusNodes from './_monitor-status-nodes';
 
-const BackEnum = new Back();
+const BackNodesEnum = new BackNodes();
 const MonitorStatusNodesEnum = new MonitorStatusNodes();
 
 export default class OSDMessagesNodes implements Nodes {
@@ -110,7 +110,7 @@ export default class OSDMessagesNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key
         }
     ]

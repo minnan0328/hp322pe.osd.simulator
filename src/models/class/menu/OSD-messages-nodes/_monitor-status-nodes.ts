@@ -2,9 +2,9 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back, OffNodes, TopNodes, MediumNodes, BottomNodes } from '../../_utilities';
+import { BackNodes, OffNodes, TopNodes, MediumNodes, BottomNodes } from '../../_utilities';
 
-const BackEnum = new Back();
+const BackNodesEnum = new BackNodes();
 const OffNodesEnum = new OffNodes();
 const TopNodesEnum = new TopNodes();
 const MediumNodesEnum = new MediumNodes();
@@ -50,7 +50,7 @@ export default class MonitorStatusNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key
         }
     ]

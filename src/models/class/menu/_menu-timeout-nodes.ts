@@ -2,9 +2,9 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Back } from '../_utilities';
+import { BackNodes } from '../_utilities';
 
-const BackEnum = new Back();
+const BackNodesEnum = new BackNodes();
 
 export default class MenuTimeoutNodes implements Nodes {
     key = "MenuTimeout";

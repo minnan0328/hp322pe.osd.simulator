@@ -1,10 +1,10 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
 import Color from '../color/_cool-nodes';
-import { Exit } from '../_utilities';
+import { ExitNodes } from '../_utilities';
 
 const ColorEnum = new Color();
-const ExitEnum = new Exit();
+const ExitNodesEnum = new ExitNodes();
 
 export default class Information implements Nodes {
     key = "Information";
@@ -167,7 +167,7 @@ export default class Information implements Nodes {
             nodes: null
         },
         {
-            ...ExitEnum,
+            ...ExitNodesEnum,
             parents: this.key,
         }
     ];

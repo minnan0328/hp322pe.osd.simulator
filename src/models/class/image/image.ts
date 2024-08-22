@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { Reset, Back } from '../_utilities';
+import { ResetNodes, BackNodes } from '../_utilities';
 import AutoAdjustmentNodes from './_auto-adjustment-nodes';
 import ClockandPhaseNodes from './_clock-and-phase-nodes';
 import ImagePositionNodes from './_image-position-nodes';
@@ -8,8 +8,8 @@ import ResponseTimeNodes from './_response-rime-nodes';
 import SharpnessNodes from './_sharpness-nodes';
 import ImageScalingNodes from './_image-scaling-nodes';
 
-const ResetEnum = new Reset(); 
-const BackEnum = new Back();
+const ResetNodesEnum = new ResetNodes(); 
+const BackNodesEnum = new BackNodes();
 const AutoAdjustmentNodesEnum = new AutoAdjustmentNodes();
 const ClockandPhaseNodesEnum = new ClockandPhaseNodes();
 const ImagePositionNodesEnum = new ImagePositionNodes();
@@ -71,13 +71,13 @@ export default class Image implements Nodes {
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
             mergeGrid: true 
         }

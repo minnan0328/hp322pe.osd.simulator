@@ -2,11 +2,11 @@
 
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { Reset, Back, Exit, OnNodes, OffNodes } from '../_utilities';
+import { ResetNodes, BackNodes, ExitNodes, OnNodes, OffNodes } from '../_utilities';
 
-let ResetEnum = new Reset(); 
-let BackEnum = new Back();
-let ExitEnum = new Exit();
+let ResetNodesEnum = new ResetNodes(); 
+let BackNodesEnum = new BackNodes();
+let ExitNodesEnum = new ExitNodes();
 let OnNodesEnum = new OnNodes();
 let OffNodesEnum = new OffNodes();
 
@@ -113,26 +113,26 @@ export default class Input implements Nodes {
                 },
                 // 上一步
                 {
-                    ...BackEnum,
+                    ...BackNodesEnum,
                     parents: "AutoSwitchInput"
                 }
             ]
         },
         // 重置
         {
-            ...ResetEnum,
+            ...ResetNodesEnum,
             parents: this.key,
             mergeGrid: true
 
         },
         // 返回
         {
-            ...BackEnum,
+            ...BackNodesEnum,
             parents: this.key,
             mergeGrid: true
         },
         {
-            ...ExitEnum,
+            ...ExitNodesEnum,
             parents: this.key,
         }
     ];
