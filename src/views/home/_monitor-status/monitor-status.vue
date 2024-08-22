@@ -1,5 +1,5 @@
 <template>
-    <div class="monitor-status" v-show="modelValue">
+    <div :class="['monitor-status', position]" v-show="show">
         <div class="monitor-status-title">Monitor Status</div>
         <div class="monitor-status-info input">
             <p class="action">HDNL:</p>
@@ -26,9 +26,14 @@
 <script lang="ts" setup>
 
 const props = defineProps({
-    modelValue: {
+    show: {
         type: Boolean,
-        default: false
+        default: true
+    },
+    position: {
+        type: String,
+        default: "Top"
+        
     }
 });
 
@@ -37,7 +42,7 @@ const props = defineProps({
     .monitor-status {
         position: absolute;
         top: 32px;
-        left: 281px;
+        left: calc((100% - 268px) / 2);
         width: 240px;
         color: #FFFFFF;
         background-color: #161616;
@@ -46,6 +51,20 @@ const props = defineProps({
         font-size: 10px;
         font-weight: bold;
         z-index: 1;
+        width: 240px;
+        height: 134px;
+
+        &.Top {
+            top: 32px;
+            left: 281px; 
+        }
+        &.Medium {
+            top: calc((100% - 170px) / 2);
+        }
+        &.Bottom {
+            top: unset;
+            bottom: 32px;
+        }
 
         .monitor-status-title {
             padding-bottom: 8px;

@@ -143,6 +143,7 @@ import {
     AssignEmptyNodes
 } from '@/models/class/menu/assign-buttons/_utilities';
 
+
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignBrightnessNodesEnum = new AssignBrightnessNodes();
 const AssignColorNodesEnum = new AssignColorNodes();
@@ -892,9 +893,10 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     };
 
     // checkbox 處理只處理 string[]
-    if(nodes.mode == ModeType.checkBox && typeof nodes.value == "string" && Array.isArray(previousNodes.value)) {
+    if(nodes.mode == ModeType.checkBox && typeof nodes.value == "string" && Array.isArray(previousNodes.value) && Array.isArray(previousNodes.result)) {
         let checked: boolean = (previousNodes.value as string[]).includes(nodes.value as string);
         checked ? previousNodes.value.splice(previousNodes.value.indexOf(nodes.value), 1) : previousNodes.value.push(nodes.value);
+        previousNodes.result = previousNodes.value;
     } else {
         previousNodes.value = nodes.value;
         previousNodes.result = nodes.result;
@@ -950,8 +952,8 @@ function menuTimeout() {
 .menu-wrapper {
     position: absolute;
     content: "";
-    top: 9px;
-    left: 9px;
+    top: 0px;
+    left: 0px;
     width: 782px;
     height: 428px;
 }

@@ -22,8 +22,8 @@ export default class SharpnessNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
-        English: "Response Time",
-        TraditionalChinese: "回應時間"
+        English: "Sharpness",
+        TraditionalChinese: "銳利度"
     };
     unit = null;
     nodes = [

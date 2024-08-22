@@ -22,20 +22,23 @@
                             <img src="@/assets/images/monitor.png" alt="monitor">
                         </div>
 
-                        <div class="power-light" v-if="openMonitor"></div>
-
-                        <monitorScreen v-if="openMonitor" v-model="openMonitor"></monitorScreen>
-
-                        <div class="menu-buttons">
-                            <img src="@/assets/images/menu-buttons.png" alt="">
-                            <div class="power-light menu-btn" v-if="openMonitor"></div>
+                        <div class="wrapper">
+                            <div class="power-light" v-if="openMonitor && monitorResult.powerLED"></div>
+    
+                            <monitorScreen v-if="openMonitor" v-model="openMonitor"></monitorScreen>
+    
+                            <div class="menu-buttons">
+                                <img src="@/assets/images/menu-buttons.png" alt="">
+                                <div class="power-light menu-btn" v-if="openMonitor && monitorResult.powerLED"></div>
+                            </div>
+    
+                            <menus v-model:openMonitor="openMonitor">
+                                <template v-slot:openMonitor>
+                                    <button class="controller-btn open-btn" @click="handleMonitor"></button>
+                                </template>
+                            </menus>
                         </div>
 
-                        <menus v-model:openMonitor="openMonitor">
-                            <template v-slot:openMonitor>
-                                <button class="controller-btn open-btn" @click="handleMonitor"></button>
-                            </template>
-                        </menus>
                     </div>
                 </div>
             </div>
@@ -50,7 +53,9 @@ import type { Nodes } from '@/types';
 import ribbon from '@/views/home/_ribbon/ribbon.vue';
 import monitorScreen from '@/views/home/_monitor-screen/monitor-screen.vue';
 import menus from '@/views/home/_menus/menus.vue';
+import { OnNodes } from '@/models/class/_utilities';
 
+const OnNodesEnum = new OnNodes();
 const store = useStore();
 
 const inputEnum = computed(() => {
@@ -76,6 +81,14 @@ function handleMonitor() {
     openMonitor.value = !openMonitor.value;
 }
 /* 啟動螢幕 end  */
+
+const monitorResult = computed(() => {
+    return {
+        autoSleepMode: store.$state.power.nodes[0].result == OnNodesEnum.result ?? false,
+        powerOnRecall: store.$state.power.nodes[1].result == OnNodesEnum.result ?? false,
+        powerLED: store.$state.power.nodes[2].result == OnNodesEnum.result ?? false,
+    }
+});
 
 </script>
 
@@ -136,6 +149,15 @@ function handleMonitor() {
 
         .monitor-block {
             position: relative;
+
+            .wrapper {
+                position: absolute;
+                content: '';
+                top: 9px;
+                left: 9px;
+                width: 782px;
+                height: 428px;
+            }
             
             .monitor {
                 img {
@@ -145,8 +167,8 @@ function handleMonitor() {
 
             .power-light {
                 position: absolute;
-                bottom: 198px;
-                right: 68px;
+                bottom: -22px;
+                right: 57px;
                 width: 4px;
                 height: 4px;
                 background-color: #0083ca;
@@ -156,8 +178,8 @@ function handleMonitor() {
 
             .menu-buttons {
                 position: absolute;
-                bottom: 135px;
-                right: 4px;
+                bottom: -86px;
+                right: -8px;
 
                 img {
                     width: 100%;
