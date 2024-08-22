@@ -30,8 +30,17 @@ export default class Management implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "Steuerung",
+        SimplifiedChinese: "管理",
+        TraditionalChinese: "管理",
         English: "Management",
-        TraditionalChinese: "管理"
+        Español: "Gestión",
+        French: "Gestion",
+        Italian: "Gestione",
+        Japanese: "マネージメント",
+        Nederlands: "Beheer",
+        BrazilianPortuguese: "Gerenciamento",
+        Russian: "Управление"
     };
     unit = null;
     nodes = [

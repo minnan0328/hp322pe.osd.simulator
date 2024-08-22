@@ -22,8 +22,17 @@ export default class HPEnhancePlusNodes implements Nodes {
     only = ["VGA"];
     mergeGrid = false
     language = {
+        German: "Takt und Phasenlage",
+        SimplifiedChinese: "时钟和相位",
+        TraditionalChinese: "時脈和相位",
         English: "Clock and Phase",
-        TraditionalChinese: "時脈和相位"
+        Español: "Reloj y fase",
+        French: "Horloge et Phase",
+        Italian: "Orologio e fase",
+        Japanese: "クロックおよびフェーズ",
+        Nederlands: "Clock en Phase",
+        BrazilianPortuguese: "Relógio e fase",
+        Russian: "Частота синхр. и фаза"
     };
     unit = null;
     nodes = [
@@ -46,8 +55,17 @@ export default class HPEnhancePlusNodes implements Nodes {
             only: ["VGA"],
             mergeGrid: false,
             language: {
+                German: "Takt",
+                SimplifiedChinese: "时钟",
+                TraditionalChinese: "時脈",
                 English: "Clock",
-                TraditionalChinese: "時脈"
+                Español: "Reloj",
+                French: "Horloge",
+                Italian: "Orologio",
+                Japanese: "クロック",
+                Nederlands: "Kloksnelheid",
+                BrazilianPortuguese: "Sincronização",
+                Russian: "Частота синхр."
             },
             unit: null,
             nodes: null
@@ -71,8 +89,17 @@ export default class HPEnhancePlusNodes implements Nodes {
             only: ["VGA"],
             mergeGrid: false,
             language: {
+                German: "Phasenlage",
+                SimplifiedChinese: "相位",
+                TraditionalChinese: "相位",
                 English: "Phase",
-                TraditionalChinese: "相位"
+                Español: "Fase",
+                French: "Phase",
+                Italian: "Fase",
+                Japanese: "フェーズ",
+                Nederlands: "Phase",
+                BrazilianPortuguese: "Fase",
+                Russian: "Фаза"
             },
             unit: null,
             nodes: null

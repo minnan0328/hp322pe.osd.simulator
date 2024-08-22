@@ -45,8 +45,17 @@ export default class FactoryResetNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Ja",
+                SimplifiedChinese: "是",
+                TraditionalChinese: "是",
                 English: "Yes",
-                TraditionalChinese: "是"
+                Español: "Sí",
+                French: "Oui",
+                Italian: "Sì",
+                Japanese: "はい",
+                Nederlands: "Ja",
+                BrazilianPortuguese: "Sim",
+                Russian: "Да"
             },
             unit: null,
             nodes: null
@@ -68,8 +77,17 @@ export default class FactoryResetNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Nein",
+                SimplifiedChinese: "否",
+                TraditionalChinese: "否",
                 English: "No",
-                TraditionalChinese: "否"
+                Español: "No",
+                French: "Non",
+                Italian: "No",
+                Japanese: "いいえ",
+                Nederlands: "Nee",
+                BrazilianPortuguese: "Não",
+                Russian: "Нет"
             },
             unit: null,
             nodes: null

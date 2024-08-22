@@ -20,8 +20,17 @@ export default class CoolNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Kühl",
+        SimplifiedChinese: "冷色",
+        TraditionalChinese: "冷色",
         English: "Cool",
-        TraditionalChinese: "冷色"
+        Español: "Frío",
+        French: "Froid",
+        Italian: "Freddo",
+        Japanese: "寒色",
+        Nederlands: "Koel",
+        BrazilianPortuguese: "Suave",
+        Russian: "Холодный"
     };
     unit = null;
     nodes = null

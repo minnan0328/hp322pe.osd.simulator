@@ -20,8 +20,17 @@ export default class Exit implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "Beenden",
+        SimplifiedChinese: "退出",
+        TraditionalChinese: "退出",
         English: "Exit",
-        TraditionalChinese: "退出"
+        Español: "Salir",
+        French: "Quitter",
+        Italian: "Uscita",
+        Japanese: "終了",
+        Nederlands: "Afsluiten",
+        BrazilianPortuguese: "Sair",
+        Russian: "Выход"
     };
     unit = null;
     nodes = [];

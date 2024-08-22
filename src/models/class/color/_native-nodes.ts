@@ -20,8 +20,17 @@ export default class NativeNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Eigen",
+        SimplifiedChinese: "本机",
+        TraditionalChinese: "原生",
         English: "Native",
-        TraditionalChinese: "原生"
+        Español: "Nativo",
+        French: "Native",
+        Italian: "Nativo",
+        Japanese: "ネイティブ",
+        Nederlands: "Eigen",
+        BrazilianPortuguese: "Nativo",
+        Russian: "Исходный"
     };
     unit = null;
     nodes = null

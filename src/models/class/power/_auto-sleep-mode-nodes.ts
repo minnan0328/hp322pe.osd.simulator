@@ -25,8 +25,17 @@ export default class AutoSleepModeNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Automat. Ruhemodus",
+        SimplifiedChinese: "自动睡眠模式",
+        TraditionalChinese: "自動睡眠模式",
         English: "Auto-Sleep Mode",
-        TraditionalChinese: "自動睡眠模式"
+        Español: "Modo de apagado automático",
+        French: "Mode Veille automatique",
+        Italian: "Modalità disattivazione automatica",
+        Japanese: "自動スリープ モード",
+        Nederlands: "Automatische slaapmodus",
+        BrazilianPortuguese: "Modo Suspensão automática",
+        Russian: "Автом. спящий режим"
     };
     unit = null;
     nodes = [

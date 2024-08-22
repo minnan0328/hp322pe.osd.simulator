@@ -25,8 +25,17 @@ export default class LanguageNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Sprache",
+        SimplifiedChinese: "语言",
+        TraditionalChinese: "語言",
         English: "Language",
-        TraditionalChinese: "語言"
+        Español: "Idioma",
+        French: "Langue",
+        Italian: "Lingua",
+        Japanese: "言語",
+        Nederlands: "Taal",
+        BrazilianPortuguese: "Idioma",
+        Russian: "Язык"
     };
     unit = null;
     nodes = [
@@ -47,8 +56,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Deutsch",
-                TraditionalChinese: "德文"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -70,8 +88,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "简体中文",
-                TraditionalChinese: "简体中文"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -93,8 +120,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "繁體中文",
-                TraditionalChinese: "繁體中文"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -116,8 +152,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
                 English: "English",
-                TraditionalChinese: "英語"
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -139,8 +184,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Español",
-                TraditionalChinese: "西班牙語"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -162,8 +216,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Français",
-                TraditionalChinese: "法語"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -185,8 +248,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Italiano",
-                TraditionalChinese: "義大利語"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -208,8 +280,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "日本語",
-                TraditionalChinese: "日本語"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -231,8 +312,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Nederlands",
-                TraditionalChinese: "荷蘭語"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -254,8 +344,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Português",
-                TraditionalChinese: "葡萄牙語"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null
@@ -287,8 +386,17 @@ export default class LanguageNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Pусский",
-                TraditionalChinese: "俄文"
+                German: "Deutsch",
+                SimplifiedChinese: "简体中文",
+                TraditionalChinese: "繁體中文",
+                English: "English",
+                Español: "Deutsch",
+                French: "Français",
+                Italian: "Italiano",
+                Japanese: "日本語",
+                Nederlands: "Nederlands",
+                BrazilianPortuguese: "Português",
+                Russian: "Pусский"
             },
             unit: null,
             nodes: null

@@ -19,8 +19,17 @@ export default class MenuTransparencyNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Menütransparenz",
+        SimplifiedChinese: "菜单透明度",
+        TraditionalChinese: "功能表透明度",
         English: "Menu Transparency",
-        TraditionalChinese: "功能表透明度"
+        Español: "Transparencia del menú",
+        French: "Transparence du menu",
+        Italian: "Trasparenza menu",
+        Japanese: "メニューの透明度",
+        Nederlands: "Menu Transparantie",
+        BrazilianPortuguese: "Transparência do menu",
+        Russian: "Прозрачность меню"
     };
     unit = null;
     nodes = [
@@ -43,8 +52,17 @@ export default class MenuTransparencyNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Menütransparenz",
+                SimplifiedChinese: "菜单透明度",
+                TraditionalChinese: "功能表透明度",
                 English: "Menu Transparency",
-                TraditionalChinese: "功能表透明度"
+                Español: "Transparencia del menú",
+                French: "Transparence du menu",
+                Italian: "Trasparenza menu",
+                Japanese: "メニューの透明度",
+                Nederlands: "Menu Transparantie",
+                BrazilianPortuguese: "Transparência do menu",
+                Russian: "Прозрачность меню"
             },
             unit: null,
             nodes: null

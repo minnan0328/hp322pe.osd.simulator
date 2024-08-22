@@ -20,8 +20,17 @@ export default class BrightnessNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Helligkeit",
+        SimplifiedChinese: "亮度",
+        TraditionalChinese: "亮度",
         English: "Brightness",
-        TraditionalChinese: "亮度"
+        Español: "Brillo",
+        French: "Luminosité",
+        Italian: "Luminosità",
+        Japanese: "輝度",
+        Nederlands: "Helderheid",
+        BrazilianPortuguese: "Brilho",
+        Russian: "Яркость"
     };
     unit = null;
     nodes = [

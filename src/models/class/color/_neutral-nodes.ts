@@ -20,8 +20,17 @@ export default class NeutralNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Neutral",
+        SimplifiedChinese: "中性色",
+        TraditionalChinese: "中性色",
         English: "Neutral",
-        TraditionalChinese: "中性色"
+        Español: "Neutro",
+        French: "Neutre",
+        Italian: "Neutro",
+        Japanese: "無彩色",
+        Nederlands: "Neutraal",
+        BrazilianPortuguese: "Neutra",
+        Russian: "Нейтральный"
     };
     unit = null;
     nodes = null

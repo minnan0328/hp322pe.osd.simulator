@@ -28,8 +28,17 @@ export default class AccessibilityNodes implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "Barrierefreiheit",
+        SimplifiedChinese: "辅助功能",
+        TraditionalChinese: "協助工具",
         English: "Accessibility",
-        TraditionalChinese: "無障礙"
+        Español: "Accesibilidad",
+        French: "Accessibilité",
+        Italian: "Accessibilità",
+        Japanese: "ユーザー サポート",
+        Nederlands: "Toegankelijkheid",
+        BrazilianPortuguese: "Acessibilidade",
+        Russian: "Спец. Возможности"
     };
     unit = null;
     nodes = [

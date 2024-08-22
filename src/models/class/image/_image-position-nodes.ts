@@ -22,8 +22,17 @@ export default class ImagePositionPlusNodes implements Nodes {
     only = ["VGA"];
     mergeGrid = false
     language = {
+        German: "Bildposition",
+        SimplifiedChinese: "图像位置",
+        TraditionalChinese: "影像位置",
         English: "Image Position",
-        TraditionalChinese: "影像位置"
+        Español: "Posición de la imagen",
+        French: "Position de l'image",
+        Italian: "Posizione immagine",
+        Japanese: "画面の位置",
+        Nederlands: "Afbeeldingspositie",
+        BrazilianPortuguese: "Posição da imagem",
+        Russian: "Положение изобр-ния"
     };
     unit = null;
     nodes = [
@@ -46,8 +55,17 @@ export default class ImagePositionPlusNodes implements Nodes {
             only: ["VGA"],
             mergeGrid: false,
             language: {
+                German: "Horizontal",
+                SimplifiedChinese: "水平",
+                TraditionalChinese: "水平",
                 English: "Horizontal",
-                TraditionalChinese: "水平"
+                Español: "Horizontal",
+                French: "Horizontal",
+                Italian: "Orizzontale",
+                Japanese: "水平",
+                Nederlands: "Horizontaal",
+                BrazilianPortuguese: "Horizontal",
+                Russian: "Горизонтально"
             },
             unit: null,
             nodes: null
@@ -71,8 +89,17 @@ export default class ImagePositionPlusNodes implements Nodes {
             only: ["VGA"],
             mergeGrid: false,
             language: {
+                German: "Vertikal",
+                SimplifiedChinese: "垂直",
+                TraditionalChinese: "垂直",
                 English: "Vertical",
-                TraditionalChinese: "垂直"
+                Español: "Vertical",
+                French: "Vertical",
+                Italian: "Verticale",
+                Japanese: "垂直",
+                Nederlands: "Verticaal",
+                BrazilianPortuguese: "Vertical",
+                Russian: "Вертикально"
             },
             unit: null,
             nodes: null

@@ -28,8 +28,17 @@ export default class Power implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "Energie",
+        SimplifiedChinese: "电源",
+        TraditionalChinese: "電源",
         English: "Power",
-        TraditionalChinese: "電源"
+        Español: "Alimentación",
+        French: "Alimentation",
+        Italian: "Alimentazione",
+        Japanese: "電源",
+        Nederlands: "Energie",
+        BrazilianPortuguese: "Energia",
+        Russian: "Питание"
     };
     unit = null;
     nodes = [

@@ -26,8 +26,17 @@ export default class HPEnhancePlusNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "HP Enhance+",
+        SimplifiedChinese: "HP Enhance+",
+        TraditionalChinese: "HP Enhance+",
         English: "HP Enhance+",
-        TraditionalChinese: "HP Enhance+"
+        Español: "HP Enhance+",
+        French: "HP Enhance+",
+        Italian: "HP Enhance+",
+        Japanese: "HP Enhance+",
+        Nederlands: "HP Enhance+",
+        BrazilianPortuguese: "HP Enhance+",
+        Russian: "HP Enhance+"
     };
     unit = null;
     nodes = [

@@ -25,8 +25,17 @@ export default class PowerOnRecallNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Einschaltstatus speichern",
+        SimplifiedChinese: "开机复位",
+        TraditionalChinese: "重新開機",
         English: "Power-On Recall",
-        TraditionalChinese: "重新開機"
+        Español: "Reactivar",
+        French: "Réveil",
+        Italian: "Ripristino all’accensione",
+        Japanese: "再開時に電源オン",
+        Nederlands: "Opstartstand opslaan",
+        BrazilianPortuguese: "Ligar Novamente",
+        Russian: "Восстан. питания"
     };
     unit = null;
     nodes = [

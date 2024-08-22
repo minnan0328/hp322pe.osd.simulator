@@ -786,7 +786,7 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
 
         if (
             !isEnableInput(node.nodes[index])
-            || openAllMenu.value && node.nodes[index].key == ExitNodesEnum.key
+            || openAllMenu.value && node.nodes[index].key == ExitNodesEnum.key && node.nodes[index].mode != ModeType.exit
             || openAssignButton.value && node.nodes[index].key == ResetNodesEnum.key
             || openAssignButton.value && node.nodes[index].key == BackNodesEnum.key
             || openAssignButton.value && node.nodes[index].mode == ModeType.button && node.nodes[index].key != ExitNodesEnum.key
@@ -1002,8 +1002,6 @@ const menuStateResult = computed(() => {
 const menuTimeOutIntervalId = ref<number | null>(null);
 
 function menuTimeout() {
-    console.log("sss");
-    
     if (menuTimeOutIntervalId.value !== null) {
         clearInterval(menuTimeOutIntervalId.value);
         menuTimeOutIntervalId.value = null;

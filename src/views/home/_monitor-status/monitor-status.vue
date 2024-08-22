@@ -4,33 +4,33 @@
         <div class="monitor-status-info input">
             <template v-for="currentInput in menuStateResult.input.nodes">
                 <p v-if="currentInput.mode == ModeType.radio"
-                :class="{ action: currentInput.result == menuStateResult.input.result }">
-                    {{ toLanguageText(currentInput.language) }}
+                    :class="{ action: currentInput.result == menuStateResult.input.result }"
+                    v-text="`${toLanguageText(currentInput.language)}:`">
                 </p>
                 <p v-if="currentInput.mode == ModeType.radio"
-                :class="{ action: currentInput.result == menuStateResult.input.result }">
-                    {{ currentInput.result == menuStateResult.input.result ? "Active" : "Inactive" }}
+                    :class="{ action: currentInput.result == menuStateResult.input.result }">
+                    {{ currentInput.result == menuStateResult.input.result ? toLanguageText(Active.language) : toLanguageText(Inactive.language) }}
                 </p>
             </template>
         </div>
 
         <div class="monitor-status-info setting">
-            <p>{{ toLanguageText(menuStateResult.autoSwitchInput.name.language) }}:</p>
-            <p>{{ toLanguageText(menuStateResult.autoSwitchInput.state!.language) }}</p>
-            <p>{{ toLanguageText(menuStateResult.color.name.language) }}</p>
-            <p>{{ toLanguageText(menuStateResult.color.state?.language!) }}</p>
+            <p v-text="`${toLanguageText(menuStateResult.autoSwitchInput.name.language)}:`"></p>
+            <p v-text="toLanguageText(menuStateResult.autoSwitchInput.state!.language)"></p>
+            <p v-text="`${toLanguageText(menuStateResult.color.name.language)}:`"></p>
+            <p v-text="toLanguageText(menuStateResult.color.state?.language!)"></p>
         </div>
 
         <div class="monitor-status-info mode">
-            <p>{{ toLanguageText(menuStateResult.information.currentMode.language) }}</p>
-            <p>{{ menuStateResult.information.currentMode.result }}</p>
-            <p>{{ toLanguageText(menuStateResult.information.optimalMode.language) }}</p>
-            <p>{{ menuStateResult.information.optimalMode.result }}</p>
+            <p v-text="`${toLanguageText(menuStateResult.information.currentMode.language)}:`"></p>
+            <p v-text="menuStateResult.information.currentMode.result"></p>
+            <p v-text="`${toLanguageText(menuStateResult.information.optimalMode.language)}:`"></p>
+            <p v-text="menuStateResult.information.optimalMode.result"></p>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from '@/stores/index';
 import { toLanguageText } from '@/service/service';
 import { ModeType } from '@/types';
@@ -46,6 +46,38 @@ const props = defineProps({
         type: String,
         default: "Top"
         
+    }
+});
+
+const Active = ref({
+    language: {
+        German: "Aktiv",
+        SimplifiedChinese: "活动",
+        TraditionalChinese: "使用中",
+        English: "Active",
+        Español: "Activo",
+        French: "Actif",
+        Italian: "Attiva",
+        Japanese: "アクティブ",
+        Nederlands: "Actief",
+        BrazilianPortuguese: "Ativado",
+        Russian: "Активен"
+    }
+});
+
+const Inactive = ref({
+    language: {
+        German: "Inaktiv",
+        SimplifiedChinese: "非活动",
+        TraditionalChinese: "未使用",
+        English: "Inactive",
+        Español: "Inactivo",
+        French: "Inactif",
+        Italian: "Inattivo",
+        Japanese: "非アクティブ",
+        Nederlands: "Inactief",
+        BrazilianPortuguese: "Inativa",
+        Russian: "Неактивен"
     }
 });
 

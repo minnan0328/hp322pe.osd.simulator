@@ -34,8 +34,17 @@ export default class Image implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "Bild",
+        SimplifiedChinese: "图像",
+        TraditionalChinese: "影像",
         English: "Image",
-        TraditionalChinese: "影像"
+        Español: "Imagen",
+        French: "Image",
+        Italian: "Immagine",
+        Japanese: "イメージ",
+        Nederlands: "Beeld",
+        BrazilianPortuguese: "Imagem",
+        Russian: "Изображение"
     };
     unit = null;
     nodes = [

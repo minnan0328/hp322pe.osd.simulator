@@ -34,8 +34,17 @@ export default class Menu implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Menü",
+        SimplifiedChinese: "菜单",
+        TraditionalChinese: "功能表",
         English: "Menu",
-        TraditionalChinese: "功能表"
+        Español: "Menú",
+        French: "Menu",
+        Italian: "Menu",
+        Japanese: "メニュー",
+        Nederlands: "Menu",
+        BrazilianPortuguese: "Menu",
+        Russian: "Меню"
     };
     unit = null;
     nodes = [

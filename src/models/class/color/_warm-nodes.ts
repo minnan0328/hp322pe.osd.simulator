@@ -20,8 +20,17 @@ export default class WarmNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Warm",
+        SimplifiedChinese: "暖色",
+        TraditionalChinese: "暖色",
         English: "Warm",
-        TraditionalChinese: "暖色"
+        Español: "Caldo",
+        French: "Chaud",
+        Italian: "Caldo",
+        Japanese: "暖色",
+        Nederlands: "Warm",
+        BrazilianPortuguese: "Aquecida",
+        Russian: "Теплый"
     };
     unit = null;
     nodes = null

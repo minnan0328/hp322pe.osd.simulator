@@ -39,8 +39,17 @@ export default class Color implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Farbe",
+        SimplifiedChinese: "颜色",
+        TraditionalChinese: "色彩",
         English: "Color",
-        TraditionalChinese: "顏色"
+        Español: "Color",
+        French: "Couleur",
+        Italian: "Colore",
+        Japanese: "色",
+        Nederlands: "Kleur",
+        BrazilianPortuguese: "Cor",
+        Russian: "Цвет"
     };
     unit = null;
     nodes = [

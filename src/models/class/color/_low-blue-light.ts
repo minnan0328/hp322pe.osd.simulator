@@ -20,8 +20,17 @@ export default class LowBlueLightNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Schwaches blaues Licht",
+        SimplifiedChinese: "低蓝光",
+        TraditionalChinese: "低藍光",
         English: "Low Blue Light",
-        TraditionalChinese: "低藍光"
+        Español: "Luz azul fraca",
+        French: "Voyant bleu faible",
+        Italian: "Riduci luce blu",
+        Japanese: "低ブルー ライト",
+        Nederlands: "Laag blauw licht",
+        BrazilianPortuguese: "Luz azul clara",
+        Russian: "Ослабление синего цвета"
     };
     unit = null;
     nodes = null

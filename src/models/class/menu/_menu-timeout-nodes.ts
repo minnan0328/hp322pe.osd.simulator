@@ -23,12 +23,30 @@ export default class MenuTimeoutNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
-        English: "Menu Timeout",
-        TraditionalChinese: "功能表延遲"
+        German: "Menü-Timeout",
+        SimplifiedChinese: "菜单超时",
+        TraditionalChinese: "功能表逾時",
+        English: "Menu Time-out",
+        Español: "Tiempo de espera del menú",
+        French: "Délai d'expiration du menu",
+        Italian: "Timeout menu",
+        Japanese: "メニューのタイムアウト",
+        Nederlands: "Menu Time-out",
+        BrazilianPortuguese: "Tempo limite do menu",
+        Russian: "Тайм-аут меню"
     };
     unit = {
         English: "s",
-        TraditionalChinese: "s"
+        TraditionalChinese: "s",
+        SimplifiedChinese: "s",
+        German: "s",
+        Spanish: "s",
+        French: "s",
+        Italian: "s",
+        Japanese: "s",
+        Dutch: "s",
+        BrazilianPortuguese: "s",
+        Russian: "s"
     };
     nodes = [
         {
@@ -50,8 +68,17 @@ export default class MenuTimeoutNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Menu Timeout",
-                TraditionalChinese: "功能表延遲"
+                German: "Menü-Timeout",
+                SimplifiedChinese: "菜单超时",
+                TraditionalChinese: "功能表逾時",
+                English: "Menu Time-out",
+                Español: "Tiempo de espera del menú",
+                French: "Délai d'expiration du menu",
+                Italian: "Timeout menu",
+                Japanese: "メニューのタイムアウト",
+                Nederlands: "Menu Time-out",
+                BrazilianPortuguese: "Tempo limite do menu",
+                Russian: "Тайм-аут меню"
             },
             unit: this.unit,
             nodes: null

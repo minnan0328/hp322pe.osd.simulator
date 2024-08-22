@@ -20,8 +20,17 @@ export default class AutoAdjustmentNodes implements Nodes {
     only = ["VGA"];
     mergeGrid = false
     language = {
+        German: "Automat. Einstellung",
+        SimplifiedChinese: "自动调整",
+        TraditionalChinese: "自動調整",
         English: "Auto-Adjustment",
-        TraditionalChinese: "自動調整"
+        Español: "Ajuste automático",
+        French: "Réglage auto",
+        Italian: "Regolazione autom.",
+        Japanese: "自動調整",
+        Nederlands: "Automatisch aanpassen",
+        BrazilianPortuguese: "Ajuste Automático",
+        Russian: "Автом. регулировка"
     };
     unit = null;
     nodes = null;

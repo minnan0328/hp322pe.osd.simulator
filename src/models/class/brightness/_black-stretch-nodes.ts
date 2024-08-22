@@ -27,8 +27,17 @@ export default class BlackStretchNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Schwarzdehnung",
+        SimplifiedChinese: "黑延伸",
+        TraditionalChinese: "黑色延展",
         English: "Black Stretch",
-        TraditionalChinese: "黑色延展"
+        Español: "Estirar negro",
+        French: "Suramplification du noir",
+        Italian: "Controllo del nero",
+        Japanese: "黒色ストレッチ",
+        Nederlands: "Black Stretch",
+        BrazilianPortuguese: "Contraste de sombreado",
+        Russian: "Растяжение черного"
     };
     unit = null;
     nodes = [

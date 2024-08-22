@@ -20,8 +20,17 @@ export default class CustomRGBNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Benutzerdefiniert RGB",
+        SimplifiedChinese: "自定义 RGB",
+        TraditionalChinese: "自訂 RGB",
         English: "Custom RGB",
-        TraditionalChinese: "自訂 RBG"
+        Español: "RGB Personalizado",
+        French: "Personnalisé RGB",
+        Italian: "Personalizzato RGB",
+        Japanese: "カスタム RGB",
+        Nederlands: "Aangepast RGB",
+        BrazilianPortuguese: "RGB Personalizado",
+        Russian: "Пользовательские настройки RGB"
     };
     unit = null;
     nodes = [
@@ -44,8 +53,17 @@ export default class CustomRGBNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "R",
+                SimplifiedChinese: "R",
+                TraditionalChinese: "R",
                 English: "R",
-                TraditionalChinese: "R"
+                Español: "R",
+                French: "R",
+                Italian: "R",
+                Japanese: "R",
+                Nederlands: "R",
+                BrazilianPortuguese: "R",
+                Russian: "R"
             },
             unit: null,
             nodes: null
@@ -68,8 +86,17 @@ export default class CustomRGBNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "G",
+                SimplifiedChinese: "G",
+                TraditionalChinese: "G",
                 English: "G",
-                TraditionalChinese: "G"
+                Español: "G",
+                French: "G",
+                Italian: "G",
+                Japanese: "G",
+                Nederlands: "G",
+                BrazilianPortuguese: "G",
+                Russian: "G"
             },
             unit: null,
             nodes: null
@@ -92,8 +119,17 @@ export default class CustomRGBNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "B",
+                SimplifiedChinese: "B",
+                TraditionalChinese: "B",
                 English: "B",
-                TraditionalChinese: "B"
+                Español: "B",
+                French: "B",
+                Italian: "B",
+                Japanese: "B",
+                Nederlands: "B",
+                BrazilianPortuguese: "B",
+                Russian: "B"
             },
             unit: null,
             nodes: null

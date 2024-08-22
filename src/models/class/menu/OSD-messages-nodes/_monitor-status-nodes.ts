@@ -27,8 +27,17 @@ export default class MonitorStatusNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Monitorstatus",
+        SimplifiedChinese: "显示器状态",
+        TraditionalChinese: "螢幕狀態",
         English: "Monitor Status",
-        TraditionalChinese: "螢幕狀態"
+        Español: "Estado del monitor",
+        French: "État du moniteur",
+        Italian: "Stato Monitor",
+        Japanese: "モニター ステータス",
+        Nederlands: "Monitor Status",
+        BrazilianPortuguese: "Status do Monitor",
+        Russian: "Состояние монитора"
     };
     unit = null;
     nodes = [

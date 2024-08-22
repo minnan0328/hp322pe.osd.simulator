@@ -72,6 +72,7 @@ const selectedTab = ref<Nodes | null>(tabs[0] as Nodes | null);
 function selectTad(tab: Nodes) {
     selectedTab.value = tab;
     inputEnum.value.value = selectedTab.value.value as string;
+    inputEnum.value.result = selectedTab.value.result as string;
 };
 
 /* 啟動螢幕 start  */

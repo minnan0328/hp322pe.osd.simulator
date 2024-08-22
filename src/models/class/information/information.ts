@@ -23,8 +23,17 @@ export default class Information implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "Information",
+        SimplifiedChinese: "信息",
+        TraditionalChinese: "資訊",
         English: "Information",
-        TraditionalChinese: "資訊"
+        Español: "Información",
+        French: "Informations",
+        Italian: "Informazioni",
+        Japanese: "情報",
+        Nederlands: "Informatie",
+        BrazilianPortuguese: "Informação",
+        Russian: "Информация"
     };
     unit = null;
     nodes = [
@@ -45,8 +54,17 @@ export default class Information implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Current Mode:",
-                TraditionalChinese: "Current Mode:"
+                German: "Aktueller Modus",
+                SimplifiedChinese: "当前模式",
+                TraditionalChinese: "目前模式",
+                English: "Current Mode",
+                Español: "Modo actual",
+                French: "Mode actuel",
+                Italian: "Modalità corrente",
+                Japanese: "現在のモード",
+                Nederlands: "Huidige modus",
+                BrazilianPortuguese: "Modo atual",
+                Russian: "Текущий режим"
             },
             unit: null,
             nodes: null
@@ -68,8 +86,17 @@ export default class Information implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Optimal Mode:",
-                TraditionalChinese: "Optimal Mode:"
+                German: "Optimaler Modus",
+                SimplifiedChinese: "最佳模式",
+                TraditionalChinese: "最佳模式",
+                English: "Optimal Mode",
+                Español: "Modo óptimo",
+                French: "Mode optimal",
+                Italian: "Modalità ottimale",
+                Japanese: "最適なモード",
+                Nederlands: "Optimale modus",
+                BrazilianPortuguese: "Modo ótimo",
+                Russian: "Оптимальный"
             },
             unit: null,
             nodes: null
@@ -91,8 +118,17 @@ export default class Information implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Color Setting:",
-                TraditionalChinese: "Color Setting:"
+                German: "Farbeinstellung",
+                SimplifiedChinese: "颜色设置",
+                TraditionalChinese: "色彩設定",
+                English: "Color Setting",
+                Español: "Configuración de color",
+                French: "Réglage couleur",
+                Italian: "Impostazioni colore",
+                Japanese: "カラー設定",
+                Nederlands: "Kleurinstelling",
+                BrazilianPortuguese: "Definição de cor",
+                Russian: "Настройка цвета"
             },
             unit: null,
             nodes: null
@@ -114,8 +150,17 @@ export default class Information implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "FW Package Version:",
-                TraditionalChinese: "FW Package Version:"
+                German: "Firmwarepaketversion",
+                SimplifiedChinese: "固件包版本",
+                TraditionalChinese: "韌體套件版本",
+                English: "FW Package Version",
+                Español: "Versión del paquete de FW",
+                French: "Version de package du FW",
+                Italian: "Versione del pacchetto FW",
+                Japanese: "FWパッケージのバージョン",
+                Nederlands: "Versie van firmwarepakket",
+                BrazilianPortuguese: "Versão do pacote de firmware",
+                Russian: "Версия пакета микропрограммы"
             },
             unit: null,
             nodes: null
@@ -137,8 +182,17 @@ export default class Information implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "HW Revision:",
-                TraditionalChinese: "HW Revision:"
+                German: "Hardwarerevision",
+                SimplifiedChinese: "硬件修订版本号",
+                TraditionalChinese: "硬體修訂編號",
+                English: "HW Revision",
+                Español: "Revisión de hardware",
+                French: "Révision du matériel",
+                Italian: "Revisione hardware",
+                Japanese: "HWのリビジョン",
+                Nederlands: "Revisie van hardware",
+                BrazilianPortuguese: "Revisão de hardware",
+                Russian: "Версия оборудования"
             },
             unit: null,
             nodes: null
@@ -160,8 +214,17 @@ export default class Information implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: "Serial Number:",
-                TraditionalChinese: "Serial Number:"
+                German: "Seriennummer",
+                SimplifiedChinese: "序列号",
+                TraditionalChinese: "序列號碼",
+                English: "Serial Number",
+                Español: "Número de serie",
+                French: "N° de série",
+                Italian: "N. di serie",
+                Japanese: "シリアル番号",
+                Nederlands: "Serienummer",
+                BrazilianPortuguese: "Número de Série",
+                Russian: "Серийный номер"
             },
             unit: null,
             nodes: null

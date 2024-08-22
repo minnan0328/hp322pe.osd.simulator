@@ -25,8 +25,17 @@ export default class DynamicContrastNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Dynamischer Kontrast",
+        SimplifiedChinese: "动态对比度",
+        TraditionalChinese: "動態對比",
         English: "Dynamic Contrast",
-        TraditionalChinese: "動態對比"
+        Español: "Contraste dinámico",
+        French: "Contraste dynamique",
+        Italian: "Contrasto dinamico",
+        Japanese: "ダイナミック コントラスト",
+        Nederlands: "Dynamisch contrast",
+        BrazilianPortuguese: "Contraste dinâmico",
+        Russian: "Динамическая контрастность"
     };
     unit = null;
     nodes = [

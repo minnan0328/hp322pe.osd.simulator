@@ -50,8 +50,17 @@ export default class Input implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: 'HDMI',
-                TraditionalChinese: 'HDMI'
+                German: "HDMI",
+                SimplifiedChinese: "HDMI",
+                TraditionalChinese: "HDMI",
+                English: "HDMI",
+                Español: "HDMI",
+                French: "HDMI",
+                Italian: "HDMI",
+                Japanese: "HDMI",
+                Nederlands: "HDMI",
+                BrazilianPortuguese: "HDMI",
+                Russian: "HDMI"
             },
             unit: null,
             nodes: null
@@ -74,8 +83,17 @@ export default class Input implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: 'VGA',
-                TraditionalChinese: 'VGA'
+                German: "VGA",
+                SimplifiedChinese: "VGA",
+                TraditionalChinese: "VGA",
+                English: "VGA",
+                Español: "VGA",
+                French: "VGA",
+                Italian: "VGA",
+                Japanese: "VGA",
+                Nederlands: "VGA",
+                BrazilianPortuguese: "VGA",
+                Russian: "VGA"
             },
             unit: null,
             nodes: null,
@@ -98,8 +116,17 @@ export default class Input implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
-                English: 'Auto-Switch Input',
-                TraditionalChinese: '自動切換輸入'
+                German: "Autom. ing. omsch.",
+                SimplifiedChinese: "输入自动切换",
+                TraditionalChinese: "自動切換輸入",
+                English: "Auto-Switch Input",
+                Español: "Cambio automático de entrada",
+                French: "Entrée activation autom.",
+                Italian: "Ingresso comm. aut.",
+                Japanese: "自動切替入力",
+                Nederlands: "Autom. ing. omsch.",
+                BrazilianPortuguese: "Auto mudança de entrada",
+                Russian: "Авто смена входа"
             },
             unit: null,
             nodes: [

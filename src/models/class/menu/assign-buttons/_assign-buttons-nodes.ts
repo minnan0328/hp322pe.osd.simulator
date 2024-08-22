@@ -60,8 +60,17 @@ export default class AssignButtonsNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Taste 1 zuweisen",
+                SimplifiedChinese: "指定按钮 1",
+                TraditionalChinese: "指定鍵 1",
                 English: "Assign Button 1",
-                TraditionalChinese: "指定鍵 1"
+                Español: "Asignar botón 1",
+                French: "Attribuer bouton 1",
+                Italian: "Assegna pulsante 1",
+                Japanese: "ボタン1の割り当て",
+                Nederlands: "Knop 1 toewijzen",
+                BrazilianPortuguese: "Atribuir botões 1",
+                Russian: "Назначить кнопку 1"
             },
             unit: null,
             nodes: [
@@ -115,8 +124,17 @@ export default class AssignButtonsNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Taste 2 zuweisen",
+                SimplifiedChinese: "指定按钮 2",
+                TraditionalChinese: "指定鍵 2",
                 English: "Assign Button 2",
-                TraditionalChinese: "指定鍵 2"
+                Español: "Asignar botón 2",
+                French: "Attribuer bouton 2",
+                Italian: "Assegna pulsante 2",
+                Japanese: "ボタン2の割り当て",
+                Nederlands: "Knop 2 toewijzen",
+                BrazilianPortuguese: "Atribuir botões 2",
+                Russian: "Назначить кнопку 2"
             },
             unit: null,
             nodes: [
@@ -170,8 +188,17 @@ export default class AssignButtonsNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Taste 3 zuweisen",
+                SimplifiedChinese: "指定按钮 3",
+                TraditionalChinese: "指定鍵 3",
                 English: "Assign Button 3",
-                TraditionalChinese: "指定鍵 3"
+                Español: "Asignar botón 3",
+                French: "Attribuer bouton 3",
+                Italian: "Assegna pulsante 3",
+                Japanese: "ボタン3の割り当て",
+                Nederlands: "Knop 3 toewijzen",
+                BrazilianPortuguese: "Atribuir botões 3",
+                Russian: "Назначить кнопку 3"
             },
             unit: null,
             nodes: [

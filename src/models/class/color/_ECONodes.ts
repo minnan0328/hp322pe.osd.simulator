@@ -20,8 +20,17 @@ export default class ECONodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "ECO",
+        SimplifiedChinese: "ECO",
+        TraditionalChinese: "ECO",
         English: "ECO",
-        TraditionalChinese: "ECO"
+        Español: "ECO",
+        French: "ECO",
+        Italian: "ECO",
+        Japanese: "ECO",
+        Nederlands: "ECO",
+        BrazilianPortuguese: "ECO",
+        Russian: "ECO"
     };
     unit = null;
     nodes = null

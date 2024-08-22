@@ -25,8 +25,17 @@ export default class PowerLEDNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Betriebs-LED",
+        SimplifiedChinese: "电源 LED 指示灯",
+        TraditionalChinese: "電源指示燈",
         English: "Power LED",
-        TraditionalChinese: "電源指示燈"
+        Español: "LED de encendido",
+        French: "Voyant d'alimentation",
+        Italian: "LED alimentazione",
+        Japanese: "電源ランプ",
+        Nederlands: "Aan/uit-lampje",
+        BrazilianPortuguese: "LED de energia",
+        Russian: "Индикатор питания"
     };
     unit = null;
     nodes = [

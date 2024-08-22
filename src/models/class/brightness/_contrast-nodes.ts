@@ -20,8 +20,17 @@ export default class contrastNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Kontrast",
+        SimplifiedChinese: "对比度",
+        TraditionalChinese: "對比",
         English: "Contrast",
-        TraditionalChinese: "對比"
+        Español: "Contraste",
+        French: "Contraste",
+        Italian: "Contrasto",
+        Japanese: "コントラスト",
+        Nederlands: "Contrast",
+        BrazilianPortuguese: "Contraste",
+        Russian: "Контрастность"
     };
     unit = null;
     nodes = [

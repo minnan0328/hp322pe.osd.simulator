@@ -25,8 +25,17 @@ export default class DDCCISupportNodes implements Nodes {
     only = [ "HDMI", "VGA" ];
     mergeGrid = false;
     language = {
+        German: "DDC/CI-Unterstützung",
+        SimplifiedChinese: "DDC/CI 支持",
+        TraditionalChinese: "支援 DDC/CI",
         English: "DDC/CI Support",
-        TraditionalChinese: "支援 DDC/DC"
+        Español: "Compatibilidad DDC/CI",
+        French: "Prise en charge DDC/CI",
+        Italian: "Supporto DDC/CI",
+        Japanese: "DDC/CI サポート",
+        Nederlands: "DDC/CI-ondersteuning",
+        BrazilianPortuguese: "Suporte DDC/CI",
+        Russian: "Поддержка DDC/CI"
     };
     unit = null;
     nodes = [

@@ -19,8 +19,17 @@ export class ResetNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Zurücksetzen",
+        SimplifiedChinese: "重置",
+        TraditionalChinese: "重置",
         English: "Reset",
-        TraditionalChinese: "重置"
+        Español: "Restablecer",
+        French: "Réinitialiser",
+        Italian: "Reset",
+        Japanese: "リセット",
+        Nederlands: "Opnieuw instellen",
+        BrazilianPortuguese: "Redefinir",
+        Russian: "Сброс"
     };
     unit = null;
     nodes = null;
@@ -43,8 +52,17 @@ export class BackNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Zurück",
+        SimplifiedChinese: "返回",
+        TraditionalChinese: "上一步",
         English: "Back",
-        TraditionalChinese: "上一步"
+        Español: "Regresar",
+        French: "Retour",
+        Italian: "Indietro",
+        Japanese: "戻る",
+        Nederlands: "Terug",
+        BrazilianPortuguese: "Retroceder",
+        Russian: "Назад"
     };
     unit = null;
     nodes = null;
@@ -66,8 +84,17 @@ export class ExitNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Beenden",
+        SimplifiedChinese: "退出",
+        TraditionalChinese: "退出",
         English: "Exit",
-        TraditionalChinese: "退出"
+        Español: "Salir",
+        French: "Quitter",
+        Italian: "Uscita",
+        Japanese: "終了",
+        Nederlands: "Afsluiten",
+        BrazilianPortuguese: "Sair",
+        Russian: "Выход"
     };
     unit = null;
     nodes = null;
@@ -91,8 +118,17 @@ export class OnNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Ein",
+        SimplifiedChinese: "开",
+        TraditionalChinese: "開",
         English: "On",
-        TraditionalChinese: "開"
+        Español: "Encendido",
+        French: "Oui",
+        Italian: "Attivato",
+        Japanese: "オン",
+        Nederlands: "Aan",
+        BrazilianPortuguese: "Ativado",
+        Russian: "Вкл."
     };
     unit = null;
     nodes = null;
@@ -116,8 +152,17 @@ export class OffNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Aus",
+        SimplifiedChinese: "关闭",
+        TraditionalChinese: "關",
         English: "Off",
-        TraditionalChinese: "關"
+        Español: "Apagado",
+        French: "Eteint",
+        Italian: "Spento",
+        Japanese: "オフ",
+        Nederlands: "Uit",
+        BrazilianPortuguese: "Desligado",
+        Russian: "Выкл."
     };
     unit = null;
     nodes = null;
@@ -141,8 +186,17 @@ export class LowNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Niedrig",
+        SimplifiedChinese: "低",
+        TraditionalChinese: "低",
         English: "Low",
-        TraditionalChinese: "低"
+        Español: "Baja",
+        French: "Bas",
+        Italian: "Bassa",
+        Japanese: "低",
+        Nederlands: "Laag",
+        BrazilianPortuguese: "Baixo",
+        Russian: "Низк."
     };
     unit = null;
     nodes = null;
@@ -166,8 +220,17 @@ export class MediumNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Mittel",
+        SimplifiedChinese: "中",
+        TraditionalChinese: "中",
         English: "Medium",
-        TraditionalChinese: "中"
+        Español: "Media",
+        French: "Moyen",
+        Italian: "Media",
+        Japanese: "中",
+        Nederlands: "Gemiddeld",
+        BrazilianPortuguese: "Médio",
+        Russian: "Средн."
     };
     unit = null;
     nodes = null;
@@ -191,8 +254,17 @@ export class HighNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Hoch",
+        SimplifiedChinese: "高",
+        TraditionalChinese: "高",
         English: "High",
-        TraditionalChinese: "高"
+        Español: "Alta",
+        French: "Haut",
+        Italian: "Alta",
+        Japanese: "高",
+        Nederlands: "Hoog",
+        BrazilianPortuguese: "Alto",
+        Russian: "Высок."
     };
     unit = null;
     nodes = null;
@@ -215,8 +287,17 @@ export class TopNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Oben",
+        SimplifiedChinese: "顶部",
+        TraditionalChinese: "上",
         English: "Top",
-        TraditionalChinese: "上"
+        Español: "Superior",
+        French: "Haut",
+        Italian: "In alto",
+        Japanese: "上",
+        Nederlands: "Boven",
+        BrazilianPortuguese: "Superior",
+        Russian: "Сверху"
     };
     unit = null;
     nodes = null;
@@ -239,8 +320,18 @@ export class BottomNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Unten",
+        SimplifiedChinese: "底部",
+        TraditionalChinese: "下",
         English: "Bottom",
-        TraditionalChinese: "下"
+        Español: "Inferior",
+        French: "Bas",
+        Italian: "In basso",
+        Japanese: "下",
+        Nederlands: "Onder",
+        BrazilianPortuguese: "Inferior",
+        Russian: "Снизу"
+    
     };
     unit = null;
     nodes = null;
@@ -263,8 +354,17 @@ export class PreviousPageButtonsNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Vorherige Seite",
+        SimplifiedChinese: "上一页",
+        TraditionalChinese: "上一頁",
         English: "Previous Page",
-        TraditionalChinese: "上一頁"
+        Español: "Página anterior",
+        French: "Page précédente",
+        Italian: "Pagina precedente",
+        Japanese: "前のページ",
+        Nederlands: "Vorige pagina",
+        BrazilianPortuguese: "Página anterior",
+        Russian: "Предыдущая страница"
     };
     unit = null;
     nodes = null;
@@ -287,8 +387,17 @@ export class NextPageButtonsNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
+        German: "Nächste Seite",
+        SimplifiedChinese: "下一页",
+        TraditionalChinese: "下一頁",
         English: "Next Page",
-        TraditionalChinese: "下一頁"
+        Español: "Página siguiente",
+        French: "Page suivante",
+        Italian: "Pagina successiva",
+        Japanese: "次のページ",
+        Nederlands: "Volgende pagina",
+        BrazilianPortuguese: "Página seguinte",
+        Russian: "Следующая страница"
     };
     unit = null;
     nodes = null;

@@ -23,8 +23,17 @@ export default class MenuPositionNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Menüposition",
+        SimplifiedChinese: "菜单位置",
+        TraditionalChinese: "功能表位置",
         English: "Menu Position",
-        TraditionalChinese: "功能表位置"
+        Español: "Posición del menú",
+        French: "Position du menu",
+        Italian: "Posizione menu",
+        Japanese: "メニューの表示位置",
+        Nederlands: "Menu Positie",
+        BrazilianPortuguese: "Posição do menu",
+        Russian: "Положение меню"
     };
     unit = null;
     nodes = [
@@ -46,8 +55,17 @@ export default class MenuPositionNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Horizontal",
+                SimplifiedChinese: "水平",
+                TraditionalChinese: "水平",
                 English: "Horizontal",
-                TraditionalChinese: "水平"
+                Español: "Horizontal",
+                French: "Horizontal",
+                Italian: "Orizzontale",
+                Japanese: "水平",
+                Nederlands: "Horizontaal",
+                BrazilianPortuguese: "Horizontal",
+                Russian: "Горизонтально"
             },
             unit: null,
             nodes: null
@@ -70,8 +88,17 @@ export default class MenuPositionNodes implements Nodes {
             only: ["HDMI", "VGA"],
             mergeGrid: false,
             language: {
+                German: "Vertikal",
+                SimplifiedChinese: "垂直",
+                TraditionalChinese: "垂直",
                 English: "Vertical",
-                TraditionalChinese: "垂直"
+                Español: "Vertical",
+                French: "Vertical",
+                Italian: "Verticale",
+                Japanese: "垂直",
+                Nederlands: "Verticaal",
+                BrazilianPortuguese: "Vertical",
+                Russian: "Вертикально"
             },
             unit: null,
             nodes: null

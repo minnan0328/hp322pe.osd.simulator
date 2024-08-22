@@ -26,7 +26,14 @@
                                 focus: secondarySectionNodes == secondNodes && thirdSectionNodes,
                                 'merge-grid': secondNodes.mergeGrid
                             }]"
-                            v-if="secondNodes.mode == ModeType.button || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
+                            v-if="secondNodes.mode == ModeType.button" v-text="toLanguageText(secondNodes.language)">
+                        </div>
+                        <div :class="['item', {
+                                selected: secondarySectionNodes?.key == secondNodes.key,
+                                focus: secondarySectionNodes == secondNodes && thirdSectionNodes,
+                                'merge-grid': secondNodes.mergeGrid
+                            }]"
+                            v-else-if="secondNodes.mode == ModeType.info" v-text="`${toLanguageText(secondNodes.language)}：`">
                         </div>
                         <!-- button -->
 
