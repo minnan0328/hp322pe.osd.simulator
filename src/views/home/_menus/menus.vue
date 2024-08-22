@@ -1,103 +1,105 @@
 <template>
-    <div class="menus" v-if="openAllMenu && state.menuPanel">
-        <div class="header">
-            <p>HP 322pe</p>
-        </div>
-
-        <div class="body">
-            <div class="sidebar">
-                <div class="hp-icon">
-                    <img src="@/assets/images/logo.png" alt="">
+    <div class="menu-wrapper">
+        <div class="menus" v-if="openAllMenu && state.menuPanel">
+            <div class="header">
+                <p>HP 322pe</p>
+            </div>
+    
+            <div class="body">
+                <div class="sidebar">
+                    <div class="hp-icon">
+                        <img src="@/assets/images/logo.png" alt="">
+                    </div>
+                    <div class="options">
+                        <template  v-for="menu in menus.nodes" v-text="toLanguageText(menu.language)">
+                            <div :class="['option', { selected: state.menuPanel?.key == menu.key, focus: state.menuPanel?.key == menu.key && state.secondPanel }]"
+                                v-if="isEnableInput(menu)" v-text="toLanguageText(menu.language)">
+                            </div>
+                        </template>
+                    </div>
                 </div>
-                <div class="options">
-                    <template  v-for="menu in menus.nodes" v-text="toLanguageText(menu.language)">
-                        <div :class="['option', { selected: state.menuPanel?.key == menu.key, focus: state.menuPanel?.key == menu.key && state.secondPanel }]"
-                            v-if="isEnableInput(menu)" v-text="toLanguageText(menu.language)">
+    
+                <settingSection v-model:mainSectionNodes="displayCurrentNodes.mainSectionNodes"
+                                v-model:secondarySectionNodes="displayCurrentNodes.secondarySectionNodes"
+                                v-model:thirdSectionNodes="displayCurrentNodes.thirdSectionNodes"
+                                v-model:currentPanelNumber="state.currentPanelNumber">
+                </settingSection>
+            </div>
+    
+            <div class="footer">
+                <div class="current-mode">
+                    {{ toLanguageText(informationEnum.nodes[0].language) }}: {{ informationEnum.nodes[0].value }}
+                </div>
+                <div class="current-input">
+                    {{ toLanguageText(inputEnum.language) }}: {{ inputEnum.value }}
+                </div>
+            </div>
+        </div>
+        <div :class="['menu assign-menu', state.menuPanel.key]" v-if="openAssignButton && state.menuPanel">
+            <div class="header">
+                <p>{{ toLanguageText(state.menuPanel.language) }}</p>
+            </div>
+            <div class="body">
+                <div :class="['assign-setting', state.menuPanel.key]">
+                    <template v-for="secondNodes in state.menuPanel.nodes">
+                        <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondNodes.mode != ModeType.info }]"
+                            v-if="isEnableInput(secondNodes) && secondNodes.key != 'Reset' && isEnableInput(secondNodes) && secondNodes.key != 'Back' && isEnableInput(secondNodes) && secondNodes.mode != ModeType.verticalRange">
+                            <!-- button -->
+                            <div :class="['item', {
+                                    selected: state.secondPanel?.key == secondNodes.key,
+                                    'merge-grid': secondNodes.mergeGrid
+                                }]"
+                                v-if="(secondNodes.mode == ModeType.button && secondNodes.key == 'Exit') || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
+                            </div>
+                            <!-- button -->
+    
+                            <!-- radio -->
+                            <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
+                                :nodes="secondNodes"
+                                :isChecked="state.menuPanel.value == secondNodes.value"
+                                :selected="state.secondPanel?.key == secondNodes.key">
+                            </customizeRadio>
+                            <!-- radio -->
+    
+                            <!-- value -->
+                            <template v-if="secondNodes.mode == ModeType.info">
+                                <div class="item item-value">
+                                    <span v-text="secondNodes.result"></span>
+                                </div>
+                            </template>
+                            <!-- value -->
                         </div>
+                        <!-- 一般縱向 range -->
+                        <verticalRange v-else-if="secondNodes.mode == ModeType.verticalRange"
+                            :nodes="secondNodes">
+                        </verticalRange>
+                        <!-- 一般縱向 range -->
                     </template>
                 </div>
             </div>
-
-            <settingSection v-model:mainSectionNodes="displayCurrentNodes.mainSectionNodes"
-                            v-model:secondarySectionNodes="displayCurrentNodes.secondarySectionNodes"
-                            v-model:thirdSectionNodes="displayCurrentNodes.thirdSectionNodes"
-                            v-model:currentPanelNumber="state.currentPanelNumber">
-            </settingSection>
         </div>
-
-        <div class="footer">
-            <div class="current-mode">
-                {{ toLanguageText(informationEnum.nodes[0].language) }}: {{ informationEnum.nodes[0].value }}
-            </div>
-            <div class="current-input">
-                {{ toLanguageText(inputEnum.language) }}: {{ inputEnum.value }}
-            </div>
+    
+        <div class="controller-menus" v-if="openControllerMenus">
+            <template v-for="currentButton in handleControllerButtonList">
+                <div class="menu-item" v-if="currentButton.image">
+                    <img :src="currentButton?.image" alt="">
+                </div>
+                <div class="menu-item" v-else></div>
+            </template>
         </div>
-    </div>
-    <div :class="['menu assign-menu', state.menuPanel.key]" v-if="openAssignButton && state.menuPanel">
-        <div class="header">
-            <p>{{ toLanguageText(state.menuPanel.language) }}</p>
+    
+        <div class="controller">
+            <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handleControllerMenus"></button>
+            <template v-else v-for="currentButton in handleControllerButtonList">
+                <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton?.event"></button>
+                <button v-if="currentButton.type == 'RangeButton'" class="controller-btn"
+                    @mousedown="currentButton?.event"
+                    @mouseup="currentButton.stopEvent"
+                    @mouseleave="currentButton.stopEvent">
+                </button>
+            </template>
+            <slot name="openMonitor"></slot> 
         </div>
-        <div class="body">
-            <div :class="['assign-setting', state.menuPanel.key]">
-                <template v-for="secondNodes in state.menuPanel.nodes">
-                    <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondNodes.mode != ModeType.info }]"
-                        v-if="isEnableInput(secondNodes) && secondNodes.key != 'Reset' && isEnableInput(secondNodes) && secondNodes.key != 'Back' && isEnableInput(secondNodes) && secondNodes.mode != ModeType.verticalRange">
-                        <!-- button -->
-                        <div :class="['item', {
-                                selected: state.secondPanel?.key == secondNodes.key,
-                                'merge-grid': secondNodes.mergeGrid
-                            }]"
-                            v-if="(secondNodes.mode == ModeType.button && secondNodes.key == 'Exit') || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
-                        </div>
-                        <!-- button -->
-
-                        <!-- radio -->
-                        <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
-                            :nodes="secondNodes"
-                            :isChecked="state.menuPanel.value == secondNodes.value"
-                            :selected="state.secondPanel?.key == secondNodes.key">
-                        </customizeRadio>
-                        <!-- radio -->
-
-                        <!-- value -->
-                        <template v-if="secondNodes.mode == ModeType.info">
-                            <div class="item item-value">
-                                <span v-text="secondNodes.result"></span>
-                            </div>
-                        </template>
-                        <!-- value -->
-                    </div>
-                    <!-- 一般縱向 range -->
-                    <verticalRange v-else-if="secondNodes.mode == ModeType.verticalRange"
-                        :nodes="secondNodes">
-                    </verticalRange>
-                    <!-- 一般縱向 range -->
-                </template>
-            </div>
-        </div>
-    </div>
-
-    <div class="controller-menus" v-if="openControllerMenus">
-        <template v-for="currentButton in handleControllerButtonList">
-            <div class="menu-item" v-if="currentButton.image">
-                <img :src="currentButton?.image" alt="">
-            </div>
-            <div class="menu-item" v-else></div>
-        </template>
-    </div>
-
-    <div class="controller">
-        <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handleControllerMenus"></button>
-        <template v-else v-for="currentButton in handleControllerButtonList">
-            <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton?.event"></button>
-            <button v-if="currentButton.type == 'RangeButton'" class="controller-btn"
-                @mousedown="currentButton?.event"
-                @mouseup="currentButton.stopEvent"
-                @mouseleave="currentButton.stopEvent">
-            </button>
-        </template>
-        <slot name="openMonitor"></slot> 
     </div>
 </template>
 <script lang="ts" setup>
@@ -927,8 +929,8 @@ function handleClose() {
 const menuStateResult = computed(() => {
     return {
         menuPosition: {
-            x: store.$state.menu.nodes[1].nodes![0].result,
-            y: store.$state.menu.nodes[1].nodes![1].result
+            x: `${(store.$state.menu.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
+            y: `${(store.$state.menu.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
         },
         menuTransparency: ((10 - (store.$state.menu.nodes[2].result as number)) / 10) + 0.2,
         menuTimeout: store.$state.menu.nodes[3].result,
@@ -945,11 +947,20 @@ function menuTimeout() {
 
 </script>
 <style lang="scss" scoped>
+.menu-wrapper {
+    position: absolute;
+    content: "";
+    top: 9px;
+    left: 9px;
+    width: 782px;
+    height: 428px;
+}
+
 .menus,
 .assign-menu {
 	position: absolute;
-	top: 50px;
-	left: 200px;
+	top: v-bind("menuStateResult.menuPosition.y");
+	left: v-bind("menuStateResult.menuPosition.x");
 	background-color: #090909;
 	width: 540px;
 	height: 356px;
@@ -1034,8 +1045,8 @@ function menuTimeout() {
     position: absolute;
     top: unset;
     left: unset;
-	bottom: 278px;
-	right: 120px;
+	bottom: 54px;
+	right: 92px;
     background-color: #161616;
     width: 200px;
 	height: 282px;
@@ -1058,7 +1069,7 @@ function menuTimeout() {
 .controller-menus {
 	position: absolute;
 	display: flex;
-	bottom: 218px;
+	bottom: 0px;
 	right: 62px;
 
 	.menu-item {
@@ -1078,13 +1089,14 @@ function menuTimeout() {
 
 .controller {
 	position: absolute;
-	bottom: 135px;
-	right: 18px;
+	bottom: -86px;
+	right: 12px;
 
 	.controller-btn,
 	:deep(.controller-btn) {
 		width: 40px;
 		height: 40px;
+        border: 1px solid blue;
 
 		&.controller-menus-btn {
 			position: absolute;

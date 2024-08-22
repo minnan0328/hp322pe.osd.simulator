@@ -31,8 +31,8 @@ export default class MenuPositionNodes implements Nodes {
         {
             // Range (0~100)
             key: "Horizontal",
-            value: 0,
-            result: 0,
+            value: 74,
+            result: 74,
             displayValue: false,
             displayState: false,
             livePreview: false,
@@ -55,8 +55,8 @@ export default class MenuPositionNodes implements Nodes {
         {
             // Range (0~100)
             key: "Vertical",
-            value: 0,
-            result: 0,
+            value: 81,
+            result: 81,
             displayValue: false,
             displayState: false,
             livePreview: false,
