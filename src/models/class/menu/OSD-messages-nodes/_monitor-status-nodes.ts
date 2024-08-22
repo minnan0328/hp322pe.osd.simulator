@@ -27,7 +27,7 @@ export default class MonitorStatusNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
-        English: "Dynamic Contrast",
+        English: "Monitor Status",
         TraditionalChinese: "螢幕狀態"
     };
     unit = null;

@@ -5,7 +5,8 @@
         </div>
     </Transition>
 
-    <monitorStatus v-if="showMonitorStatus" v-model:show="menuStateResult.monitorStatus.show" v-model:position="(menuStateResult.monitorStatus.position as string)"></monitorStatus>
+    <monitorStatus  v-model:show="menuStateResult.monitorStatus.show" v-model:position="(menuStateResult.monitorStatus.position as string)"></monitorStatus>
+    <!-- <monitorStatus v-if="showMonitorStatus" v-model:show="menuStateResult.monitorStatus.show" v-model:position="(menuStateResult.monitorStatus.position as string)"></monitorStatus> -->
 
     <div class="screen" v-show="showScreen">
         <img src="@/assets/images/screen.png" alt="">
