@@ -25,14 +25,14 @@
                         <div class="wrapper">
                             <div class="power-light" v-if="openMonitor && monitorResult.powerLED"></div>
     
-                            <monitorScreen v-if="openMonitor" v-model="openMonitor"></monitorScreen>
+                            <monitorScreen v-if="openMonitor" v-model="openMonitor" v-model:showMonitorStatus="showMonitorStatus"></monitorScreen>
     
                             <div class="menu-buttons">
                                 <img src="@/assets/images/menu-buttons.png" alt="">
                                 <div class="power-light menu-btn" v-if="openMonitor && monitorResult.powerLED"></div>
                             </div>
     
-                            <menus v-model:openMonitor="openMonitor">
+                            <menus v-model:openMonitor="openMonitor" v-model:isFinish="isFinish" v-model:showMonitorStatus="showMonitorStatus">
                                 <template v-slot:openMonitor>
                                     <button class="controller-btn open-btn" @click="handleMonitor"></button>
                                 </template>
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, provide } from 'vue';
 import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import ribbon from '@/views/home/_ribbon/ribbon.vue';
@@ -76,6 +76,12 @@ function selectTad(tab: Nodes) {
 
 /* 啟動螢幕 start  */
 const openMonitor = ref(false);
+let showMonitorStatus = ref(false);
+let isFinish = ref(false);
+
+provide('updateFinish', (value: boolean) => {
+    isFinish.value = value;
+});
 
 function handleMonitor() {
     openMonitor.value = !openMonitor.value;

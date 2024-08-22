@@ -5,14 +5,17 @@
         </div>
     </Transition>
 
-    <monitorStatus v-if="showMonitorStatus" v-model:show="menuStateResult.monitorStatus.show" v-model:position="(menuStateResult.monitorStatus.position as string)"></monitorStatus>
+    <monitorStatus v-if="showMonitorStatus" v-model:show="menuStateResult.monitorStatus.show"
+        v-model:position="(menuStateResult.monitorStatus.position as string)"
+        :showMonitorStatus="showMonitorStatus">
+    </monitorStatus>
 
     <div class="screen" v-show="showScreen">
         <img src="@/assets/images/screen.png" alt="">
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, reactive, onMounted } from 'vue';
+import { ref, computed, inject, onMounted, watch } from 'vue';
 import { useStore } from '@/stores/index';
 import monitorStatus from '@/views/home/_monitor-status/monitor-status.vue';
 import { OffNodes, TopNodes, MediumNodes, BottomNodes } from '@/models/class/_utilities';
@@ -22,16 +25,22 @@ const TopNodesEnum = new TopNodes();
 const MediumNodesEnum = new MediumNodes();
 const BottomNodesEnum = new BottomNodes();
 const store = useStore();
+let updateFinish = inject('updateFinish') as ((value: boolean) => void);;
 
 const props = defineProps({
     modelValue: {
         type: Boolean,
         default: false
+    },
+    showMonitorStatus: {
+        type: Boolean,
+        default: false
     }
 });
 
+const emit = defineEmits(['update:showMonitorStatus'])
+
 const screenInitial = ref(false);
-const showMonitorStatus = ref(false);
 const showScreen = ref(false);
 
 const monitorResult = computed(() => {
@@ -70,7 +79,7 @@ const toImageColor = computed(() => {
 function handleScreen() {
     if(props.modelValue) {
         setTimeout(() => {
-            showMonitorStatus.value = true;
+            emit('update:showMonitorStatus', true);
             showScreen.value = true;
             handleMonitorStatus();
         }, 2000);
@@ -80,7 +89,8 @@ function handleScreen() {
 function handleMonitorStatus() {
     if(props.modelValue) {
         setTimeout(() => {
-            showMonitorStatus.value = false;
+            emit('update:showMonitorStatus', false);
+            updateFinish(true);
         }, 5000);
     }
 };

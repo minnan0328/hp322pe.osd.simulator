@@ -165,8 +165,18 @@ const props = defineProps({
     openMonitor: {
         type: Boolean,
         default: false
+    },
+    isFinish: {
+        type: Boolean,
+        default: true
+    },
+    showMonitorStatus: {
+        type: Boolean,
+        default: true
     }
 });
+
+const emit = defineEmits(['update:showMonitorStatus', 'update:isFinish'])
 
 const inputEnum = computed(() => {
     return store.$state.input;
@@ -307,7 +317,12 @@ const openAssignButton = ref(false);
 
 // 開啟選單
 function handleControllerMenus() {
-    if(props.openMonitor) {
+    if(props.openMonitor && props.showMonitorStatus && props.isFinish == false) {
+        emit("update:showMonitorStatus", false);
+        emit("update:isFinish", true);
+    }
+
+    if(props.openMonitor && props.isFinish) {
         openControllerMenus.value = true;
     };
 };
@@ -324,6 +339,7 @@ function handleAllMenu() {
     openAllMenu.value = true;
     openAssignButton.value = false;
     selectedMenuPanel(menus.value.nodes[0]);
+
     // menuTimeout();
 };
 // 開啟自訂選單按鈕
@@ -957,6 +973,10 @@ function handleClose() {
     state.thirdPanelIndex = 0;
     state.fourthPanelIndex = 0;
     state.assignPanelOrderIndex = 0;
+
+    emit("update:showMonitorStatus", false);
+    emit("update:isFinish", false);
+
 };
 
 const menuStateResult = computed(() => {
