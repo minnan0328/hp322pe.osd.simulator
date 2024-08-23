@@ -27,8 +27,17 @@ export default class Input implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false;
     language = {
-        English: 'Input',
-        TraditionalChinese: '輸入'
+        German: "Eingabe",
+        SimplifiedChinese: "输入",
+        TraditionalChinese: "輸入",
+        English: "Input",
+        Español: "Entrada",
+        French: "Entrée",
+        Italian: "Invoer",
+        Japanese: "入力",
+        Nederlands: "Invoer",
+        BrazilianPortuguese: "Entrada",
+        Russian: "Входы",
     };
     unit = null;
     nodes =  [
