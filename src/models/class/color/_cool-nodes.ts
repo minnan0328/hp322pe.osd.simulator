@@ -2,23 +2,14 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
 
-export default class CoolNodes implements Nodes {
+export default class CoolNodes extends DefaultNodes implements Nodes {
     key = "Cool";
-    value = "Cool";
+    selected = "Cool";
     result = "Cool";
-    displayValue = false;
-    displayState = false;
     livePreview = true;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Kühl",
         SimplifiedChinese: "冷色",
@@ -32,6 +23,4 @@ export default class CoolNodes implements Nodes {
         BrazilianPortuguese: "Suave",
         Russian: "Холодный"
     };
-    unit = null;
-    nodes = null
 };

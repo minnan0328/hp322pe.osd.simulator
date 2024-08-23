@@ -4,7 +4,7 @@
             <div class="main-section">
 
                 <div class="setting-item unset-grid" v-if="currentPanelNumber == 4">
-                    <div class="item border-bottom-line" v-text="toLanguageText(mainSectionNodes.language)"></div>
+                    <div class="item border-bottom-line" v-text="toLanguageText(mainSectionNodes.language!)"></div>
                 </div>
 
                 <template v-for="(secondNodes, secondNodesIdx) in mainSectionNodes.nodes">
@@ -26,21 +26,21 @@
                                 focus: secondarySectionNodes == secondNodes && thirdSectionNodes,
                                 'merge-grid': secondNodes.mergeGrid
                             }]"
-                            v-if="secondNodes.mode == ModeType.button" v-text="toLanguageText(secondNodes.language)">
+                            v-if="secondNodes.mode == ModeType.button" v-text="toLanguageText(secondNodes.language!)">
                         </div>
                         <div :class="['item', {
                                 selected: secondarySectionNodes?.key == secondNodes.key,
                                 focus: secondarySectionNodes == secondNodes && thirdSectionNodes,
                                 'merge-grid': secondNodes.mergeGrid
                             }]"
-                            v-else-if="secondNodes.mode == ModeType.info" v-text="`${toLanguageText(secondNodes.language)}：`">
+                            v-else-if="secondNodes.mode == ModeType.info" v-text="`${toLanguageText(secondNodes.language!)}：`">
                         </div>
                         <!-- button -->
 
                         <!-- radio -->
                         <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
                             :nodes="secondNodes"
-                            :isChecked="mainSectionNodes.value == secondNodes.value"
+                            :isChecked="mainSectionNodes.selected == secondNodes.selected"
                             :selected="secondarySectionNodes?.key == secondNodes.key">
                         </customizeRadio>
                         <!-- radio -->
@@ -99,14 +99,14 @@
                         <!-- 上一頁 -->
                         <!-- button -->
                         <div :class="['item', { selected: thirdSectionNodes?.key == thirdNodes.key, 'merge-grid': thirdNodes.mergeGrid }]"
-                            v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info" v-text="toLanguageText(thirdNodes.language)">
+                            v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info" v-text="toLanguageText(thirdNodes.language!)">
                         </div>
                         <!-- button -->
                         
                         <!-- radio -->
                         <customizeRadio v-else-if="thirdNodes.mode == ModeType.radio"
                             :nodes="thirdNodes"
-                            :isChecked="secondarySectionNodes.value == thirdNodes.value"
+                            :isChecked="secondarySectionNodes.selected == thirdNodes.selected"
                             :selected="thirdSectionNodes?.key == thirdNodes.key">
                         </customizeRadio>
                         <!-- radio -->

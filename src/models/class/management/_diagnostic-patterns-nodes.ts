@@ -2,27 +2,19 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
 
+const DefaultNodesEnum = new DefaultNodes(); 
 const BackNodesEnum = new BackNodes();
 
-export default class DiagnosticPatternsNodes implements Nodes {
+export default class DiagnosticPatternsNodes extends DefaultNodes implements Nodes {
     // Y (Cycle Patterns highlighted)
     key = "DiagnosticPatterns";
-    value = "Cycle Patterns";
+    selected = "Cycle Patterns";
     result = "Cycle Patterns";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 7;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
         German: "Diagnosemuster",
         SimplifiedChinese: "诊断模式",
@@ -36,24 +28,15 @@ export default class DiagnosticPatternsNodes implements Nodes {
         BrazilianPortuguese: "Padrões de diagnóstico",
         Russian: "Диагностические шаблоны"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "CyclePatterns",
-            value: "Cycle Patterns",
+            selected: "Cycle Patterns",
             result: "Cycle Patterns",
-            displayValue: false,
-            displayState: false,
             livePreview: true,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Muster durchlaufen",
                 SimplifiedChinese: "循环模式",
@@ -66,26 +49,16 @@ export default class DiagnosticPatternsNodes implements Nodes {
                 Nederlands: "Blader door patronen",
                 BrazilianPortuguese: "Percorrer padrões",
                 Russian: "Цикл по шаблонам"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FullScreenBlack",
-            value: "Full Screen Black",
+            selected: "Full Screen Black",
             result: "Full Screen Black",
-            displayValue: false,
-            displayState: false,
             livePreview: true,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Kompletter Bildschirm schwarz",
                 SimplifiedChinese: "黑色全屏",
@@ -98,26 +71,16 @@ export default class DiagnosticPatternsNodes implements Nodes {
                 Nederlands: "Volledig scherm zwart",
                 BrazilianPortuguese: "Ecrã inteiro preto",
                 Russian: "Заполнение черным"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FullScreenWhite",
-            value: "Full Screen White",
+            selected: "Full Screen White",
             result: "Full Screen White",
-            displayValue: false,
-            displayState: false,
             livePreview: true,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Kompletter Bildschirm weiß",
                 SimplifiedChinese: "白色全屏",
@@ -130,26 +93,16 @@ export default class DiagnosticPatternsNodes implements Nodes {
                 Nederlands: "Volledig scherm wit",
                 BrazilianPortuguese: "Ecrã inteiro branco",
                 Russian: "Заполнение белым"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FullScreenRed",
-            value: "Full Screen Red",
+            selected: "Full Screen Red",
             result: "Full Screen Red",
-            displayValue: false,
-            displayState: false,
             livePreview: true,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Kompletter Bildschirm rot",
                 SimplifiedChinese: "红色全屏",
@@ -162,26 +115,16 @@ export default class DiagnosticPatternsNodes implements Nodes {
                 Nederlands: "Volledig scherm rood",
                 BrazilianPortuguese: "Ecrã inteiro vermelho",
                 Russian: "Заполнение красным"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FullScreenGreen",
-            value: "Full Screen Green",
+            selected: "Full Screen Green",
             result: "Full Screen Green",
-            displayValue: false,
-            displayState: false,
             livePreview: true,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Kompletter Bildschirm grün",
                 SimplifiedChinese: "绿色全屏",
@@ -194,26 +137,16 @@ export default class DiagnosticPatternsNodes implements Nodes {
                 Nederlands: "Volledig scherm groen",
                 BrazilianPortuguese: "Ecrã inteiro verde",
                 Russian: "Заполнение зеленым"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FullScreenBlue",
-            value: "Full Screen Blue",
+            selected: "Full Screen Blue",
             result: "Full Screen Blue",
-            displayValue: false,
-            displayState: false,
             livePreview: true,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Kompletter Bildschirm blau",
                 SimplifiedChinese: "蓝色全屏",
@@ -226,9 +159,7 @@ export default class DiagnosticPatternsNodes implements Nodes {
                 Nederlands: "Volledig scherm blauw",
                 BrazilianPortuguese: "Ecrã inteiro azul",
                 Russian: "Заполнение синим"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 上一步
         {

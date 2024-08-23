@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ResetNodes, BackNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes } from '../_utilities';
 import AutoSleepModeNodes from './_auto-sleep-mode-nodes';
 import PowerOnRecallNodes from './_power-on-recall';
 import PowerLEDNodes from './_power-LED-nodes';
@@ -11,22 +11,11 @@ let AutoSleepModeNodesEnum = new AutoSleepModeNodes();
 let PowerOnRecallNodesEnum = new PowerOnRecallNodes();
 let PowerLEDNodesEnum = new PowerLEDNodes();
 
-export default class Power implements Nodes {
+export default class Power extends DefaultNodes implements Nodes {
     key = "Power";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 5;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
         German: "Energie",
         SimplifiedChinese: "电源",
@@ -40,7 +29,6 @@ export default class Power implements Nodes {
         BrazilianPortuguese: "Energia",
         Russian: "Питание"
     };
-    unit = null;
     nodes = [
         // 自動睡眠模式
         {

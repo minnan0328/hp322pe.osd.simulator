@@ -2,23 +2,14 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
 
-export default class NativeNodes implements Nodes {
+export default class NativeNodes extends DefaultNodes implements Nodes {
     key = "Native";
-    value = "Native";
+    selected = "Native";
     result = "Native";
-    displayValue = false;
-    displayState = false;
     livePreview = true;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Eigen",
         SimplifiedChinese: "本机",
@@ -32,6 +23,4 @@ export default class NativeNodes implements Nodes {
         BrazilianPortuguese: "Nativo",
         Russian: "Исходный"
     };
-    unit = null;
-    nodes = null
 };

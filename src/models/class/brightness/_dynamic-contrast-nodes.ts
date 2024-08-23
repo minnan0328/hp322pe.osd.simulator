@@ -2,28 +2,20 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes, OnNodes, OffNodes } from '../_utilities';
+import { DefaultNodes, BackNodes, OnNodes, OffNodes } from '../_utilities';
 
 const BackNodesEnum = new BackNodes();
 const OnNodesEnum = new OnNodes();
 const OffNodesEnum = new OffNodes();
 
-export default class DynamicContrastNodes implements Nodes {
+export default class DynamicContrastNodes extends DefaultNodes implements Nodes {
     key = "DynamicContrast";
-    value = OffNodesEnum.value;
+    selected = OffNodesEnum.selected;
     result = OffNodesEnum.result;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Dynamischer Kontrast",
         SimplifiedChinese: "动态对比度",
@@ -37,7 +29,6 @@ export default class DynamicContrastNodes implements Nodes {
         BrazilianPortuguese: "Contraste dinâmico",
         Russian: "Динамическая контрастность"
     };
-    unit = null;
     nodes = [
         {
             ...OnNodesEnum,

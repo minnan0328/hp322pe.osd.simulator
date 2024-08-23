@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ResetNodes, BackNodes, ExitNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes, ExitNodes } from '../_utilities';
 import ECONodes from './_ECONodes';
 import WarmNodes from './_warm-nodes';
 import NeutralNodes from './_neutral-nodes';
@@ -21,23 +21,13 @@ const NativeNodesEnum = new NativeNodes();
 const LowBlueLightNodesEnum = new LowBlueLightNodes();
 const HPEnhancePlusNodesEnum = new HPEnhancePlusNodes();
 const CustomRGBNodesEnum = new CustomRGBNodes();
-
-export default class Color implements Nodes {
+export default class Color extends DefaultNodes implements Nodes {
     key = "Color";
-    value = NeutralNodesEnum.value;
+    selected = NeutralNodesEnum.selected;
     result = NeutralNodesEnum.result;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 11;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Farbe",
         SimplifiedChinese: "颜色",
@@ -51,7 +41,6 @@ export default class Color implements Nodes {
         BrazilianPortuguese: "Cor",
         Russian: "Цвет"
     };
-    unit = null;
     nodes = [
         // ECO
         {

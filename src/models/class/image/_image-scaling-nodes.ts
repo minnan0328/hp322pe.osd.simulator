@@ -2,25 +2,18 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 
-export default class ImageScalingNodes implements Nodes {
+export default class ImageScalingNodes extends DefaultNodes implements Nodes {
     key = "ImageScaling";
-    value = "Fill to Screen";
+    selected = "Fill to Screen";
     result = "Fill to Screen";
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Bildskalierung",
         SimplifiedChinese: "图像缩放",
@@ -34,24 +27,14 @@ export default class ImageScalingNodes implements Nodes {
         BrazilianPortuguese: "Dimensionamento da imagem",
         Russian: "Масштаб-ие изображения"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "FilltoScreen",
-            value: "Fill to Screen",
+            selected: "Fill to Screen",
             result: "Fill to Screen",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Bildschirmfüllend",
                 SimplifiedChinese: "填充屏幕",
@@ -64,26 +47,15 @@ export default class ImageScalingNodes implements Nodes {
                 Nederlands: "Schermvullend",
                 BrazilianPortuguese: "Preenchimento da Tela",
                 Russian: "Заполнить экран"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FilltoAspectRatio",
-            value: "Fill to Aspect Ratio",
+            selected: "Fill to Aspect Ratio",
             result: "Fill to Aspect Ratio",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Entspr. Seitenverhältnis",
                 SimplifiedChinese: "填充屏幕高宽比",
@@ -96,9 +68,7 @@ export default class ImageScalingNodes implements Nodes {
                 Nederlands: "H/B-verhouding intact",
                 BrazilianPortuguese: "Preencher até Rel. de aspecto",
                 Russian: "Заполнить форматн. соотношение"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 上一步
         {

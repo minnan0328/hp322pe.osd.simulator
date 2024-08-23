@@ -1,6 +1,6 @@
 <template>
     <div :class="['monitor-status', position]" v-show="show">
-        <div class="monitor-status-title">{{ toLanguageText(menuStateResult.monitorStatus.language) }}</div>
+        <div class="monitor-status-title">{{ toLanguageText(menuStateResult.monitorStatus.language!) }}</div>
         <div class="monitor-status-info input">
             <template v-for="currentInput in menuStateResult.input.nodes">
                 <p v-if="currentInput.mode == ModeType.radio"
@@ -16,7 +16,7 @@
 
         <div class="monitor-status-info setting">
             <p v-text="`${toLanguageText(menuStateResult.autoSwitchInput.name.language)}:`"></p>
-            <p v-text="toLanguageText(menuStateResult.autoSwitchInput.state!.language)"></p>
+            <p v-text="toLanguageText(menuStateResult.autoSwitchInput.state!.language!)"></p>
             <p v-text="`${toLanguageText(menuStateResult.color.name.language)}:`"></p>
             <p v-text="toLanguageText(menuStateResult.color.state?.language!)"></p>
         </div>

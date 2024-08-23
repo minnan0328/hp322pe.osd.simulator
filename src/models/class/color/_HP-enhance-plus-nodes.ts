@@ -2,29 +2,22 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes, LowNodes, MediumNodes, HighNodes } from '../_utilities';
+import { DefaultNodes, BackNodes, LowNodes, MediumNodes, HighNodes } from '../_utilities';
 
 const BackNodesEnum = new BackNodes();
 const LowNodesEnum = new LowNodes();
 const MediumNodesEnum = new MediumNodes();
 const HighNodesEnum = new HighNodes();
 
-export default class HPEnhancePlusNodes implements Nodes {
+export default class HPEnhancePlusNode extends DefaultNodes implements Nodes {
     key = "HPEnhancePlus";
-    value = MediumNodesEnum.value;
+    selected = MediumNodesEnum.selected;
     result = MediumNodesEnum.result;
     displayValue = true;
-    displayState = false;
     livePreview = true;
     size = 4;
     page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "HP Enhance+",
         SimplifiedChinese: "HP Enhance+",

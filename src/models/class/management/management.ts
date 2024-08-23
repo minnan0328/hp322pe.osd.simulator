@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ResetNodes, BackNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes } from '../_utilities';
 import FactoryResetNodes from './_factory-reset-nodes';
 import DDCCISupportNodes from './_DDC-CISupport-nodes';
 import DiagnosticPatternsNodes from './_diagnostic-patterns-nodes';
@@ -13,22 +13,11 @@ const DDCCISupportNodesEnum = new DDCCISupportNodes();
 const DiagnosticPatternsNodesEnum = new DiagnosticPatternsNodes();
 const AccessibilityNodesEnum = new AccessibilityNodes();
 
-export default class Management implements Nodes {
+export default class Management extends DefaultNodes implements Nodes {
     key = "Management";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 6;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
         German: "Steuerung",
         SimplifiedChinese: "管理",
@@ -42,7 +31,6 @@ export default class Management implements Nodes {
         BrazilianPortuguese: "Gerenciamento",
         Russian: "Управление"
     };
-    unit = null;
     nodes = [
         {
             ...FactoryResetNodesEnum,

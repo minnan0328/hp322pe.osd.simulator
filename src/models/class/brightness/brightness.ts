@@ -1,7 +1,7 @@
 // 亮度基本值，依據 color 切換有不同亮度
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ResetNodes, BackNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes } from '../_utilities';
 import BrightnessNodes from './_brightness-nodes';
 import ContrastNodes from './_contrast-nodes';
 import DynamicContrastNodes from './_dynamic-contrast-nodes';
@@ -16,22 +16,13 @@ const DynamicContrastNodesEnum = new DynamicContrastNodes();
 const BlackStretchNodesEnum = new BlackStretchNodes();
 const VideoLevelNodesEnum = new VideoLevelNodes();
 
-export default class Brightness implements Nodes {
+export default class Brightness extends DefaultNodes implements Nodes {
     key = "BrightnessPlus";
-    value = "BrightnessPlus";
+    selected = "BrightnessPlus";
     result = "BrightnessPlus";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 7;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Helligkeit +",
         SimplifiedChinese: "亮度 +",
@@ -45,7 +36,6 @@ export default class Brightness implements Nodes {
         BrazilianPortuguese: "Brilho +",
         Russian: "Яркость +"
     };
-    unit = null;
     nodes = [
         // 亮度
         {

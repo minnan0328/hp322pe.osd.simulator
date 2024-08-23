@@ -4,7 +4,7 @@
             <div class="range-max-value">
                 <img v-if="nodes.rangeIcon" class="original" :src="getIconSrc(nodes)" alt="">
                 <span v-else-if="!isColor" v-text="nodes.rangeMax"></span>
-                <span v-if="!nodes.rangeIcon && isColor" :class="nodes.key" v-text="toLanguageText(nodes.language)"></span>
+                <span v-if="!nodes.rangeIcon && isColor" :class="nodes.key" v-text="toLanguageText(nodes.language!)"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">
@@ -12,19 +12,19 @@
             </div>
 
             <div :class="['range-graduate', { selected: selected, 'merge-grid': isColor }]">
-                <div :class="['graduate', nodes.key, { max: nodes.value == nodes.rangeMax }]">
+                <div :class="['graduate', nodes.key, { max: nodes.selected == nodes.rangeMax }]">
                 </div>
             </div>
 
             <div class="range-text" v-if="!isColor" >
-                <span v-text="nodes.value"></span>
+                <span v-text="nodes.selected"></span>
                 <span v-if="nodes.unit" v-text="toLanguageText(nodes.unit)"></span>
             </div>
 
             <div class="range-max-value">
                 <img v-if="nodes.rangeIcon" class="small" :src="getIconSrc(nodes)" alt="">
                 <span v-else-if="!isColor" v-text="nodes.rangeMin"></span>
-                <span v-if="!nodes.rangeIcon && isColor" v-text="nodes.value"></span>
+                <span v-if="!nodes.rangeIcon && isColor" v-text="nodes.selected"></span>
             </div>
 
             <div class="range-max-value" v-if="!isColor">
@@ -55,7 +55,7 @@ const props = defineProps({
 });
 
 const currentValue = computed(() => {
-    let showValue = convertRange(props.nodes.value as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
+    let showValue = convertRange(props.nodes.selected as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
     return `${showValue as number - 4}%`
 });
 

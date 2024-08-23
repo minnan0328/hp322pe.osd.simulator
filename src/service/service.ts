@@ -4,7 +4,7 @@ import { toLanguageText, toDisplayValueLanguageText } from './toDisplayLanguageT
 const store = useStore();
 
 export function isEnableInput(nodes: Nodes): boolean {
-    return nodes.only?.includes(store.$state.input.value) ? true : false;
+    return nodes.only?.includes(store.$state.input.selected) ? true : false;
 };
 
 export function getIconSrc (setItem: Nodes) {

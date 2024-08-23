@@ -2,30 +2,22 @@
 
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
-import { ResetNodes, BackNodes, ExitNodes, OnNodes, OffNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes, ExitNodes, OnNodes, OffNodes } from '../_utilities';
 
+let DefaultNodesEnum = new DefaultNodes(); 
 let ResetNodesEnum = new ResetNodes(); 
 let BackNodesEnum = new BackNodes();
 let ExitNodesEnum = new ExitNodes();
 let OnNodesEnum = new OnNodes();
 let OffNodesEnum = new OffNodes();
 
-export default class Input implements Nodes {
+export default class Input extends DefaultNodes implements Nodes {
     key = "Input";
-    value = "HDMI";
+    selected = "HDMI";
     result = "HDMI";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 6;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Eingabe",
         SimplifiedChinese: "输入",
@@ -39,25 +31,15 @@ export default class Input implements Nodes {
         BrazilianPortuguese: "Entrada",
         Russian: "Входы",
     };
-    unit = null;
     nodes =  [
         // HDMI
         {
+            ...DefaultNodesEnum,
             key: "HDMI",
-            value: "HDMI",
+            selected: "HDMI",
             result: "HDMI",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "HDMI",
                 SimplifiedChinese: "HDMI",
@@ -70,27 +52,16 @@ export default class Input implements Nodes {
                 Nederlands: "HDMI",
                 BrazilianPortuguese: "HDMI",
                 Russian: "HDMI"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // VGA
         {
+            ...DefaultNodesEnum,
             key: "VGA",
-            value: "VGA",
+            selected: "VGA",
             result: "VGA",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "VGA",
                 SimplifiedChinese: "VGA",
@@ -103,27 +74,19 @@ export default class Input implements Nodes {
                 Nederlands: "VGA",
                 BrazilianPortuguese: "VGA",
                 Russian: "VGA"
-            },
-            unit: null,
-            nodes: null,
+            }
         },
         // 自動切換輸入
         {
+            ...DefaultNodesEnum,
             key: "AutoSwitchInput",
-            value: OnNodesEnum.value,
+            selected: OnNodesEnum.selected,
             result: OnNodesEnum.result,
-            displayState: false,
-            livePreview: false,
+            displayValue: true,
             size: 3,
             page: 1,
-            displayValue: true,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Autom. ing. omsch.",
                 SimplifiedChinese: "输入自动切换",
@@ -137,7 +100,6 @@ export default class Input implements Nodes {
                 BrazilianPortuguese: "Auto mudança de entrada",
                 Russian: "Авто смена входа"
             },
-            unit: null,
             nodes: [
                 {
                     ...OnNodesEnum,

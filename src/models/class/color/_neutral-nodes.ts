@@ -2,23 +2,14 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
 
-export default class NeutralNodes implements Nodes {
+export default class NeutralNodes extends DefaultNodes implements Nodes {
     key = "Neutral";
-    value = "Neutral";
+    selected = "Neutral";
     result = "Neutral";
-    displayValue = false;
-    displayState = false;
     livePreview = true;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Neutral",
         SimplifiedChinese: "中性色",
@@ -32,6 +23,4 @@ export default class NeutralNodes implements Nodes {
         BrazilianPortuguese: "Neutra",
         Russian: "Нейтральный"
     };
-    unit = null;
-    nodes = null
 };

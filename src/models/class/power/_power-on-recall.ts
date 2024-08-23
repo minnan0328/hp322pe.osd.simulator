@@ -2,28 +2,20 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes, OnNodes, OffNodes } from '../_utilities';
+import { DefaultNodes, BackNodes, OnNodes, OffNodes } from '../_utilities';
 
 const BackNodesEnum = new BackNodes();
 const OnNodesEnum = new OnNodes();
 const OffNodesEnum = new OffNodes();
 
-export default class PowerOnRecallNodes implements Nodes {
+export default class PowerOnRecallNodes extends DefaultNodes implements Nodes {
     key = "PowerOnRecall";
-    value = OnNodesEnum.value;
+    selected = OnNodesEnum.selected;
     result = OnNodesEnum.result;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Einschaltstatus speichern",
         SimplifiedChinese: "开机复位",

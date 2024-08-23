@@ -2,26 +2,19 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
+const DefaultNodesEnum = new DefaultNodes();
 
 const BackNodesEnum = new BackNodes();
 
-export default class MenuTimeoutNodes implements Nodes {
+export default class MenuTimeoutNodes extends DefaultNodes implements Nodes {
     key = "MenuTimeout";
-    value = 30;
+    selected = 30;
     result = 30;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 1;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Menü-Timeout",
         SimplifiedChinese: "菜单超时",
@@ -36,15 +29,15 @@ export default class MenuTimeoutNodes implements Nodes {
         Russian: "Тайм-аут меню"
     };
     unit = {
-        English: "s",
-        TraditionalChinese: "s",
-        SimplifiedChinese: "s",
         German: "s",
-        Spanish: "s",
+        SimplifiedChinese: "s",
+        TraditionalChinese: "s",
+        English: "s",
+        Español: "s",
         French: "s",
         Italian: "s",
         Japanese: "s",
-        Dutch: "s",
+        Nederlands: "s",
         BrazilianPortuguese: "s",
         Russian: "s"
     };
@@ -52,21 +45,14 @@ export default class MenuTimeoutNodes implements Nodes {
         {
             // Range (5~60)
             // Y (FD=60) for Accessibility mode
+            ...DefaultNodesEnum,
             key: "MenuTimeoutNodes",
-            value: this.value,
+            selected: this.selected,
             result: this.result,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 5,
             rangeMax: 60,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Menü-Timeout",
                 SimplifiedChinese: "菜单超时",
@@ -80,8 +66,7 @@ export default class MenuTimeoutNodes implements Nodes {
                 BrazilianPortuguese: "Tempo limite do menu",
                 Russian: "Тайм-аут меню"
             },
-            unit: this.unit,
-            nodes: null
+            unit: this.unit
         }
     ]
 };

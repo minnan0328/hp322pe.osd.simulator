@@ -11,24 +11,47 @@ export enum ModeType {
     exit = "exit",
 };
 
+export interface Language {
+    German: string,
+    SimplifiedChinese: string,
+    TraditionalChinese: string,
+    English: string,
+    Español: string,
+    French: string,
+    Italian: string,
+    Japanese: string,
+    Nederlands: string,
+    BrazilianPortuguese: string,
+    Russian: string
+};
+
 // interface
 export interface Nodes {
     key: string;
-    value: number | string | string[] | boolean | null;
+    selected: number | string | string[] | boolean | null;
     result: number | string | string[] | boolean | null;
+    disabled: Boolean;
     displayValue: boolean;
     displayState: boolean;
     livePreview: Boolean;
     size: number;
     page: number; // 當有啟用分頁需加入 NextPageButtonsNodes 及 PreviousPageButtonsNodes
     parents: string | null;
-    mode: string | null;
+    mode: string;
     rangeMin: number;
     rangeMax: number;
     rangeIcon: string | null;
     mergeGrid: boolean;
     only: string[];
-    language: { [key: string]: string; };
-    unit: { [key: string]: string; } | null;
+    language: Language | null;
+    unit: Language | null;
     nodes: Nodes[] | null;
+};
+
+
+export interface ControllerButtonList {
+    image: string | null,
+    event: (() => void),
+    stopEvent: (() => void),
+    type: string
 };

@@ -2,30 +2,21 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes, OffNodes, LowNodes, MediumNodes, HighNodes } from '../_utilities';
-
+import { DefaultNodes, BackNodes, OffNodes, LowNodes, MediumNodes, HighNodes } from '../_utilities';
 const BackNodesEnum = new BackNodes();
 const offNodesEnum = new OffNodes();
 const LowNodesEnum = new LowNodes();
 const MediumNodesEnum = new MediumNodes();
 const HighNodesEnum = new HighNodes();
 
-export default class BlackStretchNodes implements Nodes {
+export default class BlackStretchNodes extends DefaultNodes implements Nodes {
     key = "BlackStretch";
-    value = offNodesEnum.value;
+    selected = offNodesEnum.selected;
     result = offNodesEnum.result;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 5;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Schwarzdehnung",
         SimplifiedChinese: "黑延伸",
@@ -39,7 +30,6 @@ export default class BlackStretchNodes implements Nodes {
         BrazilianPortuguese: "Contraste de sombreado",
         Russian: "Растяжение черного"
     };
-    unit = null;
     nodes = [
         // 關
         {

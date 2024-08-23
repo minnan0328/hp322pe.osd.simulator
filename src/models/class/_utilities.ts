@@ -1,11 +1,12 @@
 // 亮度基本值，依據 color 切換有不同亮度
-import type { Nodes } from "@/types";
+import type { Nodes, Language } from "@/types";
 import { ModeType } from "@/types";
 
-export class ResetNodes implements Nodes {
-    key = "Reset";
-    value = null;
-    result = null;
+export class DefaultNodes implements Nodes {
+    key = "";
+    selected: number | string | string[] | boolean | null = null;;
+    result: number | string | string[] | boolean | null = null;;
+    disabled = false;
     displayValue = false;
     displayState = false;
     livePreview = false;
@@ -16,8 +17,28 @@ export class ResetNodes implements Nodes {
     rangeMin = 0;
     rangeMax = 0;
     rangeIcon = null;
-    only = ["HDMI", "VGA"];
+    only = [ "HDMI", "VGA"];
     mergeGrid = false;
+    language: Language = {
+        German: "",
+        SimplifiedChinese: "",
+        TraditionalChinese: "",
+        English: "",
+        Español: "",
+        French: "",
+        Italian: "",
+        Japanese: "",
+        Nederlands: "",
+        BrazilianPortuguese: "",
+        Russian: ""
+    };
+    unit: Language | null = null;
+    nodes: Nodes[] | null = null;
+};
+
+export class ResetNodes extends DefaultNodes implements Nodes {
+    key = "Reset";
+    mode = ModeType.button;
     language = {
         German: "Zurücksetzen",
         SimplifiedChinese: "重置",
@@ -31,26 +52,11 @@ export class ResetNodes implements Nodes {
         BrazilianPortuguese: "Redefinir",
         Russian: "Сброс"
     };
-    unit = null;
-    nodes = null;
 };
 
-export class BackNodes implements Nodes {
+export class BackNodes extends DefaultNodes implements Nodes {
     key = "Back";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Zurück",
         SimplifiedChinese: "返回",
@@ -64,25 +70,10 @@ export class BackNodes implements Nodes {
         BrazilianPortuguese: "Retroceder",
         Russian: "Назад"
     };
-    unit = null;
-    nodes = null;
 };
-export class ExitNodes implements Nodes {
+export class ExitNodes extends DefaultNodes implements Nodes {
     key = "Exit";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Beenden",
         SimplifiedChinese: "退出",
@@ -96,27 +87,14 @@ export class ExitNodes implements Nodes {
         BrazilianPortuguese: "Sair",
         Russian: "Выход"
     };
-    unit = null;
-    nodes = null;
 };
 
 // On enum
-export class OnNodes implements Nodes {
+export class OnNodes extends DefaultNodes implements Nodes {
     key = "On";
-    value = "On";
+    selected = "On";
     result = "On";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Ein",
         SimplifiedChinese: "开",
@@ -130,27 +108,14 @@ export class OnNodes implements Nodes {
         BrazilianPortuguese: "Ativado",
         Russian: "Вкл."
     };
-    unit = null;
-    nodes = null;
 };
 
 // Off enum
-export class OffNodes implements Nodes {
+export class OffNodes extends DefaultNodes implements Nodes {
     key = "Off";
     value = "Off";
     result = "Off";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Aus",
         SimplifiedChinese: "关闭",
@@ -164,27 +129,14 @@ export class OffNodes implements Nodes {
         BrazilianPortuguese: "Desligado",
         Russian: "Выкл."
     };
-    unit = null;
-    nodes = null;
 };
 
 // Low enum
-export class LowNodes implements Nodes {
+export class LowNodes extends DefaultNodes implements Nodes {
     key = "Low";
-    value = "Low";
+    selected = "Low";
     result = "Low";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Niedrig",
         SimplifiedChinese: "低",
@@ -198,27 +150,14 @@ export class LowNodes implements Nodes {
         BrazilianPortuguese: "Baixo",
         Russian: "Низк."
     };
-    unit = null;
-    nodes = null;
 };
 
 // Medium enum
-export class MediumNodes implements Nodes {
+export class MediumNodes extends DefaultNodes implements Nodes {
     key = "Medium";
-    value = "Medium";
+    selected = "Medium";
     result = "Medium";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Mittel",
         SimplifiedChinese: "中",
@@ -232,27 +171,14 @@ export class MediumNodes implements Nodes {
         BrazilianPortuguese: "Médio",
         Russian: "Средн."
     };
-    unit = null;
-    nodes = null;
 };
 
 // High enum
-export class HighNodes implements Nodes {
+export class HighNodes extends DefaultNodes implements Nodes {
     key = "High";
-    value = "High";
+    selected = "High";
     result = "High";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Hoch",
         SimplifiedChinese: "高",
@@ -266,26 +192,13 @@ export class HighNodes implements Nodes {
         BrazilianPortuguese: "Alto",
         Russian: "Высок."
     };
-    unit = null;
-    nodes = null;
 };
 // Top enum
-export class TopNodes implements Nodes {
+export class TopNodes extends DefaultNodes implements Nodes {
     key = "Top";
-    value = "Top";
+    selected = "Top";
     result = "Top";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Oben",
         SimplifiedChinese: "顶部",
@@ -299,26 +212,13 @@ export class TopNodes implements Nodes {
         BrazilianPortuguese: "Superior",
         Russian: "Сверху"
     };
-    unit = null;
-    nodes = null;
 };
 // Bottom enum
-export class BottomNodes implements Nodes {
+export class BottomNodes extends DefaultNodes implements Nodes {
     key = "Bottom";
-    value = "Bottom";
+    selected = "Bottom";
     result = "Bottom";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Unten",
         SimplifiedChinese: "底部",
@@ -333,26 +233,11 @@ export class BottomNodes implements Nodes {
         Russian: "Снизу"
     
     };
-    unit = null;
-    nodes = null;
 };
 // page change button
-export class PreviousPageButtonsNodes implements Nodes {
+export class PreviousPageButtonsNodes extends DefaultNodes implements Nodes {
     key = "PreviousPageButtons";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.paginationButton;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Vorherige Seite",
         SimplifiedChinese: "上一页",
@@ -366,26 +251,11 @@ export class PreviousPageButtonsNodes implements Nodes {
         BrazilianPortuguese: "Página anterior",
         Russian: "Предыдущая страница"
     };
-    unit = null;
-    nodes = null;
 };
 // page change button
-export class NextPageButtonsNodes implements Nodes {
+export class NextPageButtonsNodes extends DefaultNodes implements Nodes {
     key = "NextPageButtons";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.paginationButton;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Nächste Seite",
         SimplifiedChinese: "下一页",
@@ -399,6 +269,4 @@ export class NextPageButtonsNodes implements Nodes {
         BrazilianPortuguese: "Página seguinte",
         Russian: "Следующая страница"
     };
-    unit = null;
-    nodes = null;
 };

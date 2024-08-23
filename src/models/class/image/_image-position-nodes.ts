@@ -2,25 +2,16 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 
-export default class ImagePositionPlusNodes implements Nodes {
+export default class ImagePositionPlusNodes extends DefaultNodes implements Nodes {
     key = "ImagePosition";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
     only = ["VGA"];
-    mergeGrid = false
     language = {
         German: "Bildposition",
         SimplifiedChinese: "图像位置",
@@ -34,26 +25,19 @@ export default class ImagePositionPlusNodes implements Nodes {
         BrazilianPortuguese: "Posição da imagem",
         Russian: "Положение изобр-ния"
     };
-    unit = null;
     nodes = [
         // 水平
         {
             // VGA only - Range (0~100)
+            ...DefaultNodesEnum,
             key: "Horizontal",
-            value: 0,
+            selected: 0,
             result: 0,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,
             rangeMax: 100,
-            rangeIcon: null,
             only: ["VGA"],
-            mergeGrid: false,
             language: {
                 German: "Horizontal",
                 SimplifiedChinese: "水平",
@@ -66,28 +50,20 @@ export default class ImagePositionPlusNodes implements Nodes {
                 Nederlands: "Horizontaal",
                 BrazilianPortuguese: "Horizontal",
                 Russian: "Горизонтально"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 垂直
         {
             // Range (0~100)
+            ...DefaultNodesEnum,
             key: "Vertical",
-            value: 0,
+            selected: 0,
             result: 0,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,
             rangeMax: 100,
-            rangeIcon: null,
             only: ["VGA"],
-            mergeGrid: false,
             language: {
                 German: "Vertikal",
                 SimplifiedChinese: "垂直",
@@ -100,9 +76,7 @@ export default class ImagePositionPlusNodes implements Nodes {
                 Nederlands: "Verticaal",
                 BrazilianPortuguese: "Vertical",
                 Russian: "Вертикально"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 上一步
         {

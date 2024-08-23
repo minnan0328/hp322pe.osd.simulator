@@ -2,23 +2,17 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
+const DefaultNodesEnum = new DefaultNodes();
 
-export default class contrastNodes implements Nodes {
+export default class contrastNodes extends DefaultNodes implements Nodes {
     key = "Contrast";
-    value = 100;
+    selected = 100;
     result = 100;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 1;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Kontrast",
         SimplifiedChinese: "对比度",
@@ -32,27 +26,19 @@ export default class contrastNodes implements Nodes {
         BrazilianPortuguese: "Contraste",
         Russian: "Контрастность"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "ContrastNodes",
-            value: this.value,
+            selected: this.selected,
             result: this.result,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 0,
             rangeMax: 100,
             rangeIcon: "icon-brightness.svg",
             only: ["HDMI", "VGA"],
-            mergeGrid: false,
-            language: this.language,
-            unit: null,
-            nodes: null
+            language: this.language
         }
     ]
 };

@@ -1,27 +1,17 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
 import Color from '../color/_cool-nodes';
-import { ExitNodes } from '../_utilities';
+import { DefaultNodes, ExitNodes } from '../_utilities';
 
+const DefaultNodesEnum = new DefaultNodes();
 const ColorEnum = new Color();
 const ExitNodesEnum = new ExitNodes();
 
-export default class Information implements Nodes {
+export default class Information extends DefaultNodes implements Nodes {
     key = "Information";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 7;
     page = 1;
-    parents = null;
     mode = ModeType.info;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
         German: "Information",
         SimplifiedChinese: "信息",
@@ -35,24 +25,15 @@ export default class Information implements Nodes {
         BrazilianPortuguese: "Informação",
         Russian: "Информация"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "CurrentMode:",
-            value: "1920x1080 60Hz",
+            selected: "1920x1080 60Hz",
             result: "1920x1080 60Hz",
             displayValue: true,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.info,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Aktueller Modus",
                 SimplifiedChinese: "当前模式",
@@ -65,26 +46,16 @@ export default class Information implements Nodes {
                 Nederlands: "Huidige modus",
                 BrazilianPortuguese: "Modo atual",
                 Russian: "Текущий режим"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "OptimalMode:",
-            value: "1920x1080 100Hz",
+            selected: "1920x1080 100Hz",
             result: "1920x1080 100Hz",
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             displayValue: true,
             parents: this.key,
             mode: ModeType.info,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Optimaler Modus",
                 SimplifiedChinese: "最佳模式",
@@ -97,26 +68,16 @@ export default class Information implements Nodes {
                 Nederlands: "Optimale modus",
                 BrazilianPortuguese: "Modo ótimo",
                 Russian: "Оптимальный"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "ColorSetting:",
-            value: ColorEnum.value,
+            selected: ColorEnum.selected,
             result: ColorEnum.result,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             displayValue: true,
             parents: this.key,
             mode: ModeType.info,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Farbeinstellung",
                 SimplifiedChinese: "颜色设置",
@@ -129,26 +90,17 @@ export default class Information implements Nodes {
                 Nederlands: "Kleurinstelling",
                 BrazilianPortuguese: "Definição de cor",
                 Russian: "Настройка цвета"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "FWPackageVersion:",
-            value: "0.0.1.0",
+            selected: "0.0.1.0",
             result: "0.0.1.0",
             displayValue: true,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.info,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
             only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Firmwarepaketversion",
                 SimplifiedChinese: "固件包版本",
@@ -161,26 +113,16 @@ export default class Information implements Nodes {
                 Nederlands: "Versie van firmwarepakket",
                 BrazilianPortuguese: "Versão do pacote de firmware",
                 Russian: "Версия пакета микропрограммы"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "HWRevision:",
-            value: "B0IT0000",
+            selected: "B0IT0000",
             result: "B0IT0000",
             displayValue: true,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.info,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Hardwarerevision",
                 SimplifiedChinese: "硬件修订版本号",
@@ -193,26 +135,16 @@ export default class Information implements Nodes {
                 Nederlands: "Revisie van hardware",
                 BrazilianPortuguese: "Revisão de hardware",
                 Russian: "Версия оборудования"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "SerialNumber:",
-            value: "CNK0000001",
+            selected: "CNK0000001",
             result: "CNK0000001",
             displayValue: true,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.info,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Seriennummer",
                 SimplifiedChinese: "序列号",
@@ -225,9 +157,7 @@ export default class Information implements Nodes {
                 Nederlands: "Serienummer",
                 BrazilianPortuguese: "Número de Série",
                 Russian: "Серийный номер"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
             ...ExitNodesEnum,

@@ -2,22 +2,17 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-export default class MenuTransparencyNodes implements Nodes {
+import { DefaultNodes } from '../_utilities';
+const DefaultNodesEnum = new DefaultNodes();
+
+export default class MenuTransparencyNodes extends DefaultNodes implements Nodes {
     key = "MenuTransparency";
-    value = 0;
+    selected = 0;
     result = 0;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 1;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Menütransparenz",
         SimplifiedChinese: "菜单透明度",
@@ -31,26 +26,18 @@ export default class MenuTransparencyNodes implements Nodes {
         BrazilianPortuguese: "Transparência do menu",
         Russian: "Прозрачность меню"
     };
-    unit = null;
     nodes = [
         {
             // Range (0 - 10) with 0 = Off, no transparency
             // Y (FD=0=Off)
+            ...DefaultNodesEnum,
             key: "MenuTransparencyNodes",
-            value: this.value,
+            selected: this.selected,
             result: this.result,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 0,
             rangeMax: 10,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Menütransparenz",
                 SimplifiedChinese: "菜单透明度",
@@ -63,9 +50,7 @@ export default class MenuTransparencyNodes implements Nodes {
                 Nederlands: "Menu Transparantie",
                 BrazilianPortuguese: "Transparência do menu",
                 Russian: "Прозрачность меню"
-            },
-            unit: null,
-            nodes: null
+            }
         }
     ]
 };

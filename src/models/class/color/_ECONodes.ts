@@ -2,23 +2,14 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
 
-export default class ECONodes implements Nodes {
+export default class ECONodes extends DefaultNodes implements Nodes {
     key = "ECO";
-    value = "ECO";
+    selected = "ECO";
     result = "ECO";
-    displayValue = false;
-    displayState = false;
     livePreview = true;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "ECO",
         SimplifiedChinese: "ECO",
@@ -32,6 +23,4 @@ export default class ECONodes implements Nodes {
         BrazilianPortuguese: "ECO",
         Russian: "ECO"
     };
-    unit = null;
-    nodes = null
 };

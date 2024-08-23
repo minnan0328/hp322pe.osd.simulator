@@ -2,23 +2,13 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-
-export default class WarmNodes implements Nodes {
+import { DefaultNodes } from '../_utilities';
+export default class WarmNodes extends DefaultNodes implements Nodes {
     key = "Warm";
-    value = "Warm";
+    selected = "Warm";
     result = "Warm";
-    displayValue = false;
-    displayState = false;
     livePreview = true;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Warm",
         SimplifiedChinese: "暖色",
@@ -32,6 +22,4 @@ export default class WarmNodes implements Nodes {
         BrazilianPortuguese: "Aquecida",
         Russian: "Теплый"
     };
-    unit = null;
-    nodes = null
 };

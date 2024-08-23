@@ -4,11 +4,11 @@
             <div class="item range-text" v-text="toLanguageText(nodes.language)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
-                <div :class="['graduate', nodes.key, { max: nodes.value == nodes.rangeMax }]"></div>
+                <div :class="['graduate', nodes.key, { max: nodes.selected == nodes.rangeMax }]"></div>
             </div>
 
             <div class="item range-max-value">
-                <span v-text="nodes.value"></span>
+                <span v-text="nodes.selected"></span>
                 <span v-if="nodes.unit" v-text="toLanguageText(nodes.unit)"></span>
             </div>
         </div>
@@ -33,7 +33,7 @@ const props = defineProps({
 });
 
 const currentValue = computed(() => {
-    let showValue = convertRange(props.nodes.value as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
+    let showValue = convertRange(props.nodes.selected as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
     return `${showValue as number - 4}%`
 });
 

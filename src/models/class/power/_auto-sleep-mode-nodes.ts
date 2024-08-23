@@ -2,28 +2,20 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes, OnNodes, OffNodes } from '../_utilities';
+import { DefaultNodes, BackNodes, OnNodes, OffNodes } from '../_utilities';
 
 const BackNodesEnum = new BackNodes();
 const OnNodesEnum = new OnNodes();
 const OffNodesEnum = new OffNodes();
 
-export default class AutoSleepModeNodes implements Nodes {
+export default class AutoSleepModeNodes extends DefaultNodes implements Nodes {
     key = "AutoSleepMode";
-    value = OnNodesEnum.value;
+    selected = OnNodesEnum.selected;
     result = OnNodesEnum.result;
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Automat. Ruhemodus",
         SimplifiedChinese: "自动睡眠模式",
@@ -37,7 +29,6 @@ export default class AutoSleepModeNodes implements Nodes {
         BrazilianPortuguese: "Modo Suspensão automática",
         Russian: "Автом. спящий режим"
     };
-    unit = null;
     nodes = [
         {
             ...OnNodesEnum,

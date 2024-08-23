@@ -2,26 +2,20 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
 
 const BackNodesEnum = new BackNodes();
+const DefaultNodesEnum = new DefaultNodes();
 
-export default class BlackStretchNodes implements Nodes {
+export default class BlackStretchNodes extends DefaultNodes implements Nodes {
     key = "VideoLevel";
-    value = "Auto";
+    selected = "Auto";
     result = "Auto";
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 4;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
     only = ["HDMI"];
-    mergeGrid = false
     language = {
         German: "Videostufe",
         SimplifiedChinese: "视频电平",
@@ -39,21 +33,13 @@ export default class BlackStretchNodes implements Nodes {
     nodes = [
         // 自動
         {
+            ...DefaultNodesEnum,
             key: "Auto",
-            value: "Auto",
+            selected: "Auto",
             result: "Auto",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
             only: ["HDMI"],
-            mergeGrid: false,
             language: {
                 German: "Automatisch",
                 SimplifiedChinese: "自动",
@@ -66,27 +52,17 @@ export default class BlackStretchNodes implements Nodes {
                 Nederlands: "Automatisch",
                 BrazilianPortuguese: "Automático",
                 Russian: "Автоматически"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 限制範圍
         {
+            ...DefaultNodesEnum,
             key: "LimitedRange(16 - 235)",
-            value: "Limited Range (16 - 235)",
+            selected: "Limited Range (16 - 235)",
             result: "Limited Range (16 - 235)",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
             only: ["HDMI"],
-            mergeGrid: false,
             language: {
                 German: "Begrenzter Bereich (16 - 235)",
                 SimplifiedChinese: "有限范围 (16 - 235)",
@@ -99,27 +75,18 @@ export default class BlackStretchNodes implements Nodes {
                 Nederlands: "Beperkt bereik (16 - 235)",
                 BrazilianPortuguese: "Gama limitada (16 - 235)",
                 Russian: "Ограниченный диапазон (16 - 235)"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 完整範圍
         {
+            ...DefaultNodesEnum,
             key: "FullRange(0 - 255)",
-            value: "Full Range (0 - 255)",
+            selected: "Full Range (0 - 255)",
             result: "Full Range (0 - 255)",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
             rangeIcon: null,
             only: ["HDMI"],
-            mergeGrid: false,
             language: {
                 German: "Volle Reichweite (0 - 255)",
                 SimplifiedChinese: "完整范围 (0 - 255)",
@@ -132,9 +99,7 @@ export default class BlackStretchNodes implements Nodes {
                 Nederlands: "Volledig bereik (0 - 255)",
                 BrazilianPortuguese: "Gama completa (0 - 255)",
                 Russian: "Полный диапазон (0 - 255)"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 上一步
         {

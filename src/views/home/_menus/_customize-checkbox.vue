@@ -31,11 +31,11 @@ const props = defineProps({
 });
 
 function isChecked(item: Nodes): boolean {
-    const value = props.previousNodes.value;
+    const value = props.previousNodes.selected;
 
     // 強制轉型，並根據類型使用 includes 方法
     return Array.isArray(value)
-        ? (value as string[]).includes(item.value as string)
+        ? (value as string[]).includes(item.selected as string)
         : false;
 };
 

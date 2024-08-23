@@ -2,7 +2,7 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../../_utilities';
+import { DefaultNodes, BackNodes } from '../../_utilities';
 import { 
     AssignAutoAdjustmentNodes,
     AssignBrightnessNodes,
@@ -12,6 +12,7 @@ import {
     AssignEmptyNodes
 } from './_utilities';
 
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignBrightnessNodesEnum = new AssignBrightnessNodes();
@@ -20,22 +21,11 @@ const AssignDisplayInformationNodesEnum = new AssignDisplayInformationNodes();
 const AssignNextActiveInputNodesEnum = new AssignNextActiveInputNodes();
 const AssignEmptyNodesEnum = new AssignEmptyNodes();
 
-export default class AssignButtonsNodes implements Nodes {
+export default class AssignButtonsNodes extends DefaultNodes implements Nodes {
     key = "AssignButtons";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 4;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Tasten zuweisen",
         SimplifiedChinese: "指定按钮",
@@ -49,25 +39,19 @@ export default class AssignButtonsNodes implements Nodes {
         BrazilianPortuguese: "Atribuir botões",
         Russian: "Назначить кнопки"
     };
-    unit = null;
     nodes = [
         {
             // Y  (FD=Next Active Input)
+            ...DefaultNodesEnum,
             key: "AssignButton1",
-            value: AssignNextActiveInputNodesEnum.value,
+            selected: AssignNextActiveInputNodesEnum.selected,
             result: AssignNextActiveInputNodesEnum.result,
             displayValue: true,
             displayState: true,
-            livePreview: false,
             size: 7,
             page: 1,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Taste 1 zuweisen",
                 SimplifiedChinese: "指定按钮 1",
@@ -81,7 +65,6 @@ export default class AssignButtonsNodes implements Nodes {
                 BrazilianPortuguese: "Atribuir botões 1",
                 Russian: "Назначить кнопку 1"
             },
-            unit: null,
             nodes: [
                 {
                     ...AssignAutoAdjustmentNodesEnum,
@@ -117,21 +100,16 @@ export default class AssignButtonsNodes implements Nodes {
         {   
             // Y  (FD=Auto-Adjustment) VGA input
             // Y (FD=Color)
+            ...DefaultNodesEnum,
             key: "AssignButton2",
-            value: AssignColorNodesEnum.value,
+            selected: AssignColorNodesEnum.selected,
             result: AssignColorNodesEnum.result,
             displayValue: true,
             displayState: true,
-            livePreview: false,
             size: 7,
             page: 1,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Taste 2 zuweisen",
                 SimplifiedChinese: "指定按钮 2",
@@ -145,7 +123,6 @@ export default class AssignButtonsNodes implements Nodes {
                 BrazilianPortuguese: "Atribuir botões 2",
                 Russian: "Назначить кнопку 2"
             },
-            unit: null,
             nodes: [
                 {
                     ...AssignAutoAdjustmentNodesEnum,
@@ -181,21 +158,16 @@ export default class AssignButtonsNodes implements Nodes {
         {   
             // Auto-Adjustment only appears in menu for VGA
             // Y  (FD=Brightness)
+            ...DefaultNodesEnum,
             key: "AssignButton3",
-            value: AssignBrightnessNodesEnum.value,
+            selected: AssignBrightnessNodesEnum.selected,
             result: AssignBrightnessNodesEnum.result,
             displayValue: true,
             displayState: true,
-            livePreview: false,
             size: 7,
             page: 1,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Taste 3 zuweisen",
                 SimplifiedChinese: "指定按钮 3",
@@ -209,7 +181,6 @@ export default class AssignButtonsNodes implements Nodes {
                 BrazilianPortuguese: "Atribuir botões 3",
                 Russian: "Назначить кнопку 3"
             },
-            unit: null,
             nodes: [
                 {
                     ...AssignAutoAdjustmentNodesEnum,

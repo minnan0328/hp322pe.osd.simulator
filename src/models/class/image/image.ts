@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ResetNodes, BackNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes } from '../_utilities';
 import AutoAdjustmentNodes from './_auto-adjustment-nodes';
 import ClockandPhaseNodes from './_clock-and-phase-nodes';
 import ImagePositionNodes from './_image-position-nodes';
@@ -8,6 +8,7 @@ import ResponseTimeNodes from './_response-rime-nodes';
 import SharpnessNodes from './_sharpness-nodes';
 import ImageScalingNodes from './_image-scaling-nodes';
 
+const DefaultNodesEnum = new DefaultNodes(); 
 const ResetNodesEnum = new ResetNodes(); 
 const BackNodesEnum = new BackNodes();
 const AutoAdjustmentNodesEnum = new AutoAdjustmentNodes();
@@ -17,22 +18,11 @@ const ResponseTimeNodesEnum = new ResponseTimeNodes();
 const SharpnessNodesEnum = new SharpnessNodes();
 const ImageScalingNodesEnum = new ImageScalingNodes();
 
-export default class Image implements Nodes {
+export default class Image extends DefaultNodes implements Nodes {
     key = "Image";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 8;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
         German: "Bild",
         SimplifiedChinese: "图像",
@@ -46,7 +36,6 @@ export default class Image implements Nodes {
         BrazilianPortuguese: "Imagem",
         Russian: "Изображение"
     };
-    unit = null;
     nodes = [
         // 自動調整
         {

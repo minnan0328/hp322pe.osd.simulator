@@ -7,7 +7,7 @@
                 <div class="inner">
                     <div class="left">
                         <div class="input">
-                            <div :class="['tab', { 'selected-tab': selectedTab == tab}]" v-for="tab in tabs" v-text="tab.value" @click="selectTad(tab)"></div>
+                            <div :class="['tab', { 'selected-tab': selectedTab == tab}]" v-for="tab in tabs" v-text="tab.selected" @click="selectTad(tab)"></div>
                         </div>
                         <div class="card">
                             <div class="top"></div>
@@ -71,7 +71,7 @@ const selectedTab = ref<Nodes | null>(tabs[0] as Nodes | null);
 
 function selectTad(tab: Nodes) {
     selectedTab.value = tab;
-    inputEnum.value.value = selectedTab.value.value as string;
+    inputEnum.value.selected = selectedTab.value.selected as string;
     inputEnum.value.result = selectedTab.value.result as string;
     // 選擇 VGA 時更換自訂按鈕項目
     store.setAssignButtonValue();

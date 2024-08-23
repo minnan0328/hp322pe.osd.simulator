@@ -2,23 +2,14 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '@/models/class/_utilities';
 
-export class AssignAutoAdjustmentNodes implements Nodes {
+export class AssignAutoAdjustmentNodes extends DefaultNodes implements Nodes {
     key = "AssignAuto-Adjustment";
-    value = "Auto-Adjustment";
+    selected = "Auto-Adjustment";
     result = "Auto-Adjustment";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
     only = ["VGA"];
-    mergeGrid = false
     language = {
         German: "Automatische Einstellung wird durchgeführt",
         SimplifiedChinese: "正在自动调整",
@@ -32,26 +23,13 @@ export class AssignAutoAdjustmentNodes implements Nodes {
         BrazilianPortuguese: "Ajuste Automático está em Andamento",
         Russian: "Выполняется автом. регулировка"
     };
-    unit = null;
-    nodes = null;
 };
 
-export class AssignBrightnessNodes implements Nodes {
+export class AssignBrightnessNodes extends DefaultNodes implements Nodes {
     key = "AssignBrightness";
-    value = "Brightness";
+    selected = "Brightness";
     result = "Brightness";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Helligkeit",
         SimplifiedChinese: "亮度",
@@ -65,26 +43,13 @@ export class AssignBrightnessNodes implements Nodes {
         BrazilianPortuguese: "Brilho",
         Russian: "Яркость"
     };
-    unit = null;
-    nodes = null;
 };
 
-export class AssignColorNodes implements Nodes {
+export class AssignColorNodes extends DefaultNodes implements Nodes {
     key = "AssignColor";
-    value = "Color";
+    selected = "Color";
     result = "Color";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Farbe",
         SimplifiedChinese: "颜色",
@@ -98,26 +63,13 @@ export class AssignColorNodes implements Nodes {
         BrazilianPortuguese: "Cor",
         Russian: "Цвет"
     };
-    unit = null;
-    nodes = null;
 };
 
-export class AssignDisplayInformationNodes implements Nodes {
+export class AssignDisplayInformationNodes extends DefaultNodes implements Nodes {
     key = "AssignDisplayInformation";
-    value = "Display Information";
+    selected = "Display Information";
     result = "Display Information";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Display-Information",
         SimplifiedChinese: "显示信息",
@@ -131,26 +83,13 @@ export class AssignDisplayInformationNodes implements Nodes {
         BrazilianPortuguese: "Informações do monitor",
         Russian: "Информация"
     };
-    unit = null;
-    nodes = null;
 };
 
-export class AssignNextActiveInputNodes implements Nodes {
+export class AssignNextActiveInputNodes extends DefaultNodes implements Nodes {
     key = "AssignNextActiveInput";
-    value = "Next Active Input";
+    selected = "Next Active Input";
     result = "Next Active Input";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Nächster aktiver Eingang",
         SimplifiedChinese: "下一个有效输入",
@@ -164,26 +103,13 @@ export class AssignNextActiveInputNodes implements Nodes {
         BrazilianPortuguese: "Entr. ativa seguinte",
         Russian: "След. активный вход"
     };
-    unit = null;
-    nodes = null;
 };
 
-export class AssignEmptyNodes implements Nodes {
+export class AssignEmptyNodes extends DefaultNodes implements Nodes {
     key = "AssignEmpty(NoFunction)";
-    value = "Empty (No Function)";
+    selected = "Empty (No Function)";
     result = "Empty (No Function)";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Leer (keine Funktion)",
         SimplifiedChinese: "空（不具备任何功能）",
@@ -197,6 +123,4 @@ export class AssignEmptyNodes implements Nodes {
         BrazilianPortuguese: "Vazio (sem função)",
         Russian: "Пусто (функция не назначена)"
     };
-    unit = null;
-    nodes = null;
 };

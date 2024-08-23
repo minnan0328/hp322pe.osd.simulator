@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ResetNodes, BackNodes } from '../_utilities';
+import { DefaultNodes, ResetNodes, BackNodes } from '../_utilities';
 import LanguageNodes from './_language-nodes';
 import MenuPositionNodes from './_menu-position-nodes';
 import MenuTransparencyNodes from './_menu-transparency-nodes';
@@ -17,22 +17,11 @@ let MenuTimeoutNodesEnum = new MenuTimeoutNodes();
 let OSDMessagesNodesEnum = new OSDMessagesNodes();
 let AssignButtonsNodesEnum = new AssignButtonsNodes();
 
-export default class Menu implements Nodes {
+export default class Menu extends DefaultNodes implements Nodes {
     key = "Menu";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 8;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false;
     language = {
         German: "Menü",
         SimplifiedChinese: "菜单",
@@ -46,7 +35,6 @@ export default class Menu implements Nodes {
         BrazilianPortuguese: "Menu",
         Russian: "Меню"
     };
-    unit = null;
     nodes = [
         // 語言
         {

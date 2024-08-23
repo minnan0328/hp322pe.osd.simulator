@@ -23,7 +23,7 @@ export const useStore = defineStore('counter', () => {
     // 選擇 VGA 時更換自訂按鈕項目
 	function setAssignButtonValue() {
 		let assignButton2Result = input.value.result == "VGA" ? AssignAutoAdjustmentNodesEnum : AssignColorNodesEnum;
-		menu.value.nodes[5].nodes![1].value = assignButton2Result.value;
+		menu.value.nodes[5].nodes![1].selected = assignButton2Result.selected;
 		menu.value.nodes[5].nodes![1].result = assignButton2Result.result;
 	};
 

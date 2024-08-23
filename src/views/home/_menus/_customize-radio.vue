@@ -1,7 +1,7 @@
 <template>
     <div :class="['customize-radio', { selected: selected }]">
         <div :class="['round', { selected: isChecked }]"></div>
-        <div v-text="toLanguageText(nodes.language)"></div>
+        <div v-text="toLanguageText(nodes.language!)"></div>
     </div>
 </template>
 <script setup lang="ts">

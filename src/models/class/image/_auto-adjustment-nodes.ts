@@ -2,23 +2,12 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
 
-export default class AutoAdjustmentNodes implements Nodes {
+export default class AutoAdjustmentNodes extends DefaultNodes implements Nodes {
     key = "AutoAdjustment";
-    value = null;
-    result = null;
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
     only = ["VGA"];
-    mergeGrid = false
     language = {
         German: "Automat. Einstellung",
         SimplifiedChinese: "自动调整",
@@ -32,6 +21,4 @@ export default class AutoAdjustmentNodes implements Nodes {
         BrazilianPortuguese: "Ajuste Automático",
         Russian: "Автом. регулировка"
     };
-    unit = null;
-    nodes = null;
 };

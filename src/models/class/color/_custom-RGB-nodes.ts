@@ -2,23 +2,18 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
+import { DefaultNodes } from '../_utilities';
 
-export default class CustomRGBNodes implements Nodes {
+const DefaultNodesEnum = new DefaultNodes();
+
+export default class CustomRGBNodes extends DefaultNodes implements Nodes {
     key = "CustomRGB";
-    value = "CustomRGB";
+    selected = "CustomRGB";
     result = "CustomRGB";
-    displayValue = false;
-    displayState = false;
     livePreview = true;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.radio;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Benutzerdefiniert RGB",
         SimplifiedChinese: "自定义 RGB",
@@ -32,26 +27,18 @@ export default class CustomRGBNodes implements Nodes {
         BrazilianPortuguese: "RGB Personalizado",
         Russian: "Пользовательские настройки RGB"
     };
-    unit = null;
     nodes = [
         // RGB range (0~255)
         // Red Color
         {
+            ...DefaultNodesEnum,
             key: "RedColor",
-            value: 255,
+            selected: 255,
             result: 255,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 0,
             rangeMax: 255,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "R",
                 SimplifiedChinese: "R",
@@ -64,27 +51,18 @@ export default class CustomRGBNodes implements Nodes {
                 Nederlands: "R",
                 BrazilianPortuguese: "R",
                 Russian: "R"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // Green Color
         {
+            ...DefaultNodesEnum,
             key: "GreenColor",
-            value: 255,
+            selected: 255,
             result: 255,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 0,
             rangeMax: 255,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "G",
                 SimplifiedChinese: "G",
@@ -97,27 +75,18 @@ export default class CustomRGBNodes implements Nodes {
                 Nederlands: "G",
                 BrazilianPortuguese: "G",
                 Russian: "G"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // Blue Color
         {
+            ...DefaultNodesEnum,
             key: "BlueColor",
-            value: 255,
+            selected: 255,
             result: 255,
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.verticalRange,
             rangeMin: 0,
             rangeMax: 255,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "B",
                 SimplifiedChinese: "B",
@@ -130,9 +99,7 @@ export default class CustomRGBNodes implements Nodes {
                 Nederlands: "B",
                 BrazilianPortuguese: "B",
                 Russian: "B"
-            },
-            unit: null,
-            nodes: null
+            }
         }
     ]
 };

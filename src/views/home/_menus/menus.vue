@@ -28,16 +28,16 @@
     
             <div class="footer">
                 <div class="current-mode">
-                    {{ toLanguageText(informationEnum.nodes[0].language) }}: {{ informationEnum.nodes[0].value }}
+                    {{ toLanguageText(informationEnum.nodes[0].language) }}: {{ informationEnum.nodes[0].selected }}
                 </div>
                 <div class="current-input">
-                    {{ toLanguageText(inputEnum.language) }}: {{ inputEnum.value }}
+                    {{ toLanguageText(inputEnum.language) }}: {{ inputEnum.selected }}
                 </div>
             </div>
         </div>
         <div :class="['menu assign-menu', state.menuPanel.key]" v-if="openAssignButton && state.menuPanel">
             <div class="header">
-                <p>{{ toLanguageText(state.menuPanel.language) }}</p>
+                <p>{{ toLanguageText(state.menuPanel.language!) }}</p>
             </div>
             <div class="body">
                 <div :class="['assign-setting', state.menuPanel.key]">
@@ -49,14 +49,14 @@
                                     selected: state.secondPanel?.key == secondNodes.key,
                                     'merge-grid': secondNodes.mergeGrid
                                 }]"
-                                v-if="(secondNodes.mode == ModeType.button && secondNodes.key == ExitNodesEnum.key) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language)">
+                                v-if="(secondNodes.mode == ModeType.button && secondNodes.key == ExitNodesEnum.key) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language!)">
                             </div>
                             <!-- button -->
     
                             <!-- radio -->
                             <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
                                 :nodes="secondNodes"
-                                :isChecked="state.menuPanel.value == secondNodes.value"
+                                :isChecked="state.menuPanel.selected == secondNodes.selected"
                                 :selected="state.secondPanel?.key == secondNodes.key">
                             </customizeRadio>
                             <!-- radio -->
@@ -105,7 +105,7 @@
 <script lang="ts" setup>
 import { ref, reactive, watch, computed } from 'vue';
 import { useStore } from '@/stores/index';
-import type { Nodes } from '@/types';
+import type { Nodes, ControllerButtonList } from '@/types';
 import { ModeType } from '@/types';
 import { isEnableInput, toLanguageText } from '@/service/service';
 // components
@@ -143,8 +143,10 @@ import {
     AssignEmptyNodes
 } from '@/models/class/menu/assign-buttons/_utilities';
 
-import { BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
+import { DefaultNodes, BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
+import BrightnessDefaultValueEnum from '@/models/enum/brightnessDefaultValue/brightnessDefaultValue';
 
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 const ResetNodesEnum = new ResetNodes();
 const ExitNodesEnum = new ExitNodes();
@@ -186,9 +188,11 @@ const informationEnum = computed(() => {
     return store.$state.information;
 });
 
+const ColorNodesEnum = new Color();
+
 const resetMenus = {
     brightness: new Brightness(),
-    color: new Color(),
+    color: ColorNodesEnum,
     image: new Image(),
     input: new Input(),
     power: new Power(),
@@ -200,23 +204,11 @@ const resetMenus = {
 
 const menus = computed(() => {
     return {
+        ...DefaultNodesEnum,
         key: "menu",
-        value: null,
-        result: null,
-        displayValue: false,
-        displayState: false,
-        livePreview: false,
         size: 9,
         page: 1,
-        parents: null,
         mode: ModeType.button,
-        rangeMin: 0,
-        rangeMax: 0,
-        rangeIcon: null,
-        only: ["HDMI", "VGA"],
-        mergeGrid: false,
-        language: {},
-        unit: null,
         nodes: [
             store.$state.brightness,
             store.$state.color,
@@ -365,21 +357,10 @@ function handleAssignButton(key: string) {
     menuTimeout();
 };
 
-
-const brightnessDefaultValue = {
-    [store.$state.color.nodes[0].key]: 76,
-    [store.$state.color.nodes[1].key]: 26,
-    [store.$state.color.nodes[2].key]: 86,
-    [store.$state.color.nodes[3].key]: 86,
-    [store.$state.color.nodes[4].key]: 100,
-    [store.$state.color.nodes[5].key]: 90,
-    [store.$state.color.nodes[6].key]: 86,
-    [store.$state.color.nodes[7].key]: 100,
-};
-
 function handleBrightness(key: string) {
-    menus.value.nodes[0].nodes[0].result = brightnessDefaultValue[key];
-}
+    // menus.value.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[key];
+    menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[key];
+};
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
     if(newVal == false) {
@@ -394,13 +375,6 @@ function selectedMenuPanel(nodes: Nodes) {
     if(state.currentPanelNumber > 1) {
         handleTarget();
     }
-};
-
-interface ControllerButtonList {
-    image: string | null,
-    event: (() => void),
-    stopEvent: (() => void),
-    type: string
 };
 
 // 控制選單按鈕組合列表
@@ -612,7 +586,7 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
     
         do {
             if (openAllMenu.value && isEnableInput(node.nodes[index]) || isEnableInput(node.nodes[index]) && openAssignButton.value && node.nodes[index].mode != ModeType.info) {
-                let selectedIndex = (node.value || node.value == 0) ? node.nodes.findIndex(n => n.value == node.value) : index;
+                let selectedIndex = (node.selected || node.selected == 0) ? node.nodes.findIndex(n => n.selected == node.selected) : index;
                 index = selectedIndex > 0 ? selectedIndex : index;
                 setValue(node.nodes[index], index);
                 return;
@@ -627,7 +601,6 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
 // 上一步
 function handlePrevious() {
     menuTimeout();
-
     if(state.secondPanel && !state.thirdPanel) {
         state.secondPanel = null;
         state.secondPanelIndex = 0;
@@ -637,11 +610,12 @@ function handlePrevious() {
             state.menuPanel = state.temporaryStorage;
             state.temporaryStorage = null;
 
-            if(state.menuPanel.key == "Color") {
-                handleBrightness(state.menuPanel.result as string);
+            if(state.menuPanel.key == ColorNodesEnum.key) {
+                menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[state.menuPanel.result as string];
+                menus.value.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[state.menuPanel.selected as string];
+                // handleBrightness(state.menuPanel.result as string);
             };
         };
-
     } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
         state.thirdPanel = null;
         state.thirdPanelIndex = 0;
@@ -652,14 +626,11 @@ function handlePrevious() {
             state.temporaryStorage = null;
         }
 
-
         // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
         if(state.secondPanel.key == "Language") {
-            state.secondPanel.value = state.secondPanel.nodes![3].value;
+            state.secondPanel.selected = state.secondPanel.nodes![3].selected;
             state.secondPanel.result = state.secondPanel.nodes![3].result;
         }
-
-
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
         state.fourthPanel = null;
         state.fourthPanelIndex = 0;
@@ -712,7 +683,6 @@ function handleNavigation(direction: 'up' | 'down') {
                     state.secondPanelIndex = index;
                     state.secondPanel = state.menuPanel.nodes[state.secondPanelIndex];
                     
-
                     if(state.secondPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
                         if(state.temporaryStorage == null) {
@@ -722,8 +692,9 @@ function handleNavigation(direction: 'up' | 'down') {
                         if(state.secondPanel.mode == ModeType.button || state.secondPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
 
-                            if(state.secondPanel.parents == "Color") {
-                                handleBrightness(state.secondPanel.result as string);
+                            // 預覽所選擇顏色亮度
+                            if(state.secondPanel.parents == ColorNodesEnum.key) {
+                                menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[state.secondPanel.result as string];
                             }
                             
                             state.menuPanel.result = state.secondPanel.result;
@@ -845,16 +816,16 @@ function handleRangeValue(step: string) {
     // 增減 range value
     function calculateValue(nodes: Nodes, previousNodes: Nodes){
         if(nodes.mode == ModeType.verticalRange || nodes.mode == ModeType.horizontalRange) {
-            if(step == "subtract" && (nodes.value as number) > nodes.rangeMin && (nodes.value as number) <= nodes.rangeMax) {
-                (nodes.value as number) -= 1;
+            if(step == "subtract" && (nodes.selected as number) > nodes.rangeMin && (nodes.selected as number) <= nodes.rangeMax) {
+                (nodes.selected as number) -= 1;
                 (nodes.result as number) -= 1;
-            } else if(step == "add" && (nodes.value as number) >= nodes.rangeMin && (nodes.value as number) < nodes.rangeMax) {
-                (nodes.value as number) += 1;
+            } else if(step == "add" && (nodes.selected as number) >= nodes.rangeMin && (nodes.selected as number) < nodes.rangeMax) {
+                (nodes.selected as number) += 1;
                 (nodes.result as number) += 1;
             }
 
             if(previousNodes.key != "CustomRGB") {
-                previousNodes.value = nodes.value;
+                previousNodes.selected = nodes.selected;
                 previousNodes.result = nodes.result;
             }
 
@@ -959,13 +930,21 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     };
 
     // checkbox 處理只處理 string[]
-    if(nodes.mode == ModeType.checkBox && typeof nodes.value == "string" && Array.isArray(previousNodes.value) && Array.isArray(previousNodes.result)) {
-        let checked: boolean = (previousNodes.value as string[]).includes(nodes.value as string);
-        checked ? previousNodes.value.splice(previousNodes.value.indexOf(nodes.value), 1) : previousNodes.value.push(nodes.value);
-        previousNodes.result = previousNodes.value;
+    if(nodes.mode == ModeType.checkBox && typeof nodes.selected == "string" && Array.isArray(previousNodes.selected) && Array.isArray(previousNodes.result)) {
+        let checked: boolean = (previousNodes.selected as string[]).includes(nodes.selected as string);
+        checked ? previousNodes.selected.splice(previousNodes.selected.indexOf(nodes.selected), 1) : previousNodes.selected.push(nodes.selected);
+        previousNodes.result = previousNodes.selected;
     } else {
-        previousNodes.value = nodes.value;
+        
+        previousNodes.selected = nodes.selected;
         previousNodes.result = nodes.result;
+        
+        if(previousNodes.key == ColorNodesEnum.key) {
+            menus.value.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[nodes.selected as string];
+            menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[nodes.result as string];
+            menus.value.nodes[0].nodes![0].nodes![0].selected = BrightnessDefaultValueEnum[nodes.selected as string];
+            menus.value.nodes[0].nodes![0].nodes![0].result = BrightnessDefaultValueEnum[nodes.result as string];
+        }
 
         if(nodes.livePreview) {
             // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
@@ -1018,8 +997,11 @@ function menuTimeout() {
     }
 
     menuTimeOutIntervalId.value = setTimeout(() => {
+        if(openAssignButton.value) {
+            handleClose();
+        }
+
         openAllMenu.value = false;
-        openAssignButton.value = false;
     }, (menuStateResult.value.menuTimeout as number) * 1000);
 }
 

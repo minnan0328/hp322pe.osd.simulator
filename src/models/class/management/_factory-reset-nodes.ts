@@ -2,48 +2,39 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
 
+const DefaultNodesEnum = new DefaultNodes(); 
 const BackNodesEnum = new BackNodes();
 
-export default class FactoryResetNodes implements Nodes {
+export default class FactoryResetNodes extends DefaultNodes implements Nodes {
     key = "FactoryReset";
-    value = "Yes";
+    selected = "Yes";
     result = "Yes";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 3;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
+        German: "Werkseinst. wiederherst.",
+        SimplifiedChinese: "恢复出厂设置",
+        TraditionalChinese: "恢復出廠預設值",
         English: "Factory Reset",
-        TraditionalChinese: "恢復出廠設定值"
+        Español: "Ajuste de fábrica",
+        French: "Réglage usine",
+        Italian: "Regolazione di fabbrica",
+        Japanese: "出荷時設定にリセット",
+        Nederlands: "Standaard herstellen",
+        BrazilianPortuguese: "Redefinição de Fábrica",
+        Russian: "Сброс до заводских значений"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "Yes",
-            value: "Yes",
+            selected: "Yes",
             result: "Yes",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Ja",
                 SimplifiedChinese: "是",
@@ -56,26 +47,15 @@ export default class FactoryResetNodes implements Nodes {
                 Nederlands: "Ja",
                 BrazilianPortuguese: "Sim",
                 Russian: "Да"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "No",
-            value: "No",
+            selected: "No",
             result: "No",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.button,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Nein",
                 SimplifiedChinese: "否",

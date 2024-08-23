@@ -2,28 +2,20 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../../_utilities';
+import { DefaultNodes, BackNodes } from '../../_utilities';
 import MonitorStatusNodes from './_monitor-status-nodes';
 
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 const MonitorStatusNodesEnum = new MonitorStatusNodes();
 
-export default class OSDMessagesNodes implements Nodes {
+export default class OSDMessagesNodes extends DefaultNodes implements Nodes {
     key = "OSDMessages";
-    value = ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"];
+    selected = ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"];
     result = ["Power-On Logo", "No Input Signal Warning", "Confirm Change Message"];
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
     size = 5;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "OSD-Nachrichten",
         SimplifiedChinese: "OSD 消息",
@@ -38,26 +30,26 @@ export default class OSDMessagesNodes implements Nodes {
         Russian: "Сообщения OSD"
     };
     unit = {
+        German: "s",
+        SimplifiedChinese: "s",
+        TraditionalChinese: "s",
         English: "s",
-        TraditionalChinese: "s"
+        Español: "s",
+        French: "s",
+        Italian: "s",
+        Japanese: "s",
+        Nederlands: "s",
+        BrazilianPortuguese: "s",
+        Russian: "s"
     };
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "PowerOnLogo",
-            value: "Power-On Logo",
+            selected: "Power-On Logo",
             result: "Power-On Logo",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.checkBox,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Power-On Logo",
                 SimplifiedChinese: "开机徽标",
@@ -70,26 +62,15 @@ export default class OSDMessagesNodes implements Nodes {
                 Nederlands: "Logo bij inschakelen",
                 BrazilianPortuguese: "Logótipo de arranque",
                 Russian: "Логотип при включении питания"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "NoInputSignalWarning",
-            value: "No Input Signal Warning",
+            selected: "No Input Signal Warning",
             result: "No Input Signal Warning",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.checkBox,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Keine Eingangssignal-Warnung",
                 SimplifiedChinese: "无输入信号警告",
@@ -102,28 +83,17 @@ export default class OSDMessagesNodes implements Nodes {
                 Nederlands: "Waarschuwing geen signaal",
                 BrazilianPortuguese: "Aviso de sem sinal de entrada",
                 Russian: "Предупреждение: нет входного сигнала"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
             // Y (FD=On=>checked) EMEA
             // Y (FD=Off=>unchecked) Non-EMEA
+            ...DefaultNodesEnum,
             key: "ConfirmChangeMessage",
-            value: "Confirm Change Message",
+            selected: "Confirm Change Message",
             result: "Confirm Change Message",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.checkBox,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Änderungsmeldung bestätigen",
                 SimplifiedChinese: "确认变更讯息",
@@ -136,9 +106,7 @@ export default class OSDMessagesNodes implements Nodes {
                 Nederlands: "Bevestig wijzigingsbericht",
                 BrazilianPortuguese: "Confirmar mensagem de alteração",
                 Russian: "подтвердить изменение"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
             ...MonitorStatusNodesEnum,

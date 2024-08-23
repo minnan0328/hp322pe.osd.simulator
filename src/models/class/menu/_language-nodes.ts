@@ -2,28 +2,21 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes, NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
+import { DefaultNodes, BackNodes, NextPageButtonsNodes, PreviousPageButtonsNodes } from '../_utilities';
 
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 const PreviousPageButtonsNodesEnum = new PreviousPageButtonsNodes();
 const NextPageButtonsNodesEnum = new NextPageButtonsNodes();
 
-export default class LanguageNodes implements Nodes {
+export default class LanguageNodes extends DefaultNodes implements Nodes {
     key = "Language";
-    value = "English";
+    selected = "English";
     result = "English";
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 11;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Sprache",
         SimplifiedChinese: "语言",
@@ -37,24 +30,15 @@ export default class LanguageNodes implements Nodes {
         BrazilianPortuguese: "Idioma",
         Russian: "Язык"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "German",
-            value: "German",
+            selected: "German",
             result: "German",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
             only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Deutsch",
                 SimplifiedChinese: "Deutsch",
@@ -67,26 +51,16 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Deutsch",
                 BrazilianPortuguese: "Deutsch",
                 Russian: "Deutsch"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "SimplifiedChinese",
-            value: "SimplifiedChinese",
+            selected: "SimplifiedChinese",
             result: "SimplifiedChinese",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
             only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "简体中文",
                 SimplifiedChinese: "简体中文",
@@ -99,26 +73,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "简体中文",
                 BrazilianPortuguese: "简体中文",
                 Russian: "简体中文"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "TraditionalChinese",
-            value: "TraditionalChinese",
+            selected: "TraditionalChinese",
             result: "TraditionalChinese",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "繁體中文",
                 SimplifiedChinese: "繁體中文",
@@ -131,26 +94,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "繁體中文",
                 BrazilianPortuguese: "繁體中文",
                 Russian: "繁體中文"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "English",
-            value: "English",
+            selected: "English",
             result: "English",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "English",
                 SimplifiedChinese: "English",
@@ -163,26 +115,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "English",
                 BrazilianPortuguese: "English",
                 Russian: "English"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Español",
-            value: "Español",
+            selected: "Español",
             result: "Español",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Español",
                 SimplifiedChinese: "Español",
@@ -195,26 +136,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Español",
                 BrazilianPortuguese: "Español",
                 Russian: "Español"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "French",
-            value: "French",
+            selected: "French",
             result: "French",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Français",
                 SimplifiedChinese: "Français",
@@ -227,26 +157,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Français",
                 BrazilianPortuguese: "Français",
                 Russian: "Français"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Italian",
-            value: "Italian",
+            selected: "Italian",
             result: "Italian",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Italiano",
                 SimplifiedChinese: "Italiano",
@@ -259,26 +178,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Italiano",
                 BrazilianPortuguese: "Italiano",
                 Russian: "Italiano"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Japanese",
-            value: "Japanese",
+            selected: "Japanese",
             result: "Japanese",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "日本語",
                 SimplifiedChinese: "日本語",
@@ -291,26 +199,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "日本語",
                 BrazilianPortuguese: "日本語",
                 Russian: "日本語"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Nederlands",
-            value: "Nederlands",
+            selected: "Nederlands",
             result: "Nederlands",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Nederlands",
                 SimplifiedChinese: "Nederlands",
@@ -323,26 +220,15 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Nederlands",
                 BrazilianPortuguese: "Nederlands",
                 Russian: "Nederlands"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "BrazilianPortuguese",
-            value: "BrazilianPortuguese",
+            selected: "BrazilianPortuguese",
             result: "BrazilianPortuguese",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Português",
                 SimplifiedChinese: "Português",
@@ -355,9 +241,7 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Português",
                 BrazilianPortuguese: "Português",
                 Russian: "Português"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
             // 下一頁
@@ -370,21 +254,12 @@ export default class LanguageNodes implements Nodes {
             parents: this.key,
         },
         {
+            ...DefaultNodesEnum,
             key: "Russian",
-            value: "Russian",
+            selected: "Russian",
             result: "Russian",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 1,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Pусский",
                 SimplifiedChinese: "Pусский",
@@ -397,9 +272,7 @@ export default class LanguageNodes implements Nodes {
                 Nederlands: "Pусский",
                 BrazilianPortuguese: "Pусский",
                 Russian: "Pусский"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 上一步
         {

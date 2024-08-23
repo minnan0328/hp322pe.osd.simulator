@@ -2,25 +2,18 @@
 
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { BackNodes } from '../_utilities';
+import { DefaultNodes, BackNodes } from '../_utilities';
+const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 
-export default class SharpnessNodes implements Nodes {
+export default class SharpnessNodes extends DefaultNodes implements Nodes {
     key = "Sharpness";
-    value = "Level 4";
+    selected = "Level 4";
     result = "Level 4";
     displayValue = true;
-    displayState = false;
-    livePreview = false;
     size = 8;
     page = 1;
-    parents = null;
     mode = ModeType.button;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
-    only = ["HDMI", "VGA"];
-    mergeGrid = false
     language = {
         German: "Schärfe",
         SimplifiedChinese: "清晰度",
@@ -34,24 +27,14 @@ export default class SharpnessNodes implements Nodes {
         BrazilianPortuguese: "Nitidez",
         Russian: "Резкость"
     };
-    unit = null;
     nodes = [
         {
+            ...DefaultNodesEnum,
             key: "Soft",
-            value: "Soft",
+            selected: "Soft",
             result: "Soft",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Weich",
                 SimplifiedChinese: "柔和",
@@ -64,26 +47,15 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Zacht",
                 BrazilianPortuguese: "Suave",
                 Russian: "Мягкое"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Level2",
-            value: "Level 2",
+            selected: "Level 2",
             result: "Level 2",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Ebene 2",
                 SimplifiedChinese: "2 级",
@@ -96,26 +68,15 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Niveau 2",
                 BrazilianPortuguese: "Nível 2",
                 Russian: "Уровень 2"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Level3",
-            value: "Level 3",
+            selected: "Level 3",
             result: "Level 3",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Ebene 3",
                 SimplifiedChinese: "3 级",
@@ -128,26 +89,15 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Niveau 3",
                 BrazilianPortuguese: "Nível 3",
                 Russian: "Уровень 3"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Level4",
-            value: "Level 4",
+            selected: "Level 4",
             result: "Level 4",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Ebene 4",
                 SimplifiedChinese: "4 级",
@@ -160,26 +110,15 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Niveau 4",
                 BrazilianPortuguese: "Nível 4",
                 Russian: "Уровень 4"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Level5",
-            value: "Level 5",
+            selected: "Level 5",
             result: "Level 5",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Ebene 5",
                 SimplifiedChinese: "5 级",
@@ -192,26 +131,15 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Niveau 5",
                 BrazilianPortuguese: "Nível 5",
                 Russian: "Уровень 5"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Level6",
-            value: "Level 6",
+            selected: "Level 6",
             result: "Level 6",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Ebene 6",
                 SimplifiedChinese: "6 级",
@@ -224,26 +152,15 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Niveau 6",
                 BrazilianPortuguese: "Nível 6",
                 Russian: "Уровень 6"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         {
+            ...DefaultNodesEnum,
             key: "Sharp",
-            value: "Sharp",
+            selected: "Sharp",
             result: "Sharp",
-            displayValue: false,
-            displayState: false,
-            livePreview: false,
-            size: 0,
-            page: 0,
             parents: this.key,
             mode: ModeType.radio,
-            rangeMin: 0,
-            rangeMax: 0,
-            rangeIcon: null,
-            only: ["HDMI", "VGA"],
-            mergeGrid: false,
             language: {
                 German: "Scharf",
                 SimplifiedChinese: "清晰",
@@ -256,9 +173,7 @@ export default class SharpnessNodes implements Nodes {
                 Nederlands: "Scherp",
                 BrazilianPortuguese: "Nítido",
                 Russian: "Резкое"
-            },
-            unit: null,
-            nodes: null
+            }
         },
         // 上一步
         {

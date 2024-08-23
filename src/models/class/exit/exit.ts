@@ -1,24 +1,14 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import { ExitNodes } from '../_utilities';
+import { DefaultNodes, ExitNodes } from '../_utilities';
 const ExitNodesEnum = new ExitNodes();
 
-export default class Exit implements Nodes {
+export default class Exit extends DefaultNodes implements Nodes {
     key = "Exit";
-    value = "logo.png";
+    selected = "logo.png";
     result = "logo.png";
-    displayValue = false;
-    displayState = false;
-    livePreview = false;
-    size = 0;
-    page = 1;
-    parents = null;
     mode = ModeType.exit;
-    rangeMin = 0;
-    rangeMax = 0;
-    rangeIcon = null;
     only = [ "HDMI", "VGA" ];
-    mergeGrid = false;
     language = {
         German: "Beenden",
         SimplifiedChinese: "退出",
@@ -32,6 +22,4 @@ export default class Exit implements Nodes {
         BrazilianPortuguese: "Sair",
         Russian: "Выход"
     };
-    unit = null;
-    nodes = [];
 };
