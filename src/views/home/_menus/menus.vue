@@ -231,6 +231,40 @@ const menus = computed(() => {
     }
 });
 
+// selected state and node
+const state = reactive({
+    menuPanel: null as Nodes | null,
+    secondPanel: null as Nodes | null,
+    thirdPanel: null as Nodes | null,
+    fourthPanel: null as Nodes | null,
+    temporaryStorage: null as Nodes | null, // node 的 livePreview 為 true 時才使用，紀錄上一次的設定
+    currentPanelNumber: 0,
+    menuPanelIndex: 0,
+    secondPanelIndex: 0,
+    thirdPanelIndex: 0,
+    fourthPanelIndex: 0,
+    assignPanelOrderIndex: 0
+});
+
+const displayCurrentNodes = computed(() => {
+    // 當選擇第四層時
+    if(state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
+        return {
+            mainSectionNodes: state.secondPanel,
+            secondarySectionNodes: state.thirdPanel,
+            thirdSectionNodes: state.fourthPanel,
+            currentPanelNumber: state.currentPanelNumber
+        }
+    } else {
+        return {
+            mainSectionNodes: state.menuPanel,
+            secondarySectionNodes: state.secondPanel,
+            thirdSectionNodes: state.thirdPanel,
+            currentPanelNumber: state.currentPanelNumber
+        }
+    }
+});
+
 const assignMenus = computed(() => {
     return {
         [AssignAutoAdjustmentNodesEnum.key]: {
@@ -274,42 +308,10 @@ const getAssignButton = computed(() => {
     ]
 });
 
-const assignPanelOrder = reactive([AssignBrightnessNodesEnum.key, AssignColorNodesEnum.key, AssignDisplayInformationNodesEnum.key, AssignNextActiveInputNodesEnum.key]);
-// selected state and node
-const state = reactive({
-    currentPanelNumber: 0,
-    menuPanel: null as Nodes | null,
-    secondPanel: null as Nodes | null,
-    thirdPanel: null as Nodes | null,
-    fourthPanel: null as Nodes | null,
-    menuPanelIndex: 0,
-    secondPanelIndex: 0,
-    thirdPanelIndex: 0,
-    fourthPanelIndex: 0,
-    assignPanelOrderIndex: 0
-});
-
-
-// node 的 livePreview 為 true 時才使用
-const temporaryStorage = ref<Nodes | null>(null);
-
-const displayCurrentNodes = computed(() => {
-    if(state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
-        return {
-            mainSectionNodes: state.secondPanel,
-            secondarySectionNodes: state.thirdPanel,
-            thirdSectionNodes: state.fourthPanel,
-            currentPanelNumber: state.currentPanelNumber
-        }
-    } else {
-        return {
-            mainSectionNodes: state.menuPanel,
-            secondarySectionNodes: state.secondPanel,
-            thirdSectionNodes: state.thirdPanel,
-            currentPanelNumber: state.currentPanelNumber
-        }
-    }
-});
+const assignPanelOrder = reactive([
+    AssignBrightnessNodesEnum.key, AssignColorNodesEnum.key,
+    AssignDisplayInformationNodesEnum.key, AssignNextActiveInputNodesEnum.key
+]);
 
 const openControllerMenus = ref(false);
 const openAllMenu = ref(false);
@@ -334,7 +336,7 @@ const isControllerMenusButton = computed(() => {
     }
 });
 
-// 開啟全部選單
+// 開啟主要選單
 function handleAllMenu() {
     openAllMenu.value = true;
     openAssignButton.value = false;
@@ -342,6 +344,7 @@ function handleAllMenu() {
 
     menuTimeout();
 };
+
 // 開啟自訂選單按鈕
 function handleAssignButton(key: string) {
     if(key == "AssignNextActiveInput") {
@@ -385,7 +388,6 @@ watch(() => props.openMonitor, (newVal, oldVal) => {
 });
 
 function selectedMenuPanel(nodes: Nodes) {
-    
     state.menuPanel = state.menuPanel ? state.menuPanel : nodes;
     state.currentPanelNumber = state.currentPanelNumber > 0 ? state.currentPanelNumber : 1;
 
@@ -560,6 +562,7 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     }
 }
 
+/* 選擇下一層 */
 // 選擇下一層目標
 function handleTarget() {
     menuTimeout();
@@ -618,6 +621,8 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
         } while (index !== startIndex);
     }
 };
+/* 選擇下一層 */
+
 
 // 上一步
 function handlePrevious() {
@@ -628,9 +633,9 @@ function handlePrevious() {
         state.secondPanelIndex = 0;
         state.currentPanelNumber = 1;
 
-        if(temporaryStorage.value) {
-            state.menuPanel = temporaryStorage.value;
-            temporaryStorage.value = null;
+        if(state.temporaryStorage) {
+            state.menuPanel = state.temporaryStorage;
+            state.temporaryStorage = null;
 
             if(state.menuPanel.key == "Color") {
                 handleBrightness(state.menuPanel.result as string);
@@ -642,9 +647,9 @@ function handlePrevious() {
         state.thirdPanelIndex = 0;
         state.currentPanelNumber = 2;
 
-        if(temporaryStorage.value) {
-            state.secondPanel = temporaryStorage.value;
-            temporaryStorage.value = null;
+        if(state.temporaryStorage) {
+            state.secondPanel = state.temporaryStorage;
+            state.temporaryStorage = null;
         }
 
 
@@ -660,19 +665,20 @@ function handlePrevious() {
         state.fourthPanelIndex = 0;
         state.currentPanelNumber = 3;
 
-        if(temporaryStorage.value) {
-            state.thirdPanel = temporaryStorage.value;
-            temporaryStorage.value = null;
+        if(state.temporaryStorage) {
+            state.thirdPanel = state.temporaryStorage;
+            state.temporaryStorage = null;
         }
     }
 };
 
-// 控制上一個
+/* 處理選單項目控制 */ 
+// 控制上一個項目
 function handleUp() {
     handleNavigation('up');
 };
 
-// 控制下一個
+// 控制下一個項目
 function handleBottom() {
     handleNavigation('down');
 };
@@ -691,7 +697,7 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.menuPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        temporaryStorage.value = JSON.parse(JSON.stringify(menus.value));
+                        state.temporaryStorage = JSON.parse(JSON.stringify(menus.value));
                         if(state.menuPanel.mode == ModeType.button || state.menuPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
                             menus.value.result = state.menuPanel.result as null;
@@ -709,8 +715,8 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.secondPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        if(temporaryStorage.value == null) {
-                            temporaryStorage.value = JSON.parse(JSON.stringify(state.menuPanel));
+                        if(state.temporaryStorage == null) {
+                            state.temporaryStorage = JSON.parse(JSON.stringify(state.menuPanel));
                         }
 
                         if(state.secondPanel.mode == ModeType.button || state.secondPanel.mode == ModeType.radio) {
@@ -723,12 +729,12 @@ function handleNavigation(direction: 'up' | 'down') {
                             state.menuPanel.result = state.secondPanel.result;
                         } 
                     } else if(
-                        temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ExitNodesEnum.key
-                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ResetNodesEnum.key
-                        || temporaryStorage.value && state.secondPanel.mode == ModeType.button && state.secondPanel.key == BackNodesEnum.key
+                        state.temporaryStorage && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ExitNodesEnum.key
+                        || state.temporaryStorage && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ResetNodesEnum.key
+                        || state.temporaryStorage && state.secondPanel.mode == ModeType.button && state.secondPanel.key == BackNodesEnum.key
                     ) {
-                        state.menuPanel = temporaryStorage.value;
-                        temporaryStorage.value = null;
+                        state.menuPanel = state.temporaryStorage;
+                        state.temporaryStorage = null;
                     }
                 }
             });
@@ -741,7 +747,7 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.thirdPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        temporaryStorage.value = JSON.parse(JSON.stringify(state.secondPanel));
+                        state.temporaryStorage = JSON.parse(JSON.stringify(state.secondPanel));
                         if(state.thirdPanel.mode == ModeType.button || state.thirdPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
                             state.secondPanel.result = state.thirdPanel.result;
@@ -758,7 +764,7 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.fourthPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        temporaryStorage.value = JSON.parse(JSON.stringify(state.thirdPanel));
+                        state.temporaryStorage = JSON.parse(JSON.stringify(state.thirdPanel));
                         if(state.fourthPanel.mode == ModeType.button || state.fourthPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
                             state.thirdPanel.result = state.fourthPanel.result;
@@ -804,6 +810,8 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
         }
     }
 };
+/* 處理選單項目控制 */ 
+
 
 // assign button next panel
 function handleNext() {
@@ -961,7 +969,7 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
 
         if(nodes.livePreview) {
             // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-            temporaryStorage.value = null;
+            state.temporaryStorage = null;
         }
     }
 };
@@ -988,6 +996,7 @@ function handleClose() {
     emit("update:showMonitorStatus", false);
 };
 
+// 處理選單狀態
 const menuStateResult = computed(() => {
     return {
         menuPosition: {
@@ -999,6 +1008,7 @@ const menuStateResult = computed(() => {
     }
 });
 
+// 處理選單顯示時效
 const menuTimeOutIntervalId = ref<number | null>(null);
 
 function menuTimeout() {
@@ -1012,7 +1022,6 @@ function menuTimeout() {
         openAssignButton.value = false;
     }, (menuStateResult.value.menuTimeout as number) * 1000);
 }
-
 
 </script>
 <style lang="scss" scoped>

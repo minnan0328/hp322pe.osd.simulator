@@ -37,8 +37,17 @@ export default class AssignButtonsNodes implements Nodes {
     only = ["HDMI", "VGA"];
     mergeGrid = false
     language = {
+        German: "Tasten zuweisen",
+        SimplifiedChinese: "指定按钮",
+        TraditionalChinese: "指定鍵",
         English: "Assign Buttons",
-        TraditionalChinese: "指定鍵"
+        Español: "Asignar botones",
+        French: "Attribuer boutons",
+        Italian: "Assegna pulsanti",
+        Japanese: "ボタンの割り当て",
+        Nederlands: "Knoppen toewijzen",
+        BrazilianPortuguese: "Atribuir botões",
+        Russian: "Назначить кнопки"
     };
     unit = null;
     nodes = [

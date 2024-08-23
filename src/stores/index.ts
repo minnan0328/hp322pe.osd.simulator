@@ -1,16 +1,13 @@
 import { ref, reactive } from 'vue';
 import { defineStore } from 'pinia';
 import {
-	Brightness,
-	Color,
-	Image,
-	Input,
-	Power,
-	Menu,
-	Management,
-	Information,
-	Exit
+	Brightness, Color, Image, Input,
+	Power, Menu, Management,Information, Exit
 } from '@/models/index';
+
+import { AssignAutoAdjustmentNodes, AssignColorNodes } from '@/models/class/menu/assign-buttons/_utilities';
+const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
+const AssignColorNodesEnum = new AssignColorNodes();
 
 export const useStore = defineStore('counter', () => {
 	let brightness = ref(new Brightness());
@@ -22,6 +19,13 @@ export const useStore = defineStore('counter', () => {
 	let management = ref(new Management());
 	let information = ref(new Information());
 	let exit = ref(new Exit());
+
+    // 選擇 VGA 時更換自訂按鈕項目
+	function setAssignButtonValue() {
+		let assignButton2Result = input.value.result == "VGA" ? AssignAutoAdjustmentNodesEnum : AssignColorNodesEnum;
+		menu.value.nodes[5].nodes![1].value = assignButton2Result.value;
+		menu.value.nodes[5].nodes![1].result = assignButton2Result.result;
+	};
 
 	function $reset() {
 		brightness.value = new Brightness();
@@ -35,5 +39,5 @@ export const useStore = defineStore('counter', () => {
 		exit.value = new Exit();
 	}
 
-	return { brightness, color, image, input, power, menu, management, information, exit, $reset };
+	return { brightness, color, image, input, power, menu, management, information, exit, $reset, setAssignButtonValue };
 })

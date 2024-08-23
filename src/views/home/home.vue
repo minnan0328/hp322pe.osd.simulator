@@ -73,12 +73,14 @@ function selectTad(tab: Nodes) {
     selectedTab.value = tab;
     inputEnum.value.value = selectedTab.value.value as string;
     inputEnum.value.result = selectedTab.value.result as string;
+    // 選擇 VGA 時更換自訂按鈕項目
+    store.setAssignButtonValue();
 };
 
 /* 啟動螢幕 start  */
 const openMonitor = ref(false);
-let showMonitorStatus = ref(false);
-let isFinish = ref(false);
+const showMonitorStatus = ref(false);
+const isFinish = ref(false);
 
 provide('updateFinish', (value: boolean) => {
     isFinish.value = value;
