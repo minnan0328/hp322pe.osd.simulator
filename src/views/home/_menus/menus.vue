@@ -128,6 +128,7 @@ import iconSubtract from '@/assets/icons/icon-subtract.svg';
 import iconAdd from '@/assets/icons/icon-add.svg';
 import iconPrevious from '@/assets/icons/icon-previous.svg';
 import iconInformation from '@/assets/icons/icon-information.svg';
+import iconAssignAutoAdjustment from '@/assets/icons/icon-auto-adjustment.svg';
 
 import {
     Brightness, Color, Image, Input, Power,
@@ -265,7 +266,7 @@ const assignMenus = computed(() => {
     return {
         [AssignAutoAdjustmentNodesEnum.key]: {
             key: AssignAutoAdjustmentNodesEnum.key,
-            icon: iconAllMenu,
+            icon: iconAssignAutoAdjustment,
             node: AssignAutoAdjustmentNodesEnum
         },
         [AssignBrightnessNodesEnum.key]: {
