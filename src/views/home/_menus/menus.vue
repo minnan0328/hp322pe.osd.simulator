@@ -377,7 +377,7 @@ function selectedMenuPanel(nodes: Nodes) {
     state.menuPanel = state.menuPanel ? state.menuPanel : nodes;
     state.currentPanelNumber = state.currentPanelNumber > 0 ? state.currentPanelNumber : 1;
 
-    if(state.currentPanelNumber > 1) {
+    if(openAssignButton.value && state.currentPanelNumber > 1) {
         handleNextPanel();
     }
 };
@@ -1022,6 +1022,15 @@ function menuTimeout() {
         }
 
         openAllMenu.value = false;
+        openControllerMenus.value = false;
+
+        if(state.menuPanel && state.secondPanel) {
+            state.thirdPanel = null;
+            state.thirdPanelIndex = 0;
+            state.fourthPanel = null;
+            state.fourthPanelIndex = 0;
+        }
+
     }, (menuStateResult.value.menuTimeout as number) * 1000);
 }
 
