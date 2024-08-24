@@ -78,7 +78,7 @@ const tabs = reactive([
 const selectedTab = ref<Nodes | null>(tabs[0] as Nodes | null);
 
 function selectInput(tab: Nodes) {
-    if(!screenInitial.value == false) {
+    if(screenInitial.value == false) {
         selectedTab.value = tab;
         inputEnum.value.selected = selectedTab.value.selected as string;
         inputEnum.value.result = selectedTab.value.result as string;
@@ -136,12 +136,6 @@ function restartScreen() {
     }
 };
 /* 重啟畫面 */
-
-// 關閉裡面全部 menu 及清除所有狀態
-
-function close(callback: () => void) {
-    callback();
-};
 
 provide("controlScreen", {
     restartScreen
