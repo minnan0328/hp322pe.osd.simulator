@@ -7,7 +7,8 @@
                 <div class="inner">
                     <div class="left">
                         <div class="input">
-                            <div :class="['tab', { 'selected-tab': selectedTab == tab}]" v-for="tab in tabs" v-text="tab.selected" @click="selectTad(tab)"></div>
+                            <div :class="['tab', { 'selected-tab': inputEnum.result == tab.result }]" v-for="tab in tabs"
+                                v-text="tab.selected" @click="selectInput(tab)"></div>
                         </div>
                         <div class="card">
                             <div class="top"></div>
@@ -25,20 +26,27 @@
                         <div class="wrapper">
                             <div class="power-light" v-if="openMonitor && monitorResult.powerLED"></div>
     
-                            <monitorScreen v-if="openMonitor" v-model="openMonitor" v-model:showMonitorStatus="showMonitorStatus"></monitorScreen>
+                            <monitorScreen v-if="openMonitor" v-model:openMonitor="openMonitor"
+                                v-model:screenInitial="screenInitial"
+                                v-model:showMonitorStatus="showMonitorStatus"
+                                v-model:showScreen="showScreen"
+                                v-model:startUpFinish="startUpFinish">
+                            </monitorScreen>
     
                             <div class="menu-buttons">
                                 <img src="@/assets/images/menu-buttons.png" alt="">
                                 <div class="power-light menu-btn" v-if="openMonitor && monitorResult.powerLED"></div>
                             </div>
     
-                            <menus v-model:openMonitor="openMonitor" v-model:isFinish="isFinish" v-model:showMonitorStatus="showMonitorStatus">
+                            <menus v-model:openMonitor="openMonitor"
+                                v-model:startUpFinish="startUpFinish"
+                                v-model:showMonitorStatus="showMonitorStatus"
+                                    ref="childMenusComponentRef">
                                 <template v-slot:openMonitor>
                                     <button class="controller-btn open-btn" @click="handleMonitor"></button>
                                 </template>
                             </menus>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -49,7 +57,7 @@
 <script lang="ts" setup>
 import { ref, reactive, computed, provide } from 'vue';
 import { useStore } from '@/stores/index';
-import type { Nodes } from '@/types';
+import type { Nodes, ControlScreen} from '@/types';
 import ribbon from '@/views/home/_ribbon/ribbon.vue';
 import monitorScreen from '@/views/home/_monitor-screen/monitor-screen.vue';
 import menus from '@/views/home/_menus/menus.vue';
@@ -65,31 +73,73 @@ const inputEnum = computed(() => {
 const tabs = reactive([
     inputEnum.value.nodes[0],
     inputEnum.value.nodes[1]
-])
+]);
 
 const selectedTab = ref<Nodes | null>(tabs[0] as Nodes | null);
 
-function selectTad(tab: Nodes) {
-    selectedTab.value = tab;
-    inputEnum.value.selected = selectedTab.value.selected as string;
-    inputEnum.value.result = selectedTab.value.result as string;
-    // 選擇 VGA 時更換自訂按鈕項目
-    store.setAssignButtonValue();
+function selectInput(tab: Nodes) {
+    if(!screenInitial.value == false) {
+        selectedTab.value = tab;
+        inputEnum.value.selected = selectedTab.value.selected as string;
+        inputEnum.value.result = selectedTab.value.result as string;
+    
+        if(openMonitor.value) {
+            restartScreen();
+        };
+    
+        // 選擇 VGA 時更換自訂按鈕項目
+        store.setAssignButtonValue();
+    }
 };
+
 
 /* 啟動螢幕 start  */
 const openMonitor = ref(false);
+const screenInitial = ref(false);
 const showMonitorStatus = ref(false);
-const isFinish = ref(false);
-
-provide('updateFinish', (value: boolean) => {
-    isFinish.value = value;
-});
+const showScreen = ref(false);
+const startUpFinish = ref(false);
+const childMenusComponentRef = ref(null);
 
 function handleMonitor() {
     openMonitor.value = !openMonitor.value;
-}
+};
 /* 啟動螢幕 end  */
+
+/* 重啟畫面 */
+function restartScreen() {
+    if(!screenInitial.value) {
+        showScreen.value = false;
+        showMonitorStatus.value = false;
+        startUpFinish.value = false;
+    
+        if(childMenusComponentRef.value) {
+            // 暫時使用 any 解決
+            (childMenusComponentRef.value as any).handleClose();
+        };
+        
+        setTimeout(() => {
+            showScreen.value = true;
+            showMonitorStatus.value = true;
+    
+            setTimeout(() => {
+                showMonitorStatus.value = false;
+                startUpFinish.value = true;
+            }, 2000);
+        }, 1000);
+    }
+};
+/* 重啟畫面 */
+
+// 關閉裡面全部 menu 及清除所有狀態
+
+function close(callback: () => void) {
+    callback();
+};
+
+provide("controlScreen", {
+    restartScreen
+} as ControlScreen);
 
 const monitorResult = computed(() => {
     return {

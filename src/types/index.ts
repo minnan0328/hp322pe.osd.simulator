@@ -55,3 +55,7 @@ export interface ControllerButtonList {
     stopEvent: (() => void),
     type: string
 };
+
+export interface ControlScreen {
+    restartScreen: () => void;
+}

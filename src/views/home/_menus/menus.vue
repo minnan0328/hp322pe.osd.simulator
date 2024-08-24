@@ -103,9 +103,9 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, reactive, watch, computed } from 'vue';
+import { ref, reactive, watch, computed, inject } from 'vue';
 import { useStore } from '@/stores/index';
-import type { Nodes, ControllerButtonList } from '@/types';
+import type { Nodes, ControllerButtonList, ControlScreen } from '@/types';
 import { ModeType } from '@/types';
 import { isEnableInput, toLanguageText } from '@/service/service';
 // components
@@ -163,22 +163,24 @@ const AssignEmptyNodesEnum = new AssignEmptyNodes();
 
 const store = useStore();
 
+const { restartScreen } = inject("controlScreen") as ControlScreen;
+
 const props = defineProps({
     openMonitor: {
         type: Boolean,
         default: false
     },
-    isFinish: {
+    startUpFinish: {
         type: Boolean,
-        default: true
+        default: false
     },
     showMonitorStatus: {
         type: Boolean,
-        default: true
+        default: false
     }
 });
 
-const emit = defineEmits(['update:showMonitorStatus', 'update:isFinish'])
+const emit = defineEmits(['update:showMonitorStatus', 'update:startUpFinish'])
 
 const inputEnum = computed(() => {
     return store.$state.input;
@@ -311,12 +313,12 @@ const openAssignButton = ref(false);
 
 // 開啟選單
 function handleControllerMenus() {
-    if(props.openMonitor && props.showMonitorStatus && props.isFinish == false) {
+    if(props.openMonitor && props.showMonitorStatus && props.startUpFinish == false) {
         emit("update:showMonitorStatus", false);
-        emit("update:isFinish", true);
+        emit("update:startUpFinish", true);
     }
 
-    if(props.openMonitor && props.isFinish) {
+    if(props.openMonitor && props.startUpFinish) {
         openControllerMenus.value = true;
     };
 };
@@ -936,7 +938,12 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
             setTimeout(() => {
                 openAllMenu.value = true;
             }, 1000);
-        }
+        };
+
+        if(previousNodes.key == "Input") {
+            restartScreen();
+            handleClose();
+        };
         
         setBrightnessDefaultValue();
 
@@ -965,9 +972,12 @@ function handleClose() {
     state.thirdPanelIndex = 0;
     state.fourthPanelIndex = 0;
     state.assignPanelOrderIndex = 0;
-
-    emit("update:showMonitorStatus", false);
 };
+
+defineExpose({
+    handleClose
+});
+
 
 // 處理選單狀態
 const menuStateResult = computed(() => {

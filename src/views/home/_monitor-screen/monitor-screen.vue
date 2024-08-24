@@ -15,7 +15,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, inject, onMounted, watch } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from '@/stores/index';
 import monitorStatus from '@/views/home/_monitor-status/monitor-status.vue';
 import { OffNodes, TopNodes, MediumNodes, BottomNodes } from '@/models/class/_utilities';
@@ -25,23 +25,31 @@ const TopNodesEnum = new TopNodes();
 const MediumNodesEnum = new MediumNodes();
 const BottomNodesEnum = new BottomNodes();
 const store = useStore();
-let updateFinish = inject('updateFinish') as ((value: boolean) => void);;
 
 const props = defineProps({
-    modelValue: {
+    openMonitor: {
+        type: Boolean,
+        default: false
+    },
+    screenInitial: {
         type: Boolean,
         default: false
     },
     showMonitorStatus: {
         type: Boolean,
         default: false
+    },
+    showScreen: {
+        type: Boolean,
+        default: false
+    },
+    startUpFinish: {
+        type: Boolean,
+        default: false
     }
 });
 
-const emit = defineEmits(['update:showMonitorStatus'])
-
-const screenInitial = ref(false);
-const showScreen = ref(false);
+const emit = defineEmits(['update:screenInitial', 'update:showMonitorStatus', 'update:showScreen', 'update:startUpFinish']);
 
 const monitorResult = computed(() => {
     return {
@@ -77,32 +85,29 @@ const toImageColor = computed(() => {
 });
 
 function handleScreen() {
-    if(props.modelValue) {
-        setTimeout(() => {
-            emit('update:showMonitorStatus', true);
-            showScreen.value = true;
-            handleMonitorStatus();
-        }, 2000);
-    }
+    setTimeout(() => {
+        emit('update:showScreen', true);
+        emit('update:showMonitorStatus', true);
+        handleMonitorStatus();
+    }, 2000);
 };
 
 function handleMonitorStatus() {
-    if(props.modelValue) {
-        setTimeout(() => {
-            emit('update:showMonitorStatus', false);
-            updateFinish(true);
-        }, 5000);
-    }
+    setTimeout(() => {
+        emit('update:showMonitorStatus', false);
+        emit('update:startUpFinish', true);
+    }, 5000);
 };
 
 onMounted(() => {
-    if(props.modelValue) {
-
+    if(props.openMonitor) {
         if(menuStateResult.value.OSDMessage.powerOnLogo) {
-            screenInitial.value = true;
+            emit('update:screenInitial', true);
+
     
             setTimeout(() => {
-                screenInitial.value = false;
+                emit('update:screenInitial', false);
+
                 handleScreen();
             }, 2000);
         } else {
