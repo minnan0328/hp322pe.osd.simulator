@@ -27,6 +27,12 @@ export const useStore = defineStore('counter', () => {
 		menu.value.nodes[5].nodes![1].result = assignButton2Result.result;
 	};
 
+	// 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
+	function resetLanguage() {
+		menu.value.nodes[0].selected = "English";
+		menu.value.nodes[0].result = "English";
+	}
+
 	function $reset() {
 		brightness.value = new Brightness();
 		color.value = new Color();
@@ -39,5 +45,8 @@ export const useStore = defineStore('counter', () => {
 		exit.value = new Exit();
 	}
 
-	return { brightness, color, image, input, power, menu, management, information, exit, $reset, setAssignButtonValue };
+	return { brightness, color, image, input,
+		power, menu, management, information, exit,
+		$reset, setAssignButtonValue, resetLanguage
+	};
 })

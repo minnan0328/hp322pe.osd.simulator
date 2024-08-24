@@ -144,7 +144,7 @@ import {
 } from '@/models/class/menu/assign-buttons/_utilities';
 
 import { DefaultNodes, BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
-import BrightnessDefaultValueEnum from '@/models/enum/brightnessDefaultValue/brightnessDefaultValue';
+import { BrightnessDefaultValueEnum, setBrightnessDefaultValue } from '@/models/enum/brightnessDefaultValue/brightnessDefaultValue';
 
 const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
@@ -262,7 +262,7 @@ const assignMenus = computed(() => {
         [AssignAutoAdjustmentNodesEnum.key]: {
             key: AssignAutoAdjustmentNodesEnum.key,
             icon: iconAllMenu,
-            node: null
+            node: AssignAutoAdjustmentNodesEnum
         },
         [AssignBrightnessNodesEnum.key]: {
             key: AssignBrightnessNodesEnum.key,
@@ -339,10 +339,18 @@ function handleAllMenu() {
 
 // 開啟自訂選單按鈕
 function handleAssignButton(key: string) {
-    if(key == "AssignNextActiveInput") {
+    menuTimeout();
+
+    if(key == AssignEmptyNodesEnum.key) {
+        return;
+    }
+
+    if(key == AssignNextActiveInputNodesEnum.key) {
         openAllMenu.value = true;
         selectedMenuPanel(assignMenus.value[key].node as Nodes);
-        handleTarget();
+        handleNextPanel();
+    } else if(key == AssignAutoAdjustmentNodesEnum.key) {
+
     } else {
         state.menuPanel = null;
         state.secondPanel = null;
@@ -351,15 +359,8 @@ function handleAssignButton(key: string) {
         state.assignPanelOrderIndex = assignPanelOrder.findIndex(a => a == key);
         openAssignButton.value = true;
         selectedMenuPanel(assignMenus.value[key].node as Nodes);
-        handleTarget();
+        handleNextPanel();
     }
-
-    menuTimeout();
-};
-
-function handleBrightness(key: string) {
-    // menus.value.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[key];
-    menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[key];
 };
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
@@ -373,7 +374,7 @@ function selectedMenuPanel(nodes: Nodes) {
     state.currentPanelNumber = state.currentPanelNumber > 0 ? state.currentPanelNumber : 1;
 
     if(state.currentPanelNumber > 1) {
-        handleTarget();
+        handleNextPanel();
     }
 };
 
@@ -396,24 +397,24 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
                 // 當選擇的節點為 info 時候的組合
                 buttonList = [
                     { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
                     { image: iconClose, event: handleClose, stopEvent: () => {}, type: "Button" }
                 ];
             } else if(state.menuPanel?.mode == ModeType.exit) {
                 // 當選擇的節點為 exit 時候的組合
                 buttonList = [
                     { image: iconCheck, event: handleClose, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
                     { image: iconClose, event: handleClose, stopEvent: () => {}, type: "Button" }
                 ];
             } else {
                 // 當選擇的節點為 exit 時候的組合
                 buttonList = [
-                    { image: iconNext, event: handleTarget, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+                    { image: iconNext, event: handleNextPanel, stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
                     { image: iconClose, event: handleClose, stopEvent: () => {}, type: "Button" }
                 ];
             }
@@ -446,46 +447,46 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
 function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     // 當下一層有節點時候的組合
     const nextButtonList: ControllerButtonList[] = [
-        { image: iconNext, event: handleTarget, stopEvent: () => {}, type: "Button" },
-        { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+        { image: iconNext, event: handleNextPanel, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     // 確認選擇的按鈕組合
     const confirmedButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
-        { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     // range value 組合
     const rangeButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
-        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
         { image: iconPrevious, event: handlePrevious , stopEvent: () => {}, type: "Button"}
     ];
     // 多個 range value 組合
     const rangeNextButtonList: ControllerButtonList[] = [
-        { image: iconNextRight, event: handleBottom, stopEvent: () => {}, type: "Button" },
-        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconNextRight, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
 
         // assign button 確認選擇的按鈕組合
     const confirmedAssignButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
-        { image: iconArrowButton, event: handleBottom, stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: handleUp, stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
         { image: iconNextRight, event: handleNext, stopEvent: () => {}, type: "Button" }
     ];
 
     // assign button range value 組合
     const rangeAssignButtonList: ControllerButtonList[] = [
         { image: iconClose, event: handleClose , stopEvent: () => {}, type: "Button"},
-        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handleRangeAdd, stopEvent: stopTrigger, type: "RangeButton" },
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
         { image: iconNextRight, event: handleNext , stopEvent: () => {}, type: "Button"}
     ];
 
@@ -538,7 +539,7 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
 
 /* 選擇下一層 */
 // 選擇下一層目標
-function handleTarget() {
+function handleNextPanel() {
     menuTimeout();
     if(state.menuPanel?.nodes) {
         if(!state.secondPanel) {
@@ -548,7 +549,7 @@ function handleTarget() {
                 state.secondPanelIndex = index;
                 state.currentPanelNumber = 2;
 
-                if(state.menuPanel?.mode == ModeType.radio && state.menuPanel.nodes) {
+                if(state.menuPanel!.mode == ModeType.radio && state.menuPanel!.nodes) {
                     handleConfirmed(1);
                 }
             });
@@ -559,11 +560,11 @@ function handleTarget() {
                 state.thirdPanelIndex = index;
                 state.currentPanelNumber = 3;
 
-                if(state.secondPanel?.mode == ModeType.radio && state.secondPanel.nodes) {
+                if(state.secondPanel!.mode == ModeType.radio && state.secondPanel!.nodes) {
                     handleConfirmed(2);
                 }
             });
-        } else if(state.secondPanel?.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
+        } else if(state.secondPanel!.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
             // 第四層
             selectEnabledNode(state.thirdPanel, state.fourthPanelIndex, (nodes, index) => {
                 state.fourthPanel = nodes;
@@ -601,35 +602,29 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
 // 上一步
 function handlePrevious() {
     menuTimeout();
+
+    // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
+    store.resetLanguage();
+
     if(state.secondPanel && !state.thirdPanel) {
         state.secondPanel = null;
         state.secondPanelIndex = 0;
         state.currentPanelNumber = 1;
 
         if(state.temporaryStorage) {
-            state.menuPanel = state.temporaryStorage;
+            state.menuPanel!.result = state.temporaryStorage.result;
             state.temporaryStorage = null;
-
-            if(state.menuPanel.key == ColorNodesEnum.key) {
-                menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[state.menuPanel.result as string];
-                menus.value.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[state.menuPanel.selected as string];
-                // handleBrightness(state.menuPanel.result as string);
-            };
+            setBrightnessDefaultValue();
         };
+
     } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
         state.thirdPanel = null;
         state.thirdPanelIndex = 0;
         state.currentPanelNumber = 2;
 
         if(state.temporaryStorage) {
-            state.secondPanel = state.temporaryStorage;
+            state.secondPanel!.result = state.temporaryStorage.result;
             state.temporaryStorage = null;
-        }
-
-        // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
-        if(state.secondPanel.key == "Language") {
-            state.secondPanel.selected = state.secondPanel.nodes![3].selected;
-            state.secondPanel.result = state.secondPanel.nodes![3].result;
         }
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
         state.fourthPanel = null;
@@ -637,30 +632,21 @@ function handlePrevious() {
         state.currentPanelNumber = 3;
 
         if(state.temporaryStorage) {
-            state.thirdPanel = state.temporaryStorage;
+            state.thirdPanel!.result = state.temporaryStorage.result;
             state.temporaryStorage = null;
         }
     }
 };
 
 /* 處理選單項目控制 */ 
-// 控制上一個項目
-function handleUp() {
-    handleNavigation('up');
-};
-
-// 控制下一個項目
-function handleBottom() {
-    handleNavigation('down');
-};
-
+// 控制上下一個項目
 function handleNavigation(direction: 'up' | 'down') {
     menuTimeout();
     const step = direction === 'up' ? -1 : 1;
 
     if (menus.value && state.menuPanel?.nodes) {
         if (!state.secondPanel) {
-            updatePanelIndexText(menus.value, state.menuPanelIndex, step, (page, index) => {
+            updatePanelIndex(menus.value, state.menuPanelIndex, step, (page, index) => {
                 if(state.menuPanel) {
                     menus.value.page = page;
                     state.menuPanelIndex = index;
@@ -677,7 +663,7 @@ function handleNavigation(direction: 'up' | 'down') {
                 }
             });
         } else if (state.secondPanel && !state.thirdPanel) {
-            updatePanelIndexText(state.menuPanel, state.secondPanelIndex, step, (page, index) => {
+            updatePanelIndex(state.menuPanel, state.secondPanelIndex, step, (page, index) => {
                 if(state.menuPanel && state.menuPanel.nodes) {
                     state.menuPanel.page = page;
                     state.secondPanelIndex = index;
@@ -710,7 +696,7 @@ function handleNavigation(direction: 'up' | 'down') {
                 }
             });
         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
-            updatePanelIndexText(state.secondPanel, state.thirdPanelIndex, step, (page, index) => {
+            updatePanelIndex(state.secondPanel, state.thirdPanelIndex, step, (page, index) => {
                 if(state.secondPanel && state.secondPanel.nodes) {
                     state.secondPanel.page = page;
                     state.thirdPanelIndex = index;
@@ -727,7 +713,7 @@ function handleNavigation(direction: 'up' | 'down') {
                 }
             });
         } else if (state.secondPanel?.nodes && state.thirdPanel?.nodes && state.fourthPanel) {
-            updatePanelIndexText(state.thirdPanel, state.fourthPanelIndex, step, (page, index) => {
+            updatePanelIndex(state.thirdPanel, state.fourthPanelIndex, step, (page, index) => {
                 if(state.thirdPanel && state.thirdPanel.nodes) {
                     state.thirdPanel.page = page;
                     state.fourthPanelIndex = index;
@@ -746,8 +732,8 @@ function handleNavigation(direction: 'up' | 'down') {
         }
     }
 };
-
-function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
+/* 處理選單項目index */ 
+function updatePanelIndex(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
     let index = nodeIndex;
     let page = node.page;
 
@@ -768,7 +754,7 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
             || openAssignButton.value && node.nodes[index].key == BackNodesEnum.key
             || openAssignButton.value && node.nodes[index].mode == ModeType.button && node.nodes[index].key != ExitNodesEnum.key
         ) {
-            updatePanelIndexText(node, index ,step, send);
+            updatePanelIndex(node, index ,step, send);
         } else {
             page = Math.floor(index / node.size) + 1;
         
@@ -783,21 +769,27 @@ function updatePanelIndexText(node: Nodes, nodeIndex: number, step: number, send
 };
 /* 處理選單項目控制 */ 
 
-
 // assign button next panel
 function handleNext() {
     menuTimeout();
+
+    if(state.temporaryStorage) {
+        state.menuPanel!.result = state.temporaryStorage.result;
+        state.temporaryStorage = null;
+        setBrightnessDefaultValue();
+    };
+
     state.menuPanel = null;
     state.secondPanel = null;
     state.menuPanelIndex = 0;
     state.secondPanelIndex = 0;
     state.assignPanelOrderIndex += 1;
     state.assignPanelOrderIndex = state.assignPanelOrderIndex == 4 ? 0 : state.assignPanelOrderIndex;
-    let key = assignPanelOrder[state.assignPanelOrderIndex];
+    const key = assignPanelOrder[state.assignPanelOrderIndex];
 
     selectedMenuPanel(assignMenus.value[key].node as Nodes);
-    handleTarget();
-}
+    handleNextPanel();
+};
 
 // 控制 range value
 function handleRangeValue(step: string) {
@@ -838,7 +830,7 @@ const intervalId = ref<number | null>(null);
 const currentStep = ref<string | null>(null);
 
 // 開始觸發
-function startTrigger(step: string) {
+function startRangeValueTrigger(step: string) {
     currentStep.value = step;
     // 清除現有的計時器
     if (intervalId.value !== null) {
@@ -849,7 +841,7 @@ function startTrigger(step: string) {
 };
 
 // 停止觸發
-function stopTrigger() {
+function stopRangeValueTrigger() {
     if (intervalId.value !== null) {
         clearInterval(intervalId.value);
         intervalId.value = null;
@@ -858,12 +850,12 @@ function stopTrigger() {
 
 // 控制 range value 遞減
 function handleRangeSubtract() {
-    startTrigger("subtract");
+    startRangeValueTrigger("subtract");
 
 };
 // 控制 range value 遞增
 function handleRangeAdd() {
-    startTrigger("add");
+    startRangeValueTrigger("add");
 };
 
 // 儲存選擇節點的 value
@@ -885,7 +877,6 @@ function handleConfirmed(currentPanelNumber: number = 0) {
 };
 
 function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
-
     // Exit
     if(nodes.key == ExitNodesEnum.key) {
         handleClose();
@@ -920,12 +911,12 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
 
     // 下一頁 目前只處理 secondaryNodesPagination(右邊畫面)
     if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'NextPageButtons') {
-        handleBottom();
+        handleNavigation("down");
         return
     };
     // 上一頁 目前只處理 secondaryNodesPagination(右邊畫面)
     if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'PreviousPageButtons') {
-        handleUp();
+        handleNavigation("up");
         return
     };
 
@@ -939,12 +930,7 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         previousNodes.selected = nodes.selected;
         previousNodes.result = nodes.result;
         
-        if(previousNodes.key == ColorNodesEnum.key) {
-            menus.value.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[nodes.selected as string];
-            menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[nodes.result as string];
-            menus.value.nodes[0].nodes![0].nodes![0].selected = BrightnessDefaultValueEnum[nodes.selected as string];
-            menus.value.nodes[0].nodes![0].nodes![0].result = BrightnessDefaultValueEnum[nodes.result as string];
-        }
+        setBrightnessDefaultValue();
 
         if(nodes.livePreview) {
             // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值

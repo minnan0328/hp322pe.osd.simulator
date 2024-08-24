@@ -1,7 +1,7 @@
 import { useStore } from '@/stores/index';
 const store = useStore();
 
-const BrightnessDefaultValueEnum = {
+export const BrightnessDefaultValueEnum = {
     [store.$state.color.nodes[0].key]: 76,
     [store.$state.color.nodes[1].key]: 26,
     [store.$state.color.nodes[2].key]: 86,
@@ -12,4 +12,9 @@ const BrightnessDefaultValueEnum = {
     [store.$state.color.nodes[7].key]: 100,
 };
 
-export default BrightnessDefaultValueEnum;
+export function setBrightnessDefaultValue() {
+    store.$state.brightness.nodes[0].selected = BrightnessDefaultValueEnum[store.$state.color.selected];
+    store.$state.brightness.nodes[0].result = BrightnessDefaultValueEnum[store.$state.color.result];
+    store.$state.brightness.nodes[0].nodes![0].selected = BrightnessDefaultValueEnum[store.$state.color.selected];
+    store.$state.brightness.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[store.$state.color.result];
+};
