@@ -1,7 +1,7 @@
 <template>
     <div class="range">
         <div :class="['vertical-range', { selected: selected }]">
-            <div class="item range-text" v-text="toLanguageText(nodes.language)"></div>
+            <div class="item range-text" v-text="toLanguageText(nodes.language!)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
                 <div :class="['graduate', nodes.key, { max: nodes.selected == nodes.rangeMax }]"></div>
