@@ -40,42 +40,10 @@
                 <p>{{ toLanguageText(state.menuPanel.language!) }}</p>
             </div>
             <div class="body">
-                <div :class="['assign-setting', state.menuPanel.key]">
-                    <template v-for="secondNodes in state.menuPanel.nodes">
-                        <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondNodes.mode != ModeType.info }]"
-                            v-if="isEnableInput(secondNodes) && secondNodes.key != ResetNodesEnum.key && isEnableInput(secondNodes) && secondNodes.key != BackNodesEnum.key && isEnableInput(secondNodes) && secondNodes.mode != ModeType.verticalRange">
-                            <!-- button -->
-                            <div :class="['item', {
-                                    selected: state.secondPanel?.key == secondNodes.key,
-                                    'merge-grid': secondNodes.mergeGrid
-                                }]"
-                                v-if="(secondNodes.mode == ModeType.button && secondNodes.key == ExitNodesEnum.key) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language!)">
-                            </div>
-                            <!-- button -->
-    
-                            <!-- radio -->
-                            <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
-                                :nodes="secondNodes"
-                                :isChecked="state.menuPanel.selected == secondNodes.selected"
-                                :selected="state.secondPanel?.key == secondNodes.key">
-                            </customizeRadio>
-                            <!-- radio -->
-    
-                            <!-- value -->
-                            <template v-if="secondNodes.mode == ModeType.info">
-                                <div class="item item-value">
-                                    <span v-text="secondNodes.result"></span>
-                                </div>
-                            </template>
-                            <!-- value -->
-                        </div>
-                        <!-- 一般縱向 range -->
-                        <verticalRange v-else-if="secondNodes.mode == ModeType.verticalRange"
-                            :nodes="secondNodes">
-                        </verticalRange>
-                        <!-- 一般縱向 range -->
-                    </template>
-                </div>
+                <assignMenu
+                    v-model:mainSectionNodes="state.menuPanel"
+                    v-model:secondarySectionNodes="state.secondPanel">
+                </assignMenu>
             </div>
         </div>
     
@@ -110,9 +78,7 @@ import { ModeType } from '@/types';
 import { isEnableInput, toLanguageText } from '@/service/service';
 // components
 import settingSection from './_setting-section.vue';
-import verticalRange from './_vertical-range.vue';
-import customizeRadio from './_customize-radio.vue';
-
+import assignMenu from './_assign-menu.vue';
 // svg
 import iconAllMenu from '@/assets/icons/icon-menu.svg';
 import iconBrightness from '@/assets/icons/icon-brightness.svg';

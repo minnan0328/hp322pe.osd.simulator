@@ -36,7 +36,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             result: "Cycle Patterns",
             livePreview: true,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             language: {
                 German: "Muster durchlaufen",
                 SimplifiedChinese: "循环模式",
@@ -58,7 +58,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             result: "Full Screen Black",
             livePreview: true,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             language: {
                 German: "Kompletter Bildschirm schwarz",
                 SimplifiedChinese: "黑色全屏",
@@ -80,7 +80,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             result: "Full Screen White",
             livePreview: true,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             language: {
                 German: "Kompletter Bildschirm weiß",
                 SimplifiedChinese: "白色全屏",
@@ -102,7 +102,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             result: "Full Screen Red",
             livePreview: true,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             language: {
                 German: "Kompletter Bildschirm rot",
                 SimplifiedChinese: "红色全屏",
@@ -124,7 +124,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             result: "Full Screen Green",
             livePreview: true,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             language: {
                 German: "Kompletter Bildschirm grün",
                 SimplifiedChinese: "绿色全屏",
@@ -146,7 +146,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             result: "Full Screen Blue",
             livePreview: true,
             parents: this.key,
-            mode: ModeType.button,
+            mode: ModeType.setting,
             language: {
                 German: "Kompletter Bildschirm blau",
                 SimplifiedChinese: "蓝色全屏",
