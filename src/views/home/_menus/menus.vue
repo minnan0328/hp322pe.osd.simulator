@@ -929,6 +929,14 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         
         previousNodes.selected = nodes.selected;
         previousNodes.result = nodes.result;
+
+        if(previousNodes.key == "Language") {
+            openAllMenu.value = false;
+
+            setTimeout(() => {
+                openAllMenu.value = true;
+            }, 1000);
+        }
         
         setBrightnessDefaultValue();
 
