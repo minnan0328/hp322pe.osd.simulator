@@ -310,8 +310,6 @@ function handleAllMenu() {
 
 // 開啟自訂選單按鈕
 function handleAssignButton(key: string) {
-    menuTimeout();
-
     if(key == AssignEmptyNodesEnum.key) {
         return;
     }
@@ -332,6 +330,8 @@ function handleAssignButton(key: string) {
         selectedMenuPanel(assignMenus.value[key].node as Nodes);
         handleNextPanel();
     }
+
+    menuTimeout();
 };
 
 watch(() => props.openMonitor, (newVal, oldVal) => {
@@ -511,7 +511,6 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
 /* 選擇下一層 */
 // 選擇下一層目標
 function handleNextPanel() {
-    menuTimeout();
     if(state.menuPanel?.nodes) {
         if(!state.secondPanel) {
             // 第二層
@@ -547,6 +546,11 @@ function handleNextPanel() {
                     state.temporaryStorage = null;
                     state.temporaryStorage = JSON.parse(JSON.stringify(state.secondPanel));
                 }
+
+                // 當為診斷模式時
+                if(state.thirdPanel.parents == "DiagnosticPatterns") {
+                    store.$state.isDiagnosticPatterns = true;
+                }
             });
         } else if(state.secondPanel!.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
             // 第四層
@@ -567,6 +571,8 @@ function handleNextPanel() {
             });
         }
     }
+
+    menuTimeout();
 };
 
 // 選擇啟用的節點
@@ -591,8 +597,6 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
 
 // 上一步
 function handlePrevious() {
-    menuTimeout();
-
     // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
     store.resetLanguage();
 
@@ -616,6 +620,12 @@ function handlePrevious() {
             state.secondPanel!.result = state.temporaryStorage.result;
             state.temporaryStorage = null;
         }
+
+            // 當為診斷模式時
+        if(state.secondPanel.key == "DiagnosticPatterns") {
+            store.$state.isDiagnosticPatterns = false;
+        }
+
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
         state.fourthPanel = null;
         state.fourthPanelIndex = 0;
@@ -626,12 +636,13 @@ function handlePrevious() {
             state.temporaryStorage = null;
         }
     }
+
+    menuTimeout();
 };
 
 /* 處理選單項目控制 */ 
 // 控制上下一個項目
 function handleNavigation(direction: 'up' | 'down') {
-    menuTimeout();
     const step = direction === 'up' ? -1 : 1;
 
     if (menus.value && state.menuPanel?.nodes) {
@@ -729,12 +740,13 @@ function handleNavigation(direction: 'up' | 'down') {
             });
         }
     }
+
+    menuTimeout();
 };
 /* 處理選單項目index */ 
 function updatePanelIndex(node: Nodes, nodeIndex: number, step: number, send: (page: number, index: number) => void) {
     let index = nodeIndex;
     let page = node.page;
-
     
     const updateIndex = (idx: number, length: number) => {
         return (idx + step + length) % length;
@@ -769,7 +781,6 @@ function updatePanelIndex(node: Nodes, nodeIndex: number, step: number, send: (p
 
 // assign button next panel
 function handleNext() {
-    menuTimeout();
 
     if(state.temporaryStorage) {
         state.menuPanel!.result = state.temporaryStorage.result;
@@ -787,6 +798,7 @@ function handleNext() {
 
     selectedMenuPanel(assignMenus.value[key].node as Nodes);
     handleNextPanel();
+    menuTimeout();
 };
 
 // 控制 range value
@@ -844,6 +856,7 @@ function stopRangeValueTrigger() {
         clearInterval(intervalId.value);
         intervalId.value = null;
     }
+    menuTimeout();
 };
 
 // 控制 range value 遞減
@@ -858,7 +871,6 @@ function handleRangeAdd() {
 
 // 儲存選擇節點的 value
 function handleConfirmed(currentPanelNumber: number = 0) {
-    menuTimeout();
     currentPanelNumber = currentPanelNumber > 0 ? currentPanelNumber : state.currentPanelNumber;
 
     switch(currentPanelNumber) {
@@ -872,6 +884,8 @@ function handleConfirmed(currentPanelNumber: number = 0) {
             if(state.thirdPanel && state.fourthPanel) { setNodesValue(state.fourthPanel, state.thirdPanel); }
             break;
     };
+
+    menuTimeout();
 };
 
 function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
@@ -968,6 +982,9 @@ function handleClose() {
     state.thirdPanelIndex = 0;
     state.fourthPanelIndex = 0;
     state.assignPanelOrderIndex = 0;
+
+    // 關閉診斷模式
+    store.$state.isDiagnosticPatterns = false;
 };
 
 defineExpose({
@@ -978,27 +995,34 @@ defineExpose({
 const menuTimeOutIntervalId = ref<number | null>(null);
 
 function menuTimeout() {
-    if (menuTimeOutIntervalId.value !== null) {
-        clearInterval(menuTimeOutIntervalId.value);
+    // 當為診斷模式時關閉倒數關閉
+    if (menuTimeOutIntervalId.value != null && store.$state.isDiagnosticPatterns) {
+        clearInterval(menuTimeOutIntervalId.value as number);
         menuTimeOutIntervalId.value = null;
+    } else {
+        clearInterval(menuTimeOutIntervalId.value as number);
+        menuTimeOutIntervalId.value = null;
+    } 
+
+    // 當為診度模式時不自動關閉
+    if(store.$state.isDiagnosticPatterns == false) {
+        menuTimeOutIntervalId.value = setTimeout(() => {
+            if(openAssignButton.value) {
+                handleClose();
+            }
+    
+            openAllMenu.value = false;
+            openControllerMenus.value = false;
+    
+            if(state.menuPanel && state.secondPanel) {
+                state.thirdPanel = null;
+                state.thirdPanelIndex = 0;
+                state.fourthPanel = null;
+                state.fourthPanelIndex = 0;
+            }
+    
+        }, (menuStateResult.value.menuTimeout as number) * 1000);
     }
-
-    menuTimeOutIntervalId.value = setTimeout(() => {
-        if(openAssignButton.value) {
-            handleClose();
-        }
-
-        openAllMenu.value = false;
-        openControllerMenus.value = false;
-
-        if(state.menuPanel && state.secondPanel) {
-            state.thirdPanel = null;
-            state.thirdPanelIndex = 0;
-            state.fourthPanel = null;
-            state.fourthPanelIndex = 0;
-        }
-
-    }, (menuStateResult.value.menuTimeout as number) * 1000);
 }
 
 </script>

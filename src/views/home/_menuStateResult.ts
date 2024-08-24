@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { ref, computed, onUnmounted, nextTick } from 'vue';
 import { useStore } from '@/stores/index';
 import { OffNodes, TopNodes, MediumNodes, BottomNodes, LowNodes, HighNodes } from '@/models/class/_utilities';
 import screenOff from '@/assets/images/screen-off.jpg';
@@ -18,6 +18,7 @@ const brightness = computed(()=> store.$state.brightness);
 const color = computed(()=> store.$state.color);
 const image = computed(()=> store.$state.image);
 const menu = computed(()=> store.$state.menu);
+const management = computed(()=> store.$state.management);
 
 export const monitorScreenResult = computed(() => {
     return {
@@ -25,7 +26,11 @@ export const monitorScreenResult = computed(() => {
         contrast: `${brightness.value.nodes[1].result}%`,
         RGB: toImageColor.value,
         blackStretchImage: getBlackStretchImage.value,
-        sharpness: getSharpness.value
+        sharpness: getSharpness.value,
+        diagnosticPatterns: {
+            start: store.$state.isDiagnosticPatterns,
+            patterns:  store.$state.currentDiagnosticPatterns
+        }
     }
 });
 
@@ -70,6 +75,55 @@ const getSharpness = computed(() => {
         return "0px";
     } else {
         return "0.4px"
+    }
+});
+
+// 函數表達式
+const removeAndLowercase = (str: string): string => {
+    // 移除指定的子字符串
+    const removedString = str.replace("Full Screen", '').trim();
+    // 轉小寫
+    return removedString.toLowerCase();
+};
+
+const intervalId = ref<number | null>(null);
+const patternsIndex = ref(0);
+const patterns = ref([
+    removeAndLowercase(management.value.nodes[2].nodes![1].result as string),
+    removeAndLowercase(management.value.nodes[2].nodes![2].result as string),
+    removeAndLowercase(management.value.nodes[2].nodes![3].result as string),
+    removeAndLowercase(management.value.nodes[2].nodes![4].result as string),
+    removeAndLowercase(management.value.nodes[2].nodes![5].result as string)
+]);
+
+// 診斷模式需要透過監聽 store
+store.$subscribe((mutation, state) => {
+    if(state.isDiagnosticPatterns) {
+        const resultIndex = management.value.nodes[2].nodes!.findIndex(node => node.result === management.value.nodes[2].result);
+        if(resultIndex == 0 && intervalId.value == null) {
+            if(intervalId.value) {
+                return
+            }
+            patternsIndex.value = resultIndex;
+            store.currentDiagnosticPatterns = patterns.value[patternsIndex.value];
+            intervalId.value = setInterval(() => {
+                patternsIndex.value = (patternsIndex.value + 1) % patterns.value.length;
+                store.currentDiagnosticPatterns = patterns.value[patternsIndex.value];
+            }, 3000);
+
+        } else if(resultIndex >= 1) {
+            if (intervalId.value !== null) {
+                clearInterval(intervalId.value);
+                intervalId.value = null;
+            };
+            patternsIndex.value = resultIndex - 1;
+            store.currentDiagnosticPatterns = patterns.value[patternsIndex.value];
+        }
+    } else {
+        if (intervalId.value !== null) {
+            clearInterval(intervalId.value);
+            intervalId.value = null;
+        }
     }
 });
 

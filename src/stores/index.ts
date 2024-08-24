@@ -20,6 +20,9 @@ export const useStore = defineStore('counter', () => {
 	let information = ref(new Information());
 	let exit = ref(new Exit());
 
+	let isDiagnosticPatterns = ref(false);
+	let currentDiagnosticPatterns = ref("black");
+
     // 選擇 VGA 時更換自訂按鈕項目
 	function setAssignButtonValue() {
 		let assignButton2Result = input.value.result == "VGA" ? AssignAutoAdjustmentNodesEnum : AssignColorNodesEnum;
@@ -47,6 +50,7 @@ export const useStore = defineStore('counter', () => {
 
 	return { brightness, color, image, input,
 		power, menu, management, information, exit,
+		isDiagnosticPatterns, currentDiagnosticPatterns,
 		$reset, setAssignButtonValue, resetLanguage
 	};
-})
+});

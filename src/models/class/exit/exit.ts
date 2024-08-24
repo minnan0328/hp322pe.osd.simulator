@@ -22,4 +22,5 @@ export default class Exit extends DefaultNodes implements Nodes {
         BrazilianPortuguese: "Sair",
         Russian: "Выход"
     };
+    nodes = []
 };

@@ -10,8 +10,11 @@
         :showMonitorStatus="showMonitorStatus">
     </monitorStatus>
 
-    <div class="screen" v-show="showScreen">
+    <div class="screen" v-if="showScreen && !monitorScreenResult.diagnosticPatterns.start">
         <img :src="monitorScreenResult.blackStretchImage" alt="">
+    </div>
+    <div v-else-if="monitorScreenResult.diagnosticPatterns.start" :key="monitorScreenResult.diagnosticPatterns.patterns"
+        :class="['screen diagnostic-patterns', monitorScreenResult.diagnosticPatterns.patterns]">
     </div>
 </template>
 <script lang="ts" setup>
@@ -106,6 +109,10 @@ onMounted(() => {
                 brightness(v-bind("monitorScreenResult.brightness"))
                 contrast(v-bind("monitorScreenResult.contrast"))
                 blur(v-bind("monitorScreenResult.sharpness"));
+        }
+
+        &.diagnostic-patterns {
+            background-color: v-bind("monitorScreenResult.diagnosticPatterns.patterns");
         }
     }
     
