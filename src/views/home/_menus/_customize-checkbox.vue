@@ -80,6 +80,10 @@ function isChecked(item: Nodes): boolean {
         border-bottom: 1px solid #202020;
     }
 
+    &.disabled {
+        color: #505050;
+    }
+    
     &.selected:not(.disabled) {
         background-color: #000000;
         border: 1px solid #0083ca;
