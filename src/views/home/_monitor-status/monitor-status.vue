@@ -1,6 +1,6 @@
 <template>
     <div :class="['monitor-status', position]" v-show="show">
-        <div class="monitor-status-title">{{ toLanguageText(menuStateResult.monitorStatus.language!) }}</div>
+        <div class="monitor-status-title">{{ toLanguageText(monitorStatusResult.nodes.language!) }}</div>
         <div class="monitor-status-info input">
             <template v-for="currentInput in menuStateResult.input.nodes">
                 <p v-if="currentInput.mode == ModeType.radio"
@@ -30,12 +30,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
-import { useStore } from '@/stores/index';
+import { ref } from 'vue';
 import { toLanguageText } from '@/service/service';
 import { ModeType } from '@/types';
-
-const store = useStore();
+import { menuStateResult, monitorStatusResult } from '@/views/home/_menuStateResult';
 
 const props = defineProps({
     show: {
@@ -78,25 +76,6 @@ const Inactive = ref({
         Nederlands: "Inactief",
         BrazilianPortuguese: "Inativa",
         Russian: "Неактивен"
-    }
-});
-
-const menuStateResult = computed(() => {
-    return {
-        monitorStatus: store.$state.menu.nodes![4].nodes![3],
-        input: store.$state.input,
-        autoSwitchInput: {
-            name: store.$state.input.nodes[2],
-            state: store.$state.input.nodes[2].nodes?.find(n => n.result == store.$state.input.nodes[2].result)
-        },
-        color: {
-            name: store.$state.information.nodes[2],
-            state: store.$state.color.nodes?.find(n => n.result == store.$state.information.nodes[2].result)
-        },
-        information: {
-            currentMode: store.$state.information.nodes[0],
-            optimalMode: store.$state.information.nodes[1]
-        }
     }
 });
 

@@ -103,6 +103,12 @@ const childMenusComponentRef = ref(null);
 
 function handleMonitor() {
     openMonitor.value = !openMonitor.value;
+
+    if(openMonitor.value) {
+        showScreen.value = false;
+        showMonitorStatus.value = false;
+        startUpFinish.value = false;
+    }
 };
 /* 啟動螢幕 end  */
 

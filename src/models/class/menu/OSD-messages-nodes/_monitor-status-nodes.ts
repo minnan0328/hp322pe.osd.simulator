@@ -13,7 +13,7 @@ const BottomNodesEnum = new BottomNodes();
 
 export default class MonitorStatusNodes extends DefaultNodes implements Nodes {
     key = "MonitorStatus";
-    selected = MediumNodesEnum.selected;
+    selected = TopNodesEnum.selected;
     result = TopNodesEnum.result;
     displayValue = true;
     size = 5;

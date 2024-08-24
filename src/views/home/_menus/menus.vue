@@ -146,6 +146,8 @@ import {
 import { DefaultNodes, BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
 import { BrightnessDefaultValueEnum, setBrightnessDefaultValue } from '@/models/enum/brightnessDefaultValue/brightnessDefaultValue';
 
+import { menuStateResult } from '@/views/home/_menuStateResult';
+
 const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 const ResetNodesEnum = new ResetNodes();
@@ -978,19 +980,6 @@ defineExpose({
     handleClose
 });
 
-
-// 處理選單狀態
-const menuStateResult = computed(() => {
-    return {
-        menuPosition: {
-            x: `${(store.$state.menu.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
-            y: `${(store.$state.menu.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
-        },
-        menuTransparency: ((10 - (store.$state.menu.nodes[2].result as number)) / 10) + 0.2,
-        menuTimeout: store.$state.menu.nodes[3].result,
-    }
-});
-
 // 處理選單顯示時效
 const menuTimeOutIntervalId = ref<number | null>(null);
 
@@ -1169,4 +1158,4 @@ function menuTimeout() {
 		}
 	}
 }
-</style>
+</style>../_menuStateResult
