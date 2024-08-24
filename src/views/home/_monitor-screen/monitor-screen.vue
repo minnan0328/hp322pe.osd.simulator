@@ -11,14 +11,14 @@
     </monitorStatus>
 
     <div class="screen" v-show="showScreen">
-        <img src="@/assets/images/screen.png" alt="">
+        <img :src="monitorScreenResult.blackStretchImage" alt="">
     </div>
 </template>
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import { useStore } from '@/stores/index';
 import monitorStatus from '@/views/home/_monitor-status/monitor-status.vue';
-import { menuStateResult, monitorResult, toImageColor, monitorStatusResult } from '@/views/home/_menuStateResult';
+import { menuStateResult, monitorScreenResult, monitorStatusResult } from '@/views/home/_menuStateResult';
 
 const store = useStore();
 
@@ -102,9 +102,10 @@ onMounted(() => {
             width: 100%;
 
             filter: 
-                hue-rotate(v-bind("toImageColor"))
-                brightness(v-bind("monitorResult.brightness"))
-                contrast(v-bind("monitorResult.contrast"));
+                hue-rotate(v-bind("monitorScreenResult.RGB"))
+                brightness(v-bind("monitorScreenResult.brightness"))
+                contrast(v-bind("monitorScreenResult.contrast"))
+                blur(v-bind("monitorScreenResult.sharpness"));
         }
     }
     

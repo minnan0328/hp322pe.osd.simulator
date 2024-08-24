@@ -33,6 +33,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Soft",
             selected: "Soft",
             result: "Soft",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {
@@ -54,6 +55,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Level2",
             selected: "Level 2",
             result: "Level 2",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {
@@ -75,6 +77,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Level3",
             selected: "Level 3",
             result: "Level 3",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {
@@ -96,6 +99,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Level4",
             selected: "Level 4",
             result: "Level 4",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {
@@ -117,6 +121,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Level5",
             selected: "Level 5",
             result: "Level 5",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {
@@ -138,6 +143,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Level6",
             selected: "Level 6",
             result: "Level 6",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {
@@ -159,6 +165,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             key: "Sharp",
             selected: "Sharp",
             result: "Sharp",
+            livePreview: true,
             parents: this.key,
             mode: ModeType.radio,
             language: {

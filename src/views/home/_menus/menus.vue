@@ -556,6 +556,13 @@ function handleNextPanel() {
                 if(state.menuPanel!.mode == ModeType.radio && state.menuPanel!.nodes) {
                     handleConfirmed(1);
                 }
+
+                if(state.secondPanel!.livePreview) {
+                    // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                    state.temporaryStorage = null;
+                    state.temporaryStorage = JSON.parse(JSON.stringify(state.menuPanel));
+                }
+
             });
         } else if(state.secondPanel?.nodes && !state.thirdPanel) {
             // 第三層
@@ -567,6 +574,12 @@ function handleNextPanel() {
                 if(state.secondPanel!.mode == ModeType.radio && state.secondPanel!.nodes) {
                     handleConfirmed(2);
                 }
+
+                if(state.thirdPanel!.livePreview) {
+                    // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                    state.temporaryStorage = null;
+                    state.temporaryStorage = JSON.parse(JSON.stringify(state.secondPanel));
+                }
             });
         } else if(state.secondPanel!.nodes && state.thirdPanel && state.thirdPanel.nodes && !state.fourthPanel) {
             // 第四層
@@ -577,6 +590,12 @@ function handleNextPanel() {
 
                 if(state.thirdPanel?.mode == ModeType.radio && state.thirdPanel.nodes) {
                     handleConfirmed(3);
+                }
+
+                if(state.secondPanel!.livePreview) {
+                    // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
+                    state.temporaryStorage = null;
+                    state.temporaryStorage = JSON.parse(JSON.stringify(state.thirdPanel));
                 }
             });
         }
@@ -658,7 +677,10 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.menuPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        state.temporaryStorage = JSON.parse(JSON.stringify(menus.value));
+                        if(state.temporaryStorage == null) {
+                            state.temporaryStorage = JSON.parse(JSON.stringify(menus.value));
+                        };
+
                         if(state.menuPanel.mode == ModeType.button || state.menuPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
                             menus.value.result = state.menuPanel.result as null;
@@ -708,7 +730,9 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.thirdPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        state.temporaryStorage = JSON.parse(JSON.stringify(state.secondPanel));
+                        if(state.temporaryStorage == null) {
+                            state.temporaryStorage = JSON.parse(JSON.stringify(state.secondPanel));
+                        }
                         if(state.thirdPanel.mode == ModeType.button || state.thirdPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
                             state.secondPanel.result = state.thirdPanel.result;
@@ -725,7 +749,10 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.fourthPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
-                        state.temporaryStorage = JSON.parse(JSON.stringify(state.thirdPanel));
+                        if(state.temporaryStorage == null) {
+                            state.temporaryStorage = JSON.parse(JSON.stringify(state.thirdPanel));
+                        };
+
                         if(state.fourthPanel.mode == ModeType.button || state.fourthPanel.mode == ModeType.radio) {
                             // 目前只有 button 及 radio 類型才需要，如有其他類型在進行判斷
                             state.thirdPanel.result = state.fourthPanel.result;
