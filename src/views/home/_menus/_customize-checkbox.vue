@@ -1,7 +1,7 @@
 <template>
     <div :class="['customize-checkbox', { selected: selected, 'last-nodes': lastNodes }]">
         <div :class="['box', { selected: isChecked(nodes) }]"></div>
-        <div v-text="toLanguageText(nodes.language)"></div>
+        <div v-text="toLanguageText(nodes.language!)"></div>
     </div>
 </template>
 <script setup lang="ts">
