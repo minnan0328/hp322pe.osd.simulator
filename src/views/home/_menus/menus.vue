@@ -577,19 +577,30 @@ function handleNextPanel() {
 
 // 選擇啟用的節點
 function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nodes, index: number) => void) {
-    if(node.nodes) {
+    if (node.nodes) {
         let index = startIndex;
         const length = node.nodes.length;
-    
+        let attempts = 0; // 防止無窮迴圈
+
         do {
-            if (openAllMenu.value && isEnableInput(node.nodes[index]) || isEnableInput(node.nodes[index]) && openAssignButton.value && node.nodes[index].mode != ModeType.info) {
-                let selectedIndex = (node.selected || node.selected == 0) ? node.nodes.findIndex(n => n.selected == node.selected) : index;
-                index = selectedIndex > 0 ? selectedIndex : index;
+            // 檢查節點是否可用且未被禁用
+            if (
+                isEnableInput(node.nodes[index]) && !node.nodes[index].disabled &&
+                (openAllMenu.value || (openAssignButton.value && node.nodes[index].mode !== ModeType.info))
+            ) {
+                let selectedIndex = (node.selected || node.selected === 0) ? node.nodes.findIndex(n => n.selected === node.selected) : index;
+                index = selectedIndex >= 0 ? selectedIndex : index;
                 setValue(node.nodes[index], index);
                 return;
             }
+
+            // 轉到下一個節點
             index = (index + 1) % length;
-        } while (index !== startIndex);
+            attempts++;
+        } while (index !== startIndex && attempts < length);
+
+        // 如果無法找到有效的節點，可能需要處理錯誤情況或做一些預設處理
+        console.warn("No enabled node found.");
     }
 };
 /* 選擇下一層 */
@@ -758,7 +769,7 @@ function updatePanelIndex(node: Nodes, nodeIndex: number, step: number, send: (p
         const oldNodes = JSON.parse(JSON.stringify(node));
 
         if (
-            !isEnableInput(node.nodes[index])
+            !isEnableInput(node.nodes[index]) || node.nodes[index].disabled
             || openAllMenu.value && node.nodes[index].key == ExitNodesEnum.key && node.nodes[index].mode != ModeType.exit
             || openAssignButton.value && node.nodes[index].key == ResetNodesEnum.key
             || openAssignButton.value && node.nodes[index].key == BackNodesEnum.key

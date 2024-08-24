@@ -6,7 +6,8 @@
                 <!-- button -->
                 <div :class="['item', {
                         selected: secondarySectionNodes?.key == secondNodes.key,
-                        'merge-grid': secondNodes.mergeGrid
+                        'merge-grid': secondNodes.mergeGrid,
+                        disabled: secondNodes.disabled
                     }]"
                     v-if="(secondNodes.mode == ModeType.button && secondNodes.key == ExitNodesEnum.key) || secondNodes.mode == ModeType.info" v-text="toLanguageText(secondNodes.language!)">
                 </div>
@@ -16,13 +17,16 @@
                 <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
                     :nodes="secondNodes"
                     :isChecked="mainSectionNodes!.selected == secondNodes.selected"
-                    :selected="secondarySectionNodes?.key == secondNodes.key">
+                    :selected="secondarySectionNodes?.key == secondNodes.key"
+                    :disabled="(secondNodes.disabled as boolean)">
                 </customizeRadio>
                 <!-- radio -->
 
                 <!-- value -->
                 <template v-if="secondNodes.mode == ModeType.info">
-                    <div class="item item-value">
+                    <div :class="['item item-value', {
+                        disabled: secondNodes.disabled
+                    }]">
                         <span v-text="secondNodes.result"></span>
                     </div>
                 </template>
@@ -30,7 +34,8 @@
             </div>
             <!-- 一般縱向 range -->
             <verticalRange v-else-if="secondNodes.mode == ModeType.verticalRange"
-                :nodes="secondNodes">
+                :nodes="secondNodes"
+                :disabled="(secondNodes.disabled as boolean)">
             </verticalRange>
             <!-- 一般縱向 range -->
         </template>
@@ -52,7 +57,6 @@ const BackNodesEnum = new BackNodes();
 const ResetNodesEnum = new ResetNodes();
 const ExitNodesEnum = new ExitNodes();
 
-
 const props = defineProps({
     mainSectionNodes: {
         type: Object as PropType<Nodes | null>,
@@ -63,7 +67,6 @@ const props = defineProps({
         default: null
     }
 });
-
 
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-    <div :class="['customize-radio', { selected: selected }]">
-        <div :class="['round', { selected: isChecked }]"></div>
+    <div :class="['customize-radio', { selected: selected, disabled: disabled }]">
+        <div :class="['round', { selected: isChecked, disabled: disabled }]"></div>
         <div v-text="toLanguageText(nodes.language!)"></div>
     </div>
 </template>
@@ -21,6 +21,11 @@ const props = defineProps({
     },
     selected: {
         type: Boolean,
+        required: true,
+        default: false
+    },
+    disabled: {
+        disabled: Boolean,
         required: true,
         default: false
     }
@@ -55,6 +60,10 @@ const props = defineProps({
             left: 2px;
             top: 2px;
         }
+    }
+
+    &.disabled {
+        color: #505050;
     }
 
     &.selected:not(.disabled) {

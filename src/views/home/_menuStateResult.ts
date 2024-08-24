@@ -86,6 +86,48 @@ const removeAndLowercase = (str: string): string => {
     return removedString.toLowerCase();
 };
 
+export const menuStateResult = computed(() => {
+    return {
+        menuPosition: {
+            x: `${(menu.value.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
+            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
+        },
+        menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
+        menuTimeout: menu.value.nodes[3].result,
+        OSDMessage: {
+            powerOnLogo: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![0].result as string),
+            noInputSignalWarning: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![1].result as string),
+            confirmMessage: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![2].result as string),
+        },
+        monitorStatus: {
+            show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
+            nodes: menu.value.nodes[4].nodes![3]
+        },
+        input: store.$state.input,
+        autoSwitchInput: {
+            name: store.$state.input.nodes[2],
+            state: store.$state.input.nodes[2].nodes?.find(n => n.result == store.$state.input.nodes[2].result)
+        },
+        color: {
+            name: store.$state.information.nodes[2],
+            state: color.value.nodes.find(n => n.result == store.$state.information.nodes[2].result)
+        },
+        information: {
+            currentMode: store.$state.information.nodes[0],
+            optimalMode: store.$state.information.nodes[1]
+        }
+    }
+});
+
+export const monitorStatusResult = computed(() => {
+    return {
+        show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
+        nodes: menu.value.nodes[4].nodes![3]
+    }
+});
+
+
+
 const intervalId = ref<number | null>(null);
 const patternsIndex = ref(0);
 const patterns = ref([
@@ -124,46 +166,6 @@ store.$subscribe((mutation, state) => {
             clearInterval(intervalId.value);
             intervalId.value = null;
         }
-    }
-});
-
-export const menuStateResult = computed(() => {
-    return {
-        menuPosition: {
-            x: `${(menu.value.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
-            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
-        },
-        menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
-        menuTimeout: menu.value.nodes[3].result,
-        OSDMessage: {
-            powerOnLogo: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![0].result as string),
-            noInputSignalWarning: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![1].result as string),
-            confirmMessage: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![2].result as string),
-        },
-        monitorStatus: {
-            show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
-            nodes: menu.value.nodes[4].nodes![3]
-        },
-        input: store.$state.input,
-        autoSwitchInput: {
-            name: store.$state.input.nodes[2],
-            state: store.$state.input.nodes[2].nodes?.find(n => n.result == store.$state.input.nodes[2].result)
-        },
-        color: {
-            name: store.$state.information.nodes[2],
-            state: color.value.nodes.find(n => n.result == store.$state.information.nodes[2].result)
-        },
-        information: {
-            currentMode: store.$state.information.nodes[0],
-            optimalMode: store.$state.information.nodes[1]
-        }
-    }
-});
-
-export const monitorStatusResult = computed(() => {
-    return {
-        show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
-        nodes: menu.value.nodes[4].nodes![3]
     }
 });
 

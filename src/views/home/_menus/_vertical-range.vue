@@ -1,6 +1,6 @@
 <template>
     <div class="range">
-        <div :class="['vertical-range', { selected: selected, color: isColor }]">
+        <div :class="['vertical-range', { selected: selected, color: isColor, disabled: disabled }]">
             <div class="range-max-value">
                 <img v-if="nodes.rangeIcon" class="original" :src="getIconSrc(nodes)" alt="">
                 <span v-else-if="!isColor" v-text="nodes.rangeMax"></span>
@@ -50,6 +50,11 @@ const props = defineProps({
     },
     isColor: {
         type: Boolean,
+        default: false
+    },
+    disabled: {
+        disabled: Boolean,
+        required: true,
         default: false
     }
 });

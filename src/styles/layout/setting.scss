@@ -107,6 +107,10 @@
                 border-color: transparent transparent #ffffff transparent;
             }
 
+            &.disabled {
+                color: #505050;
+            }
+
             &.selected:not(.disabled) {
                 background-color: #000000;
                 border: 1px solid #0083ca;

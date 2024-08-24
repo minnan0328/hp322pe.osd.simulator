@@ -18,8 +18,8 @@ const VideoLevelNodesEnum = new VideoLevelNodes();
 
 export default class Brightness extends DefaultNodes implements Nodes {
     key = "BrightnessPlus";
-    selected = "BrightnessPlus";
-    result = "BrightnessPlus";
+    selected = null;
+    result = null;
     size = 7;
     page = 1;
     mode = ModeType.button;

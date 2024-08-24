@@ -5,6 +5,7 @@ import {
 	Power, Menu, Management,Information, Exit
 } from '@/models/index';
 
+
 import { AssignAutoAdjustmentNodes, AssignColorNodes } from '@/models/class/menu/assign-buttons/_utilities';
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignColorNodesEnum = new AssignColorNodes();

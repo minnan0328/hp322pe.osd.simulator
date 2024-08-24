@@ -1,6 +1,6 @@
 <template>
     <div class="range">
-        <div :class="['vertical-range', { selected: selected }]">
+        <div :class="['vertical-range', { selected: selected, disabled: disabled }]">
             <div class="item range-text" v-text="toLanguageText(nodes.language!)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
@@ -27,6 +27,11 @@ const props = defineProps({
     },
     selected: {
         type: Boolean,
+        required: true,
+        default: false
+    },
+    disabled: {
+        disabled: Boolean,
         required: true,
         default: false
     }

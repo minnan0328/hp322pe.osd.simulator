@@ -13,7 +13,8 @@
                         <!-- 上一頁 -->
                         <div :class="['item previous-page-btn', {
                                 selected: secondarySectionNodes?.key == secondNodes.key,
-                                'merge-grid': secondNodes.mergeGrid
+                                'merge-grid': secondNodes.mergeGrid,
+                                disabled: secondNodes.disabled
                             }]" v-if="secondNodes.mode == ModeType.paginationButton && secondNodes.key == 'PreviousPageButtons'
                                 && mainSectionNodes.page > 1">
                         </div>
@@ -24,14 +25,16 @@
                         <div :class="['item', {
                                 selected: secondarySectionNodes?.key == secondNodes.key,
                                 focus: secondarySectionNodes == secondNodes && thirdSectionNodes,
-                                'merge-grid': secondNodes.mergeGrid
+                                'merge-grid': secondNodes.mergeGrid,
+                                disabled: secondNodes.disabled
                             }]"
                             v-if="secondNodes.mode == ModeType.button || secondNodes.mode == ModeType.setting" v-text="toLanguageText(secondNodes.language!)">
                         </div>
                         <div :class="['item', {
                                 selected: secondarySectionNodes?.key == secondNodes.key,
                                 focus: secondarySectionNodes == secondNodes && thirdSectionNodes,
-                                'merge-grid': secondNodes.mergeGrid
+                                'merge-grid': secondNodes.mergeGrid,
+                                disabled: secondNodes.disabled
                             }]"
                             v-else-if="secondNodes.mode == ModeType.info" v-text="`${toLanguageText(secondNodes.language!)}：`">
                         </div>
@@ -41,7 +44,9 @@
                         <customizeRadio v-else-if="secondNodes.mode == ModeType.radio"
                             :nodes="secondNodes"
                             :isChecked="mainSectionNodes.selected == secondNodes.selected"
-                            :selected="secondarySectionNodes?.key == secondNodes.key">
+                            :selected="secondarySectionNodes?.key == secondNodes.key"
+                            :disabled="(secondNodes.disabled as boolean)"
+                            >
                         </customizeRadio>
                         <!-- radio -->
 
@@ -50,7 +55,8 @@
                             :nodes="secondNodes"
                             :previousNodes="mainSectionNodes"
                             :selected="thirdSectionNodes?.key == secondNodes.key"
-                            :lastNodes="isCheckboxLast(secondNodes, mainSectionNodes)">
+                            :lastNodes="isCheckboxLast(secondNodes, mainSectionNodes)"
+                            :disabled="(secondNodes.disabled as boolean)">
                         </customizeCheckbox>
                         <!-- checkbox -->
 
@@ -71,7 +77,9 @@
 
                         <!-- value -->
                         <template v-if="!secondarySectionNodes">
-                            <div class="item item-value"
+                            <div :class="['item item-value', {
+                                    disabled: secondNodes.disabled
+                                }]"
                                 v-if="secondNodes.result && secondNodes.displayValue || secondNodes.result == 0 && secondNodes.displayValue">
                                 <span v-if="secondNodes.mode != ModeType.info" v-text="toDisplayValueLanguageText(secondNodes)"></span>
                                 <span v-else-if="secondNodes.mode == ModeType.info" v-text="secondNodes.result"></span>
@@ -92,7 +100,8 @@
                         <!-- 上一頁 -->
                         <div :class="['item previous-page-btn', {
                                 selected: thirdSectionNodes?.key == thirdNodes.key,
-                                'merge-grid': thirdNodes.mergeGrid
+                                'merge-grid': thirdNodes.mergeGrid,
+                                disabled: thirdNodes.disabled
                             }]" v-if="thirdNodes.mode == ModeType.paginationButton && thirdNodes.key == 'PreviousPageButtons'
                                 && secondarySectionNodes.page > 1">
                         </div>
@@ -107,7 +116,8 @@
                         <customizeRadio v-else-if="thirdNodes.mode == ModeType.radio"
                             :nodes="thirdNodes"
                             :isChecked="secondarySectionNodes.selected == thirdNodes.selected"
-                            :selected="thirdSectionNodes?.key == thirdNodes.key">
+                            :selected="thirdSectionNodes?.key == thirdNodes.key"
+                            :disabled="(thirdNodes.disabled as boolean)">
                         </customizeRadio>
                         <!-- radio -->
                         
@@ -116,7 +126,8 @@
                             :nodes="thirdNodes"
                             :previousNodes="secondarySectionNodes"
                             :selected="thirdSectionNodes?.key == thirdNodes.key"
-                            :lastNodes="isCheckboxLast(thirdNodes, secondarySectionNodes)">
+                            :lastNodes="isCheckboxLast(thirdNodes, secondarySectionNodes)"
+                            :disabled="(thirdNodes.disabled as boolean)">
                         </customizeCheckbox>
                         <!-- checkbox -->
 
@@ -138,7 +149,8 @@
                     <!-- 一般縱向 range -->
                     <verticalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange && secondarySectionNodes.key != 'CustomRGB'"
                         :nodes="thirdNodes"
-                        :selected="thirdSectionNodes?.key == thirdNodes.key">
+                        :selected="thirdSectionNodes?.key == thirdNodes.key"
+                        :disabled="(thirdNodes.disabled as boolean)">
                     </verticalRange>
                     <!-- 一般縱向 range -->
                     <!-- 縱向 color range -->
@@ -146,14 +158,16 @@
                         <verticalRange v-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.verticalRange"
                             :nodes="thirdNodes"
                             :selected="thirdSectionNodes?.key == thirdNodes.key"
-                            :isColor="true">
+                            :isColor="true"
+                            :disabled="(thirdNodes.disabled as boolean)">
                         </verticalRange>
                     </template>
                     <!-- 縱向 color range -->
                     <!-- 橫向 range -->
                     <horizontalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.horizontalRange"
                         :nodes="thirdNodes"
-                        :selected="thirdSectionNodes?.key == thirdNodes.key">
+                        :selected="thirdSectionNodes?.key == thirdNodes.key"
+                        :disabled="(thirdNodes.disabled as boolean)">
                     </horizontalRange>
                     <!-- 橫向 range -->
                 </template>
