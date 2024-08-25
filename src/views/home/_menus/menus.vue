@@ -133,6 +133,8 @@ const AssignEmptyNodesEnum = new AssignEmptyNodes();
 
 const store = useStore();
 
+const autoAdjustment = inject("autoAdjustment") as () => void;
+
 const { restartScreen } = inject("controlScreen") as ControlScreen;
 
 const props = defineProps({
@@ -145,6 +147,10 @@ const props = defineProps({
         default: false
     },
     showMonitorStatus: {
+        type: Boolean,
+        default: false
+    },
+    isAutoAdjustment: {
         type: Boolean,
         default: false
     }
@@ -285,7 +291,7 @@ const openAssignButton = ref(false);
 
 // 開啟選單
 function handleControllerMenus() {
-    if(props.openMonitor && props.showMonitorStatus && props.startUpFinish == false) {
+    if(props.openMonitor && props.showMonitorStatus && props.startUpFinish == false && !props.isAutoAdjustment) {
         emit("update:showMonitorStatus", false);
         emit("update:startUpFinish", true);
     }
@@ -322,7 +328,9 @@ function handleAssignButton(key: string) {
         selectedMenuPanel(assignMenus.value[key].node as Nodes);
         handleNextPanel();
     } else if(key == AssignAutoAdjustmentNodesEnum.key) {
-
+        handleClose();
+        autoAdjustment();
+        return;
     } else {
         state.menuPanel = null;
         state.secondPanel = null;
@@ -936,6 +944,12 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
             store.$reset();
         }
         return
+    }
+    
+    if(nodes.key == "AutoAdjustment") {
+        handleClose();
+        autoAdjustment();
+        return;
     }
 
     // 下一頁 目前只處理 secondaryNodesPagination(右邊畫面)

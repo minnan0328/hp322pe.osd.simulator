@@ -31,8 +31,8 @@ export default class HPEnhancePlusNodes extends DefaultNodes implements Nodes {
             // VGA only - Range (0~100)
             ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Clock",
-            selected: 0,
-            result: 0,
+            selected: 50,
+            result: 50,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,
@@ -57,8 +57,8 @@ export default class HPEnhancePlusNodes extends DefaultNodes implements Nodes {
             // Range (0~100)
             ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Phase",
-            selected: 0,
-            result: 0,
+            selected: 50,
+            result: 50,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,

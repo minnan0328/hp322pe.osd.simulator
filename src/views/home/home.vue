@@ -32,6 +32,15 @@
                                 v-model:showScreen="showScreen"
                                 v-model:startUpFinish="startUpFinish">
                             </monitorScreen>
+
+                            <div class="auto-adjustment" v-if="isAutoAdjustment && inputEnum.result == 'VGA'">
+                                <div class="image">
+                                    <img src="@/assets/icons/icon-warn.svg" alt="">
+                                </div>
+                                <div>
+                                    <p>{{ toLanguageText(autoAdjustmentNode.language) }} Progress...</p>
+                                </div>
+                            </div>
     
                             <div class="menu-buttons">
                                 <img src="@/assets/images/menu-buttons.png" alt="">
@@ -41,7 +50,8 @@
                             <menus v-model:openMonitor="openMonitor"
                                 v-model:startUpFinish="startUpFinish"
                                 v-model:showMonitorStatus="showMonitorStatus"
-                                    ref="childMenusComponentRef">
+                                v-model:isAutoAdjustment="isAutoAdjustment"
+                                ref="childMenusComponentRef">
                                 <template v-slot:openMonitor>
                                     <button class="controller-btn open-btn" @click="handleMonitor"></button>
                                 </template>
@@ -61,9 +71,9 @@ import type { Nodes, ControlScreen} from '@/types';
 import ribbon from '@/views/home/_ribbon/ribbon.vue';
 import monitorScreen from '@/views/home/_monitor-screen/monitor-screen.vue';
 import menus from '@/views/home/_menus/menus.vue';
-import { OnNodes } from '@/models/class/_utilities';
+import { monitorResult } from '@/views/home/_menuStateResult';
+import { toLanguageText } from '@/service/toDisplayLanguageText';
 
-const OnNodesEnum = new OnNodes();
 const store = useStore();
 
 const inputEnum = computed(() => {
@@ -79,13 +89,15 @@ const selectedTab = ref<Nodes | null>(tabs[0] as Nodes | null);
 
 function selectInput(tab: Nodes) {
     if(screenInitial.value == false) {
+
+        if(openMonitor.value && tab.result != inputEnum.value.result) {
+            restartScreen();
+        };
+
         selectedTab.value = tab;
         inputEnum.value.selected = selectedTab.value.selected as string;
         inputEnum.value.result = selectedTab.value.result as string;
-    
-        if(openMonitor.value) {
-            restartScreen();
-        };
+        
     
         // 選擇 VGA 時更換自訂按鈕項目
         store.setAssignButtonValue();
@@ -100,6 +112,7 @@ const showMonitorStatus = ref(false);
 const showScreen = ref(false);
 const startUpFinish = ref(false);
 const childMenusComponentRef = ref(null);
+const isAutoAdjustment = ref(false);
 
 function handleMonitor() {
     openMonitor.value = !openMonitor.value;
@@ -110,6 +123,50 @@ function handleMonitor() {
         startUpFinish.value = false;
     }
 };
+
+const autoAdjustmentNode = computed(() => store.$state.image.nodes[0]);
+
+const autoAdjustmentIntervalId = ref<number | null>(null);
+
+provide("autoAdjustment", () => {
+    isAutoAdjustment.value = true;
+
+    store.$state.image.nodes[1].nodes[0].result = 50;
+    store.$state.image.nodes[1].nodes[0].selected = 50;
+    store.$state.image.nodes[1].nodes[1].result = 50;
+    store.$state.image.nodes[1].nodes[1].selected = 50;
+
+    store.$state.image.nodes[2].nodes[0].result = 50;
+    store.$state.image.nodes[2].nodes[0].selected = 50;
+    store.$state.image.nodes[2].nodes[1].result = 50;
+    store.$state.image.nodes[2].nodes[1].selected = 50;
+    
+    setTimeout(() => {
+        isAutoAdjustment.value = false;
+        store.$state.image.nodes[1].nodes[0].result = 50;
+        store.$state.image.nodes[1].nodes[0].selected = 50;
+        store.$state.image.nodes[1].nodes[1].result = 50;
+        store.$state.image.nodes[1].nodes[1].selected = 50;
+    
+        store.$state.image.nodes[2].nodes[0].result = 50;
+        store.$state.image.nodes[2].nodes[0].selected = 50;
+        store.$state.image.nodes[2].nodes[1].result = 50;
+        store.$state.image.nodes[2].nodes[1].selected = 50;
+
+        if (autoAdjustmentIntervalId.value !== null) {
+            clearInterval(autoAdjustmentIntervalId.value);
+            autoAdjustmentIntervalId.value = null;
+        };
+    }, 5000);
+
+    autoAdjustmentIntervalId.value = setInterval(() => {
+        store.$state.image.nodes[2].nodes[0].result += Math.floor(Math.random() * (2 - (-2)) + (-2));
+        store.$state.image.nodes[2].nodes[0].selected += Math.floor(Math.random() * (2 - (-2)) + (-2));
+    }, 100);
+    
+});
+
+
 /* 啟動螢幕 end  */
 
 /* 重啟畫面 */
@@ -140,14 +197,6 @@ function restartScreen() {
 provide("controlScreen", {
     restartScreen
 } as ControlScreen);
-
-const monitorResult = computed(() => {
-    return {
-        autoSleepMode: store.$state.power.nodes[0].result == OnNodesEnum.result ? true : false,
-        powerOnRecall: store.$state.power.nodes[1].result == OnNodesEnum.result ? true : false,
-        powerLED: store.$state.power.nodes[2].result == OnNodesEnum.result ? true : false,
-    }
-});
 
 </script>
 
@@ -216,6 +265,21 @@ const monitorResult = computed(() => {
                 left: 9px;
                 width: 782px;
                 height: 428px;
+
+                .auto-adjustment {
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    gap: 0 8px;
+                    top: calc((100% - 60px) / 2);
+                    left: calc((100% - 268px) / 2);
+                    width: 240px;
+                    color: #FFFFFF;
+                    background-color: #161616;
+                    border: 2px solid  #AAAAAA;
+                    padding: 16px 8px;
+                    font-size: 10px;
+                }
             }
             
             .monitor {

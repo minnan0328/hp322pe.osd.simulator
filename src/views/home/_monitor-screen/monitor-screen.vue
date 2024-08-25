@@ -111,8 +111,8 @@ onMounted(() => {
         img {
             min-width: 100%;
             position: absolute;
-            top: v-bind("monitorScreenResult.imagePosition.x");
-            left:  v-bind("monitorScreenResult.imagePosition.y");
+            top: v-bind("monitorScreenResult.imagePosition.y");
+            left:  v-bind("monitorScreenResult.imagePosition.x");
 
             filter: 
                 hue-rotate(v-bind("monitorScreenResult.RGB"))

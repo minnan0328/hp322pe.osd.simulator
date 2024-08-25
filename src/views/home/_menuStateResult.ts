@@ -1,13 +1,14 @@
 import { ref, computed, onUnmounted, nextTick } from 'vue';
 import type { Nodes } from '@/types';
 import { useStore } from '@/stores/index';
-import { OffNodes, TopNodes, MediumNodes, BottomNodes, LowNodes, HighNodes } from '@/models/class/_utilities';
+import { OnNodes, OffNodes, TopNodes, MediumNodes, BottomNodes, LowNodes, HighNodes } from '@/models/class/_utilities';
 import screenOff from '@/assets/images/screen-off.jpg';
 import screenLow from '@/assets/images/screen-low.jpg';
 import screenMedium from '@/assets/images/screen-medium.jpg';
 import screenHigh from '@/assets/images/screen-high.jpg';
 
 const store = useStore();
+const OnNodesEnum = new OnNodes();
 const OffNodesEnum = new OffNodes();
 const TopNodesEnum = new TopNodes();
 const BottomNodesEnum = new BottomNodes();
@@ -38,6 +39,54 @@ export const monitorScreenResult = computed(() => {
             y: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![1].result as number) / 100) * (20 - (-20)) - 20)}px` : 0
         },
         imageScaling: store.$state.image.nodes[5].result.replace(/\s+/g, '')
+    }
+});
+
+export const menuStateResult = computed(() => {
+    return {
+        menuPosition: {
+            x: `${(menu.value.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
+            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
+        },
+        menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
+        menuTimeout: menu.value.nodes[3].result,
+        OSDMessage: {
+            powerOnLogo: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![0].result as string),
+            noInputSignalWarning: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![1].result as string),
+            confirmMessage: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![2].result as string),
+        },
+        monitorStatus: {
+            show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
+            nodes: menu.value.nodes[4].nodes![3]
+        },
+        input: store.$state.input,
+        autoSwitchInput: {
+            name: store.$state.input.nodes[2],
+            state: store.$state.input.nodes[2].nodes?.find((node: Nodes) => node.result == store.$state.input.nodes[2].result)
+        },
+        color: {
+            name: store.$state.information.nodes[2],
+            state: store.$state.color.nodes.find(n => n.result == store.$state.information.nodes[2].result)
+        },
+        information: {
+            currentMode: store.$state.information.nodes[0],
+            optimalMode: store.$state.information.nodes[1]
+        }
+    }
+});
+
+export const monitorStatusResult = computed(() => {
+    return {
+        show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
+        nodes: menu.value.nodes[4].nodes![3]
+    }
+});
+
+export const monitorResult = computed(() => {
+    return {
+        autoSleepMode: store.$state.power.nodes[0].result == OnNodesEnum.result ? true : false,
+        powerOnRecall: store.$state.power.nodes[1].result == OnNodesEnum.result ? true : false,
+        powerLED: store.$state.power.nodes[2].result == OnNodesEnum.result ? true : false,
     }
 });
 
@@ -82,46 +131,6 @@ const getSharpness = computed(() => {
         return "0px";
     } else {
         return "0.4px"
-    }
-});
-
-export const menuStateResult = computed(() => {
-    return {
-        menuPosition: {
-            x: `${(menu.value.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
-            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
-        },
-        menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
-        menuTimeout: menu.value.nodes[3].result,
-        OSDMessage: {
-            powerOnLogo: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![0].result as string),
-            noInputSignalWarning: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![1].result as string),
-            confirmMessage: (menu.value.nodes[4].result as string).includes(menu.value.nodes[4].nodes![2].result as string),
-        },
-        monitorStatus: {
-            show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
-            nodes: menu.value.nodes[4].nodes![3]
-        },
-        input: store.$state.input,
-        autoSwitchInput: {
-            name: store.$state.input.nodes[2],
-            state: store.$state.input.nodes[2].nodes?.find((node: Nodes) => node.result == store.$state.input.nodes[2].result)
-        },
-        color: {
-            name: store.$state.information.nodes[2],
-            state: store.$state.color.nodes.find(n => n.result == store.$state.information.nodes[2].result)
-        },
-        information: {
-            currentMode: store.$state.information.nodes[0],
-            optimalMode: store.$state.information.nodes[1]
-        }
-    }
-});
-
-export const monitorStatusResult = computed(() => {
-    return {
-        show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
-        nodes: menu.value.nodes[4].nodes![3]
     }
 });
 
