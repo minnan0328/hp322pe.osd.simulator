@@ -105,7 +105,7 @@ onMounted(() => {
         &.FilltoAspectRatio {
             max-width: 572px;
             height: 428px;
-            margin: 0 109.5px;
+            margin: 0 106.5px;
         }
 
         img {
