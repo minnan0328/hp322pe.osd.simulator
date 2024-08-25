@@ -456,10 +456,19 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     
+    // 多個直向 range value 組合，且最後一個時候
     const rangeNextButtonListLast: ControllerButtonList[] = [
         { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
         { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
+    ];
+
+    // 多個縱向 range value 組合 unfocus
+    const rangeNextButtonListUnfocus: ControllerButtonList[] = [
+        { image: iconNext, event: handleConfirmed , stopEvent: () => {}, type: "Button"},
+        { image: iconArrowButton, event: () => handleNavigation("down"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowUp, event: () => handleNavigation("up"), stopEvent: () => {}, type: "Button" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
 
@@ -511,14 +520,19 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         } else if(
             // 多個 range value 直向 最後一個
             nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1 
-            && state.thirdPanel!.key == state.secondPanel!.nodes![state.secondPanel!.nodes!.length - 1].key
+            && nodes.key == previousNodes!.nodes![previousNodes!.nodes!.length - 1].key
         ) {
             return rangeNextButtonListLast;
-        }else if(
-            // 多個 range value 橫向
-            nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
+        } else if(
+            // 多個 range value 橫向 focus
+            nodes.mode == ModeType.horizontalRange && nodes.horizontalRangeFocus && previousNodes.nodes && previousNodes.nodes?.length >  1
         ) {
             return rangeNextButtonList;
+        } else if(
+            // 多個 range value 橫向 unfocus
+            nodes.mode == ModeType.horizontalRange && !nodes.horizontalRangeFocus && previousNodes.nodes && previousNodes.nodes?.length >  1
+        ) {
+            return rangeNextButtonListUnfocus;
         } else {
             return nextButtonList;
         }
@@ -565,6 +579,10 @@ function handleNextPanel() {
                 state.thirdPanel = nodes;
                 state.thirdPanelIndex = index;
                 state.currentPanelNumber = 3;
+
+                if(state.thirdPanel.mode == ModeType.horizontalRange) {
+                    state.thirdPanel.horizontalRangeFocus = true;
+                }
 
                 if(state.secondPanel!.mode == ModeType.radio && state.secondPanel!.nodes) {
                     handleConfirmed(2);
@@ -655,7 +673,12 @@ function handlePrevious() {
         if(state.thirdPanel!.mode == ModeType.verticalRange && state.secondPanel.nodes!.length > 1 && state.thirdPanelIndex != 0) {
             state.thirdPanelIndex -= 1;
             state.thirdPanel = state.secondPanel.nodes![state.thirdPanelIndex];
-            return
+            return;
+        }
+
+        if(state.thirdPanel!.mode == ModeType.horizontalRange && state.thirdPanel!.horizontalRangeFocus &&state.secondPanel.nodes!.length > 1) {
+            state.thirdPanel!.horizontalRangeFocus = false;
+            return;
         }
 
         state.thirdPanel = null;
@@ -745,11 +768,24 @@ function handleNavigation(direction: 'up' | 'down') {
                 }
             });
         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
+
+
+
             updatePanelIndex(state.secondPanel, state.thirdPanelIndex, step, (page, index) => {
                 if(state.secondPanel && state.secondPanel.nodes) {
                     state.secondPanel.page = page;
                     state.thirdPanelIndex = index;
                     state.thirdPanel = state.secondPanel.nodes[state.thirdPanelIndex];
+
+                    if(state.secondPanel.nodes.length > 0) {
+                        if(
+                            state.secondPanel.nodes[state.thirdPanelIndex - 1].mode == ModeType.horizontalRange 
+                            && state.secondPanel.nodes[state.thirdPanelIndex - 1].horizontalRangeFocus 
+                        ) {
+                            state.secondPanel.nodes[state.thirdPanelIndex - 1].horizontalRangeFocus = false;
+                            state.thirdPanel.horizontalRangeFocus = true;
+                        }
+                    }
 
                     if(state.thirdPanel.livePreview) {
                         // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
@@ -975,6 +1011,10 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         return;
     }
 
+    if(nodes.mode == ModeType.horizontalRange && previousNodes.nodes!.length > 1) {
+        nodes.horizontalRangeFocus = true;
+    }
+
     // 下一頁 目前只處理 secondaryNodesPagination(右邊畫面)
     if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'NextPageButtons') {
         handleNavigation("down");
@@ -992,8 +1032,11 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         checked ? previousNodes.selected.splice(previousNodes.selected.indexOf(nodes.selected), 1) : previousNodes.selected.push(nodes.selected);
         previousNodes.result = previousNodes.selected;
     } else {
-        previousNodes.selected = nodes.selected;
-        previousNodes.result = nodes.result;
+
+        if(nodes.mode != ModeType.horizontalRange && previousNodes.nodes!.length > 0) {
+            previousNodes.selected = nodes.selected;
+            previousNodes.result = nodes.result;
+        }
 
         if(previousNodes.mode == ModeType.radio && nodes.mode == ModeType.radio) {
 

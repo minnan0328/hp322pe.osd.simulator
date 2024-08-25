@@ -1,6 +1,6 @@
 <template>
     <div class="range">
-        <div :class="['vertical-range', { selected: selected, disabled: disabled }]">
+        <div :class="['vertical-range', { selected: selected, focus: focus, disabled: disabled }]">
             <div class="item range-text" v-text="toLanguageText(nodes.language!)"></div>
 
             <div :class="['item range-graduate', { selected: selected }]">
@@ -26,6 +26,11 @@ const props = defineProps({
         required: true
     },
     selected: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    focus: {
         type: Boolean,
         required: true,
         default: false
@@ -68,7 +73,7 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
                 }
             }
 
-            &.selected {
+            &.focus {
                 .range-text,
                 .range-max-value {
                     color: #FFFFFF;;
@@ -84,7 +89,8 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
                 border: 1px solid transparent;
                 position: relative;
 
-                &.selected:not(.disabled) {
+                &.selected:not(.disabled),
+                &.focus:not(.disabled) {
                     background-color: #000000;
                     border: 1px solid #0083ca;
                     color: #ffffff;

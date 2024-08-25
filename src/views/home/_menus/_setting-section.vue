@@ -167,6 +167,7 @@
                     <horizontalRange v-else-if="isEnableInput(thirdNodes) && thirdNodes.mode == ModeType.horizontalRange"
                         :nodes="thirdNodes"
                         :selected="thirdSectionNodes?.key == thirdNodes.key"
+                        :focus="thirdNodes.horizontalRangeFocus" 
                         :disabled="(thirdNodes.disabled as boolean)">
                     </horizontalRange>
                     <!-- 橫向 range -->

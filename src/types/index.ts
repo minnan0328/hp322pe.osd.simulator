@@ -40,6 +40,7 @@ export interface Nodes {
     mode: string;
     rangeMin: number;
     rangeMax: number;
+    horizontalRangeFocus: boolean;
     rangeIcon: string | null;
     mergeGrid: boolean;
     only: string[];

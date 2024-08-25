@@ -16,6 +16,7 @@ export class DefaultNodes implements Nodes {
     mode = ModeType.button;
     rangeMin = 0;
     rangeMax = 0;
+    horizontalRangeFocus = false;
     rangeIcon = null;
     only = [ "HDMI", "VGA"];
     mergeGrid = false;

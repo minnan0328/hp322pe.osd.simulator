@@ -37,6 +37,7 @@ export default class ImagePositionPlusNodes extends DefaultNodes implements Node
             mode: ModeType.horizontalRange,
             rangeMin: 0,
             rangeMax: 100,
+            horizontalRangeFocus: true,
             only: ["VGA"],
             language: {
                 German: "Horizontal",
@@ -63,6 +64,7 @@ export default class ImagePositionPlusNodes extends DefaultNodes implements Node
             mode: ModeType.horizontalRange,
             rangeMin: 0,
             rangeMax: 100,
+            horizontalRangeFocus: false,
             only: ["VGA"],
             language: {
                 German: "Vertikal",

@@ -7,13 +7,12 @@ import { DefaultNodes, BackNodes } from '../_utilities';
 const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
 
-export default class MenuPositionNodes extends DefaultNodes
- implements Nodes {
+export default class MenuPositionNodes extends DefaultNodes implements Nodes {
     key = "MenuPosition";
     selected = "H=74, V=81";
     result = "H=74, V=81";
     displayValue = true;
-    size = 2;
+    size = 3;
     page = 1;
     mode = ModeType.button;
     language = {
@@ -41,6 +40,7 @@ export default class MenuPositionNodes extends DefaultNodes
             mode: ModeType.horizontalRange,
             rangeMin: 0,
             rangeMax: 100,
+            horizontalRangeFocus: true,
             language: {
                 German: "Horizontal",
                 SimplifiedChinese: "水平",
@@ -65,6 +65,7 @@ export default class MenuPositionNodes extends DefaultNodes
             mode: ModeType.horizontalRange,
             rangeMin: 0,
             rangeMax: 100,
+            horizontalRangeFocus: false,
             language: {
                 German: "Vertikal",
                 SimplifiedChinese: "垂直",
