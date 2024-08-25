@@ -34,24 +34,24 @@ export default class MonitorStatusNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...OffNodesEnum,
+            ...JSON.parse(JSON.stringify(OffNodesEnum)),
             parents: this.key
         },
         {
-            ...TopNodesEnum,
+            ...JSON.parse(JSON.stringify(TopNodesEnum)),
             parents: this.key
         },
         {
-            ...MediumNodesEnum,
+            ...JSON.parse(JSON.stringify(MediumNodesEnum)),
             parents: this.key
         },
         {
-            ...BottomNodesEnum,
+            ...JSON.parse(JSON.stringify(BottomNodesEnum)),
             parents: this.key
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

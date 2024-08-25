@@ -33,7 +33,7 @@ export default class BlackStretchNodes extends DefaultNodes implements Nodes {
     nodes = [
         // 自動
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Auto",
             selected: "Auto",
             result: "Auto",
@@ -56,7 +56,7 @@ export default class BlackStretchNodes extends DefaultNodes implements Nodes {
         },
         // 限制範圍
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "LimitedRange(16 - 235)",
             selected: "Limited Range (16 - 235)",
             result: "Limited Range (16 - 235)",
@@ -79,7 +79,8 @@ export default class BlackStretchNodes extends DefaultNodes implements Nodes {
         },
         // 完整範圍
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FullRange(0 - 255)",
             selected: "Full Range (0 - 255)",
             result: "Full Range (0 - 255)",
@@ -103,7 +104,7 @@ export default class BlackStretchNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             mergeGrid: false
         }
     ]

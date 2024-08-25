@@ -1,4 +1,5 @@
 import { ref, computed, onUnmounted, nextTick } from 'vue';
+import type { Nodes } from '@/types';
 import { useStore } from '@/stores/index';
 import { OffNodes, TopNodes, MediumNodes, BottomNodes, LowNodes, HighNodes } from '@/models/class/_utilities';
 import screenOff from '@/assets/images/screen-off.jpg';
@@ -14,9 +15,10 @@ const LowNodesEnum = new LowNodes();
 const MediumNodesEnum = new MediumNodes();
 const HighNodesEnum = new HighNodes();
 
-const brightness = computed(()=> store.$state.brightness);
+const brightness = computed(()=> store.$state.brightnessPlus);
 const color = computed(()=> store.$state.color);
 const image = computed(()=> store.$state.image);
+const input = computed(()=> store.$state.input);
 const menu = computed(()=> store.$state.menu);
 const management = computed(()=> store.$state.management);
 
@@ -30,6 +32,10 @@ export const monitorScreenResult = computed(() => {
         diagnosticPatterns: {
             start: store.$state.isDiagnosticPatterns,
             patterns:  store.$state.currentDiagnosticPatterns
+        },
+        imagePosition: {
+            x: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![0].result as number) / 100) * (20 - (-20)) - 20)}px` : 0,
+            y: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![1].result as number) / 100) * (20 - (-20)) - 20)}px` : 0
         }
     }
 });
@@ -78,14 +84,6 @@ const getSharpness = computed(() => {
     }
 });
 
-// 函數表達式
-const removeAndLowercase = (str: string): string => {
-    // 移除指定的子字符串
-    const removedString = str.replace("Full Screen", '').trim();
-    // 轉小寫
-    return removedString.toLowerCase();
-};
-
 export const menuStateResult = computed(() => {
     return {
         menuPosition: {
@@ -106,11 +104,11 @@ export const menuStateResult = computed(() => {
         input: store.$state.input,
         autoSwitchInput: {
             name: store.$state.input.nodes[2],
-            state: store.$state.input.nodes[2].nodes?.find(n => n.result == store.$state.input.nodes[2].result)
+            state: store.$state.input.nodes[2].nodes?.find((node: Nodes) => node.result == store.$state.input.nodes[2].result)
         },
         color: {
             name: store.$state.information.nodes[2],
-            state: color.value.nodes.find(n => n.result == store.$state.information.nodes[2].result)
+            state: store.$state.color.nodes.find(n => n.result == store.$state.information.nodes[2].result)
         },
         information: {
             currentMode: store.$state.information.nodes[0],
@@ -126,7 +124,13 @@ export const monitorStatusResult = computed(() => {
     }
 });
 
-
+// 函數表達式
+const removeAndLowercase = (str: string): string => {
+    // 移除指定的子字符串
+    const removedString = str.replace("Full Screen", '').trim();
+    // 轉小寫
+    return removedString.toLowerCase();
+};
 
 const intervalId = ref<number | null>(null);
 const patternsIndex = ref(0);
@@ -141,7 +145,7 @@ const patterns = ref([
 // 診斷模式需要透過監聽 store
 store.$subscribe((mutation, state) => {
     if(state.isDiagnosticPatterns) {
-        const resultIndex = management.value.nodes[2].nodes!.findIndex(node => node.result === management.value.nodes[2].result);
+        const resultIndex = management.value.nodes[2].nodes!.findIndex((node: Nodes) => node.result === management.value.nodes[2].result);
         if(resultIndex == 0 && intervalId.value == null) {
             if(intervalId.value) {
                 return

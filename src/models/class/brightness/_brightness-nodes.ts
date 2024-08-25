@@ -27,7 +27,7 @@ export default class BrightnessNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "BrightnessNodes",
             selected: this.selected,
             result: this.result,

@@ -19,7 +19,7 @@ export default class MenuTimeoutNodes extends DefaultNodes implements Nodes {
         German: "Menü-Timeout",
         SimplifiedChinese: "菜单超时",
         TraditionalChinese: "功能表逾時",
-        English: "Menu Time-out",
+        English: "Menu Timeout",
         Español: "Tiempo de espera del menú",
         French: "Délai d'expiration du menu",
         Italian: "Timeout menu",
@@ -45,7 +45,7 @@ export default class MenuTimeoutNodes extends DefaultNodes implements Nodes {
         {
             // Range (5~60)
             // Y (FD=60) for Accessibility mode
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "MenuTimeoutNodes",
             selected: this.selected,
             result: this.result,

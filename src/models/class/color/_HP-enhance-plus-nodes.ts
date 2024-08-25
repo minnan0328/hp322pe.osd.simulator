@@ -35,22 +35,22 @@ export default class HPEnhancePlusNode extends DefaultNodes implements Nodes {
     nodes = [
         // 低
         {
-            ...LowNodesEnum,
+            ...JSON.parse(JSON.stringify(LowNodesEnum)),
             parents: this.key
         },
         // 中
         {
-            ...MediumNodesEnum,
+            ...JSON.parse(JSON.stringify(MediumNodesEnum)),
             parents: this.key
         },
         // 高
         {
-            ...HighNodesEnum,
+            ...JSON.parse(JSON.stringify(HighNodesEnum)),
             parents: this.key
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

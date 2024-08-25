@@ -30,7 +30,7 @@ export default class MenuTransparencyNodes extends DefaultNodes implements Nodes
         {
             // Range (0 - 10) with 0 = Off, no transparency
             // Y (FD=0=Off)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "MenuTransparencyNodes",
             selected: this.selected,
             result: this.result,

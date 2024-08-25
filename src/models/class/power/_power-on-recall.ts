@@ -32,16 +32,16 @@ export default class PowerOnRecallNodes extends DefaultNodes implements Nodes {
     unit = null;
     nodes = [
         {
-            ...OnNodesEnum,
+            ...JSON.parse(JSON.stringify(OnNodesEnum)),
             parents: this.key
         },
         {
-            ...OffNodesEnum,
+            ...JSON.parse(JSON.stringify(OffNodesEnum)),
             parents: this.key
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

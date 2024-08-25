@@ -34,7 +34,7 @@ export default class Input extends DefaultNodes implements Nodes {
     nodes =  [
         // HDMI
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "HDMI",
             selected: "HDMI",
             result: "HDMI",
@@ -56,7 +56,7 @@ export default class Input extends DefaultNodes implements Nodes {
         },
         // VGA
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "VGA",
             selected: "VGA",
             result: "VGA",
@@ -78,7 +78,7 @@ export default class Input extends DefaultNodes implements Nodes {
         },
         // 自動切換輸入
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "AutoSwitchInput",
             selected: OnNodesEnum.selected,
             result: OnNodesEnum.result,
@@ -118,19 +118,19 @@ export default class Input extends DefaultNodes implements Nodes {
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key,
             mergeGrid: true
 
         },
         // 返回
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
             mergeGrid: true
         },
         {
-            ...ExitNodesEnum,
+            ...JSON.parse(JSON.stringify(ExitNodesEnum)),
             parents: this.key,
         }
     ];

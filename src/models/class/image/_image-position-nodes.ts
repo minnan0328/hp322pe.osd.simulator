@@ -31,8 +31,8 @@ export default class ImagePositionPlusNodes extends DefaultNodes implements Node
             // VGA only - Range (0~100)
             ...DefaultNodesEnum,
             key: "Horizontal",
-            selected: 0,
-            result: 0,
+            selected: 50,
+            result: 50,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,
@@ -57,8 +57,8 @@ export default class ImagePositionPlusNodes extends DefaultNodes implements Node
             // Range (0~100)
             ...DefaultNodesEnum,
             key: "Vertical",
-            selected: 0,
-            result: 0,
+            selected: 50,
+            result: 50,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,

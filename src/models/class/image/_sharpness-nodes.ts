@@ -29,7 +29,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Soft",
             selected: "Soft",
             result: "Soft",
@@ -51,7 +51,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level2",
             selected: "Level 2",
             result: "Level 2",
@@ -73,7 +73,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level3",
             selected: "Level 3",
             result: "Level 3",
@@ -95,7 +95,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level4",
             selected: "Level 4",
             result: "Level 4",
@@ -117,7 +117,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level5",
             selected: "Level 5",
             result: "Level 5",
@@ -139,7 +139,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level6",
             selected: "Level 6",
             result: "Level 6",
@@ -161,7 +161,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Sharp",
             selected: "Sharp",
             result: "Sharp",
@@ -184,7 +184,7 @@ export default class SharpnessNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             parents: this.key,
         }
     ];

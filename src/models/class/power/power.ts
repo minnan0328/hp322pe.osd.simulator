@@ -32,29 +32,29 @@ export default class Power extends DefaultNodes implements Nodes {
     nodes = [
         // 自動睡眠模式
         {
-            ...AutoSleepModeNodesEnum,
+            ...JSON.parse(JSON.stringify(AutoSleepModeNodesEnum)),
             parents: this.key
         },
         // 重新開機
         {
-            ...PowerOnRecallNodesEnum,
+            ...JSON.parse(JSON.stringify(PowerOnRecallNodesEnum)),
             parents: this.key
 
         },
         // 電源指示燈
         {
-            ...PowerLEDNodesEnum,
+            ...JSON.parse(JSON.stringify(PowerLEDNodesEnum)),
             parents: this.key
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         }

@@ -29,7 +29,7 @@ export default class ImageScalingNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FilltoScreen",
             selected: "Fill to Screen",
             result: "Fill to Screen",
@@ -50,7 +50,7 @@ export default class ImageScalingNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FilltoAspectRatio",
             selected: "Fill to Aspect Ratio",
             result: "Fill to Aspect Ratio",
@@ -72,7 +72,7 @@ export default class ImageScalingNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
         }
     ];

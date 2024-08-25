@@ -32,7 +32,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "German",
             selected: "German",
             result: "German",
@@ -54,7 +54,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "SimplifiedChinese",
             selected: "SimplifiedChinese",
             result: "SimplifiedChinese",
@@ -76,7 +76,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "TraditionalChinese",
             selected: "TraditionalChinese",
             result: "TraditionalChinese",
@@ -97,7 +97,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "English",
             selected: "English",
             result: "English",
@@ -118,7 +118,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Español",
             selected: "Español",
             result: "Español",
@@ -139,7 +139,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "French",
             selected: "French",
             result: "French",
@@ -160,7 +160,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Italian",
             selected: "Italian",
             result: "Italian",
@@ -181,7 +181,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Japanese",
             selected: "Japanese",
             result: "Japanese",
@@ -202,7 +202,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Nederlands",
             selected: "Nederlands",
             result: "Nederlands",
@@ -223,7 +223,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "BrazilianPortuguese",
             selected: "BrazilianPortuguese",
             result: "BrazilianPortuguese",
@@ -245,16 +245,16 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
         },
         {
             // 下一頁
-            ...NextPageButtonsNodesEnum,
+            ...JSON.parse(JSON.stringify(NextPageButtonsNodesEnum)),
             parents: this.key,
         },
         {
             // 上一頁
-            ...PreviousPageButtonsNodesEnum,
+            ...JSON.parse(JSON.stringify(PreviousPageButtonsNodesEnum)),
             parents: this.key,
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Russian",
             selected: "Russian",
             result: "Russian",
@@ -276,7 +276,7 @@ export default class LanguageNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

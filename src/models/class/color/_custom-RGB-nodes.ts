@@ -8,8 +8,8 @@ const DefaultNodesEnum = new DefaultNodes();
 
 export default class CustomRGBNodes extends DefaultNodes implements Nodes {
     key = "CustomRGB";
-    selected = "CustomRGB";
-    result = "CustomRGB";
+    selected = "Custom RGB";
+    result = "Custom RGB";
     livePreview = true;
     size = 3;
     page = 1;
@@ -31,7 +31,7 @@ export default class CustomRGBNodes extends DefaultNodes implements Nodes {
         // RGB range (0~255)
         // Red Color
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "RedColor",
             selected: 255,
             result: 255,
@@ -55,7 +55,7 @@ export default class CustomRGBNodes extends DefaultNodes implements Nodes {
         },
         // Green Color
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "GreenColor",
             selected: 255,
             result: 255,
@@ -79,7 +79,7 @@ export default class CustomRGBNodes extends DefaultNodes implements Nodes {
         },
         // Blue Color
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "BlueColor",
             selected: 255,
             result: 255,

@@ -33,31 +33,30 @@ export default class Management extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...FactoryResetNodesEnum,
+            ...JSON.parse(JSON.stringify(FactoryResetNodesEnum)),
             parents: this.key
         },
         {
-            ...DDCCISupportNodesEnum,
+            ...JSON.parse(JSON.stringify(DDCCISupportNodesEnum)),
             parents: this.key
         },
         {
-            ...DiagnosticPatternsNodesEnum,
+            ...JSON.parse(JSON.stringify(DiagnosticPatternsNodesEnum)),
             parents: this.key
         },
         {
-            // 目前實體螢幕無顯示此功能，須待確認
-            ...AccessibilityNodesEnum,
+            ...JSON.parse(JSON.stringify(AccessibilityNodesEnum)),
             parents: this.key
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         }

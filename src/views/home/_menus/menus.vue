@@ -73,6 +73,7 @@
 <script lang="ts" setup>
 import { ref, reactive, watch, computed, inject } from 'vue';
 import { useStore } from '@/stores/index';
+import type { StoreState } from '@/stores/index';
 import type { Nodes, ControllerButtonList, ControlScreen } from '@/types';
 import { ModeType } from '@/types';
 import { isEnableInput, toLanguageText } from '@/service/service';
@@ -161,16 +162,18 @@ const informationEnum = computed(() => {
 
 const ColorNodesEnum = new Color();
 
-const resetMenus = {
-    brightness: new Brightness(),
-    color: ColorNodesEnum,
+const resetMenus: Record<keyof StoreState, StoreState[keyof StoreState]> = {
+    brightnessPlus: new Brightness(),
+    color: new Color(),
     image: new Image(),
     input: new Input(),
     power: new Power(),
     menu: new Menu(),
     management: new Management(),
     information: new Information(),
-    Exit: new Exit()
+    exit: new Exit(),
+	isDiagnosticPatterns: false,
+	currentDiagnosticPatterns: "black"
 };
 
 const menus = computed(() => {
@@ -181,7 +184,7 @@ const menus = computed(() => {
         page: 1,
         mode: ModeType.button,
         nodes: [
-            store.$state.brightness,
+            store.$state.brightnessPlus,
             store.$state.color,
             store.$state.image,
             store.$state.input,
@@ -238,7 +241,7 @@ const assignMenus = computed(() => {
         [AssignBrightnessNodesEnum.key]: {
             key: AssignBrightnessNodesEnum.key,
             icon: iconBrightness,
-            node: store.$state.brightness.nodes[0]
+            node: store.$state.brightnessPlus.nodes[0]
         }, 
         [AssignColorNodesEnum.key]: {
             key: AssignColorNodesEnum.key,
@@ -918,14 +921,16 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     };
     
     // 恢復當前 menu 預設值
+    console.log(nodes.key , ResetNodesEnum.key);
+    
     if(nodes.key == ResetNodesEnum.key) {
-        (Object.keys(resetMenus) as Array<keyof typeof resetMenus>).forEach(k => {
-            if(resetMenus[k].key == state.menuPanel?.key) {
-                state.menuPanel = resetMenus[k];
-            }
-        });
-
+		const firstLetter = state.menuPanel!.key.charAt(0).toLowerCase();
+        const restOfString = state.menuPanel!.key.slice(1);
+        const key = firstLetter + restOfString as keyof StoreState;
+        console.log(key, resetMenus[key]);
+        store.$patch({ [key]: { ...JSON.parse(JSON.stringify(resetMenus[key])) } });
         handlePrevious();
+        
         return
     };
 
@@ -954,7 +959,6 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         checked ? previousNodes.selected.splice(previousNodes.selected.indexOf(nodes.selected), 1) : previousNodes.selected.push(nodes.selected);
         previousNodes.result = previousNodes.selected;
     } else {
-        
         previousNodes.selected = nodes.selected;
         previousNodes.result = nodes.result;
 
@@ -971,7 +975,9 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
             handleClose();
         };
         
-        setBrightnessDefaultValue();
+        if(previousNodes.key == "Color") {
+            setBrightnessDefaultValue();
+        }
 
         if(nodes.livePreview) {
             // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
@@ -1035,6 +1041,7 @@ function menuTimeout() {
                 state.thirdPanelIndex = 0;
                 state.fourthPanel = null;
                 state.fourthPanelIndex = 0;
+                state.currentPanelNumber = 2;
             }
     
         }, (menuStateResult.value.menuTimeout as number) * 1000);

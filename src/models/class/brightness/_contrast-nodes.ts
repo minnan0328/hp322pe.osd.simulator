@@ -28,7 +28,7 @@ export default class contrastNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "ContrastNodes",
             selected: this.selected,
             result: this.result,

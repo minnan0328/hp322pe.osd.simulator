@@ -29,7 +29,7 @@ export default class FactoryResetNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Yes",
             selected: "Yes",
             result: "Yes",
@@ -50,7 +50,7 @@ export default class FactoryResetNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "No",
             selected: "No",
             result: "No",
@@ -74,7 +74,7 @@ export default class FactoryResetNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

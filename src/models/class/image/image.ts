@@ -39,43 +39,43 @@ export default class Image extends DefaultNodes implements Nodes {
     nodes = [
         // 自動調整
         {
-            ...AutoAdjustmentNodesEnum,
+            ...JSON.parse(JSON.stringify(AutoAdjustmentNodesEnum)),
             parents: this.key
         },
         // 時脈和相位
         {
-            ...ClockandPhaseNodesEnum,
+            ...JSON.parse(JSON.stringify(ClockandPhaseNodesEnum)),
             parents: this.key
         },
         // 影像位置
         {
-            ...ImagePositionNodesEnum,
+            ...JSON.parse(JSON.stringify(ImagePositionNodesEnum)),
             parents: this.key
         },
         // 回應時間
         {
-            ...ResponseTimeNodesEnum,
+            ...JSON.parse(JSON.stringify(ResponseTimeNodesEnum)),
             parents: this.key
         },
         // 銳利度
         {
-            ...SharpnessNodesEnum,
+            ...JSON.parse(JSON.stringify(SharpnessNodesEnum)),
             parents: this.key
         },
         // 影像縮放
         {
-            ...ImageScalingNodesEnum,
+            ...JSON.parse(JSON.stringify(ImageScalingNodesEnum)),
             parents: this.key
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         }

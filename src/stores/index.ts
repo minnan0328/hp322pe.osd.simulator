@@ -1,4 +1,5 @@
-import { ref, reactive } from 'vue';
+import { ref, reactive, toRefs } from 'vue';
+import type { Nodes } from '@/types';
 import { defineStore } from 'pinia';
 import {
 	Brightness, Color, Image, Input,
@@ -10,48 +11,83 @@ import { AssignAutoAdjustmentNodes, AssignColorNodes } from '@/models/class/menu
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignColorNodesEnum = new AssignColorNodes();
 
-export const useStore = defineStore('counter', () => {
-	let brightness = ref(new Brightness());
-	let color = ref(new Color());
-	let image = ref(new Image());
-	let input = ref(new Input());
-	let power = ref(new Power());
-	let menu = ref(new Menu());
-	let management = ref(new Management());
-	let information = ref(new Information());
-	let exit = ref(new Exit());
+export interface StoreState {
+    brightnessPlus: Brightness;
+    color: Color;
+    image: Image;
+    input: Input;
+    power: Power;
+    menu: Menu;
+    management: Management;
+    information: Information;
+    exit: Exit;
+    isDiagnosticPatterns: boolean;
+    currentDiagnosticPatterns: string;
+}
 
-	let isDiagnosticPatterns = ref(false);
-	let currentDiagnosticPatterns = ref("black");
+// 定義 resetMenus 類型
+const resetMenus: Record<keyof StoreState, StoreState[keyof StoreState]> = {
+    brightnessPlus: new Brightness(),
+    color: new Color(),
+    image: new Image(),
+    input: new Input(),
+    power: new Power(),
+    menu: new Menu(),
+    management: new Management(),
+    information: new Information(),
+    exit: new Exit(),
+	isDiagnosticPatterns: false,
+	currentDiagnosticPatterns: "black"
+};
+
+export const useStore = defineStore('counter', () => {
+    const state = reactive<StoreState>({
+        brightnessPlus: new Brightness(),
+        color: new Color(),
+        image: new Image(),
+        input: new Input(),
+        power: new Power(),
+        menu: new Menu(),
+        management: new Management(),
+        information: new Information(),
+        exit: new Exit(),
+        isDiagnosticPatterns: false,
+        currentDiagnosticPatterns: "black",
+    });
 
     // 選擇 VGA 時更換自訂按鈕項目
-	function setAssignButtonValue() {
-		let assignButton2Result = input.value.result == "VGA" ? AssignAutoAdjustmentNodesEnum : AssignColorNodesEnum;
-		menu.value.nodes[5].nodes![1].selected = assignButton2Result.selected;
-		menu.value.nodes[5].nodes![1].result = assignButton2Result.result;
-	};
+    function setAssignButtonValue() {
+        const assignButton2Result = state.input.result === "VGA" ? AssignAutoAdjustmentNodesEnum : AssignColorNodesEnum;
+        if (state.menu.nodes[5]?.nodes?.[1]) {
+            state.menu.nodes[5].nodes[1].selected = assignButton2Result.selected;
+            state.menu.nodes[5].nodes[1].result = assignButton2Result.result;
+        }
+    }
 
-	// 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
-	function resetLanguage() {
-		menu.value.nodes[0].selected = "English";
-		menu.value.nodes[0].result = "English";
-	}
+    // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
+    function resetLanguage() {
+        if (state.menu.nodes[0]) {
+            state.menu.nodes[0].selected = "English";
+            state.menu.nodes[0].result = "English";
+        }
+    }
 
-	function $reset() {
-		brightness.value = new Brightness();
-		color.value = new Color();
-		image.value = new Image();
-		input.value = new Input();
-		power.value = new Power();
-		menu.value = new Menu();
-		management.value = new Management();
-		information.value = new Information();
-		exit.value = new Exit();
-	}
+    function $reset() {
+        state.brightnessPlus = JSON.parse(JSON.stringify(new Brightness()));
+        state.color = new Color();
+        state.image = new Image();
+        state.input = new Input();
+        state.power = new Power();
+        state.menu = new Menu();
+        state.management = new Management();
+        state.information = new Information();
+        state.exit = new Exit();
+    }
 
-	return { brightness, color, image, input,
-		power, menu, management, information, exit,
-		isDiagnosticPatterns, currentDiagnosticPatterns,
-		$reset, setAssignButtonValue, resetLanguage
-	};
+    return {
+        ...toRefs(state),
+        $reset,
+        setAssignButtonValue,
+        resetLanguage,
+    };
 });

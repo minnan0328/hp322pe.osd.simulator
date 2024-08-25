@@ -39,38 +39,38 @@ export default class Brightness extends DefaultNodes implements Nodes {
     nodes = [
         // 亮度
         {
-            ...BrightnessNodesEnum,
+            ...JSON.parse(JSON.stringify(BrightnessNodesEnum)),
             parents: this.key
         },
         // 對比
         {
-            ...ContrastNodesEnum,
+            ...JSON.parse(JSON.stringify(ContrastNodesEnum)),
             parents: this.key
         },
         // 動態對比
         {
-            ...DynamicContrastNodesEnum,
+            ...JSON.parse(JSON.stringify(DynamicContrastNodesEnum)),
             parents: this.key
         },
         // 黑色延展
         {
-            ...BlackStretchNodesEnum,
+            ...JSON.parse(JSON.stringify(BlackStretchNodesEnum)),
             parents: this.key
         },
         // 視訊等級
         {
-            ...VideoLevelNodesEnum,
+            ...JSON.parse(JSON.stringify(VideoLevelNodesEnum)),
             parents: this.key
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         }

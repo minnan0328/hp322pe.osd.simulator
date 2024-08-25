@@ -42,7 +42,7 @@ export default class AssignButtonsNodes extends DefaultNodes implements Nodes {
     nodes = [
         {
             // Y  (FD=Next Active Input)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "AssignButton1",
             selected: AssignNextActiveInputNodesEnum.selected,
             result: AssignNextActiveInputNodesEnum.result,
@@ -100,7 +100,7 @@ export default class AssignButtonsNodes extends DefaultNodes implements Nodes {
         {   
             // Y  (FD=Auto-Adjustment) VGA input
             // Y (FD=Color)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "AssignButton2",
             selected: AssignColorNodesEnum.selected,
             result: AssignColorNodesEnum.result,
@@ -158,7 +158,7 @@ export default class AssignButtonsNodes extends DefaultNodes implements Nodes {
         {   
             // Auto-Adjustment only appears in menu for VGA
             // Y  (FD=Brightness)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "AssignButton3",
             selected: AssignBrightnessNodesEnum.selected,
             result: AssignBrightnessNodesEnum.result,
@@ -183,39 +183,39 @@ export default class AssignButtonsNodes extends DefaultNodes implements Nodes {
             },
             nodes: [
                 {
-                    ...AssignAutoAdjustmentNodesEnum,
+                    ...JSON.parse(JSON.stringify(AssignAutoAdjustmentNodesEnum)),
                     parents: this.key
                 },
                 {
-                    ...AssignBrightnessNodesEnum,
+                    ...JSON.parse(JSON.stringify(AssignBrightnessNodesEnum)),
                     parents: this.key
                 },
                 {
-                    ...AssignColorNodesEnum,
+                    ...JSON.parse(JSON.stringify(AssignColorNodesEnum)),
                     parents: this.key
                 },
                 {
-                    ...AssignDisplayInformationNodesEnum,
+                    ...JSON.parse(JSON.stringify(AssignDisplayInformationNodesEnum)),
                     parents: this.key
                 },
                 {
-                    ...AssignNextActiveInputNodesEnum,
+                    ...JSON.parse(JSON.stringify(AssignNextActiveInputNodesEnum)),
                     parents: this.key
                 },
                 {
-                    ...AssignEmptyNodesEnum,
+                    ...JSON.parse(JSON.stringify(AssignEmptyNodesEnum)),
                     parents: this.key
                 },
                 // 上一步
                 {
-                    ...BackNodesEnum,
+                    ...JSON.parse(JSON.stringify(BackNodesEnum)),
                     parents: this.key
                 }
             ]
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

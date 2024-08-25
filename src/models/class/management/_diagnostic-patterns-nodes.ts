@@ -30,7 +30,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "CyclePatterns",
             selected: "Cycle Patterns",
             result: "Cycle Patterns",
@@ -52,7 +52,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FullScreenBlack",
             selected: "Full Screen Black",
             result: "Full Screen Black",
@@ -74,7 +74,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FullScreenWhite",
             selected: "Full Screen White",
             result: "Full Screen White",
@@ -96,7 +96,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FullScreenRed",
             selected: "Full Screen Red",
             result: "Full Screen Red",
@@ -118,7 +118,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FullScreenGreen",
             selected: "Full Screen Green",
             result: "Full Screen Green",
@@ -140,7 +140,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FullScreenBlue",
             selected: "Full Screen Blue",
             result: "Full Screen Blue",
@@ -163,7 +163,7 @@ export default class DiagnosticPatternsNodes extends DefaultNodes implements Nod
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

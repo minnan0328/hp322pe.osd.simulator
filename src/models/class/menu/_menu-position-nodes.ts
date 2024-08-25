@@ -33,7 +33,7 @@ export default class MenuPositionNodes extends DefaultNodes
     nodes = [
         {
             // Range (0~100)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Horizontal",
             selected: 74,
             result: 74,
@@ -57,7 +57,7 @@ export default class MenuPositionNodes extends DefaultNodes
         },
         {
             // Range (0~100)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Vertical",
             selected: 81,
             result: 81,
@@ -81,7 +81,7 @@ export default class MenuPositionNodes extends DefaultNodes
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

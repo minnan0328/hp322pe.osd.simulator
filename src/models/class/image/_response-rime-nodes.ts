@@ -29,7 +29,7 @@ export default class ResponseTimeNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level1",
             selected: "Level 1",
             result: "Level 1",
@@ -51,7 +51,7 @@ export default class ResponseTimeNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level2(Fast)",
             selected: "Level 2 (Fast)",
             result: "Level 2 (Fast)",
@@ -72,7 +72,7 @@ export default class ResponseTimeNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level3",
             selected: "Level 3",
             result: "Level 3",
@@ -94,7 +94,7 @@ export default class ResponseTimeNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Level4(Fastest)",
             selected: "Level 4 (Fastest)",
             result: "Level 4 (Fastest)",
@@ -116,7 +116,7 @@ export default class ResponseTimeNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
         }
     ];

@@ -74,28 +74,29 @@ export default class Color extends DefaultNodes implements Nodes {
         },
         // HP Enhance+
         {
-            ...HPEnhancePlusNodesEnum,
+            ...JSON.parse(JSON.stringify(HPEnhancePlusNodesEnum)),
             parents: this.key
         },
         // 自訂 RBG
         {
-            ...CustomRGBNodesEnum,
+            ...JSON.parse(JSON.stringify(CustomRGBNodesEnum)),
             parents: this.key
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
             mergeGrid: true 
         },
         {
             ...ExitNodesEnum,
+            ...JSON.parse(JSON.stringify(ExitNodesEnum)),
             parents: this.key,
         }
     ];

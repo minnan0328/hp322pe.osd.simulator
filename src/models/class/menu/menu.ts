@@ -38,42 +38,42 @@ export default class Menu extends DefaultNodes implements Nodes {
     nodes = [
         // 語言
         {
-            ...LanguageNodesEnum,
+            ...JSON.parse(JSON.stringify(LanguageNodesEnum)),
             parents: this.key
         },
         // 選單位置
         {
-            ...MenuPositionNodesEnum,
+            ...JSON.parse(JSON.stringify(MenuPositionNodesEnum)),
             parents: this.key
         },
         // 功能表透明度
         {
-            ...MenuTransparencyNodesEnum,
+            ...JSON.parse(JSON.stringify(MenuTransparencyNodesEnum)),
             parents: this.key
         },
         // 功能表延遲
         {
-            ...MenuTimeoutNodesEnum,
+            ...JSON.parse(JSON.stringify(MenuTimeoutNodesEnum)),
             parents: this.key
         },
         // OSD 訊息
         {
-            ...OSDMessagesNodesEnum,
+            ...JSON.parse(JSON.stringify(OSDMessagesNodesEnum)),
             parents: this.key
         },
         // 指定鍵
         {
-            ...AssignButtonsNodesEnum,
+            ...JSON.parse(JSON.stringify(AssignButtonsNodesEnum)),
             parents: this.key
         },
         // 重置
         {
-            ...ResetNodesEnum,
+            ...JSON.parse(JSON.stringify(ResetNodesEnum)),
             parents: this.key
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ];

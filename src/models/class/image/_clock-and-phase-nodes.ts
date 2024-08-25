@@ -29,7 +29,7 @@ export default class HPEnhancePlusNodes extends DefaultNodes implements Nodes {
         // 時脈
         {
             // VGA only - Range (0~100)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Clock",
             selected: 0,
             result: 0,
@@ -55,7 +55,7 @@ export default class HPEnhancePlusNodes extends DefaultNodes implements Nodes {
         // 相位
         {
             // Range (0~100)
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Phase",
             selected: 0,
             result: 0,
@@ -80,7 +80,7 @@ export default class HPEnhancePlusNodes extends DefaultNodes implements Nodes {
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key,
         }
     ];

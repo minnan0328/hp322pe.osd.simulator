@@ -44,7 +44,7 @@ export default class OSDMessagesNodes extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "PowerOnLogo",
             selected: "Power-On Logo",
             result: "Power-On Logo",
@@ -65,7 +65,7 @@ export default class OSDMessagesNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "NoInputSignalWarning",
             selected: "No Input Signal Warning",
             result: "No Input Signal Warning",
@@ -88,7 +88,7 @@ export default class OSDMessagesNodes extends DefaultNodes implements Nodes {
         {
             // Y (FD=On=>checked) EMEA
             // Y (FD=Off=>unchecked) Non-EMEA
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "ConfirmChangeMessage",
             selected: "Confirm Change Message",
             result: "Confirm Change Message",
@@ -109,12 +109,11 @@ export default class OSDMessagesNodes extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...MonitorStatusNodesEnum,
-            parents: this.key
+            ...JSON.parse(JSON.stringify(MonitorStatusNodesEnum)),
         },
         // 上一步
         {
-            ...BackNodesEnum,
+            ...JSON.parse(JSON.stringify(BackNodesEnum)),
             parents: this.key
         }
     ]

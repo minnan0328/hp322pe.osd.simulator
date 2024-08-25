@@ -1,6 +1,6 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
-import Color from '../color/_cool-nodes';
+import Color from '../color/color';
 import { DefaultNodes, ExitNodes } from '../_utilities';
 
 const DefaultNodesEnum = new DefaultNodes();
@@ -27,7 +27,7 @@ export default class Information extends DefaultNodes implements Nodes {
     };
     nodes = [
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "CurrentMode:",
             selected: "1920x1080 60Hz",
             result: "1920x1080 60Hz",
@@ -49,7 +49,7 @@ export default class Information extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "OptimalMode:",
             selected: "1920x1080 100Hz",
             result: "1920x1080 100Hz",
@@ -71,7 +71,7 @@ export default class Information extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "ColorSetting:",
             selected: ColorEnum.selected,
             result: ColorEnum.result,
@@ -93,7 +93,7 @@ export default class Information extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "FWPackageVersion:",
             selected: "0.0.1.0",
             result: "0.0.1.0",
@@ -116,7 +116,7 @@ export default class Information extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "HWRevision:",
             selected: "B0IT0000",
             result: "B0IT0000",
@@ -138,7 +138,7 @@ export default class Information extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...DefaultNodesEnum,
+            ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "SerialNumber:",
             selected: "CNK0000001",
             result: "CNK0000001",
@@ -160,7 +160,7 @@ export default class Information extends DefaultNodes implements Nodes {
             }
         },
         {
-            ...ExitNodesEnum,
+            ...JSON.parse(JSON.stringify(ExitNodesEnum)),
             parents: this.key,
         }
     ];
