@@ -10,7 +10,7 @@
         :showMonitorStatus="showMonitorStatus">
     </monitorStatus>
 
-    <div class="screen" v-if="showScreen && !monitorScreenResult.diagnosticPatterns.start">
+    <div :class="['screen', monitorScreenResult.imageScaling]" v-if="showScreen && !monitorScreenResult.diagnosticPatterns.start">
         <img :src="monitorScreenResult.blackStretchImage" alt="">
     </div>
     <div v-else-if="monitorScreenResult.diagnosticPatterns.start" :key="monitorScreenResult.diagnosticPatterns.patterns"
@@ -102,8 +102,14 @@ onMounted(() => {
         left: 0px;
         overflow: hidden;
 
+        &.FilltoAspectRatio {
+            max-width: 572px;
+            height: 428px;
+            margin: 0 109.5px;
+        }
+
         img {
-            width: 100%;
+            min-width: 100%;
             position: absolute;
             top: v-bind("monitorScreenResult.imagePosition.x");
             left:  v-bind("monitorScreenResult.imagePosition.y");

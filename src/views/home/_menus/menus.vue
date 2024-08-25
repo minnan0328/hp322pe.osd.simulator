@@ -921,16 +921,12 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     };
     
     // 恢復當前 menu 預設值
-    console.log(nodes.key , ResetNodesEnum.key);
-    
     if(nodes.key == ResetNodesEnum.key) {
 		const firstLetter = state.menuPanel!.key.charAt(0).toLowerCase();
         const restOfString = state.menuPanel!.key.slice(1);
         const key = firstLetter + restOfString as keyof StoreState;
-        console.log(key, resetMenus[key]);
         store.$patch({ [key]: { ...JSON.parse(JSON.stringify(resetMenus[key])) } });
         handlePrevious();
-        
         return
     };
 
