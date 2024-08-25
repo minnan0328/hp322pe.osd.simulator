@@ -10,6 +10,9 @@ const BackNodesEnum = new BackNodes();
 export default class MenuPositionNodes extends DefaultNodes
  implements Nodes {
     key = "MenuPosition";
+    selected = "H=74, V=81";
+    result = "H=74, V=81";
+    displayValue = true;
     size = 2;
     page = 1;
     mode = ModeType.button;

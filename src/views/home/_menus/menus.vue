@@ -842,6 +842,11 @@ function handleRangeValue(step: string) {
                 previousNodes.result = nodes.result;
             }
 
+            if(previousNodes.key == "MenuPosition") {
+                let menuPositionText = `H=${previousNodes.nodes![0].result}, V=${previousNodes.nodes![1].result}`
+                previousNodes.selected = menuPositionText;
+                previousNodes.result = menuPositionText;
+            }
         };
     }
 };
