@@ -1,6 +1,6 @@
 <template>
     <div class="menu-wrapper">
-        <div class="menus" v-if="openAllMenu && state.menuPanel">
+        <div :class="['menus', { 'accessibility': menuStateResult.accessibility }]" v-if="openAllMenu && state.menuPanel">
             <div class="header">
                 <p>HP 322pe</p>
             </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div :class="['menu assign-menu', state.menuPanel.key]" v-if="openAssignButton && state.menuPanel">
+        <div :class="['menu assign-menu', state.menuPanel.key, { 'accessibility': menuStateResult.accessibility }]" v-if="openAssignButton && state.menuPanel">
             <div class="header">
                 <p>{{ toLanguageText(state.menuPanel.language!) }}</p>
             </div>
@@ -47,7 +47,7 @@
             </div>
         </div>
     
-        <div class="controller-menus" v-if="openControllerMenus">
+        <div :class="['controller-menus', { 'accessibility': menuStateResult.accessibility }]" v-if="openControllerMenus">
             <template v-for="currentButton in handleControllerButtonList">
                 <div class="menu-item" v-if="currentButton.image">
                     <img :src="currentButton?.image" alt="">
@@ -989,6 +989,20 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
             setBrightnessDefaultValue();
         }
 
+        if(previousNodes.key == "Accessibility") {
+
+            store.$state.menu.nodes[0].disabled = previousNodes.result == OnNodesEnum.result;
+            store.$state.menu.nodes[1].disabled = previousNodes.result == OnNodesEnum.result;
+
+            openAllMenu.value = false;
+            openControllerMenus.value = false;
+
+            setTimeout(() => {
+                openAllMenu.value = true;
+                openControllerMenus.value = true;
+            }, 1000)
+        }
+
         if(nodes.livePreview) {
             // 即時預覽效果的時候，暫存原始的值，當沒確認時，反回上一步需要恢復為暫存的值
             state.temporaryStorage = null;
@@ -1152,6 +1166,12 @@ function menuTimeout() {
 
 .menus {
     opacity: v-bind("menuStateResult.menuTransparency");
+
+    &.accessibility {
+        transform: scale(1.08);
+        top: 22px;
+        left: 164px;
+    }
 }
 
 .assign-menu {
@@ -1163,6 +1183,11 @@ function menuTimeout() {
     background-color: #161616;
     width: 200px;
 	height: 282px;
+
+    &.accessibility {
+        transform: scale(1.1);
+        bottom: 76px;
+    }
 
     &.Information {
         width: 300px;
@@ -1184,6 +1209,10 @@ function menuTimeout() {
 	display: flex;
 	bottom: 0px;
 	right: 62px;
+
+    &.accessibility {
+        transform: scale(1.1);
+    }
 
 	.menu-item {
 		display: flex;

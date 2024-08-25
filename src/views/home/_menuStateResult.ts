@@ -71,7 +71,8 @@ export const menuStateResult = computed(() => {
         information: {
             currentMode: store.$state.information.nodes[0],
             optimalMode: store.$state.information.nodes[1]
-        }
+        },
+        accessibility: management.value.nodes[3].result == OnNodesEnum.result
     }
 });
 
