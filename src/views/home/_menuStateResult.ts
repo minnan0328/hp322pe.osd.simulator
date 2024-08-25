@@ -38,7 +38,11 @@ export const monitorScreenResult = computed(() => {
             x: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![0].result as number) / 100) * (20 - (-20)) - 20)}px` : 0,
             y: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![1].result as number) / 100) * (20 - (-20)) - 20)}px` : 0
         },
-        imageScaling: store.$state.image.nodes[5].result.replace(/\s+/g, '')
+        imageScaling: store.$state.image.nodes[5].result.replace(/\s+/g, ''),
+        imageClockPhase: {
+            width: `${(0.1 * store.$state.image.nodes[1].nodes[0].result) + 95}%`,
+            height: `${(0.1 * store.$state.image.nodes[1].nodes[1].result) + 95}%`
+        }
     }
 });
 

@@ -109,7 +109,8 @@ onMounted(() => {
         }
 
         img {
-            min-width: 100%;
+            width: v-bind("monitorScreenResult.imageClockPhase.width");
+            height: 428px;
             position: absolute;
             top: v-bind("monitorScreenResult.imagePosition.y");
             left:  v-bind("monitorScreenResult.imagePosition.x");
