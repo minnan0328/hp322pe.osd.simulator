@@ -972,6 +972,16 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
         previousNodes.selected = nodes.selected;
         previousNodes.result = nodes.result;
 
+        if(previousNodes.mode == ModeType.radio && nodes.mode == ModeType.radio) {
+
+            // 目前只有第三層會出現這問題，暫時這樣處理
+            if(state.currentPanelNumber == 3) {
+                state.menuPanel!.result = nodes.result
+                state.menuPanel!.selected= nodes.selected
+            }
+        }
+        
+
         if(previousNodes.key == "Language") {
             openAllMenu.value = false;
 

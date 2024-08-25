@@ -11,8 +11,8 @@ const HighNodesEnum = new HighNodes();
 
 export default class HPEnhancePlusNode extends DefaultNodes implements Nodes {
     key = "HPEnhancePlus";
-    selected = MediumNodesEnum.selected;
-    result = MediumNodesEnum.result;
+    selected = 'HPEnhancePlus' + MediumNodesEnum.selected;
+    result = 'HPEnhancePlus' + MediumNodesEnum.result;
     displayValue = true;
     livePreview = true;
     size = 4;
@@ -36,16 +36,23 @@ export default class HPEnhancePlusNode extends DefaultNodes implements Nodes {
         // 低
         {
             ...JSON.parse(JSON.stringify(LowNodesEnum)),
+            selected: this.key + LowNodesEnum.selected,
+            result: this.key + LowNodesEnum.result,
             parents: this.key
+
         },
         // 中
         {
             ...JSON.parse(JSON.stringify(MediumNodesEnum)),
+            selected: this.key + MediumNodesEnum.selected,
+            result: this.key + MediumNodesEnum.result,
             parents: this.key
         },
         // 高
         {
             ...JSON.parse(JSON.stringify(HighNodesEnum)),
+            selected: this.key + HighNodesEnum.selected,
+            result: this.key + HighNodesEnum.result,
             parents: this.key
         },
         // 上一步
