@@ -455,6 +455,13 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         { image: iconAdd, event: handleRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
+    
+    const rangeNextButtonListLast: ControllerButtonList[] = [
+        { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
+        { image: iconSubtract, event: handleRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconAdd, event: handleRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
+    ];
 
         // assign button 確認選擇的按鈕組合
     const confirmedAssignButtonList: ControllerButtonList[] = [
@@ -496,9 +503,20 @@ function handleModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
         ) {
             return rangeButtonList;
         } else if(
-            // 多個 range value
-            nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1
-            || nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
+            // 多個 range value 直向 不是最後一個
+            nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1 
+            && state.thirdPanel!.key != state.secondPanel!.nodes![state.secondPanel!.nodes!.length - 1].key
+        ) {
+            return rangeNextButtonList;
+        } else if(
+            // 多個 range value 直向 最後一個
+            nodes.mode == ModeType.verticalRange && previousNodes.nodes && previousNodes.nodes?.length > 1 
+            && state.thirdPanel!.key == state.secondPanel!.nodes![state.secondPanel!.nodes!.length - 1].key
+        ) {
+            return rangeNextButtonListLast;
+        }else if(
+            // 多個 range value 橫向
+            nodes.mode == ModeType.horizontalRange && previousNodes.nodes && previousNodes.nodes?.length >  1
         ) {
             return rangeNextButtonList;
         } else {
@@ -634,6 +652,12 @@ function handlePrevious() {
         };
 
     } else if(state.secondPanel && state.thirdPanel && !state.fourthPanel) {
+        if(state.thirdPanel!.mode == ModeType.verticalRange && state.secondPanel.nodes!.length > 1 && state.thirdPanelIndex != 0) {
+            state.thirdPanelIndex -= 1;
+            state.thirdPanel = state.secondPanel.nodes![state.thirdPanelIndex];
+            return
+        }
+
         state.thirdPanel = null;
         state.thirdPanelIndex = 0;
         state.currentPanelNumber = 2;
@@ -647,7 +671,6 @@ function handlePrevious() {
         if(state.secondPanel.key == "DiagnosticPatterns") {
             store.$state.isDiagnosticPatterns = false;
         }
-
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
         state.fourthPanel = null;
         state.fourthPanelIndex = 0;
