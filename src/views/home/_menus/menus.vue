@@ -614,8 +614,8 @@ function selectEnabledNode(node: Nodes, startIndex: number, setValue: (node: Nod
         do {
             // 檢查節點是否可用且未被禁用
             if (
-                isEnableInput(node.nodes[index]) && !node.nodes[index].disabled &&
-                (openAllMenu.value || (openAssignButton.value && node.nodes[index].mode !== ModeType.info))
+                isEnableInput(node.nodes[index]) && !node.nodes[index].disabled && openAllMenu.value
+                || (openAssignButton.value && node.nodes[index].mode !== ModeType.info)
             ) {
                 let selectedIndex = (node.selected || node.selected === 0) ? node.nodes.findIndex(n => n.selected === node.selected) : index;
                 index = selectedIndex >= 0 ? selectedIndex : index;
@@ -871,7 +871,7 @@ function handleRangeValue(step: string) {
                 (nodes.result as number) += 1;
             }
 
-            if(previousNodes.key != "CustomRGB") {
+            if(previousNodes.key != "CustomRGB" && nodes.mode != ModeType.horizontalRange) {
                 previousNodes.selected = nodes.selected;
                 previousNodes.result = nodes.result;
             }

@@ -69,6 +69,7 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
             }
 
             &.selected {
+                .range-text,
                 .range-max-value {
                     color: #FFFFFF;;
                 }
