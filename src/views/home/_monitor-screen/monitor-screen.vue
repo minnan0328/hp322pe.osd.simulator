@@ -21,7 +21,7 @@
 import { onMounted } from 'vue';
 import { useStore } from '@/stores/index';
 import monitorStatus from '@/views/home/_monitor-status/monitor-status.vue';
-import { menuStateResult, monitorScreenResult, monitorStatusResult } from '@/views/home/_menuStateResult';
+import { menuStateResult, monitorScreenResult, monitorStatusResult } from '@/service/monitorStateResult';
 
 const store = useStore();
 
@@ -139,4 +139,4 @@ onMounted(() => {
 .initial-leave-to {
     opacity: 0;
 }
-</style>
+</style>@/service/_menuStateResult

@@ -33,7 +33,7 @@
 import { ref } from 'vue';
 import { toLanguageText } from '@/service/service';
 import { ModeType } from '@/types';
-import { menuStateResult, monitorStatusResult } from '@/views/home/_menuStateResult';
+import { menuStateResult, monitorStatusResult } from '@/service/monitorStateResult';
 
 const props = defineProps({
     show: {
@@ -43,7 +43,6 @@ const props = defineProps({
     position: {
         type: String,
         default: "Top"
-        
     }
 });
 

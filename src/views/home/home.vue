@@ -71,7 +71,7 @@ import type { Nodes, ControlScreen} from '@/types';
 import ribbon from '@/views/home/_ribbon/ribbon.vue';
 import monitorScreen from '@/views/home/_monitor-screen/monitor-screen.vue';
 import menus from '@/views/home/_menus/menus.vue';
-import { monitorResult } from '@/views/home/_menuStateResult';
+import { monitorResult } from '@/service/monitorStateResult';
 import { toLanguageText } from '@/service/toDisplayLanguageText';
 
 const store = useStore();
@@ -335,4 +335,4 @@ provide("controlScreen", {
 }
 
 
-</style>
+</style>@/service/_menuStateResult

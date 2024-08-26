@@ -114,7 +114,7 @@ import {
 import { DefaultNodes, BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
 import { BrightnessDefaultValueEnum, setBrightnessDefaultValue } from '@/models/enum/brightnessDefaultValue/brightnessDefaultValue';
 
-import { menuStateResult } from '@/views/home/_menuStateResult';
+import { menuStateResult } from '@/service/monitorStateResult';
 
 const DefaultNodesEnum = new DefaultNodes();
 const BackNodesEnum = new BackNodes();
