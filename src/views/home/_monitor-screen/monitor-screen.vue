@@ -103,9 +103,14 @@ onMounted(() => {
     overflow: hidden;
 
     &.FilltoAspectRatio {
-        max-width: 572px;
+        max-width: 682px;
         height: $screen-height;
-        margin: 0 106.5px;
+        margin: 0 50px;
+
+        &::before {
+            width: 682px;
+            height: $screen-height;
+        }
     }
 
     img {
@@ -114,7 +119,6 @@ onMounted(() => {
         position: absolute;
         top: v-bind("monitorScreenResult.imagePosition.y");
         left:  v-bind("monitorScreenResult.imagePosition.x");
-
         filter: 
             hue-rotate(v-bind("monitorScreenResult.RGB"))
             brightness(v-bind("monitorScreenResult.brightness"))

@@ -146,6 +146,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    showScreen: {
+        type: Boolean,
+        default: false
+    },
     showMonitorStatus: {
         type: Boolean,
         default: false
@@ -156,7 +160,7 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['update:showMonitorStatus', 'update:startUpFinish'])
+const emit = defineEmits(['update:showScreen', 'update:showMonitorStatus', 'update:startUpFinish'])
 
 const inputEnum = computed(() => {
     return store.$state.input;
@@ -1106,6 +1110,14 @@ function saveNodesValue(nodes: Nodes, previousNodes: Nodes) {
             setBrightnessDefaultValue();
         }
 
+        if(previousNodes.key == "VideoLevel") {
+            emit("update:showScreen", false);
+
+            setTimeout(() => {
+                emit("update:showScreen", true);
+            }, 1000)
+        }
+
         if(previousNodes.key == "Accessibility") {
 
             store.$state.menu.nodes[0].disabled = previousNodes.result == OnNodesEnum.result;
@@ -1210,6 +1222,7 @@ function handlerMenuTimeout() {
 	background-color: $black-09;
 	width: 540px;
 	height: 356px;
+    z-index: 2;
 
 	.header,
 	.footer {

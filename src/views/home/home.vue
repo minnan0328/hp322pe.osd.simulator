@@ -49,6 +49,7 @@
     
                             <menus v-model:openMonitor="openMonitor"
                                 v-model:startUpFinish="startUpFinish"
+                                v-model:showScreen="showScreen"
                                 v-model:showMonitorStatus="showMonitorStatus"
                                 v-model:isAutoAdjustment="isAutoAdjustment"
                                 ref="childMenusComponentRef">
