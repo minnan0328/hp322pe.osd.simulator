@@ -20,10 +20,10 @@ const brightness = computed(()=> store.$state.brightnessPlus);
 const color = computed(()=> store.$state.color);
 const image = computed(()=> store.$state.image);
 const input = computed(()=> store.$state.input);
+const power = computed(()=> store.$state.power);
 const menu = computed(()=> store.$state.menu);
 const management = computed(()=> store.$state.management);
 const information = computed(()=> store.$state.information);
-const power = computed(()=> store.$state.power);
 
 export const monitorScreenResult = computed(() => {
     return {
@@ -40,10 +40,10 @@ export const monitorScreenResult = computed(() => {
             x: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![0].result as number) / 100) * (20 - (-20)) - 20)}px` : 0,
             y: input.value.result == "VGA" ? `${(((image.value.nodes[2].nodes![1].result as number) / 100) * (20 - (-20)) - 20)}px` : 0
         },
-        imageScaling: store.$state.image.nodes[5].result.replace(/\s+/g, ''),
+        imageScaling: image.value.nodes[5].result.replace(/\s+/g, ''),
         imageClockPhase: {
-            width: `${(0.1 * store.$state.image.nodes[1].nodes[0].result) + 95}%`,
-            height: `${(0.1 * store.$state.image.nodes[1].nodes[1].result) + 95}%`
+            width: `${(0.1 * image.value.nodes[1].nodes[0].result) + 95}%`,
+            height: `${(0.1 * image.value.nodes[1].nodes[1].result) + 95}%`
         }
     }
 });
@@ -99,9 +99,9 @@ export const monitorResult = computed(() => {
 
 const toImageColor = computed(() => {
     const RGB = {
-        r: (color.value.result == "CustomRGB" && color.value.nodes[7].nodes) ? color.value.nodes[7].nodes[0].result as number : 255,
-        g:(color.value.result == "CustomRGB" && color.value.nodes[7].nodes) ? color.value.nodes[7].nodes[1].result as number : 255,
-        b: (color.value.result == "CustomRGB" && color.value.nodes[7].nodes) ? color.value.nodes[7].nodes[2].result as number : 255
+        r: (color.value.result == "Custom RGB" && color.value.nodes[7].nodes) ? color.value.nodes[7].nodes[0].result as number : 255,
+        g:(color.value.result == "Custom RGB" && color.value.nodes[7].nodes) ? color.value.nodes[7].nodes[1].result as number : 255,
+        b: (color.value.result == "Custom RGB" && color.value.nodes[7].nodes) ? color.value.nodes[7].nodes[2].result as number : 255
     }
 
     const combinedHue = (RGB.r + RGB.g + RGB.b) / -2.125;

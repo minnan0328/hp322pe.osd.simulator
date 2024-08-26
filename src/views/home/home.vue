@@ -165,8 +165,6 @@ provide("autoAdjustment", () => {
     }, 100);
     
 });
-
-
 /* 啟動螢幕 end  */
 
 /* 重啟畫面 */
@@ -178,7 +176,7 @@ function restartScreen() {
     
         if(childMenusComponentRef.value) {
             // 暫時使用 any 解決
-            (childMenusComponentRef.value as any).handleClose();
+            (childMenusComponentRef.value as any).handlerClose();
         };
         
         setTimeout(() => {
@@ -192,8 +190,8 @@ function restartScreen() {
         }, 1000);
     }
 };
-/* 重啟畫面 */
 
+/* 重啟畫面 */
 provide("controlScreen", {
     restartScreen
 } as ControlScreen);
