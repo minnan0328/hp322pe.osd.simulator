@@ -53,76 +53,77 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
 
 </script>
 <style lang="scss" scoped>
-    .range {
+@import '@/styles/_var';
 
-        .vertical-range {
-            .item {
-                height: 26px;
-                border: 1px solid transparent;
-                padding: 0 8px;
-                display: flex;
-                align-items: center;
+.range {
+    .vertical-range {
+        .item {
+            height: 26px;
+            border: 1px solid transparent;
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
 
-                &.range-max-value {
-                    justify-content: center;
-                }
-
-                &.range-text,
-                &.range-max-value {
-                    font-weight: bold;
-                }
-            }
-
-            &.focus {
-                .range-text,
-                .range-max-value {
-                    color: #FFFFFF;;
-                }
-            }
-
-            .range-graduate {
-                width: calc(100% - 18px);
-                background-color: transparent;
-                display: flex;
+            &.range-max-value {
                 justify-content: center;
-                align-items: center;
-                border: 1px solid transparent;
+            }
+
+            &.range-text,
+            &.range-max-value {
+                font-weight: bold;
+            }
+        }
+
+        &.focus {
+            .range-text,
+            .range-max-value {
+                color: $white;
+            }
+        }
+
+        .range-graduate {
+            width: calc(100% - 18px);
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid transparent;
+            position: relative;
+
+            &.selected:not(.disabled),
+            &.focus:not(.disabled) {
+                background-color: $black;
+                border: 1px solid $blue;
+                color: $white;
+            }
+
+            .graduate {
+                height: 12px;
+                width: 70%;
+                background-color: $black-50;
+                border-radius: 6px;
                 position: relative;
 
-                &.selected:not(.disabled),
-                &.focus:not(.disabled) {
-                    background-color: #000000;
-                    border: 1px solid #0083ca;
-                    color: #ffffff;
+                &::before {
+                    position: absolute;
+                    content: '';
+                    bottom: 0;
+                    left: 0;
+                    background-color: $light-grey;
+                    height: 6px;
+                    width: v-bind(currentValue);
+                    border: 3px solid $black-50;
+                    border-top-left-radius: 6px;
+                    border-bottom-left-radius: 6px;
                 }
 
-                .graduate {
-                    height: 12px;
-                    width: 70%;
-                    background-color: #505050;
-                    border-radius: 6px;
-                    position: relative;
-
+                &.max {
                     &::before {
-                        position: absolute;
-                        content: '';
-                        bottom: 0;
-                        left: 0;
-                        background-color: #AAAAAA;
-                        height: 6px;
-                        width: v-bind(currentValue);
-                        border: 3px solid #505050;
-                        border-top-left-radius: 6px;
-                        border-bottom-left-radius: 6px;
-                    }
-
-                    &.max {
-                        &::before {
-                            border-radius: 6px;
-                        }
+                        border-radius: 6px;
                     }
                 }
             }
         }
     }
+}
 </style>

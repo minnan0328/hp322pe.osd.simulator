@@ -83,60 +83,60 @@ onMounted(() => {
 
 </script>
 <style lang="scss" scoped>
+@import '@/styles/_var';
+.screen-initial {
+    position: absolute;
+    top: 8px;
+    left: 8px;
 
-    .screen-initial {
-        position: absolute;
-        top: 8px;
-        left: 8px;
+    img {
+        width: 100%;
+    }
+}
 
-        img {
-            width: 100%;
-        }
+.screen {
+    position: absolute;
+    width: $screen-width;
+    height: $screen-height;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+
+    &.FilltoAspectRatio {
+        max-width: 572px;
+        height: $screen-height;
+        margin: 0 106.5px;
     }
 
-    .screen {
-        position: absolute;
-        width: 782px;
+    img {
+        width: v-bind("monitorScreenResult.imageClockPhase.width");
         height: 428px;
-        top: 0px;
-        left: 0px;
-        overflow: hidden;
+        position: absolute;
+        top: v-bind("monitorScreenResult.imagePosition.y");
+        left:  v-bind("monitorScreenResult.imagePosition.x");
 
-        &.FilltoAspectRatio {
-            max-width: 572px;
-            height: 428px;
-            margin: 0 106.5px;
-        }
-
-        img {
-            width: v-bind("monitorScreenResult.imageClockPhase.width");
-            height: 428px;
-            position: absolute;
-            top: v-bind("monitorScreenResult.imagePosition.y");
-            left:  v-bind("monitorScreenResult.imagePosition.x");
-
-            filter: 
-                hue-rotate(v-bind("monitorScreenResult.RGB"))
-                brightness(v-bind("monitorScreenResult.brightness"))
-                contrast(v-bind("monitorScreenResult.contrast"))
-                blur(v-bind("monitorScreenResult.sharpness"));
-        }
-
-        &.diagnostic-patterns {
-            background-color: v-bind("monitorScreenResult.diagnosticPatterns.patterns");
-        }
-    }
-    
-    .initial-enter-active {
-        transition: opacity 1s ease;
+        filter: 
+            hue-rotate(v-bind("monitorScreenResult.RGB"))
+            brightness(v-bind("monitorScreenResult.brightness"))
+            contrast(v-bind("monitorScreenResult.contrast"))
+            blur(v-bind("monitorScreenResult.sharpness"));
     }
 
-    .initial-leave-active {
-        transition: opacity 2s ease;
+    &.diagnostic-patterns {
+        background-color: v-bind("monitorScreenResult.diagnosticPatterns.patterns");
     }
+}
 
-    .initial-enter-from,
-    .initial-leave-to {
-        opacity: 0;
-    }
+.initial-enter-active {
+    transition: opacity 1s ease;
+}
+
+.initial-leave-active {
+    transition: opacity 2s ease;
+}
+
+.initial-enter-from,
+.initial-leave-to {
+    opacity: 0;
+}
 </style>

@@ -70,6 +70,8 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
 
 </script>
 <style lang="scss" scoped>
+@import '@/styles/_var';
+
 .range {
     width: 100%;
     height: 100%;
@@ -105,10 +107,7 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
             .small {
                 max-width: 70%;
             }
-
-
         }
-
 
         &.selected:not(.disabled) {
             .range-text {
@@ -142,15 +141,15 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
             position: relative;
 
             &.selected:not(.disabled) {
-                background-color: #000000;
-                border: 1px solid #0083ca;
-                color: #ffffff;
+                background-color: $black;
+                border: 1px solid $blue;
+                color: $white;
             }
 
             .graduate {
                 width: 12px;
                 height: calc(100% - 14px);
-                background-color: #505050;
+                background-color: $black-50;
                 border-radius: 6px;
                 position: absolute;
                 bottom: 6px;
@@ -161,7 +160,7 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    background-color: #AAAAAA;
+                    background-color: $light-grey;
                     width: 6px;
                     height: v-bind(currentValue);
                     border: 3px solid #505050;

@@ -81,55 +81,57 @@ const Inactive = ref({
 
 </script>
 <style lang="scss" scoped>
-    .monitor-status {
-        position: absolute;
+@import '@/styles/_var';
+
+.monitor-status {
+    position: absolute;
+    top: 32px;
+    left: calc((100% - 268px) / 2);
+    width: 240px;
+    color: $white;
+    background-color: $black-16;
+    border: 2px solid  $light-grey;
+    padding: 12px 12px 20px;
+    font-size: 10px;
+    font-weight: bold;
+    z-index: 1;
+    width: 240px;
+    height: 134px;
+
+    &.Top {
         top: 32px;
-        left: calc((100% - 268px) / 2);
-        width: 240px;
-        color: #FFFFFF;
-        background-color: #161616;
-        border: 2px solid  #AAAAAA;
-        padding: 12px 12px 20px;
-        font-size: 10px;
-        font-weight: bold;
-        z-index: 1;
-        width: 240px;
-        height: 134px;
+        left: 281px; 
+    }
+    &.Medium {
+        top: calc((100% - 170px) / 2);
+    }
+    &.Bottom {
+        top: unset;
+        bottom: 32px;
+    }
 
-        &.Top {
-            top: 32px;
-            left: 281px; 
-        }
-        &.Medium {
-            top: calc((100% - 170px) / 2);
-        }
-        &.Bottom {
-            top: unset;
-            bottom: 32px;
-        }
+    .monitor-status-title {
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid $light-grey;
+    }
 
-        .monitor-status-title {
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #AAAAAA;;
-        }
+    .monitor-status-info {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        gap: 0 16px;
 
-        .monitor-status-info {
-            display: grid;
-            grid-template-columns: max-content max-content;
-            gap: 0 16px;
+        &.input {
+            margin-bottom: 14px;
 
-            &.input {
-                margin-bottom: 14px;
-
-                .action {
-                    color: #6895D1;
-                }
+            .action {
+                color: $grey-blue;
             }
+        }
 
-            &.setting {
-                margin-bottom: 24px;
-            }
+        &.setting {
+            margin-bottom: 24px;
         }
     }
+}
 </style>

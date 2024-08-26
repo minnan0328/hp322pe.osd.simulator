@@ -1150,6 +1150,8 @@ function menuTimeout() {
 
 </script>
 <style lang="scss" scoped>
+@import '@/styles/_var';
+
 .menu-wrapper {
     position: absolute;
     content: "";
@@ -1164,14 +1166,14 @@ function menuTimeout() {
 	position: absolute;
 	top: v-bind("menuStateResult.menuPosition.y");
 	left: v-bind("menuStateResult.menuPosition.x");
-	background-color: #090909;
+	background-color: $black-09;
 	width: 540px;
 	height: 356px;
 
 	.header,
 	.footer {
 		padding: 6px 12px;
-		color: #ffffff;
+		color: $white;
 		font-size: 10px;
 	}
 
@@ -1186,13 +1188,13 @@ function menuTimeout() {
 	.body {
 		height: calc(100% - 44px);
 		display: flex;
-		color: #aaaaaa;
+		color: $light-grey;
 		font-size: 10px;
 
 		.sidebar {
 			width: 120px;
 			height: 100%;
-			background-color: #1c1c1c;
+			background-color: $black-1C;
 
 			.hp-icon {
 				padding: 8px 0;
@@ -1211,13 +1213,13 @@ function menuTimeout() {
                 border: 1px solid transparent;
 
                 &.disabled {
-                    color: #444444;
+                    color: $black-50;
                 }
 
                 &.selected:not(.disabled) {
-                    background-color: #000000;
-                    border: 1px solid #0083ca;
-                    color: #ffffff;
+                    background-color: $black;
+                    border: 1px solid $blue;
+                    color: $white;
 
                     &.focus {
                         border: 1px solid transparent;
@@ -1256,7 +1258,7 @@ function menuTimeout() {
     left: unset;
 	bottom: 54px;
 	right: 92px;
-    background-color: #161616;
+    background-color: $black-16;
     width: 200px;
 	height: 282px;
 
@@ -1271,9 +1273,9 @@ function menuTimeout() {
 
     .header {
         padding: 6px 12px;
-		color: #ffffff;
+		color: $white;
 		font-size: 10px;
-        background-color: #090909;
+        background-color: $black-09;
     }
     .body {
         height: 100%;
@@ -1296,8 +1298,8 @@ function menuTimeout() {
 		align-items: center;
 		width: 28px;
 		height: 16px;
-		background-color: #323232;
-		border: 0.8px solid #000000;
+		background-color: $black-28;
+		border: 0.8px solid $black;
 
 		img {
             width: 16px;
@@ -1323,4 +1325,4 @@ function menuTimeout() {
 		}
 	}
 }
-</style>../_menuStateResult
+</style>

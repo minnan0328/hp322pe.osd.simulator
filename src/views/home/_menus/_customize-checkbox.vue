@@ -46,6 +46,7 @@ function isChecked(item: Nodes): boolean {
 
 </script>
 <style lang="scss" scoped>
+@import '@/styles/_var';
 .customize-checkbox {
     height: 26px;
     border: 1px solid transparent;
@@ -58,8 +59,8 @@ function isChecked(item: Nodes): boolean {
         position: relative;
         width: 10px;
         height: 10px;
-        background-color: #000000;
-        border: 1px solid #444444;
+        background-color: $black;
+        border: 1px solid $black-28;
         margin-right: 4px;
 
         &.selected::before {
@@ -77,17 +78,17 @@ function isChecked(item: Nodes): boolean {
     }
 
     &.last-nodes {
-        border-bottom: 1px solid #202020;
+        border-bottom: 1px solid $black-1E;
     }
 
     &.disabled {
-        color: #505050;
+        color: $black-50;
     }
     
     &.selected:not(.disabled) {
-        background-color: #000000;
-        border: 1px solid #0083ca;
-        color: #ffffff;
+        background-color: $black;
+        border: 1px solid $blue;
+        color: $white;
     }
 }
 </style>

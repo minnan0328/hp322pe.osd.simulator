@@ -33,6 +33,8 @@ const props = defineProps({
 
 </script>
 <style lang="scss" scoped>
+@import '@/styles/_var';
+
 .customize-radio {
     height: 26px;
     border: 1px solid transparent;
@@ -45,8 +47,8 @@ const props = defineProps({
         position: relative;
         width: 10px;
         height: 10px;
-        background-color: #000000;
-        border: 1px solid #444444;
+        background-color: $black;
+        border: 1px solid $black-28;
         border-radius: 50%;
         margin-right: 4px;
 
@@ -55,7 +57,7 @@ const props = defineProps({
             content: "";
             width: 6px;
             height: 6px;
-            background-color: #aaaaaa;
+            background-color: $light-grey;
             border-radius: 50%;
             left: 2px;
             top: 2px;
@@ -63,18 +65,18 @@ const props = defineProps({
     }
 
     &.disabled {
-        color: #505050;
+        color: $black-50;
     }
 
     &.selected:not(.disabled) {
-        background-color: #000000;
-        border: 1px solid #0083ca;
-        color: #ffffff;
+        background-color: $black;
+        border: 1px solid $blue;
+        color: $white;
 
         &.customize-radio {
             .round {
                 &.selected::before {
-                    background-color: #ffffff;
+                    background-color: $white;
                 }
             }
         }

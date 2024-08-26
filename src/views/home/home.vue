@@ -201,136 +201,138 @@ provide("controlScreen", {
 </script>
 
 <style lang="scss" >
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+@import '@/styles/_var';
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.curtain {
+    width: 1200px;
+    max-width: 1200px;
+    height: 768px;
+    max-height: 768px;
+    background-image: linear-gradient(to bottom, $white 9%, $grey 141%);
+}
+
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: initial;
+
+    .inner {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 0 4px;
+        margin-top: 8px;
     }
-    
-    .curtain {
-        width: 1200px;
-        max-width: 1200px;
-        height: 768px;
-        max-height: 768px;
-        background-image: linear-gradient(to bottom, #ffffff 9%, #999999 141%);
-    }
 
-    .section {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: initial;
+    .left {
+        width: 224px;
+        height: max-content;
+        display: grid;
+        gap: 88px 0;
+        margin-top: 88px;
 
-        .inner {
-            display: grid;
-            grid-template-columns: max-content 1fr;
-            gap: 0 4px;
-            margin-top: 8px;
-        }
+        .card {
+            width: 184px;
 
-        .left {
-            width: 224px;
-            height: max-content;
-            display: grid;
-            gap: 88px 0;
-            margin-top: 88px;
-
-            .card {
-                width: 184px;
-
-                .top {
-                    width: initial;
-                    height: 18px;
-                    background-color: #8b8b8b;
-                    margin-bottom: 2px;
-                }
-
-                .info {
-                    background-color: #aaaaaa;
-                    padding: 24px;
-                    color: #ffffff;
-                    line-height: 1.2;
-                }
-            }
-        }
-
-        .monitor-block {
-            position: relative;
-
-            .wrapper {
-                position: absolute;
-                content: '';
-                top: 9px;
-                left: 9px;
-                width: 782px;
-                height: 428px;
-
-                .auto-adjustment {
-                    position: absolute;
-                    display: flex;
-                    align-items: center;
-                    gap: 0 8px;
-                    top: calc((100% - 60px) / 2);
-                    left: calc((100% - 268px) / 2);
-                    width: 240px;
-                    color: #FFFFFF;
-                    background-color: #161616;
-                    border: 2px solid  #AAAAAA;
-                    padding: 16px 8px;
-                    font-size: 10px;
-                }
-            }
-            
-            .monitor {
-                img {
-                    height: 655px;
-                }
+            .top {
+                width: initial;
+                height: 18px;
+                background-color: $dark-gray;
+                margin-bottom: 2px;
             }
 
-            .power-light {
-                position: absolute;
-                bottom: -22px;
-                right: 57px;
-                width: 4px;
-                height: 4px;
-                background-color: #0083ca;
-                border-radius: 50%;
-                box-shadow: 0px 0px 10px 2px rgba(#0083ca, 0.9);
-            }
-
-            .menu-buttons {
-                position: absolute;
-                bottom: -86px;
-                right: -8px;
-
-                img {
-                    width: 100%;
-                }
-
-                > .power-light.menu-btn {
-                    position: absolute;
-                    bottom: 15px;
-                    right: 56px;
-
-                }
+            .info {
+                background-color: $light-grey;
+                padding: 24px;
+                color: $white;
+                line-height: 1.2;
             }
         }
     }
 
+    .monitor-block {
+        position: relative;
 
-    .initial-enter-active {
-        transition: opacity 1s ease;
-    }
+        .wrapper {
+            position: absolute;
+            content: '';
+            top: 9px;
+            left: 9px;
+            width: 782px;
+            height: 428px;
 
-    .initial-leave-active {
-        transition: opacity 2s ease;
-    }
+            .auto-adjustment {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                gap: 0 8px;
+                top: calc((100% - 60px) / 2);
+                left: calc((100% - 268px) / 2);
+                width: 240px;
+                color: #FFFFFF;
+                background-color: #161616;
+                border: 2px solid  #AAAAAA;
+                padding: 16px 8px;
+                font-size: 10px;
+            }
+        }
+        
+        .monitor {
+            img {
+                height: 655px;
+            }
+        }
 
-    .initial-enter-from,
-    .initial-leave-to {
-        opacity: 0;
+        .power-light {
+            position: absolute;
+            bottom: -22px;
+            right: 57px;
+            width: 4px;
+            height: 4px;
+            background-color: #0083ca;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px 2px rgba(#0083ca, 0.9);
+        }
+
+        .menu-buttons {
+            position: absolute;
+            bottom: -86px;
+            right: -8px;
+
+            img {
+                width: 100%;
+            }
+
+            > .power-light.menu-btn {
+                position: absolute;
+                bottom: 15px;
+                right: 56px;
+
+            }
+        }
     }
+}
+
+
+.initial-enter-active {
+    transition: opacity 1s ease;
+}
+
+.initial-leave-active {
+    transition: opacity 2s ease;
+}
+
+.initial-enter-from,
+.initial-leave-to {
+    opacity: 0;
+}
 
 
 </style>
