@@ -74,14 +74,14 @@ export const useStore = defineStore('counter', () => {
 
     function $reset() {
         state.brightnessPlus = JSON.parse(JSON.stringify(new Brightness()));
-        state.color = new Color();
-        state.image = new Image();
-        state.input = new Input();
-        state.power = new Power();
-        state.menu = new Menu();
-        state.management = new Management();
-        state.information = new Information();
-        state.exit = new Exit();
+        state.color = JSON.parse(JSON.stringify(new Color()));
+        state.image = JSON.parse(JSON.stringify(new Image()));
+        state.input = JSON.parse(JSON.stringify(new Input()));
+        state.power = JSON.parse(JSON.stringify(new Power()));
+        state.menu = JSON.parse(JSON.stringify(new Menu()));
+        state.management = JSON.parse(JSON.stringify(new Management()));
+        state.information = JSON.parse(JSON.stringify(new Information()));
+        state.exit = JSON.parse(JSON.stringify(new Exit()));
     }
 
     return {

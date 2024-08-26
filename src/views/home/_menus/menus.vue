@@ -768,9 +768,6 @@ function handleNavigation(direction: 'up' | 'down') {
                 }
             });
         } else if (state.secondPanel && state.secondPanel.nodes && state.thirdPanel && !state.fourthPanel) {
-
-
-
             updatePanelIndex(state.secondPanel, state.thirdPanelIndex, step, (page, index) => {
                 if(state.secondPanel && state.secondPanel.nodes) {
                     state.secondPanel.page = page;
@@ -779,7 +776,7 @@ function handleNavigation(direction: 'up' | 'down') {
 
                     if(state.secondPanel.nodes.length > 0) {
                         if(
-                            state.secondPanel.nodes[state.thirdPanelIndex - 1].mode == ModeType.horizontalRange 
+                            state.thirdPanelIndex > 0 && state.secondPanel.nodes[state.thirdPanelIndex - 1].mode == ModeType.horizontalRange 
                             && state.secondPanel.nodes[state.thirdPanelIndex - 1].horizontalRangeFocus 
                         ) {
                             state.secondPanel.nodes[state.thirdPanelIndex - 1].horizontalRangeFocus = false;
@@ -1001,9 +998,20 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
     if(previousNodes.key == "FactoryReset") {
         if(nodes.key == "Yes") {
             store.$reset();
+            handleClose();
+
+            setTimeout(() => {
+                handleControllerMenus();
+                handleAllMenu();
+            }, 1000);
         }
+
+        if(nodes.key == "No") {
+            handleNavigation("down");
+        }
+        
         return
-    }
+    };
     
     if(nodes.key == "AutoAdjustment") {
         handleClose();
@@ -1013,7 +1021,7 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
 
     if(nodes.mode == ModeType.horizontalRange && previousNodes.nodes!.length > 1) {
         nodes.horizontalRangeFocus = true;
-    }
+    };
 
     // 下一頁 目前只處理 secondaryNodesPagination(右邊畫面)
     if(nodes && (nodes as Nodes) && previousNodes.nodes && nodes.mode == ModeType.paginationButton && nodes.key == 'NextPageButtons') {
@@ -1046,7 +1054,6 @@ function setNodesValue(nodes: Nodes, previousNodes: Nodes) {
                 state.menuPanel!.selected= nodes.selected
             }
         }
-        
 
         if(previousNodes.key == "Language") {
             openAllMenu.value = false;
@@ -1109,9 +1116,9 @@ function handleClose() {
     store.$state.isDiagnosticPatterns = false;
 };
 
-defineExpose({
-    handleClose
-});
+
+// 開放給 home 使用
+defineExpose({ handleClose });
 
 // 處理選單顯示時效
 const menuTimeOutIntervalId = ref<number | null>(null);

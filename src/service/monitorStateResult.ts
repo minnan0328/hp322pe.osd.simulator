@@ -22,6 +22,8 @@ const image = computed(()=> store.$state.image);
 const input = computed(()=> store.$state.input);
 const menu = computed(()=> store.$state.menu);
 const management = computed(()=> store.$state.management);
+const information = computed(()=> store.$state.information);
+const power = computed(()=> store.$state.power);
 
 export const monitorScreenResult = computed(() => {
     return {
@@ -63,18 +65,18 @@ export const menuStateResult = computed(() => {
             show: menu.value.nodes[4].nodes![3].result != OffNodesEnum.result ? true : false,
             nodes: menu.value.nodes[4].nodes![3]
         },
-        input: store.$state.input,
+        input: input.value,
         autoSwitchInput: {
-            name: store.$state.input.nodes[2],
-            state: store.$state.input.nodes[2].nodes?.find((node: Nodes) => node.result == store.$state.input.nodes[2].result)
+            name: input.value.nodes[2],
+            state: input.value.nodes[2].nodes?.find((node: Nodes) => node.result == input.value.nodes[2].result)
         },
         color: {
-            name: store.$state.information.nodes[2],
-            state: store.$state.color.nodes.find(n => n.result == store.$state.information.nodes[2].result)
+            name: information.value.nodes[2],
+            state: color.value.nodes.find(n => n.result == information.value.nodes[2].result)
         },
         information: {
-            currentMode: store.$state.information.nodes[0],
-            optimalMode: store.$state.information.nodes[1]
+            currentMode: information.value.nodes[0],
+            optimalMode: information.value.nodes[1]
         },
         accessibility: management.value.nodes[3].result == OnNodesEnum.result
     }
@@ -89,9 +91,9 @@ export const monitorStatusResult = computed(() => {
 
 export const monitorResult = computed(() => {
     return {
-        autoSleepMode: store.$state.power.nodes[0].result == OnNodesEnum.result ? true : false,
-        powerOnRecall: store.$state.power.nodes[1].result == OnNodesEnum.result ? true : false,
-        powerLED: store.$state.power.nodes[2].result == OnNodesEnum.result ? true : false,
+        autoSleepMode: power.value.nodes[0].result == OnNodesEnum.result ? true : false,
+        powerOnRecall: power.value.nodes[1].result == OnNodesEnum.result ? true : false,
+        powerLED: power.value.nodes[2].result == OnNodesEnum.result ? true : false,
     }
 });
 
@@ -161,6 +163,7 @@ const patterns = ref([
 store.$subscribe((mutation, state) => {
     if(state.isDiagnosticPatterns) {
         const resultIndex = management.value.nodes[2].nodes!.findIndex((node: Nodes) => node.result === management.value.nodes[2].result);
+        
         if(resultIndex == 0 && intervalId.value == null) {
             if(intervalId.value) {
                 return

@@ -114,7 +114,7 @@ export class OnNodes extends DefaultNodes implements Nodes {
 // Off enum
 export class OffNodes extends DefaultNodes implements Nodes {
     key = "Off";
-    value = "Off";
+    selected = "Off";
     result = "Off";
     mode = ModeType.radio;
     language = {
