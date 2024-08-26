@@ -60,7 +60,7 @@
             <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handlerControllerMenus"></button>
             <template v-else v-for="currentButton in handleControllerButtonList">
                 <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton.event"></button>
-                <button v-if="currentButton.type == 'RangeButton'" class="controller-btn"
+                <button v-if="currentButton.type == 'eventButton'" class="controller-btn"
                     @mousedown="currentButton.event"
                     @mouseup="currentButton.stopEvent"
                     @mouseleave="currentButton.stopEvent">
@@ -383,24 +383,24 @@ const handleControllerButtonList = computed<ControllerButtonList[] | null>(() =>
                 // 當選擇的節點為 info 時候的組合
                 buttonList = [
                     { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+                    { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
                     { image: iconClose, event: handlerClose, stopEvent: () => {}, type: "Button" }
                 ];
             } else if(state.menuPanel?.mode == ModeType.exit) {
                 // 當選擇的節點為 exit 時候的組合
                 buttonList = [
                     { image: iconCheck, event: handlerClose, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+                    { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
                     { image: iconClose, event: handlerClose, stopEvent: () => {}, type: "Button" }
                 ];
             } else {
                 // 當選擇的節點為 exit 時候的組合
                 buttonList = [
                     { image: iconNext, event: handlerNextPanel, stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-                    { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+                    { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+                    { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
                     { image: iconClose, event: handlerClose, stopEvent: () => {}, type: "Button" }
                 ];
             }
@@ -434,61 +434,61 @@ function handlerModeControllerButtonList(nodes: Nodes, previousNodes: Nodes) {
     // 當下一層有節點時候的組合
     const nextButtonList: ControllerButtonList[] = [
         { image: iconNext, event: handlerNextPanel, stopEvent: () => {}, type: "Button" },
-        { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+        { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     // 確認選擇的按鈕組合
     const confirmedButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handlerSave , stopEvent: () => {}, type: "Button"},
-        { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+        { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     // range value 組合
     const rangeButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handlerSave , stopEvent: () => {}, type: "Button"},
-        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "eventButton" },
+        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "eventButton" },
         { image: iconPrevious, event: handlePrevious , stopEvent: () => {}, type: "Button"}
     ];
     // 多個 range value 組合
     const rangeNextButtonList: ControllerButtonList[] = [
-        { image: iconNextRight, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconNextRight, event: () => handlerNavigation('down'), stopEvent: () => {}, type: "Button" },
+        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "eventButton" },
+        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "eventButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
     
     // 多個直向 range value 組合，且最後一個時候
     const rangeNextButtonListLast: ControllerButtonList[] = [
         { image: null, event: () => {}, stopEvent: () => {}, type: "Button" },
-        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "eventButton" },
+        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "eventButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
 
     // 多個縱向 range value 組合 unfocus
     const rangeNextButtonListUnfocus: ControllerButtonList[] = [
         { image: iconNext, event: handlerSave , stopEvent: () => {}, type: "Button"},
-        { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+        { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
         { image: iconPrevious, event: handlePrevious, stopEvent: () => {}, type: "Button" }
     ];
 
         // assign button 確認選擇的按鈕組合
     const confirmedAssignButtonList: ControllerButtonList[] = [
         { image: iconCheck, event: handlerSave , stopEvent: () => {}, type: "Button"},
-        { image: iconArrowButton, event: () => handlerNavigation("down"), stopEvent: () => {}, type: "Button" },
-        { image: iconArrowUp, event: () => handlerNavigation("up"), stopEvent: () => {}, type: "Button" },
+        { image: iconArrowButton, event: handlerNavigationDown, stopEvent: stopNavigationTrigger, type: "eventButton" },
+        { image: iconArrowUp, event: handlerNavigationUp, stopEvent: stopNavigationTrigger, type: "eventButton" },
         { image: iconNextRight, event: handlerAssignNextPanel, stopEvent: () => {}, type: "Button" }
     ];
 
     // assign button range value 組合
     const rangeAssignButtonList: ControllerButtonList[] = [
         { image: iconClose, event: handlerClose , stopEvent: () => {}, type: "Button"},
-        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
-        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "RangeButton" },
+        { image: iconSubtract, event: handlerRangeSubtract, stopEvent: stopRangeValueTrigger, type: "eventButton" },
+        { image: iconAdd, event: handlerRangeAdd, stopEvent: stopRangeValueTrigger, type: "eventButton" },
         { image: iconNextRight, event: handlerAssignNextPanel , stopEvent: () => {}, type: "Button"}
     ];
 
@@ -859,6 +859,38 @@ function updatePanelIndex(node: Nodes, nodeIndex: number, step: number, send: (p
     }
 };
 /* 處理選單項目控制 */ 
+// 用於存儲計時器的引用
+const navigationIntervalId = ref<number | null>(null);
+const currentNavigationStep = ref<'up' | 'down' | null>(null);
+
+// 開始觸發
+function startNavigationTrigger(direction:  'up' | 'down') {
+    currentNavigationStep.value = direction;
+    // 清除現有的計時器
+    if (navigationIntervalId.value !== null) {
+        clearInterval(navigationIntervalId.value);
+    }
+    // 設置新的計時器，每隔 100 毫秒觸發一次函式
+    navigationIntervalId.value = window.setInterval(() => handlerNavigation(currentNavigationStep.value!), 100);
+};
+
+// 停止觸發
+function stopNavigationTrigger() {
+    if (navigationIntervalId.value !== null) {
+        clearInterval(navigationIntervalId.value);
+        navigationIntervalId.value = null;
+    }
+    handlerMenuTimeout();
+};
+
+// 控制 range value 遞減
+function handlerNavigationDown() {
+    startNavigationTrigger("down");
+};
+// 控制 range value 遞增
+function handlerNavigationUp() {
+    startNavigationTrigger("up");
+};
 
 // assign button next panel
 function handlerAssignNextPanel() {
@@ -922,25 +954,25 @@ function handlerRangeValue(step: string) {
 };
 
 // 用於存儲計時器的引用
-const intervalId = ref<number | null>(null);
-const currentStep = ref<string | null>(null);
+const rangeIntervalId = ref<number | null>(null);
+const currentRangeStep = ref<string | null>(null);
 
 // 開始觸發
 function startRangeValueTrigger(step: string) {
-    currentStep.value = step;
+    currentRangeStep.value = step;
     // 清除現有的計時器
-    if (intervalId.value !== null) {
-        clearInterval(intervalId.value);
+    if (rangeIntervalId.value !== null) {
+        clearInterval(rangeIntervalId.value);
     }
-      // 設置新的計時器，每隔 100 毫秒觸發一次函式
-    intervalId.value = window.setInterval(() => handlerRangeValue(currentStep.value!), 100);
+    // 設置新的計時器，每隔 100 毫秒觸發一次函式
+    rangeIntervalId.value = window.setInterval(() => handlerRangeValue(currentRangeStep.value!), 100);
 };
 
 // 停止觸發
 function stopRangeValueTrigger() {
-    if (intervalId.value !== null) {
-        clearInterval(intervalId.value);
-        intervalId.value = null;
+    if (rangeIntervalId.value !== null) {
+        clearInterval(rangeIntervalId.value);
+        rangeIntervalId.value = null;
     }
     handlerMenuTimeout();
 };
