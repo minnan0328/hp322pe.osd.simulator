@@ -1,5 +1,4 @@
-import { ref, reactive, toRefs } from 'vue';
-import type { Nodes } from '@/types';
+import { reactive, toRefs } from 'vue';
 import { defineStore } from 'pinia';
 import {
 	Brightness, Color, Image, Input,

@@ -1,5 +1,6 @@
 <template>
     <div class="menu-wrapper">
+        <!-- 全部的選單 -->
         <div :class="['menus', { 'accessibility': menuStateResult.accessibility }]" v-if="openAllMenu && state.menuPanel">
             <div class="header">
                 <p>HP 322pe</p>
@@ -35,6 +36,9 @@
                 </div>
             </div>
         </div>
+        <!-- 全部的選單 -->
+
+        <!-- 自訂的小選單 -->
         <div :class="['menu assign-menu', state.menuPanel.key, { 'accessibility': menuStateResult.accessibility }]" v-if="openAssignButton && state.menuPanel">
             <div class="header">
                 <p>{{ toLanguageText(state.menuPanel.language!) }}</p>
@@ -46,7 +50,12 @@
                 </assignMenu>
             </div>
         </div>
-    
+        <!-- 自訂的小選單 -->
+        
+        <!-- 原廠設定改變的 conform -->
+        <!-- 原廠設定改變的 conform -->
+
+        <!-- 控制選單按鈕 -->
         <div :class="['controller-menus', { 'accessibility': menuStateResult.accessibility }]" v-if="openControllerMenus">
             <template v-for="currentButton in handleControllerButtonList">
                 <div class="menu-item" v-if="currentButton.image">
@@ -55,7 +64,9 @@
                 <div class="menu-item" v-else></div>
             </template>
         </div>
-    
+        <!-- 控制選單按鈕 -->
+
+        <!-- 控制選單按鈕-點擊範圍 -->
         <div class="controller">
             <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handlerControllerMenus"></button>
             <template v-else v-for="currentButton in handleControllerButtonList">
@@ -68,6 +79,7 @@
             </template>
             <slot name="openMonitor"></slot> 
         </div>
+        <!-- 控制選單按鈕-點擊範圍 -->
     </div>
 </template>
 <script lang="ts" setup>
@@ -98,17 +110,12 @@ import iconInformation from '@/assets/icons/icon-information.svg';
 import iconAssignAutoAdjustment from '@/assets/icons/icon-auto-adjustment.svg';
 
 import {
-    Brightness, Color, Image, Input, Power,
-    Menu, Management, Information, Exit
-} from '@/models/index';
+    Brightness, Color, Image, Input, Power, Menu, Management, Information, Exit } from '@/models/index';
 
 import { 
-    AssignAutoAdjustmentNodes,
-    AssignBrightnessNodes,
-    AssignColorNodes,
-    AssignDisplayInformationNodes,
-    AssignNextActiveInputNodes,
-    AssignEmptyNodes
+    AssignAutoAdjustmentNodes, AssignBrightnessNodes,
+    AssignColorNodes, AssignDisplayInformationNodes,
+    AssignNextActiveInputNodes, AssignEmptyNodes
 } from '@/models/class/menu/assign-buttons/_utilities';
 
 import { DefaultNodes, BackNodes, ResetNodes, ExitNodes, OnNodes, OffNodes } from '@/models/class/_utilities';
@@ -122,7 +129,6 @@ const ResetNodesEnum = new ResetNodes();
 const ExitNodesEnum = new ExitNodes();
 const OnNodesEnum = new OnNodes();
 const OffNodesEnum = new OffNodes();
-
 
 const AssignAutoAdjustmentNodesEnum = new AssignAutoAdjustmentNodes();
 const AssignBrightnessNodesEnum = new AssignBrightnessNodes();
@@ -160,17 +166,16 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['update:showScreen', 'update:showMonitorStatus', 'update:startUpFinish'])
+const emit = defineEmits(['update:showScreen', 'update:showMonitorStatus', 'update:startUpFinish']);
 
-const inputEnum = computed(() => {
-    return store.$state.input;
-});
-
-const informationEnum = computed(() => {
-    return store.$state.information;
-});
-
+const inputEnum = computed(() => store.$state.input);
+const informationEnum = computed(() => store.$state.information);
 const ColorNodesEnum = new Color();
+
+const openControllerMenus = ref(false);
+const openAllMenu = ref(false);
+const openAssignButton = ref(false);
+const factorySettings = ref(true);
 
 const resetMenus: Record<keyof StoreState, StoreState[keyof StoreState]> = {
     brightnessPlus: new Brightness(),
@@ -202,7 +207,7 @@ const menus = computed(() => {
             store.$state.menu,
             store.$state.management,
             store.$state.information,
-            store.$state.exit,
+            store.$state.exit
         ]
     }
 });
@@ -292,9 +297,12 @@ const assignPanelOrder = reactive([
     AssignDisplayInformationNodesEnum.key, AssignNextActiveInputNodesEnum.key
 ]);
 
-const openControllerMenus = ref(false);
-const openAllMenu = ref(false);
-const openAssignButton = ref(false);
+// power confirm message state
+const confirmState = reactive({
+    menuPanel: null as Nodes | null,
+    secondPanel: null as Nodes | null,
+    thirdPanel: null as Nodes | null
+});
 
 // 當關閉螢幕時，關閉所有狀態
 watch(() => props.openMonitor, (newVal, oldVal) => {

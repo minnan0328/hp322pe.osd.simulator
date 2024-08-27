@@ -5,11 +5,11 @@ import AutoSleepModeNodes from './_auto-sleep-mode-nodes';
 import PowerOnRecallNodes from './_power-on-recall';
 import PowerLEDNodes from './_power-LED-nodes';
 
-let ResetNodesEnum = new ResetNodes(); 
-let BackNodesEnum = new BackNodes();
-let AutoSleepModeNodesEnum = new AutoSleepModeNodes();
-let PowerOnRecallNodesEnum = new PowerOnRecallNodes();
-let PowerLEDNodesEnum = new PowerLEDNodes();
+const ResetNodesEnum = new ResetNodes();
+const BackNodesEnum = new BackNodes();
+const AutoSleepModeNodesEnum = new AutoSleepModeNodes();
+const PowerOnRecallNodesEnum = new PowerOnRecallNodes();
+const PowerLEDNodesEnum = new PowerLEDNodes();
 
 export default class Power extends DefaultNodes implements Nodes {
     key = "Power";

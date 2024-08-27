@@ -33,7 +33,7 @@
                                 v-model:startUpFinish="startUpFinish">
                             </monitorScreen>
 
-                            <div class="auto-adjustment" v-if="isAutoAdjustment && inputEnum.result == 'VGA'">
+                            <div class="modal toast auto-adjustment" v-if="isAutoAdjustment && inputEnum.result == 'VGA'">
                                 <div class="image">
                                     <img src="@/assets/icons/icon-warn.svg" alt="">
                                 </div>
@@ -264,23 +264,8 @@ provide("controlScreen", {
             content: '';
             top: 9px;
             left: 9px;
-            width: 782px;
-            height: 428px;
-
-            .auto-adjustment {
-                position: absolute;
-                display: flex;
-                align-items: center;
-                gap: 0 8px;
-                top: calc((100% - 60px) / 2);
-                left: calc((100% - 268px) / 2);
-                width: 240px;
-                color: #FFFFFF;
-                background-color: #161616;
-                border: 2px solid  #AAAAAA;
-                padding: 16px 8px;
-                font-size: 10px;
-            }
+            width: $screen-width;
+            height: $screen-height;
         }
         
         .monitor {
@@ -295,9 +280,9 @@ provide("controlScreen", {
             right: 57px;
             width: 4px;
             height: 4px;
-            background-color: #0083ca;
+            background-color: $blue;
             border-radius: 50%;
-            box-shadow: 0px 0px 10px 2px rgba(#0083ca, 0.9);
+            box-shadow: 0px 0px 10px 2px rgba($blue, 0.9);
         }
 
         .menu-buttons {
@@ -319,7 +304,6 @@ provide("controlScreen", {
     }
 }
 
-
 .initial-enter-active {
     transition: opacity 1s ease;
 }
@@ -332,6 +316,4 @@ provide("controlScreen", {
 .initial-leave-to {
     opacity: 0;
 }
-
-
-</style>@/service/_menuStateResult
+</style>

@@ -6,7 +6,7 @@ export enum ModeType {
     button = "button",
     paginationButton = "PaginationButton",
     checkBox ="checkBox",
-    setting = "setting",
+    message = "message",
     info = "info",
     exit = "exit",
 };
