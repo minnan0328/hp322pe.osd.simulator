@@ -4,7 +4,7 @@ import { DefaultNodes } from '../../_utilities';
 
 let DefaultNodesEnum = new DefaultNodes();
 
-export default class PowerConfirmChange extends DefaultNodes implements Nodes {
+export default class PowerConfirmChangeNodes extends DefaultNodes implements Nodes {
     key = "PowerConfirmChange";
     size = 1;
     page = 1;
@@ -25,7 +25,7 @@ export default class PowerConfirmChange extends DefaultNodes implements Nodes {
     nodes = [
         {
             ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
-            key: "PowerChangingMessage",
+            key: "ChangingMessage",
             size: 2,
             page: 1,
             mode: ModeType.message,
@@ -47,6 +47,8 @@ export default class PowerConfirmChange extends DefaultNodes implements Nodes {
                 {
                     ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
                     key: "Confirm",
+                    selected: "Confirm",
+                    result: "Confirm",
                     mode: ModeType.button,
                     parents: this.key,
                     language: {
@@ -66,6 +68,8 @@ export default class PowerConfirmChange extends DefaultNodes implements Nodes {
                 {
                     ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
                     key: "Cancel",
+                    selected: "Cancel",
+                    result: "Cancel",
                     mode: ModeType.button,
                     parents: this.key,
                     language: {

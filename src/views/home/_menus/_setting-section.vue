@@ -28,7 +28,7 @@
                                 'merge-grid': secondNodes.mergeGrid,
                                 disabled: secondNodes.disabled
                             }]"
-                            v-if="secondNodes.mode == ModeType.button || secondNodes.mode == ModeType.setting" v-text="toLanguageText(secondNodes.language!)">
+                            v-if="secondNodes.mode == ModeType.button" v-text="toLanguageText(secondNodes.language!)">
                         </div>
                         <div :class="['item', {
                                 selected: secondarySectionNodes?.key == secondNodes.key,
@@ -108,7 +108,9 @@
                         <!-- 上一頁 -->
                         <!-- button -->
                         <div :class="['item', { selected: thirdSectionNodes?.key == thirdNodes.key, 'merge-grid': thirdNodes.mergeGrid }]"
-                            v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info || thirdNodes.mode == ModeType.setting" v-text="toLanguageText(thirdNodes.language!)">
+                            v-if="thirdNodes.mode == ModeType.button || thirdNodes.mode == ModeType.info">
+                            <span v-text="toLanguageText(thirdNodes.language!)"></span>
+                            <span v-if="secondarySectionNodes.key == 'FactoryReset' && thirdNodes.result == 'Yes'">（ENERGY STAR®）</span>
                         </div>
                         <!-- button -->
                         
@@ -172,6 +174,11 @@
                     </horizontalRange>
                     <!-- 橫向 range -->
                 </template>
+
+                <div class="setting-item factory-reset-image" v-if="secondarySectionNodes.key == 'FactoryReset'">
+                    <img src="@/assets/images/energy-star.jpg" alt="">
+                </div>
+
             </div>
         </template>
         <template v-if="mainSectionNodes && mainSectionNodes.mode == ModeType.exit">
@@ -182,9 +189,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, watch, computed } from 'vue';
 import type { PropType } from 'vue';
-import { useStore } from '@/stores/index';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
 import { isEnableInput, toLanguageText, toDisplayValueLanguageText } from '@/service/service';

@@ -17,7 +17,45 @@
         gap: 0 8px;
     }
 
-    &.conform {
-        
+    &.confirm {
+        position: absolute;
+        padding: 32px;
+        top: calc((100% - 206px) / 2);
+
+        .title {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+    
+        .confirm-text {
+            white-space: pre-wrap;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+    
+        .confirm-button-section {
+            padding: 0 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .confirm-button {
+            padding: 8px 16px;
+            color: $white;
+            background-color: $light-grey;
+            border: 2px solid $black;
+
+            &.selected {
+                border-color: $white;
+            }
+
+            &.Confirm {
+                color: green;
+            }
+
+            &.Cancel {
+                color: red;
+            }
+        }
     }
 }
