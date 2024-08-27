@@ -1130,13 +1130,14 @@ function saveNodesValue(nodes: Nodes, previousNodes: Nodes) {
             factorySettings.value = false;
             confirmState.openConfirm = false;
             
-            handlerSave(state.currentPanelNumber);
             
             if(confirmState.selectedMenus == "openAllMenu") {
                 openAllMenu.value = true;
             } else {
                 openAssignButton.value = true;
             };
+
+            handlerSave(state.currentPanelNumber);
 
             return;
 
@@ -1278,11 +1279,17 @@ function handlerCloseConfirmAction() {
     };
 
     if(state.currentPanelNumber == 2) {
-        let index = state.menuPanel!.nodes?.findIndex(s => s.key == BackNodesEnum.key);
-        state.secondPanel = state.menuPanel!.nodes![index as number];
+        let index = openAllMenu.value
+            ? state.menuPanel!.nodes?.findIndex(s => s.key == BackNodesEnum.key)
+            : state.menuPanel!.nodes?.findIndex(s => s.key == ExitNodesEnum.key);
+        state.secondPanelIndex = index as number;
+        state.secondPanel = state.menuPanel!.nodes![state.secondPanelIndex];
     } else if(state.currentPanelNumber == 3) {
-        let index = state.secondPanel!.nodes?.findIndex(s => s.key == BackNodesEnum.key);
-        state.thirdPanel = state.secondPanel!.nodes![index as number];
+        let index = openAllMenu.value
+            ? state.secondPanel!.nodes?.findIndex(s => s.key == BackNodesEnum.key)
+            : state.secondPanel!.nodes?.findIndex(s => s.key == ExitNodesEnum.key);
+        state.thirdPanelIndex = index as number;
+        state.thirdPanel = state.secondPanel!.nodes![state.thirdPanelIndex];
     }
 }
 
