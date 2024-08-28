@@ -693,7 +693,8 @@ function handlePrevious() {
     // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
     store.resetLanguage();
 
-    if(state.secondPanel && !state.thirdPanel) {
+    if(state.menuPanel && state.secondPanel && !state.thirdPanel) {
+        state.menuPanel.page = Math.floor(state.menuPanel.nodes?.findIndex(s => s.selected == state.secondPanel?.selected)! / state.menuPanel.size) + 1;
         state.secondPanel = null;
         state.secondPanelIndex = 0;
         state.currentPanelNumber = 1;
@@ -715,7 +716,7 @@ function handlePrevious() {
             state.thirdPanel!.horizontalRangeFocus = false;
             return;
         }
-
+        state.secondPanel.page = Math.floor(state.secondPanel.nodes?.findIndex(s => s.selected == state.thirdPanel?.selected)! / state.secondPanel.size) + 1;
         state.thirdPanel = null;
         state.thirdPanelIndex = 0;
         state.currentPanelNumber = 2;
@@ -730,6 +731,8 @@ function handlePrevious() {
             store.$state.isDiagnosticPatterns = false;
         }
     } else if(state.secondPanel && state.thirdPanel && state.thirdPanel.nodes && state.fourthPanel) {
+        state.thirdPanel.page = Math.floor(state.thirdPanel.nodes?.findIndex(s => s.selected == state.fourthPanel?.selected)! / state.thirdPanel.size) + 1;
+
         state.fourthPanel = null;
         state.fourthPanelIndex = 0;
         state.currentPanelNumber = 3;
