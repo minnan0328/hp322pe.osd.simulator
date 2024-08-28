@@ -989,6 +989,11 @@ function handlerRangeValue(step: string) {
                 previousNodes.result = nodes.result;
             }
 
+            if(previousNodes.key == "Brightness" || previousNodes.key == "Contrast") {
+                menus.value.nodes[0].nodes[2].result = OffNodesEnum.result;
+                menus.value.nodes[0].nodes[2].selected = OffNodesEnum.selected;
+            }
+
             if(previousNodes.key == "MenuPosition") {
                 let menuPositionText = `H=${previousNodes.nodes![0].result}, V=${previousNodes.nodes![1].result}`
                 previousNodes.selected = menuPositionText;
@@ -1192,6 +1197,11 @@ function saveNodesValue(nodes: Nodes, previousNodes: Nodes) {
                 state.menuPanel!.result = nodes.result
                 state.menuPanel!.selected= nodes.selected
             }
+        }
+
+        // 當垂直 range 調整後儲存返回上一步
+        if(nodes.mode == ModeType.verticalRange && previousNodes.nodes!.length == 1) {
+            handlePrevious();
         }
 
         if(previousNodes.key == "Language") {
