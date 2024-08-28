@@ -51,7 +51,7 @@ export const monitorScreenResult = computed(() => {
 export const menuStateResult = computed(() => {
     return {
         menuPosition: {
-            x: `${((menu.value.nodes[1].nodes![0].result - 12) as number / 100) * (242 - 0) + (-28.64)}px`,
+            x: `${((menu.value.nodes[1].nodes![0].result) as number / 100) * (242 - 0) + 0}px`,
             y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (72 - 18) + 18}px`
         },
         menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
