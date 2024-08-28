@@ -63,14 +63,6 @@ export const useStore = defineStore('counter', () => {
         }
     }
 
-    // 目前只顯示英文，所以當切換語言時，返回上一步要恢復設定
-    function resetLanguage() {
-        if (state.menu.nodes[0]) {
-            state.menu.nodes[0].selected = "English";
-            state.menu.nodes[0].result = "English";
-        }
-    }
-
     function $reset() {
         state.brightnessPlus = JSON.parse(JSON.stringify(new Brightness()));
         state.color = JSON.parse(JSON.stringify(new Color()));
@@ -86,7 +78,6 @@ export const useStore = defineStore('counter', () => {
     return {
         ...toRefs(state),
         $reset,
-        setAssignButtonValue,
-        resetLanguage,
+        setAssignButtonValue
     };
 });
