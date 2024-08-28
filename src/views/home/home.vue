@@ -280,9 +280,9 @@ provide("controlScreen", {
             right: 57px;
             width: 4px;
             height: 4px;
-            background-color: $blue;
+            background-color: $white;
             border-radius: 50%;
-            box-shadow: 0px 0px 10px 2px rgba($blue, 0.9);
+            box-shadow: 0px 0px 10px 2px rgba($white, 0.9);
         }
 
         .menu-buttons {

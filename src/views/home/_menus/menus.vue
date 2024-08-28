@@ -1446,7 +1446,7 @@ function handlerMenuTimeout() {
     opacity: v-bind("menuStateResult.menuTransparency");
     margin-left: calc(28.64px * 2);
     margin-right: -28.64px;
-    // margin-bottom: -20px;
+    
     &.accessibility {
         transform: scale(1.08);
         top: 22px;
