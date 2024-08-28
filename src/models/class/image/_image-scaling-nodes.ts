@@ -36,17 +36,17 @@ export default class ImageScalingNodes extends DefaultNodes implements Nodes {
             parents: this.key,
             mode: ModeType.radio,
             language: {
+                English: "Fill to Screen",
+                BrazilianPortuguese: "Preenchimento da Tela",
+                Russian: "Заполнить экран",
+                Dutch: "Schermvullend",
+                French: "Plein écran",
                 German: "Bildschirmfüllend",
+                Spanish: "Pantalla Amplia",
+                Italian: "Tutto schermo",
                 SimplifiedChinese: "填充屏幕",
                 TraditionalChinese: "填滿螢幕",
-                English: "Fill Screen",
-                Español: "Pantalla Amplia",
-                French: "Plein écran",
-                Italian: "Tutto schermo",
-                Japanese: "スクリーンに合わせる",
-                Nederlands: "Schermvullend",
-                BrazilianPortuguese: "Preenchimento da Tela",
-                Russian: "Заполнить экран"
+                Japanese: "スクリーンに合わせる"
             }
         },
         {

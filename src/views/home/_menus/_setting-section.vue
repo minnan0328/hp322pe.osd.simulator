@@ -1,5 +1,5 @@
 <template>
-    <div :class="['setting', { 'two-columns': secondarySectionNodes }]" v-if="mainSectionNodes || secondarySectionNodes">
+    <div :class="['setting', { 'two-columns': isTwoColumns }]" v-if="mainSectionNodes || secondarySectionNodes">
         <template v-if="mainSectionNodes && mainSectionNodes.mode != ModeType.exit">
             <div class="main-section">
 
@@ -8,7 +8,7 @@
                 </div>
 
                 <template v-for="(secondNodes, secondNodesIdx) in mainSectionNodes.nodes">
-                    <div :class="['setting-item', secondNodes.key, { 'unset-grid': secondarySectionNodes }]"
+                    <div :class="['setting-item', secondNodes.key, { 'unset-grid': isTwoColumns }]"
                         v-if="isEnableInput(secondNodes) && mainSectionNodes.mode && handlePagination(mainSectionNodes, secondNodesIdx) && secondNodes.key != 'Exit'">
                         <!-- 上一頁 -->
                         <div :class="['item previous-page-btn', {
@@ -76,11 +76,11 @@
                         <!-- 下一頁 -->
 
                         <!-- value -->
-                        <template v-if="!secondarySectionNodes">
+                        <template v-if="isShowValue(secondNodes, mainSectionNodes)">
                             <div :class="['item item-value', {
                                     disabled: secondNodes.disabled
                                 }]"
-                                v-if="secondNodes.result && secondNodes.displayValue || secondNodes.result == 0 && secondNodes.displayValue">
+                                v-if="isShowValue(secondNodes, mainSectionNodes)">
                                 <span v-if="secondNodes.mode != ModeType.info" v-text="toDisplayValueLanguageText(secondNodes)"></span>
                                 <span v-else-if="secondNodes.mode == ModeType.info" v-text="secondNodes.result"></span>
                                 <span v-if="secondNodes.unit" v-text="toLanguageText(secondNodes.unit)"></span>
@@ -189,6 +189,7 @@
     </div>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { Nodes } from '@/types';
 import { ModeType } from '@/types';
@@ -216,6 +217,16 @@ const props = defineProps({
         type: Number,
         default: 0
     }
+});
+
+function isShowValue(Nodes: Nodes, previousNodes: Nodes) {
+    return !props.secondarySectionNodes
+            || !props.secondarySectionNodes.nodes && !props.thirdSectionNodes && Nodes.result && Nodes.displayValue
+            || !props.secondarySectionNodes.nodes && !props.thirdSectionNodes && Nodes.result == 0 && Nodes.displayValue;
+}
+
+const isTwoColumns = computed(() => {
+    return props.secondarySectionNodes?.nodes && props.secondarySectionNodes?.nodes!.length! > 0;
 });
 
 function isCheckboxLast(node: Nodes, previousNodes: Nodes) {

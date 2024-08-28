@@ -58,8 +58,8 @@ export default class HPEnhancePlusNodes extends DefaultNodes implements Nodes {
             // Range (0~100)
             ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
             key: "Phase",
-            selected: 50,
-            result: 50,
+            selected: 45,
+            result: 45,
             parents: this.key,
             mode: ModeType.horizontalRange,
             rangeMin: 0,

@@ -43,7 +43,7 @@ export const monitorScreenResult = computed(() => {
         imageScaling: image.value.nodes[5].result.replace(/\s+/g, ''),
         imageClockPhase: {
             width: `${(0.1 * image.value.nodes[1].nodes[0].result) + 95}%`,
-            height: `${(0.1 * image.value.nodes[1].nodes[1].result) + 95}%`
+            height: `${(0.1 * image.value.nodes[1].nodes[1].result) + 95.5}%`
         }
     }
 });
@@ -51,8 +51,8 @@ export const monitorScreenResult = computed(() => {
 export const menuStateResult = computed(() => {
     return {
         menuPosition: {
-            x: `${(menu.value.nodes[1].nodes![0].result as number / 100) * (240 - 0) + 0}px`,
-            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (54 - 0) + 0}px`
+            x: `${((menu.value.nodes[1].nodes![0].result) as number / 100) * (242 - 0) + 0}px`,
+            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (72 - 18) + 18}px`
         },
         menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
         menuTimeout: menu.value.nodes[3].result,

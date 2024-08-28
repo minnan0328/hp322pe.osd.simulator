@@ -989,6 +989,11 @@ function handlerRangeValue(step: string) {
                 previousNodes.result = nodes.result;
             }
 
+            if(previousNodes.key == "Brightness" || previousNodes.key == "Contrast") {
+                menus.value.nodes[0].nodes[2].result = OffNodesEnum.result;
+                menus.value.nodes[0].nodes[2].selected = OffNodesEnum.selected;
+            }
+
             if(previousNodes.key == "MenuPosition") {
                 let menuPositionText = `H=${previousNodes.nodes![0].result}, V=${previousNodes.nodes![1].result}`
                 previousNodes.selected = menuPositionText;
@@ -1194,6 +1199,11 @@ function saveNodesValue(nodes: Nodes, previousNodes: Nodes) {
             }
         }
 
+        // 當垂直 range 調整後儲存返回上一步
+        if(nodes.mode == ModeType.verticalRange && previousNodes.nodes!.length == 1) {
+            handlePrevious();
+        }
+
         if(previousNodes.key == "Language") {
             openAllMenu.value = false;
 
@@ -1346,7 +1356,7 @@ function handlerMenuTimeout() {
 .menus,
 .assign-menu {
 	position: absolute;
-	top: v-bind("menuStateResult.menuPosition.y");
+	bottom: v-bind("menuStateResult.menuPosition.y");
 	left: v-bind("menuStateResult.menuPosition.x");
 	background-color: $black-09;
 	width: 540px;
@@ -1469,7 +1479,7 @@ function handlerMenuTimeout() {
 	position: absolute;
 	display: flex;
 	bottom: 0px;
-	right: 62px;
+	right: 34px;
 
     &.accessibility {
         transform: scale(1.1);
