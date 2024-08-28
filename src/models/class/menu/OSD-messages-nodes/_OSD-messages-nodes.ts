@@ -29,19 +29,6 @@ export default class OSDMessagesNodes extends DefaultNodes implements Nodes {
         BrazilianPortuguese: "Mensagens OSD",
         Russian: "Сообщения OSD"
     };
-    unit = {
-        German: "s",
-        SimplifiedChinese: "s",
-        TraditionalChinese: "s",
-        English: "s",
-        Español: "s",
-        French: "s",
-        Italian: "s",
-        Japanese: "s",
-        Nederlands: "s",
-        BrazilianPortuguese: "s",
-        Russian: "s"
-    };
     nodes = [
         {
             ...JSON.parse(JSON.stringify(DefaultNodesEnum)),
