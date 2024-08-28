@@ -1444,11 +1444,14 @@ function handlerMenuTimeout() {
 
 .menus {
     opacity: v-bind("menuStateResult.menuTransparency");
-
+    margin-left: calc(28.64px * 2);
+    margin-right: -28.64px;
+    // margin-bottom: -20px;
     &.accessibility {
         transform: scale(1.08);
         top: 22px;
         left: 164px;
+        margin: 0;
     }
 }
 
@@ -1486,10 +1489,11 @@ function handlerMenuTimeout() {
 	position: absolute;
 	display: flex;
 	bottom: 0px;
-	right: 34px;
+	right: 62px;
 
     &.accessibility {
         transform: scale(1.1);
+        right: 62px;
     }
 
 	.menu-item {
