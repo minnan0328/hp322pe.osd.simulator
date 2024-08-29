@@ -263,8 +263,8 @@ provide("controlScreen", {
         .wrapper {
             position: absolute;
             content: '';
-            top: 9px;
-            left: 8px;
+            top: 8px;
+            left: 6px;
             width: $screen-width;
             height: $screen-height;
         }
