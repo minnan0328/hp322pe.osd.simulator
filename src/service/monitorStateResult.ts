@@ -58,13 +58,28 @@ export const monitorScreenResult = computed(() => {
 });
 
 export const menuStateResult = computed(() => {
+    const maxDecrease = 29.4;
+    const increaseThreshold = 86;
+    const decreaseThreshold = 100;
+    // 計算遞增係數
+    const increase = maxDecrease / increaseThreshold;
+    // 計算遞減係數
+    const decrease = maxDecrease / (decreaseThreshold - increaseThreshold);
+    // 計算 deviation 的值
+    let deviation: number;
+    if (menu.value.nodes[1].nodes![0].result as number <= increaseThreshold) {
+        deviation = increase * menu.value.nodes[1].nodes![0].result as number;
+    } else {
+        deviation = maxDecrease - decrease * (menu.value.nodes[1].nodes![0].result as number - increaseThreshold);
+    }
+
     return {
         menuSize: {
             menuWidth: `${menuWidth}px`,
             menuHeight: `${menuHeight}px`,
         },
         menuPosition: {
-            x: `${((menu.value.nodes[1].nodes![0].result) as number / 100) * ((monitorWidth - menuWidth) - 0) + 0}px`,
+            x: `${(menu.value.nodes[1].nodes![0].result as number / 100) * ((monitorWidth) - menuWidth) - (deviation)}px`,
             y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * ((monitorHeight - menuHeight) - 18) + 18}px`
         },
         menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
