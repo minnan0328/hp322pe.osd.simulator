@@ -25,8 +25,17 @@ const menu = computed(()=> store.$state.menu);
 const management = computed(()=> store.$state.management);
 const information = computed(()=> store.$state.information);
 
+const monitorWidth = 960;
+const monitorHeight = 526;
+const menuWidth = 540;
+const menuHeight = 356;
+
 export const monitorScreenResult = computed(() => {
     return {
+        monitorSize: {
+            monitorWidth: `${monitorWidth}px`,
+            monitorHeight: `${monitorHeight}px`
+        }, 
         brightness: `${brightness.value.nodes[0].result}%`,
         contrast: `${brightness.value.nodes[1].result}%`,
         RGB: toImageColor.value,
@@ -50,9 +59,13 @@ export const monitorScreenResult = computed(() => {
 
 export const menuStateResult = computed(() => {
     return {
+        menuSize: {
+            menuWidth: `${menuWidth}px`,
+            menuHeight: `${menuHeight}px`,
+        },
         menuPosition: {
-            x: `${((menu.value.nodes[1].nodes![0].result) as number / 100) * (242 - 0) + 0}px`,
-            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * (72 - 18) + 18}px`
+            x: `${((menu.value.nodes[1].nodes![0].result) as number / 100) * ((monitorWidth - menuWidth) - 0) + 0}px`,
+            y: `${(menu.value.nodes[1].nodes![1].result as number / 100) * ((monitorHeight - menuHeight) - 18) + 18}px`
         },
         menuTransparency: ((10 - (menu.value.nodes[2].result as number)) / 10) + 0.2,
         menuTimeout: menu.value.nodes[3].result,

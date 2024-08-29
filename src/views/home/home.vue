@@ -210,11 +210,12 @@ provide("controlScreen", {
 }
 
 .curtain {
-    width: 1200px;
-    max-width: 1200px;
-    height: 768px;
-    max-height: 768px;
+    width: 1280px;
+    max-width: 1280px;
+    height: 830px;
+    max-height: 830px;
     background-image: linear-gradient(to bottom, $white 9%, $grey 141%);
+    overflow: hidden;
 }
 
 .section {
@@ -263,21 +264,21 @@ provide("controlScreen", {
             position: absolute;
             content: '';
             top: 9px;
-            left: 9px;
+            left: 8px;
             width: $screen-width;
             height: $screen-height;
         }
         
         .monitor {
             img {
-                height: 655px;
+                width: calc(#{$screen-width} + 18px);
             }
         }
 
         .power-light {
             position: absolute;
-            bottom: -22px;
-            right: 57px;
+            bottom: -26px;
+            right: 74px;
             width: 4px;
             height: 4px;
             background-color: $white;
@@ -287,17 +288,17 @@ provide("controlScreen", {
 
         .menu-buttons {
             position: absolute;
-            bottom: -86px;
-            right: -8px;
+            bottom: -98px;
+            right: 30px;
 
             img {
-                width: 100%;
+                width: 115%;
             }
 
             > .power-light.menu-btn {
                 position: absolute;
-                bottom: 15px;
-                right: 56px;
+                bottom: 16px;
+                right: 32px;
 
             }
         }

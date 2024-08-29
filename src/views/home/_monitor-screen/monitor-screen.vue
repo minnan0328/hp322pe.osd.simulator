@@ -115,7 +115,7 @@ onMounted(() => {
 
     img {
         width: v-bind("monitorScreenResult.imageClockPhase.width");
-        height: 428px;
+        height: $screen-height;
         position: absolute;
         bottom: v-bind("monitorScreenResult.imagePosition.y");
         left:  v-bind("monitorScreenResult.imagePosition.x");
@@ -143,4 +143,4 @@ onMounted(() => {
 .initial-leave-to {
     opacity: 0;
 }
-</style>@/service/_menuStateResult
+</style>

@@ -1352,8 +1352,8 @@ function handlerMenuTimeout() {
     content: "";
     top: 0px;
     left: 0px;
-    width: 782px;
-    height: 428px;
+    width: $screen-width;
+    height: $screen-height;
 }
 
 .menus,
@@ -1362,8 +1362,8 @@ function handlerMenuTimeout() {
 	bottom: v-bind("menuStateResult.menuPosition.y");
 	left: v-bind("menuStateResult.menuPosition.x");
 	background-color: $black-09;
-	width: 540px;
-	height: 356px;
+	width: v-bind("menuStateResult.menuSize.menuWidth");
+	height: v-bind("menuStateResult.menuSize.menuHeight");
     z-index: 2;
 
 	.header,
@@ -1442,9 +1442,9 @@ function handlerMenuTimeout() {
     opacity: v-bind("menuStateResult.menuTransparency");
 
     &.accessibility {
-        transform: scale(1.08);
-        top: 22px;
-        left: 164px;
+        transform: scale(1.2);
+        bottom: 74px;
+        left: 276px;
         margin: 0;
     }
 }
@@ -1460,8 +1460,9 @@ function handlerMenuTimeout() {
 	height: 282px;
 
     &.accessibility {
-        transform: scale(1.1);
-        bottom: 76px;
+        transform: scale(1.2);
+        bottom: 100px;
+        right: 120px;
     }
 
     &.Information {
@@ -1483,11 +1484,11 @@ function handlerMenuTimeout() {
 	position: absolute;
 	display: flex;
 	bottom: 0px;
-	right: 34px;
+	right: 75px;
 
     &.accessibility {
         transform: scale(1.1);
-        right: 62px;
+        right: 94px;
     }
 
 	.menu-item {
@@ -1507,19 +1508,19 @@ function handlerMenuTimeout() {
 
 .controller {
 	position: absolute;
-	bottom: -86px;
-	right: 12px;
+	bottom: -98px;
+	right: 16px;
 
 	.controller-btn,
 	:deep(.controller-btn) {
-		width: 40px;
-		height: 40px;
+		width: 46px;
+		height: 46px;
 
 		&.controller-menus-btn {
 			position: absolute;
-			width: 160px;
+			width: 184px;
 			bottom: 1px;
-			right: 39px;
+			right: 46px;
 		}
 	}
 }
