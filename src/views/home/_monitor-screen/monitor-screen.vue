@@ -86,11 +86,12 @@ onMounted(() => {
 @import '@/styles/_var';
 .screen-initial {
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 0px;
+    left: 0px;
 
     img {
-        width: 100%;
+        width: $screen-width;
+        height: $screen-height;
     }
 }
 
