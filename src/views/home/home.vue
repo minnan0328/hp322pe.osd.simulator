@@ -212,8 +212,8 @@ provide("controlScreen", {
 .curtain {
     width: 1280px;
     max-width: 1280px;
-    height: 900px;
-    max-height: 900px;
+    // height: 900px;
+    // max-height: 900px;
     background-image: linear-gradient(to bottom, $white 9%, $grey 141%);
     overflow: hidden;
 }

@@ -1484,7 +1484,7 @@ function handlerMenuTimeout() {
 	position: absolute;
 	display: flex;
 	bottom: 0px;
-	right: 75px;
+	right: 84px;
 
     &.accessibility {
         transform: scale(1.1);
