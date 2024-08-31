@@ -206,7 +206,6 @@ provide("controlScreen", {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .curtain {
@@ -215,7 +214,7 @@ provide("controlScreen", {
     // height: 900px;
     // max-height: 900px;
     background-image: linear-gradient(to bottom, $white 9%, $grey 141%);
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .section {

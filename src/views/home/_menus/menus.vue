@@ -77,9 +77,12 @@
             <template v-else v-for="currentButton in handleControllerButtonList">
                 <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton.event"></button>
                 <button v-if="currentButton.type == 'eventButton'" class="controller-btn"
-                    @mousedown="currentButton.event"
-                    @mouseup="currentButton.stopEvent"
-                    @mouseleave="currentButton.stopEvent">
+                @mousedown="currentButton.event"
+                @mouseup="currentButton.stopEvent"
+                @mouseleave="currentButton.stopEvent"
+                @touchstart.passive="currentButton.event"
+                @touchend.passive="currentButton.stopEvent"
+                >
                 </button>
             </template>
             <slot name="openMonitor"></slot> 
