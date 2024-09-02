@@ -807,6 +807,7 @@ function handlerNavigation(direction: 'up' | 'down') {
                             || state.temporaryStorage && state.secondPanel.mode == ModeType.button && state.secondPanel.key == BackNodesEnum.key
                         ) {
                             state.menuPanel.result = state.temporaryStorage.result;
+                            menus.value.nodes[0].nodes![0].result = BrightnessDefaultValueEnum[state.menuPanel.result as string];
                             state.temporaryStorage = null;
                         }
                     }
