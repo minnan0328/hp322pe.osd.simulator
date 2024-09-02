@@ -86,7 +86,6 @@ const Inactive = ref({
     position: absolute;
     top: 32px;
     left: calc((100% - 268px) / 2);
-    width: 240px;
     color: $white;
     background-color: $black-16;
     border: 2px solid  $light-grey;
@@ -99,7 +98,7 @@ const Inactive = ref({
 
     &.Top {
         top: 32px;
-        left: 281px; 
+        left: calc((100% - 268px) / 2);
     }
     &.Medium {
         top: calc((100% - 170px) / 2);
