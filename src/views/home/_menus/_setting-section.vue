@@ -220,9 +220,9 @@ const props = defineProps({
 });
 
 function isShowValue(Nodes: Nodes, previousNodes: Nodes) {
-    return !props.secondarySectionNodes
-            || !props.secondarySectionNodes.nodes && !props.thirdSectionNodes && Nodes.result && Nodes.displayValue
-            || !props.secondarySectionNodes.nodes && !props.thirdSectionNodes && Nodes.result == 0 && Nodes.displayValue;
+    return !props.secondarySectionNodes && Nodes.displayValue
+            || props.secondarySectionNodes && !props.secondarySectionNodes!.nodes && !props.thirdSectionNodes && Nodes.result && Nodes.displayValue
+            || props.secondarySectionNodes && !props.secondarySectionNodes!.nodes && !props.thirdSectionNodes && Nodes.result == 0 && Nodes.displayValue;
 }
 
 const isTwoColumns = computed(() => {

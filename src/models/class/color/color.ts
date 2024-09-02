@@ -1,12 +1,13 @@
 import type { Nodes } from "@/types";
 import { ModeType } from "@/types";
 import { DefaultNodes, ResetNodes, BackNodes, ExitNodes } from '../_utilities';
-import ECONodes from './_ECONodes';
+import ECONodes from './_ECO-nodes';
 import WarmNodes from './_warm-nodes';
 import NeutralNodes from './_neutral-nodes';
 import CoolNodes from './_cool-nodes';
 import NativeNodes from './_native-nodes';
 import LowBlueLightNodes from './_low-blue-light';
+import NightNodes from './_night-nodes';
 import HPEnhancePlusNodes from './_HP-enhance-plus-nodes';
 import CustomRGBNodes from './_custom-RGB-nodes';
 
@@ -19,13 +20,14 @@ const NeutralNodesEnum = new NeutralNodes();
 const CoolNodesEnum = new CoolNodes();
 const NativeNodesEnum = new NativeNodes();
 const LowBlueLightNodesEnum = new LowBlueLightNodes();
+const NightNodesEnum = new NightNodes();
 const HPEnhancePlusNodesEnum = new HPEnhancePlusNodes();
 const CustomRGBNodesEnum = new CustomRGBNodes();
 export default class Color extends DefaultNodes implements Nodes {
     key = "Color";
     selected = NeutralNodesEnum.selected;
     result = NeutralNodesEnum.result;
-    size = 11;
+    size = 12;
     page = 1;
     mode = ModeType.button;
     language = {
@@ -70,6 +72,11 @@ export default class Color extends DefaultNodes implements Nodes {
         // 低藍光
         {
             ...LowBlueLightNodesEnum,
+            parents: this.key
+        },
+        // 夜間
+        {
+            ...NightNodesEnum,
             parents: this.key
         },
         // HP Enhance+

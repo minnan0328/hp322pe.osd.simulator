@@ -12,8 +12,9 @@ export const BrightnessDefaultValueEnum = {
     [store.$state.color.nodes[3].result as string]: 86,
     [store.$state.color.nodes[4].result as string]: 100,
     [store.$state.color.nodes[5].result as string]: 90,
-    [store.$state.color.nodes[6].result as string]: 86,
-    [store.$state.color.nodes[7].result as string]: 100,
+    [store.$state.color.nodes[6].result as string]: 26,
+    [store.$state.color.nodes[7].result as string]: 86,
+    [store.$state.color.nodes[8].result as string]: 100,
 };
 
 export function setBrightnessDefaultValue() {
