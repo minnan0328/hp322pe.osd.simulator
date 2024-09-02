@@ -127,9 +127,9 @@ export const monitorResult = computed(() => {
 
 const toImageColor = computed(() => {
     const RGB = {
-        r: (color.value.result == "Custom RGB" && color.value.nodes[7].nodes) ? color.value.nodes[8].nodes[0].result as number : 255,
-        g:(color.value.result == "Custom RGB" && color.value.nodes[7].nodes) ? color.value.nodes[8].nodes[1].result as number : 255,
-        b: (color.value.result == "Custom RGB" && color.value.nodes[7].nodes) ? color.value.nodes[8].nodes[2].result as number : 255
+        r: (color.value.result == "Custom RGB" && color.value.nodes[8].nodes) ? color.value.nodes[8].nodes[0].result as number : 255,
+        g:(color.value.result == "Custom RGB" && color.value.nodes[8].nodes) ? color.value.nodes[8].nodes[1].result as number : 255,
+        b: (color.value.result == "Custom RGB" && color.value.nodes[8].nodes) ? color.value.nodes[8].nodes[2].result as number : 255
     }
 
     const combinedHue = (RGB.r + RGB.g + RGB.b) / -2.125;
