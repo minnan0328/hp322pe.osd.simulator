@@ -804,7 +804,7 @@ function handlerNavigation(direction: 'up' | 'down') {
                             || state.temporaryStorage && state.secondPanel.mode == ModeType.button && state.secondPanel.key == ResetNodesEnum.key
                             || state.temporaryStorage && state.secondPanel.mode == ModeType.button && state.secondPanel.key == BackNodesEnum.key
                         ) {
-                            state.menuPanel = state.temporaryStorage;
+                            state.menuPanel.result = state.temporaryStorage.result;
                             state.temporaryStorage = null;
                         }
                     }
