@@ -28,7 +28,7 @@ export function setBrightnessDefaultValue() {
 
 
     // 當 color 是 HP Enhance+ 跟 Low Blue Light 時 brightness 的 dynamic contrast 為 disable 並且關閉
-    if(store.$state.color.result == store.$state.color.nodes[5].result || store.$state.color.result == store.$state.color.nodes[6].result ) {
+    if(store.$state.color.result == store.$state.color.nodes[5].result || store.$state.color.result == store.$state.color.nodes[7].result ) {
         
         store.$state.brightnessPlus.nodes[2].disabled = true;
         store.$state.brightnessPlus.nodes[2].result = OffNodesEnum.result;
