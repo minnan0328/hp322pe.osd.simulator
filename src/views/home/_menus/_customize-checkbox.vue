@@ -89,6 +89,13 @@ function isChecked(item: Nodes): boolean {
         background-color: $black;
         border: 1px solid $blue;
         color: $white;
+
+        &.customize-checkbox {
+            .box {
+                background-color: $black-28;
+                border: 1px solid $light-grey;
+            }
+        }
     }
 }
 </style>

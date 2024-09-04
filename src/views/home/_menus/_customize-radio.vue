@@ -75,6 +75,9 @@ const props = defineProps({
 
         &.customize-radio {
             .round {
+                background-color: $black-28;
+                border: 1px solid $light-grey;
+
                 &.selected::before {
                     background-color: $white;
                 }

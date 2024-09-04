@@ -61,7 +61,7 @@ const props = defineProps({
 
 const currentValue = computed(() => {
     let showValue = convertRange(props.nodes.selected as number, props.nodes.rangeMin as number, props.nodes.rangeMax as number);
-    return `${showValue as number - 4}%`
+    return `${showValue as number}%`
 });
 
 function convertRange(value: number, rangeMin: number, rangeMax: number) {
@@ -147,23 +147,24 @@ function convertRange(value: number, rangeMin: number, rangeMax: number) {
             }
 
             .graduate {
-                width: 12px;
+                width: 4px;
                 height: calc(100% - 14px);
                 background-color: $black-50;
                 border-radius: 6px;
                 position: absolute;
                 bottom: 6px;
+                padding: 4px;
 
                 &::before {
                     position: absolute;
                     content: '';
-                    bottom: 0;
-                    left: 0;
+                    bottom: 2px;
+                    left: 2px;
                     right: 0;
                     background-color: $light-grey;
                     width: 6px;
-                    height: v-bind(currentValue);
-                    border: 3px solid #505050;
+                    height: calc(v-bind(currentValue) - 6px);
+                    border: 1px solid #505050;
                     border-bottom-left-radius: 6px;
                     border-bottom-right-radius: 6px;
                 }

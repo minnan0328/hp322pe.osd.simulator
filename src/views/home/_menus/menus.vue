@@ -73,7 +73,12 @@
 
         <!-- 控制選單按鈕-點擊範圍 -->
         <div class="controller">
-            <button v-if="openMonitor && !openControllerMenus" class="controller-btn controller-menus-btn" @click="handlerControllerMenus"></button>
+            <template v-if="openMonitor && showScreen && !openControllerMenus">
+                <button :class="['controller-btn', { 'show-guide':  showMonitorStatus}]" @click="handlerControllerMenus"></button>
+                <button :class="['controller-btn', { 'show-guide':  showMonitorStatus}]" @click="handlerControllerMenus"></button>
+                <button :class="['controller-btn', { 'show-guide':  showMonitorStatus}]" @click="handlerControllerMenus"></button>
+                <button :class="['controller-btn', { 'show-guide':  showMonitorStatus}]" @click="handlerControllerMenus"></button>
+            </template>
             <template v-else v-for="currentButton in handleControllerButtonList">
                 <button v-if="currentButton.type == 'Button'" class="controller-btn" @click="currentButton.event"></button>
                 <button v-if="currentButton.type == 'eventButton'" class="controller-btn"
@@ -81,11 +86,13 @@
                 @mouseup="currentButton.stopEvent"
                 @mouseleave="currentButton.stopEvent"
                 @touchstart.passive="currentButton.event"
-                @touchend.passive="currentButton.stopEvent"
-                >
+                @touchend.passive="currentButton.stopEvent">
                 </button>
             </template>
             <slot name="openMonitor"></slot> 
+
+            <div class="power-guide" v-if="!openMonitor">Power Button</div>
+            <div class="menu-buttons-guide" v-if="showMonitorStatus">Menu Buttons</div>
         </div>
         <!-- 控制選單按鈕-點擊範圍 -->
     </div>
@@ -1514,7 +1521,7 @@ function handlerMenuTimeout() {
 
 .controller {
 	position: absolute;
-	bottom: -98px;
+	bottom: -108px;
 	right: 16px;
 
 	.controller-btn,
@@ -1522,12 +1529,40 @@ function handlerMenuTimeout() {
 		width: 46px;
 		height: 46px;
 
-		&.controller-menus-btn {
-			position: absolute;
-			width: 184px;
-			bottom: 1px;
-			right: 46px;
-		}
+        &:hover,
+        &.show-guide {
+            border: 1px dashed $white;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, .15);
+        }
 	}
+
+    .power-guide {
+        position: absolute;
+        bottom: -36px;
+        right: -28px;
+        white-space: nowrap;
+
+        &::before {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            left: calc((100% - 10px) / 2);
+            bottom: 20px;
+            border-style: solid;
+            border-width: 0 5px 10px 5px;
+            border-color: transparent transparent $white transparent;
+        }
+    }
+
+    .menu-buttons-guide {
+        position: absolute;
+        white-space: nowrap;
+        content: "";
+        bottom: -20px;
+        right: 0;
+        width: 184px;
+    }
 }
 </style>
